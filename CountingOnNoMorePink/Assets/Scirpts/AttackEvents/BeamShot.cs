@@ -10,6 +10,7 @@ public class BeamShot : AttackEvent
     public float segments;
     public float firingArc;
     public float distance;
+    public float minDistance;
     public float arcOffset;
     public float popTime;
     public BeamType type;
@@ -48,7 +49,7 @@ public class BeamShot : AttackEvent
             for(int j = 0; j < segments; ++j)
             {
                 float dist = increment * j;
-                Vector3 point = Utilities.PointWithPolarOffset(origin.position, dist, rotationO);
+                Vector3 point = Utilities.PointWithPolarOffset(origin.position, dist + minDistance, rotationO);
                 BoomBlock b = Instantiate(Wobbit.instance.zoneFab, point, Quaternion.identity);
 
 
