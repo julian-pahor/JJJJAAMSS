@@ -11,6 +11,8 @@ public class BoomBlock : MonoBehaviour
     public Vector3 endScale;
     float lerp;
 
+    public GameObject particles;
+
     Collider col;
     Bullit bull;
     Renderer r;
@@ -39,6 +41,7 @@ public class BoomBlock : MonoBehaviour
         if(lerp/formTimeTotal >= 0.9f)
         {
             col.enabled = true;
+            Instantiate(particles, transform.position, Quaternion.identity);
         }
         transform.localScale = Vector3.Lerp(startScale, endScale, lerp/formTimeTotal);
 
