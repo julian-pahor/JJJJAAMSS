@@ -4,20 +4,23 @@ using UnityEngine;
 
 public class CameraLook : MonoBehaviour
 {
-    public PlayerMovement player;
+    public FreeFormOrbitalMove player;
     public float distance;
     public Transform focus;
+    public float offset;
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = Utilities.PointWithPolarOffset(focus.position, distance * player.ring, player.angle);
-        transform.position += new Vector3(0, 17, 0);
+        
+        Vector3 dir = transform.position - focus.position;
+        transform.position = player.transform.position + (dir.normalized * distance) + new Vector3(0, offset, 0);
+
 
         transform.LookAt(focus);
     }

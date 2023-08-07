@@ -18,6 +18,9 @@ public class Bullit : MonoBehaviour
         lifespan = 0;
     }
 
+
+   
+
     void Update()
     {
         lifespan += Time.deltaTime;
