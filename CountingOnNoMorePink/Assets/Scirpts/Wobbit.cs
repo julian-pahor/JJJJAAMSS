@@ -20,5 +20,7 @@ public class Wobbit : MonoBehaviour
     public BoomBlock zoneFab;
     public Transform bossOrigin;
     public Transform player;
+    public GameObject warning;
+    public GameObject pink;
 
 }

@@ -13,6 +13,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
     public float minDistance;
     public float maxDistance;
     public float maxDash;
+    public Color baseColour;
 
     Rigidbody rb;
     float directionX;
@@ -79,7 +80,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
         if (hitTime > 0)
         {
             hitTime -= Time.deltaTime;
-            Color color = Color.Lerp(Color.white, Color.red, hitTime);
+            Color color = Color.Lerp(baseColour, Color.red, hitTime);
             GetComponent<Renderer>().material.color = color;
         }
     }

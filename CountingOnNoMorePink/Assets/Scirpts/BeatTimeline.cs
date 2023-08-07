@@ -19,6 +19,7 @@ public class BeatTimeline : MonoBehaviour
 
         if(timer >= beatLength)
         {
+           
             timer = 0;
             attackEvents[index].Fire();
             index++;
