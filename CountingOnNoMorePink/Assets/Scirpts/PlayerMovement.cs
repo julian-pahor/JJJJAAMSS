@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-
+    [Header("CURRENTLY OBSOLETE")]
     public float distance;
     public float baseSpeed;
    
