@@ -15,6 +15,8 @@ public class FreeFormOrbitalMove : MonoBehaviour
     public float maxDash;
     public Color baseColour;
 
+    public GameObject parrySphere;
+
     Rigidbody rb;
     float directionX;
     float directionY;
@@ -24,7 +26,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
     float dashTime;
 
     bool isDash;
-
+    bool isParry;
 
     private void Start()
     {
@@ -36,10 +38,16 @@ public class FreeFormOrbitalMove : MonoBehaviour
     {
         HitFlash();
 
+        //parry
+        isParry = Input.GetMouseButton(1);
+        parrySphere.SetActive(isParry);
+
         //dash
         dashTime -= Time.deltaTime;
         isDash = dashTime > 0;
         speed = isDash ? dashSpeed : baseSpeed;
+
+        
 
         if(Input.GetKeyDown(KeyCode.Space))
         {
@@ -67,6 +75,8 @@ public class FreeFormOrbitalMove : MonoBehaviour
     {
 
         rb.rotation  = Quaternion.LookRotation(transform.position - origin.transform.position);
+
+        if (isParry) return;
 
         Vector3 direction = (transform.forward * -directionY) + (transform.right * -directionX);
         direction = direction.normalized;
