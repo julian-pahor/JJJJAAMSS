@@ -13,13 +13,18 @@ public class BoomBlock : MonoBehaviour
 
     public GameObject particles;
 
+    Vector3 start;
+    Vector3 end;
+
     Collider col;
     Bullit bull;
-    Renderer r;
+
+    bool doesDrop;
+
     void Start()
     {
         col = GetComponent<Collider>();
-        r = GetComponent<Renderer>();
+      
      
         col.enabled = false;
     }
@@ -28,16 +33,27 @@ public class BoomBlock : MonoBehaviour
     {   bull = GetComponent<Bullit>();
         formTimeTotal = formtime;
         bull.maxLife = formtime;
-
     }
-
+    public void Initialise(float formtime, Vector3 start, Vector3 target)
+    {
+        bull = GetComponent<Bullit>();
+        formTimeTotal = formtime;
+        bull.maxLife = formtime;
+        this.start = start;
+        this.end = target;
+        doesDrop = true;
+    }
 
     // Update is called once per frame
     void Update()
     {
         if (lerp / formTimeTotal >= 1f) return;
 
-            lerp += Time.deltaTime;
+        lerp += Time.deltaTime;
+        if(doesDrop)
+        {
+            transform.position = Vector3.Lerp(start,end,lerp/formTimeTotal);
+        }
         if(lerp/formTimeTotal >= 0.9f)
         {
             col.enabled = true;

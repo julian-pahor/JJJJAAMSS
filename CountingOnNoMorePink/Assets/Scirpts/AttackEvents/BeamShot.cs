@@ -15,6 +15,8 @@ public class BeamShot : AttackEvent
     public float popTime;
     public BeamType type;
 
+    public float arcStep;
+
     public enum BeamType { Instant,RadiateInward,RadiateOutward}
 
     public override void Fire()
@@ -40,7 +42,7 @@ public class BeamShot : AttackEvent
 
         for (var i = 0; i < beams; ++i)
         {
-
+            
             float rotationO = rotation;
             rotationO = rotation - firingArc / 2 + angleStep / 2;
             rotationO += angleStep * i;
@@ -49,7 +51,7 @@ public class BeamShot : AttackEvent
             for(int j = 0; j < segments; ++j)
             {
                 float dist = increment * j;
-                Vector3 point = Utilities.PointWithPolarOffset(origin.position, dist + minDistance, rotationO);
+                Vector3 point = Utilities.PointWithPolarOffset(origin.position, dist + minDistance, rotationO + (arcStep * j));
                 BoomBlock b = Instantiate(Wobbit.instance.zoneFab, point, Quaternion.identity);
 
 

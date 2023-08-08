@@ -9,8 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bb43f76b9dca574a9258743cffdd7db, type: 3}
-  m_Name: Seek
+  m_Script: {fileID: 11500000, guid: 965af55d089815947a27d334a74f7c0d, type: 3}
+  m_Name: Beam30Degree
   m_EditorClassIdentifier: 
-  safeTime: 0.5
-  height: 20
+  beams: 3
+  segments: 30
+  firingArc: 360
+  distance: 20
+  minDistance: 0
+  arcOffset: 90
+  popTime: 0.1
+  type: 2
+  arcStep: 15
