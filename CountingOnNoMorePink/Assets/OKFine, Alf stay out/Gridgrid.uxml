@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="Container" style="flex-grow: 1; background-color: rgba(29, 63, 49, 0.27); border-bottom-color: rgba(255, 124, 0, 255);">
+        <ui:VisualElement name="Header" style="flex-direction: row; width: auto; max-height: 150px; min-height: 100px; height: 100px; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; border-bottom-color: rgba(255, 124, 0, 255);" />
+        <ui:VisualElement name="Body" style="flex-grow: 1; flex-direction: row; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;" />
+    </ui:VisualElement>
+</ui:UXML>

@@ -33,7 +33,7 @@ public class BeatTimeline : MonoBehaviour
     //}
 
 
-    private void Awake()
+    private void Start()
     {
         BeatBroadcast.instance.timelineInfo.onBeatTrigger += Beat;
     }
