@@ -10,28 +10,47 @@ public class BeatTimeline : MonoBehaviour
     float timer;
     int index;
 
-    private void Update()
-    {
-        if (attackEvents.Count == 0)
-            return;
+    //private void Update()
+    //{
+    //    if (attackEvents.Count == 0)
+    //        return;
 
-        timer += Time.deltaTime;
+    //    timer += Time.deltaTime;
 
-        if(timer >= beatLength)
-        {
+    //    if(timer >= beatLength)
+    //    {
            
-            timer = 0;
-            attackEvents[index].Fire();
-            index++;
+    //        timer = 0;
+    //        attackEvents[index].Fire();
+    //        index++;
 
-            if(index >= attackEvents.Count)
-            {
-                index = 0;
-            }
+    //        if(index >= attackEvents.Count)
+    //        {
+    //            index = 0;
+    //        }
 
-        }
+    //    }
+    //}
+
+
+    private void Awake()
+    {
+        BeatBroadcast.instance.timelineInfo.onBeatTrigger += Beat;
     }
 
+    private void OnDestroy()
+    {
+        BeatBroadcast.instance.timelineInfo.onBeatTrigger -= Beat;
+    }
 
+    private void Beat(int bar, int beat)
+    {
+        attackEvents[index].Fire();
+        index++;
 
+        if(index >= attackEvents.Count)
+        {
+            index = 0;
+        }
+    }
 }
