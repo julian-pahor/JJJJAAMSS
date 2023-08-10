@@ -30,6 +30,7 @@ public class Wobbit : MonoBehaviour
     public GameObject warning;
     public GameObject pink;
 
+    public LineTracer lineTracer;
 
     public Tracer tracer;
     public Transform hand1;

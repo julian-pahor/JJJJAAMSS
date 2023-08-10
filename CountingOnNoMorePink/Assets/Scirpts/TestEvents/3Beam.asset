@@ -16,6 +16,9 @@ MonoBehaviour:
   segments: 10
   firingArc: 360
   distance: 16
+  minDistance: 0
   arcOffset: 45
   popTime: 0.1
   type: 2
+  arcStep: 0
+  lineTracer: {fileID: 6365503444600798367, guid: 17cde94b3c36594458c6bdff1af20fb6, type: 3}

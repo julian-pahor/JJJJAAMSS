@@ -17,6 +17,9 @@ public class BeamShot : AttackEvent
 
     public float arcStep;
 
+    public LineTracer lineTracer;
+    LineTracer tempTracer;
+
     public enum BeamType { Instant,RadiateInward,RadiateOutward}
 
     public override void Fire()
@@ -42,6 +45,12 @@ public class BeamShot : AttackEvent
 
         for (var i = 0; i < beams; ++i)
         {
+            //create tracer if one has been assigned
+            if(lineTracer != null)
+            {
+                tempTracer = Instantiate(lineTracer, origin.position, Quaternion.identity);
+                tempTracer.waypoints.Add(origin.position);
+            }
             
             float rotationO = rotation;
             rotationO = rotation - firingArc / 2 + angleStep / 2;
@@ -54,15 +63,33 @@ public class BeamShot : AttackEvent
                 Vector3 point = Utilities.PointWithPolarOffset(origin.position, dist + minDistance, rotationO + (arcStep * j));
                 BoomBlock b = Instantiate(Wobbit.instance.zoneFab, point, Quaternion.identity);
 
+                //assign waypoints to tracer (revisit this)
+                if (lineTracer != null)
+                {
+                    tempTracer.waypoints.Add(point);
+                }
+
 
                 float pop = popTime;
 
                 if(type == BeamType.RadiateOutward) { pop = popTime * j;}
 
-                if(type == BeamType.RadiateInward) { pop = (popTime * segments) - (popTime * j);}
+                if(type == BeamType.RadiateInward) 
+                { 
+                    pop = (popTime * segments) - (popTime * j);
+                    if (lineTracer != null)
+                    {
+                        tempTracer.waypoints.Reverse();
+                    }
+                }
 
                 b.Initialise(pop);
+            }
 
+            //assign waypoints to tracer (revisit this)
+            if (lineTracer != null)
+            {
+                tempTracer.Initialise(popTime, 2);
             }
 
         }
