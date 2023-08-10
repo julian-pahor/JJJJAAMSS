@@ -17,6 +17,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
     public Color baseColour;
 
     public GameObject parrySphere;
+    public ParticleSystem shieldFx;
 
     Rigidbody rb;
     float directionX;
@@ -110,7 +111,15 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     { 
-        hitTime = 1;
+        
+        if (isParry && shieldTime >= (maxShield - 0.01))
+        {
+            shieldFx.Play();
+        }
+        else
+        {
+            hitTime = 1;
+        }
     }
 
 }
