@@ -15,6 +15,7 @@ public class Bullit : MonoBehaviour
     public void Initialise(Vector3 dir)
     {
         direction = dir;
+        transform.LookAt(dir);
         lifespan = 0;
     }
 

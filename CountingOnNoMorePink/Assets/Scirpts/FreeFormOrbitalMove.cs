@@ -13,6 +13,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
     public float minDistance;
     public float maxDistance;
     public float maxDash;
+    public float maxShield;
     public Color baseColour;
 
     public GameObject parrySphere;
@@ -24,6 +25,8 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
     float hitTime;
     float dashTime;
+    float shieldTime;
+
 
     bool isDash;
     bool isParry;
@@ -40,7 +43,17 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
         //parry
         isParry = Input.GetMouseButton(1);
-        parrySphere.SetActive(isParry);
+       
+
+        if(isParry)
+            shieldTime += Time.deltaTime;
+        else
+            shieldTime -= Time.deltaTime;
+
+        shieldTime = Mathf.Clamp(shieldTime,0,maxShield);
+    
+        parrySphere.transform.localScale = Vector3.Lerp(new Vector3(0.1f, 0.1f, 0.1f), new Vector3(3f, 3f, 3f), shieldTime/maxShield);
+       
 
         //dash
         dashTime -= Time.deltaTime;

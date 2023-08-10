@@ -37,6 +37,7 @@ public class SpreadShot : AttackEvent
 
 
             b.Initialise(bulletDir);
+            
 
 
         }

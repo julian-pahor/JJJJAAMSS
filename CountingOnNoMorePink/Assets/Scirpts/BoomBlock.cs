@@ -12,6 +12,7 @@ public class BoomBlock : MonoBehaviour
     float lerp;
 
     public GameObject particles;
+    public GameObject trail;
 
     Vector3 start;
     Vector3 end;
@@ -58,6 +59,7 @@ public class BoomBlock : MonoBehaviour
         {
             col.enabled = true;
             Instantiate(particles, transform.position, Quaternion.identity);
+            transform.DetachChildren();
         }
         transform.localScale = Vector3.Lerp(startScale, endScale, lerp/formTimeTotal);
 

@@ -10,29 +10,29 @@ public class BeatTimeline : MonoBehaviour
     float timer;
     int index;
 
-    //private void Update()
-    //{
-    //    if (attackEvents.Count == 0)
-    //        return;
+    private void Update()
+    {
+        if (attackEvents.Count == 0)
+            return;
 
-    //    timer += Time.deltaTime;
+        timer += Time.deltaTime;
 
-    //    if(timer >= beatLength)
-    //    {
-           
-    //        timer = 0;
-    //        attackEvents[index].Fire();
-    //        index++;
+        if (timer >= beatLength)
+        {
 
-    //        if(index >= attackEvents.Count)
-    //        {
-    //            index = 0;
-    //        }
+            timer = 0;
+            attackEvents[index].Fire();
+            index++;
 
-    //    }
-    //}
+            if (index >= attackEvents.Count)
+            {
+                index = 0;
+            }
 
+        }
+    }
 
+    /*
     private void Start()
     {
         BeatBroadcast.instance.timelineInfo.onBeatTrigger += Beat;
@@ -53,4 +53,5 @@ public class BeatTimeline : MonoBehaviour
             index = 0;
         }
     }
+    */
 }
