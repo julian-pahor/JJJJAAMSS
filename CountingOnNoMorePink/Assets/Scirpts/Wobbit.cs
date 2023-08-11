@@ -33,6 +33,7 @@ public class Wobbit : MonoBehaviour
     public LineTracer lineTracer;
 
     public Tracer tracer;
+    public GameObject tracerWindup;
     public Transform hand1;
     public Transform hand2;
 
