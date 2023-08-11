@@ -18,6 +18,8 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
     public GameObject parrySphere;
     public ParticleSystem shieldFx;
+    public ParticleSystem slashFx;
+    public GameObject slashTransform;
 
     Rigidbody rb;
     float directionX;
@@ -61,7 +63,11 @@ public class FreeFormOrbitalMove : MonoBehaviour
         isDash = dashTime > 0;
         speed = isDash ? dashSpeed : baseSpeed;
 
-        
+        if(Input.GetMouseButton(0))
+        {
+            slashFx.Play();
+         
+        }
 
         if(Input.GetKeyDown(KeyCode.Space))
         {
