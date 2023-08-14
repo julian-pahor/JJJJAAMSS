@@ -1,23 +1,23 @@
 Using pre-set license
 Built from '2021.3/staging' branch; Version is '2021.3.13f1 (9e7d58001ecf) revision 10386776'; Using compiler version '192829333'; Build Type 'Release'
-OS: 'Windows 10  (10.0.19045) 64bit Core' Language: 'en' Physical Memory: 16305 MB
+OS: 'Windows 10  (10.0.19045) 64bit Education' Language: 'en' Physical Memory: 32704 MB
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 1
 
 COMMAND LINE ARGUMENTS:
-C:\Users\Tarohadu\Documents\2021.3.13f1\Editor\Unity.exe
+C:\Program Files\Unity\Hub\Editor\2021.3.13f1\Editor\Unity.exe
 -adb2
 -batchMode
 -noUpm
 -name
 AssetImportWorker0
 -projectPath
-C:/Users/Tarohadu/Documents/AIE/Repos/JJJJAAMSS/CountingOnNoMorePink
+C:/Users/s214615/Documents/Stuff/JJJJAMSS/CountingOnNoMorePink
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-57593
-Successfully changed project path to: C:/Users/Tarohadu/Documents/AIE/Repos/JJJJAAMSS/CountingOnNoMorePink
-C:/Users/Tarohadu/Documents/AIE/Repos/JJJJAAMSS/CountingOnNoMorePink
+51414
+Successfully changed project path to: C:/Users/s214615/Documents/Stuff/JJJJAMSS/CountingOnNoMorePink
+C:/Users/s214615/Documents/Stuff/JJJJAMSS/CountingOnNoMorePink
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
     "memorysetup-bucket-allocator-granularity=16"
     "memorysetup-bucket-allocator-bucket-count=8"
@@ -47,105 +47,119 @@ C:/Users/Tarohadu/Documents/AIE/Repos/JJJJAAMSS/CountingOnNoMorePink
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Refreshing native plugins compatible for Editor in 110.14 ms, found 5 plugins.
+Refreshing native plugins compatible for Editor in 171.31 ms, found 5 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2021.3.13f1 (9e7d58001ecf)
-[Subsystems] Discovering subsystems at path C:/Users/Tarohadu/Documents/2021.3.13f1/Editor/Data/Resources/UnitySubsystems
-[Subsystems] Discovering subsystems at path C:/Users/Tarohadu/Documents/AIE/Repos/JJJJAAMSS/CountingOnNoMorePink/Assets
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2021.3.13f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/s214615/Documents/Stuff/JJJJAMSS/CountingOnNoMorePink/Assets
 GfxDevice: creating device client; threaded=0; jobified=0
 Direct3D:
     Version:  Direct3D 11.0 [level 11.1]
-    Renderer: NVIDIA GeForce RTX 3070 (ID=0x2484)
+    Renderer: NVIDIA GeForce GTX 960 (ID=0x1401)
     Vendor:   NVIDIA
-    VRAM:     8031 MB
-    Driver:   31.0.15.3667
+    VRAM:     4047 MB
+    Driver:   31.0.15.3179
 Initialize mono
-Mono path[0] = 'C:/Users/Tarohadu/Documents/2021.3.13f1/Editor/Data/Managed'
-Mono path[1] = 'C:/Users/Tarohadu/Documents/2021.3.13f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
-Mono config path = 'C:/Users/Tarohadu/Documents/2021.3.13f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56104
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2021.3.13f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2021.3.13f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2021.3.13f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56560
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
-Register platform support module: C:/Users/Tarohadu/Documents/2021.3.13f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.005031 seconds.
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.13f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.13f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.13f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.13f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.13f1/Editor/Data/PlaybackEngines/MetroSupport/UnityEditor.UWP.Extensions.dll
+Registered in 0.014434 seconds.
+Native extension for UWP target not found
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 97.09 ms, found 5 plugins.
+[usbmuxd] Start listen thread
+[usbmuxd] Listen thread started
+Native extension for iOS target not found
+Native extension for Android target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 140.72 ms, found 5 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.589 seconds
+- Completed reload, in  0.847 seconds
 Domain Reload Profiling:
-	ReloadAssembly (590ms)
-		BeginReloadAssembly (71ms)
+	ReloadAssembly (848ms)
+		BeginReloadAssembly (90ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (0ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
 			CreateAndSetChildDomain (1ms)
-		EndReloadAssembly (426ms)
-			LoadAssemblies (69ms)
+		EndReloadAssembly (612ms)
+			LoadAssemblies (89ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (88ms)
+			SetupTypeCache (129ms)
 			ReleaseScriptCaches (0ms)
-			RebuildScriptCaches (26ms)
-			SetupLoadedEditorAssemblies (266ms)
+			RebuildScriptCaches (32ms)
+			SetupLoadedEditorAssemblies (387ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (7ms)
+				InitializePlatformSupportModulesInManaged (65ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (97ms)
+				RefreshPlugins (141ms)
 				BeforeProcessingInitializeOnLoad (1ms)
-				ProcessInitializeOnLoadAttributes (121ms)
-				ProcessInitializeOnLoadMethodAttributes (40ms)
+				ProcessInitializeOnLoadAttributes (128ms)
+				ProcessInitializeOnLoadMethodAttributes (52ms)
 				AfterProcessingInitializeOnLoad (0ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (0ms)
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.008011 seconds.
+Registered in 0.019159 seconds.
 Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory doesn't match image C:\Users\Tarohadu\Documents\AIE\Repos\JJJJAAMSS\CountingOnNoMorePink\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\Tarohadu\Documents\AIE\Repos\JJJJAAMSS\CountingOnNoMorePink\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\s214615\Documents\Stuff\JJJJAMSS\CountingOnNoMorePink\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\s214615\Documents\Stuff\JJJJAMSS\CountingOnNoMorePink\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Native extension for UWP target not found
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 92.37 ms, found 5 plugins.
+Native extension for iOS target not found
+Native extension for Android target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 145.22 ms, found 5 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.182 seconds
+- Completed reload, in  1.676 seconds
 Domain Reload Profiling:
-	ReloadAssembly (1183ms)
-		BeginReloadAssembly (93ms)
+	ReloadAssembly (1677ms)
+		BeginReloadAssembly (124ms)
 			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (5ms)
+			DisableScriptedObjects (6ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (16ms)
-		EndReloadAssembly (991ms)
-			LoadAssemblies (75ms)
+			CreateAndSetChildDomain (21ms)
+		EndReloadAssembly (1414ms)
+			LoadAssemblies (106ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (280ms)
+			SetupTypeCache (402ms)
 			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (59ms)
-			SetupLoadedEditorAssemblies (536ms)
+			RebuildScriptCaches (73ms)
+			SetupLoadedEditorAssemblies (768ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (4ms)
+				InitializePlatformSupportModulesInManaged (30ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (92ms)
-				BeforeProcessingInitializeOnLoad (106ms)
-				ProcessInitializeOnLoadAttributes (251ms)
-				ProcessInitializeOnLoadMethodAttributes (77ms)
-				AfterProcessingInitializeOnLoad (6ms)
+				RefreshPlugins (145ms)
+				BeforeProcessingInitializeOnLoad (150ms)
+				ProcessInitializeOnLoadAttributes (336ms)
+				ProcessInitializeOnLoadMethodAttributes (97ms)
+				AfterProcessingInitializeOnLoad (9ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (5ms)
+			AwakeInstancesAfterBackupRestoration (7ms)
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.03 seconds
-Refreshing native plugins compatible for Editor in 1.08 ms, found 5 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.05 seconds
+Refreshing native plugins compatible for Editor in 1.99 ms, found 5 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 5292 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 95 unused Assets / (0.7 MB). Loaded Objects now: 5693.
-Memory consumption went from 211.1 MB to 210.4 MB.
-Total: 4.851000 ms (FindLiveObjects: 0.609100 ms CreateObjectMapping: 0.906900 ms MarkObjects: 2.972300 ms  DeleteObjects: 0.361500 ms)
+Unloading 5294 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 97 unused Assets / (0.8 MB). Loaded Objects now: 5695.
+Memory consumption went from 211.7 MB to 210.9 MB.
+Total: 5.136700 ms (FindLiveObjects: 0.537100 ms CreateObjectMapping: 0.489700 ms MarkObjects: 3.756200 ms  DeleteObjects: 0.352600 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
@@ -159,82 +173,64 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Import Request.
-  Time since last request: 23442.461470 seconds.
-  path: Assets/Clean Vector Icons/Update/Bonus_Confused.png
-  artifactKey: Guid(fb11e14e93b45fe4ca06723dea9dcdb8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Clean Vector Icons/Update/Bonus_Confused.png using Guid(fb11e14e93b45fe4ca06723dea9dcdb8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e7f6af627d0ff0b07420942ac505c08d') in 0.111493 seconds 
+  Time since last request: 16928.786359 seconds.
+  path: Assets/Plugins/FMOD/Resources/FMODStudioSettings.asset
+  artifactKey: Guid(8841ce4db8faa5b40a421cb5915f66f4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Plugins/FMOD/Resources/FMODStudioSettings.asset using Guid(8841ce4db8faa5b40a421cb5915f66f4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '82801febb25ca3b2f6ad7b2d3156bd6a') in 0.092734 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000015 seconds.
-  path: Packages/com.unity.textmeshpro/Editor Resources/Textures/btn_AlignFlush_Light.psd
-  artifactKey: Guid(64b9fad609434c489c32b1cdf2004a1c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Packages/com.unity.textmeshpro/Editor Resources/Textures/btn_AlignFlush_Light.psd using Guid(64b9fad609434c489c32b1cdf2004a1c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1263f8ab27a52d15fa227ede63b3dfaf') in 0.023876 seconds 
+  Time since last request: 4.123354 seconds.
+  path: Assets/Scenes/UITesting.unity
+  artifactKey: Guid(6395fe8040ccd8a4f8819d2107cac51d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/UITesting.unity using Guid(6395fe8040ccd8a4f8819d2107cac51d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7e38ed66718134c0f7d37c32062c29c0') in 0.010819 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000018 seconds.
-  path: Assets/Clean Vector Icons/Update/Bonus_coughing.png
-  artifactKey: Guid(c735c2fbfeffe4e45ac4bec63c724cfe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Clean Vector Icons/Update/Bonus_coughing.png using Guid(c735c2fbfeffe4e45ac4bec63c724cfe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cab2a90d7a55f96a6dc4c9d8126da397') in 0.039041 seconds 
+  Time since last request: 80.078147 seconds.
+  path: Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset
+  artifactKey: Guid(8f586378b4e144a9851e7b34d9b748ee) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset using Guid(8f586378b4e144a9851e7b34d9b748ee) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a80bfd16b69a54627fe6521f405a9f63') in 0.341802 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000024 seconds.
-  path: Packages/com.unity.textmeshpro/Editor Resources/Textures/btn_AlignMiddle_Light.psd
-  artifactKey: Guid(066619c9c9c84f89acb1b48c11a7efe2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Packages/com.unity.textmeshpro/Editor Resources/Textures/btn_AlignMiddle_Light.psd using Guid(066619c9c9c84f89acb1b48c11a7efe2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8fc56ab8e3abfb87992334d6f3980357') in 0.023182 seconds 
+  Time since last request: 135.772415 seconds.
+  path: Assets/Clean Vector Icons/Update/bonus_01.png
+  artifactKey: Guid(a5b6ecdbc26aa9f47b973c7481d1268a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Clean Vector Icons/Update/bonus_01.png using Guid(a5b6ecdbc26aa9f47b973c7481d1268a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f1dbd9b2c8e640f14876fa018884cea8') in 0.088531 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000023 seconds.
+  Time since last request: 0.000044 seconds.
   path: Assets/Clean Vector Icons/Update/Bonus_Sad.png
   artifactKey: Guid(f4564a0502fffb04e8e1a38d85c6fb34) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Clean Vector Icons/Update/Bonus_Sad.png using Guid(f4564a0502fffb04e8e1a38d85c6fb34) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '45a906ab114d67056a914f86744e400a') in 0.033804 seconds 
+Start importing Assets/Clean Vector Icons/Update/Bonus_Sad.png using Guid(f4564a0502fffb04e8e1a38d85c6fb34) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0d1b4f05c6c74d2912f6f6f68c760ebf') in 0.041786 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000023 seconds.
+  Time since last request: 0.000038 seconds.
   path: Assets/Clean Vector Icons/Update/bonus_03.png
   artifactKey: Guid(8313108d2f2f39c49a04679f5f2da2a5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Clean Vector Icons/Update/bonus_03.png using Guid(8313108d2f2f39c49a04679f5f2da2a5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '73bc908e36cae6287e3e1b00dd9d00ef') in 0.025786 seconds 
+Start importing Assets/Clean Vector Icons/Update/bonus_03.png using Guid(8313108d2f2f39c49a04679f5f2da2a5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b66533ec8a4d7688ef7f80f815b85154') in 0.053534 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000019 seconds.
-  path: Assets/Plugins/FMOD/images/AddIcon.png
-  artifactKey: Guid(3300e81f02e64924eb7cb7782713b126) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Plugins/FMOD/images/AddIcon.png using Guid(3300e81f02e64924eb7cb7782713b126) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5080ab1be8ccd0e831662f3bb20d3a6e') in 0.024581 seconds 
+  Time since last request: 0.000046 seconds.
+  path: Assets/Clean Vector Icons/Update/Bonus_Yell.png
+  artifactKey: Guid(322058629e47df340a9cfbe5daf6c21a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Clean Vector Icons/Update/Bonus_Yell.png using Guid(322058629e47df340a9cfbe5daf6c21a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cfc7e1771e3161a4cb1c53fe1b5fed75') in 0.040513 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000019 seconds.
-  path: Packages/com.unity.textmeshpro/Editor Resources/Textures/btn_AlignBottom.psd
-  artifactKey: Guid(ca51b19024094d1b87f3e07edb0a75fb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Packages/com.unity.textmeshpro/Editor Resources/Textures/btn_AlignBottom.psd using Guid(ca51b19024094d1b87f3e07edb0a75fb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f1f3d58dd96f1ad8436bcf5af65f1c85') in 0.014513 seconds 
+  Time since last request: 0.003806 seconds.
+  path: Assets/Clean Vector Icons/Update/bonus_05.png
+  artifactKey: Guid(19e5ba7d75c4f2e4e8d2151606339bf3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Clean Vector Icons/Update/bonus_05.png using Guid(19e5ba7d75c4f2e4e8d2151606339bf3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0aefdba93b25a0a5cedf295c7d137ea3') in 0.039318 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000022 seconds.
-  path: Packages/com.unity.textmeshpro/Editor Resources/Textures/btn_AlignCenter.psd
-  artifactKey: Guid(81ed8c76d2bc4a4c95d092c98af4e58f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Packages/com.unity.textmeshpro/Editor Resources/Textures/btn_AlignCenter.psd using Guid(81ed8c76d2bc4a4c95d092c98af4e58f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '42a35233595b26975d89141900e36fcd') in 0.011766 seconds 
+  Time since last request: 0.000037 seconds.
+  path: Assets/Clean Vector Icons/Update/Bonus_Sneezing.png
+  artifactKey: Guid(72ec55939a589894eaf624298fd9f858) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Clean Vector Icons/Update/Bonus_Sneezing.png using Guid(72ec55939a589894eaf624298fd9f858) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a8ed709520bc6cf8bf7d297957bc98af') in 0.035959 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000017 seconds.
-  path: Packages/com.unity.textmeshpro/Editor Resources/Textures/btn_AlignCenterGeo_Light.psd
-  artifactKey: Guid(35ff0937876540d3bd4b6a941df62a92) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Packages/com.unity.textmeshpro/Editor Resources/Textures/btn_AlignCenterGeo_Light.psd using Guid(35ff0937876540d3bd4b6a941df62a92) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '33f0ddebfff0ab4c5e12b8e17a45a80e') in 0.018928 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000025 seconds.
-  path: Packages/com.unity.collab-proxy/Editor/Collaborate/Assets/Icons/added-file-dark.png
-  artifactKey: Guid(1a4f52b613391cd449af3ad2e44affeb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Packages/com.unity.collab-proxy/Editor/Collaborate/Assets/Icons/added-file-dark.png using Guid(1a4f52b613391cd449af3ad2e44affeb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00f751359f6a7b53aed42d1da7d56f35') in 0.028195 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000023 seconds.
-  path: Assets/Clean Vector Icons/Update/Bonus_PokerFace.png
-  artifactKey: Guid(037da781f89f23f4b8f3702a4b2d4ce0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Clean Vector Icons/Update/Bonus_PokerFace.png using Guid(037da781f89f23f4b8f3702a4b2d4ce0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '470a607e4cab4a3ec34ba132ad3e7718') in 0.017742 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000018 seconds.
-  path: Assets/Clean Vector Icons/Update/Bonus_Handshake.png
-  artifactKey: Guid(e0561f0590eb6e84385f767634ca2fb0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Clean Vector Icons/Update/Bonus_Handshake.png using Guid(e0561f0590eb6e84385f767634ca2fb0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c08141a35c8b00459c8aaf426553db7f') in 0.023670 seconds 
+  Time since last request: 0.000028 seconds.
+  path: Assets/Clean Vector Icons/Update/bonus_04.png
+  artifactKey: Guid(ef147e2665db3394ab8f3c2ade98cbf5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Clean Vector Icons/Update/bonus_04.png using Guid(ef147e2665db3394ab8f3c2ade98cbf5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a3fb1c8722c41d67b704b17e94fb1759') in 0.034198 seconds 
 Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
 AssetImportWorker is now disconnected from the server
 Process exiting

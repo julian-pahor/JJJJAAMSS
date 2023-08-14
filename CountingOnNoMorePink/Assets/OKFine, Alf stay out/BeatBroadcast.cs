@@ -46,6 +46,12 @@ public class BeatBroadcast : MonoBehaviour
 
     void Start()
     {
+        
+    }
+
+    [ContextMenu("Play")]
+    public void PlayMusic()
+    {
         // Explicitly create the delegate object and assign it to a member so it doesn't get freed
         // by the garbage collected while it's being used
         beatCallback = new FMOD.Studio.EVENT_CALLBACK(BeatEventCallback);
@@ -61,12 +67,18 @@ public class BeatBroadcast : MonoBehaviour
         musicInstance.start();
     }
 
-    void OnDestroy()
+    [ContextMenu("Stop")]
+    public void StopMusic()
     {
         musicInstance.setUserData(IntPtr.Zero);
         musicInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
         musicInstance.release();
         timelineHandle.Free();
+    }
+
+    void OnDestroy()
+    {
+        StopMusic();
     }
 
     void OnGUI()
