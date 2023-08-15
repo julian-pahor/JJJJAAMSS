@@ -6,6 +6,7 @@ public class BeatTimeline : MonoBehaviour
 {
     public float beatLength;
     public List<AttackEvent> attackEvents; //make this list of lists to enable multiple attackevents per beat
+    public GameObject win;
 
     float timer;
     int index;

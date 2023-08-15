@@ -2,39 +2,51 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FreeFormOrbitalMove : MonoBehaviour
 {
 
 
     public Transform origin;
+    //movement
     public float baseSpeed;
     public float dashSpeed;
     public float minDistance;
     public float maxDistance;
     public float maxDash;
+
+    //stats and effects
+    public int maxHP;
+    public int currentHP;
     public float maxShield;
     public Color baseColour;
-
     public GameObject parrySphere;
     public ParticleSystem shieldFx;
+    public ParticleSystem slashFx;
+    public GameObject slashTransform;
 
+    public System.Action onTakeDamage;
+
+    //movement
     Rigidbody rb;
     float directionX;
     float directionY;
     float speed;
 
+    //stats
     float hitTime;
     float dashTime;
     float shieldTime;
 
-
+    //flags
     bool isDash;
     bool isParry;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        currentHP = maxHP;
     }
 
 
@@ -61,7 +73,11 @@ public class FreeFormOrbitalMove : MonoBehaviour
         isDash = dashTime > 0;
         speed = isDash ? dashSpeed : baseSpeed;
 
-        
+        if(Input.GetMouseButtonDown(0))
+        {
+            slashFx.Play();
+         
+        }
 
         if(Input.GetKeyDown(KeyCode.Space))
         {
@@ -77,9 +93,11 @@ public class FreeFormOrbitalMove : MonoBehaviour
         //root
         float distance = Vector3.Distance(transform.position,origin.position);
 
+
+        //TODO: some kind of bug where dashing while moving diagonally will let you go past the max distance
+        //may be a non-issue once we rework the dash
         if(distance <= minDistance && -directionY < 0) directionY = 0;
         if(distance >= maxDistance && -directionY > 0) directionY = 0;
-
        
 
 
@@ -119,6 +137,15 @@ public class FreeFormOrbitalMove : MonoBehaviour
         else
         {
             hitTime = 1;
+            currentHP -= 1;
+
+            if (currentHP <= 0)
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+            if(onTakeDamage != null)
+            {
+                onTakeDamage();
+            }
         }
     }
 
