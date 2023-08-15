@@ -11,4 +11,14 @@ public class BeatBlokk : MonoBehaviour
     {
 
     }
+
+    public void Updoot()
+    {
+        foreach (BeatSlot slot in slots)
+        {
+            slot.UpdateSlot();
+        }
+    }
+
+
 }
