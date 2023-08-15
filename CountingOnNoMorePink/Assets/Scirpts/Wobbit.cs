@@ -38,6 +38,8 @@ public class Wobbit : MonoBehaviour
     public Transform hand2;
 
 
+    public Orbiter orbiterPrefab;
+
     public BeatTimeline timeline;
 
 }

@@ -128,8 +128,12 @@ public class FreeFormOrbitalMove : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other)
-    { 
-        
+    {
+        if (hitTime > 0)
+            return;
+
+        if (isDash)
+            return;
         if (isParry && shieldTime >= (maxShield - 0.01))
         {
             shieldFx.Play();
