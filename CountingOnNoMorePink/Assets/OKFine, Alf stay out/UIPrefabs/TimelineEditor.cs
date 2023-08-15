@@ -43,7 +43,7 @@ public class TimelineEditor : MonoBehaviour
 
         //generate timeline bars (beat chunks)
         //generate a beatblock for each segment of the phrase
-        for (int i = 0; i < phrases[phraseSelector.value].phraseLength; i++)
+        for (int i = 0; i < phraseLength; i++)
         {
             BeatBlokk b = Instantiate(chunkFab, chunkContent);
 
@@ -55,17 +55,11 @@ public class TimelineEditor : MonoBehaviour
             beatTimeLine.Add(b);
         }
 
-    
-
-        //generate list of lists for holding songdata (TODO: make it a class)
-
-        //for (int i = 0; i < phraseLength.Length; i++)
-        //{
-        //    List<BeatBlokk> clone = new List<BeatBlokk>(beatTimeLine);
-            
-        //    songData.Add(clone);
-        //}
-
+        //save each phrase to generate initial data
+        foreach(Phrase p in phrases)
+        {
+            p.Save(beatTimeLine);
+        }
 
     }
 
@@ -81,31 +75,23 @@ public class TimelineEditor : MonoBehaviour
 
     public void ChangePhrase()
     {
-        //TODO check for null/out of range
-
-
+    
         phrases[currentPhrase].Save(beatTimeLine);
-        currentPhrase = phraseSelector.value;
-        //remove blocks from timeline
-        //foreach (BeatBlokk bb in beatTimeLine)
-        //{
-        //    Destroy(bb.gameObject);
-        //}
-        //beatTimeLine.Clear();
 
+        currentPhrase = phraseSelector.value;
 
         phrases[currentPhrase].LoadPhraseData(beatTimeLine);
-        foreach(BeatBlokk b in beatTimeLine)
+
+        foreach (BeatBlokk b in beatTimeLine)
         {
             b.Updoot();
         }
-
-        //replace beatblocks with
-
-
     }
 
 }
+
+
+//Data for a phrase(assumes these will all be the same length)
 
 [System.Serializable]
 public class Phrase
@@ -117,17 +103,21 @@ public class Phrase
 
     public int phraseLength;
     public List<BlockData> phraseData = new List<BlockData>();
+
+    //phrase contains a list of data per block in the timeline
+    //loading a new phrase replaces the current timeline data with the data from the selected phrase
+
     public void Save(List<BeatBlokk> songData)
     {
         //overwrite old data
         phraseData.Clear();
 
+        //collect the data from each beatblock and save it as blockdata
         foreach(BeatBlokk bb in songData)
         {
             int count = bb.slots.Count;
             BlockData blockData = new BlockData(count);
             blockData.SaveBlockData(bb);
-
 
             phraseData.Add(blockData);
 
@@ -142,6 +132,9 @@ public class Phrase
         }
     }
 }
+
+//blockdata is an extended array containing the data for each slot in the block
+//TODO: this is highly dependent on blocks having a fixed number of slots - revisit and fix this
 
 [System.Serializable]
 public class BlockData

@@ -6,11 +6,14 @@ using UnityEngine.EventSystems;
 public class BeatSlot : MonoBehaviour, IDropHandler, IPointerDownHandler, IPointerUpHandler
 {
     // If BeatItem is null that means this event should be dictated by a rest
-    [HideInInspector] public BeatItem thisItem;
+   // [HideInInspector] public BeatItem thisItem;
+
+    public AttackEventUICard uiCard;
+    AttackEvent attackEvent;
 
     private void Start()
     {
-        thisItem = this.GetComponentInChildren<BeatItem>();
+        
         UpdateSlot();
     }
 
@@ -25,21 +28,20 @@ public class BeatSlot : MonoBehaviour, IDropHandler, IPointerDownHandler, IPoint
             SetSlotEvent(draggedItem.thisEvent);
 
             Destroy(draggedItem.gameObject);
-            UpdateSlot();
+          
         }
 
     }
 
     public AttackEvent GetSlotEvent()
     {
-        if (thisItem != null)
-            return thisItem.thisEvent;
-        else return null;
+        return attackEvent;
     }
     public void SetSlotEvent(AttackEvent attackEvent)
     {
-        if (thisItem == null) return;
-        thisItem.thisEvent = attackEvent;
+        this.attackEvent = attackEvent;
+   
+        UpdateSlot();
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -51,21 +53,15 @@ public class BeatSlot : MonoBehaviour, IDropHandler, IPointerDownHandler, IPoint
     {
        if(eventData.button == PointerEventData.InputButton.Right)
         {
-            thisItem.thisEvent = null;
+            this.attackEvent = null;
             UpdateSlot();
+            
         }
     }
 
     public void UpdateSlot()
     {
-        if (thisItem.thisEvent == null)
-        {
-            thisItem.gameObject.SetActive(false);
-        }
-        else
-        {
-            thisItem.SetAttack(thisItem.thisEvent);
-            thisItem.gameObject.SetActive(true);
-        }
+        Debug.Log("boing");
+        uiCard.SetDisplay(attackEvent);
     }
 }
