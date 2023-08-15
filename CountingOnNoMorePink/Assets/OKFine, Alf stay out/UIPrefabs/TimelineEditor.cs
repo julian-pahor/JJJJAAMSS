@@ -16,16 +16,12 @@ public class TimelineEditor : MonoBehaviour
     public TMP_Dropdown phraseSelector;
 
     public int phraseLength = 16;
-    
-
-    //public int[] phraseLength = new int[] {16,16,16,16};
-
-    private List<List<BeatBlokk>> songData = new List<List<BeatBlokk>>();
 
     //list of phrases (filling in for songdata)
     public List<Phrase> phrases = new List<Phrase>();
+
     private int currentPhrase;
-    // Start is called before the first frame update
+ 
     void Start()
     {
         //generate 4 phrases and add to list (doing this manually for now)

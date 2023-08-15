@@ -9,7 +9,6 @@ public class CameraLook : MonoBehaviour
     public Transform focus;
     public float offset;
 
-    bool isShake;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,7 +37,7 @@ public class CameraLook : MonoBehaviour
     {
         Vector3 orignalPosition = transform.position;
         float elapsed = 0f;
-        isShake = true;
+
 
         while (elapsed < duration)
         {
@@ -49,7 +48,7 @@ public class CameraLook : MonoBehaviour
             elapsed += Time.deltaTime;
             yield return 0;
         }
-        isShake = false;
+      
         //transform.position = orignalPosition;
     }
 }

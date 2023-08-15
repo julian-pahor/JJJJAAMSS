@@ -7,6 +7,10 @@ using UnityEngine.UI;
 
 public class BeatItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    //The rework of the timelineEditor makes this object a dummy:
+    //it holds a reference to the attackEvent for passing between slots
+    //it should always be destroyed after releasing it
+
     public Image image;
     [HideInInspector] public Transform parentAfterDrag;
     public AttackEvent thisEvent;
@@ -20,20 +24,20 @@ public class BeatItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("Begin Drag");
+        //Debug.Log("Begin Drag");
         parentAfterDrag = transform.parent;
         DragInitialise(transform.root);
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        Debug.Log("Dragging");
+        //Debug.Log("Dragging");
         transform.position = Input.mousePosition;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log("End Drag");
+        //Debug.Log("End Drag");
         transform.SetParent(parentAfterDrag);
         image.raycastTarget = true;
 
