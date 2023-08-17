@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +14,8 @@ public class TimelineEditor : MonoBehaviour
     public Transform chunkContent;
 
     public TMP_Dropdown phraseSelector;
+
+    public SongSave testSaveFile;
 
     public int phraseLength = 16;
 
@@ -59,6 +61,17 @@ public class TimelineEditor : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.K))
+        {
+            phrases[currentPhrase].Save(beatTimeLine);
+            Debug.Log("Saved");
+            SaveSong(phrases);
+        }
+
+    }
+
     private void OnDestroy()
     {
         BeatBroadcast.instance.timelineInfo.onBeatTrigger -= Beat;
@@ -82,6 +95,48 @@ public class TimelineEditor : MonoBehaviour
         {
             b.Updoot();
         }
+    }
+
+    //Trying to write songdata to text file god speed me
+    public void SaveSong(List<Phrase> songData)
+    {
+        if (songData.Count == 0)
+            return;
+
+        //wipe old save
+        List<string> datdat = new List<string>();
+        int phraseCount = songData.Count;
+        int phraseLength = songData[0].phraseLength;
+
+        //load length and number of phrases
+        datdat.Add(phraseCount.ToString());
+        datdat.Add(phraseLength.ToString());
+
+        foreach (Phrase phrase in songData)
+        {
+
+            //each phrase has 16 blocks
+            foreach (BlockData blockData in phrase.phraseData)
+            {
+
+                for (int i = 0; i < blockData.events.Length; i++)
+                {
+                    string reference = blockData.events[i] == null ? "null" : blockData.events[i].name;
+
+                    datdat.Add(reference);
+                }
+            }
+        }
+
+        using (StreamWriter writer = new StreamWriter("Assets/SongSaves/testsave.txt"))
+        {
+
+            foreach (string s in datdat)
+            {
+                writer.WriteLine(s);
+            }
+        }
+
     }
 
 }
@@ -160,5 +215,7 @@ public class BlockData
         }
       
     }
+
+   
 
 }

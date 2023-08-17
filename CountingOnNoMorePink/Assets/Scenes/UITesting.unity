@@ -371,6 +371,7 @@ MonoBehaviour:
   chunkFab: {fileID: 291212455025718961, guid: bcc4ea91194f96a49a475a2657783595, type: 3}
   chunkContent: {fileID: 1250977417}
   phraseSelector: {fileID: 1359270394}
+  testSaveFile: {fileID: 11400000, guid: c8f05c35b6321b54fb76e2d68a2d173e, type: 2}
   phraseLength: 16
   phrases: []
 --- !u!1 &32835920
@@ -3797,6 +3798,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4831e12f60e11c944b6ea1bd16205e70, type: 2}
   - {fileID: 11400000, guid: 345cb27fe02bc8c4d8c4ffc02484fefe, type: 2}
   - {fileID: 11400000, guid: 7b8f07f26600494409ada3942471ca85, type: 2}
+  saveFile: {fileID: 0}
+  savePath: 
   win: {fileID: 0}
 --- !u!114 &1437303671
 MonoBehaviour:
