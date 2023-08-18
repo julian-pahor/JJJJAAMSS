@@ -17,6 +17,9 @@ public class TimelineEditor : MonoBehaviour
 
     public TMP_InputField saveFileNameField;
 
+    public SongSave saveData;
+    public SaveFileDropdown saveFileDropdown;
+
     public int phraseLength = 16;
 
     //list of phrases (filling in for songdata)
@@ -34,10 +37,31 @@ public class TimelineEditor : MonoBehaviour
 
         BeatBroadcast.instance.timelineInfo.onBeatTrigger += Beat;
 
+        GenerateTimelineUI();
+
+    }
+
+    private void OnDestroy()
+    {
+        BeatBroadcast.instance.timelineInfo.onBeatTrigger -= Beat;
+    }
+
+    public void Beat(int m, int b)
+    {
+
+    }
+
+    //creates the beat blocks for each phrase in our phrase list
+    void GenerateTimelineUI()
+    {
+        //clear out any existing blocks
+        foreach (BeatBlokk b in beatTimeLine)
+        {
+            Destroy(b.gameObject);
+        }
         beatTimeLine.Clear();
 
         currentPhrase = phraseSelector.value;
-
 
         //generate timeline bars (beat chunks)
         //generate a beatblock for each segment of the phrase
@@ -54,21 +78,10 @@ public class TimelineEditor : MonoBehaviour
         }
 
         //save each phrase to generate initial data
-        foreach(Phrase p in phrases)
+        foreach (Phrase p in phrases)
         {
             p.Save(beatTimeLine);
         }
-
-    }
-
-    private void OnDestroy()
-    {
-        BeatBroadcast.instance.timelineInfo.onBeatTrigger -= Beat;
-    }
-
-    public void Beat(int m, int b)
-    {
-
     }
 
     public void ChangePhrase()
@@ -92,6 +105,31 @@ public class TimelineEditor : MonoBehaviour
         Debug.Log("Saving...");
         phrases[currentPhrase].Save(beatTimeLine);
         SaveSong(phrases);
+    }
+
+    public void TryLoad()
+    {
+        if (saveFileDropdown.GetSelectedSave() == null)
+            return;
+        Debug.Log("Loading...");
+        //reset selector
+        phraseSelector.value = 0;
+        currentPhrase = phraseSelector.value;
+        //load save
+        saveData.LoadSave("Assets/SongSaves/" + saveFileDropdown.GetSelectedSave() + ".txt");
+        //clear our phrases and regenerate ui
+        phrases.Clear();
+        GenerateTimelineUI();
+        //get stored phrases from data
+        phrases = saveData.GetSavedPhrases();
+        //load into UI view and apply to timeline
+        saveFileNameField.text = saveFileDropdown.GetSelectedSave();
+        phrases[currentPhrase].LoadPhraseData(beatTimeLine);
+        foreach (BeatBlokk b in beatTimeLine)
+        {
+            b.Updoot();
+        }
+        Debug.Log("Load complete");
     }
 
     //Trying to write songdata to text file god speed me

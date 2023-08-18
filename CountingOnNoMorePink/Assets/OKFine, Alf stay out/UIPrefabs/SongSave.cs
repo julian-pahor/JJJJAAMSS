@@ -20,6 +20,8 @@ public class SongSave : MonoBehaviour
     public int SongLength { get { return blockDatas.Count; } }
 
     public int blockDataSize; //hardcoded garbage make this a constant somewhere or get it from the data
+    int phraseCount;
+    int phraseLength;
 
     List<AttackEvent> attackEventsDatabase = new List<AttackEvent>();
 
@@ -41,8 +43,8 @@ public class SongSave : MonoBehaviour
 
         //try and load our text
         List<string> fileData = new List<string>();
-        int phraseCount = 0;
-        int phraseLength = 0;
+        phraseCount = 0;
+        phraseLength = 0;
 
         try
         {
@@ -90,6 +92,31 @@ public class SongSave : MonoBehaviour
 
     }
 
+    public List<Phrase> GetSavedPhrases()
+    {
+        
+        //return null if we haven't loaded any data
+        if (blockDatas.Count == 0) return null;
+
+        int index = 0; //current place in blockdata
+
+        List<Phrase> phrases = new List<Phrase>();
+
+        for(int i = 0; i < phraseCount; i++)
+        {
+            Phrase phrase = new Phrase(phraseLength);
+            for(int k = 0; k < phraseLength; k++)
+            {
+                phrase.phraseData.Add(blockDatas[index]);
+                index++;
+            }
+            phrases.Add(phrase);
+        }
+      
+        return phrases;
+    }
+
+    //TODO: this is a beattimeline thing, move it there
     public void DoBeat(int index)
     {
         for (int i = 0; i < blockDataSize; ++i)

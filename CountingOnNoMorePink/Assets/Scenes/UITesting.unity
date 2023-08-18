@@ -287,6 +287,7 @@ GameObject:
   - component: {fileID: 14121691}
   - component: {fileID: 14121690}
   - component: {fileID: 14121692}
+  - component: {fileID: 14121693}
   m_Layer: 5
   m_Name: TimelineEditor
   m_TagString: Untagged
@@ -373,8 +374,24 @@ MonoBehaviour:
   chunkContent: {fileID: 1250977417}
   phraseSelector: {fileID: 1359270394}
   saveFileNameField: {fileID: 891402881}
+  saveData: {fileID: 14121693}
+  saveFileDropdown: {fileID: 1294307503}
   phraseLength: 16
   phrases: []
+--- !u!114 &14121693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 14121688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12b906b6847a94b4fba45dbf8b834b93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockDatas: []
+  blockDataSize: 5
 --- !u!1 &32835920
 GameObject:
   m_ObjectHideFlags: 0
@@ -4642,7 +4659,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1392679593}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 14121692}
+        m_TargetAssemblyTypeName: TimelineEditor, Assembly-CSharp
+        m_MethodName: TryLoad
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1392679593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4867,8 +4896,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4831e12f60e11c944b6ea1bd16205e70, type: 2}
   - {fileID: 11400000, guid: 345cb27fe02bc8c4d8c4ffc02484fefe, type: 2}
   - {fileID: 11400000, guid: 7b8f07f26600494409ada3942471ca85, type: 2}
+  saveFileDropdown: {fileID: 0}
   saveFile: {fileID: 0}
-  savePath: 
   win: {fileID: 0}
 --- !u!114 &1437303671
 MonoBehaviour:
