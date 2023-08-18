@@ -15,7 +15,7 @@ public class TimelineEditor : MonoBehaviour
 
     public TMP_Dropdown phraseSelector;
 
-    public SongSave testSaveFile;
+    public TMP_InputField saveFileNameField;
 
     public int phraseLength = 16;
 
@@ -61,17 +61,6 @@ public class TimelineEditor : MonoBehaviour
 
     }
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.K))
-        {
-            phrases[currentPhrase].Save(beatTimeLine);
-            Debug.Log("Saved");
-            SaveSong(phrases);
-        }
-
-    }
-
     private void OnDestroy()
     {
         BeatBroadcast.instance.timelineInfo.onBeatTrigger -= Beat;
@@ -97,20 +86,35 @@ public class TimelineEditor : MonoBehaviour
         }
     }
 
+    //rework so we can save by calling savesong directly
+    public void TrySave()
+    {
+        Debug.Log("Saving...");
+        phrases[currentPhrase].Save(beatTimeLine);
+        SaveSong(phrases);
+    }
+
     //Trying to write songdata to text file god speed me
     public void SaveSong(List<Phrase> songData)
     {
         if (songData.Count == 0)
             return;
 
+        string saveName = saveFileNameField.text;
+        if(saveName == string.Empty)
+        {
+            Debug.LogWarning("save name cannot be blank");
+            return;
+        }
+
         //wipe old save
-        List<string> datdat = new List<string>();
+        List<string> saveData = new List<string>();
         int phraseCount = songData.Count;
         int phraseLength = songData[0].phraseLength;
 
         //load length and number of phrases
-        datdat.Add(phraseCount.ToString());
-        datdat.Add(phraseLength.ToString());
+        saveData.Add(phraseCount.ToString());
+        saveData.Add(phraseLength.ToString());
 
         foreach (Phrase phrase in songData)
         {
@@ -123,20 +127,26 @@ public class TimelineEditor : MonoBehaviour
                 {
                     string reference = blockData.events[i] == null ? "null" : blockData.events[i].name;
 
-                    datdat.Add(reference);
+                    saveData.Add(reference);
                 }
             }
         }
 
-        using (StreamWriter writer = new StreamWriter("Assets/SongSaves/testsave.txt"))
+        try
         {
-
-            foreach (string s in datdat)
+            using (StreamWriter writer = new StreamWriter("Assets/SongSaves/" + saveName + ".txt"))
             {
-                writer.WriteLine(s);
+                foreach (string s in saveData)
+                {
+                    writer.WriteLine(s);
+                }
             }
         }
-
+        catch
+        {
+            Debug.LogError("couldn't find asset path to saves folder");
+        }
+        Debug.Log("Saved");
     }
 
 }

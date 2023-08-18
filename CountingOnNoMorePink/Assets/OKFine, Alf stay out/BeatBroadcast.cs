@@ -46,7 +46,7 @@ public class BeatBroadcast : MonoBehaviour
 
     void Start()
     {
-        PlayMusic();
+        //PlayMusic();
     }
 
     [ContextMenu("Play")]

@@ -102,6 +102,7 @@ public class SongSave : MonoBehaviour
         }
     }
 
+    //TODO: change this so it's using guid and not name
     AttackEvent GetAttackEvent(string name)
     {
         //early exit
