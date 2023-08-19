@@ -376,6 +376,7 @@ MonoBehaviour:
   saveFileNameField: {fileID: 891402881}
   saveData: {fileID: 14121693}
   saveFileDropdown: {fileID: 1294307503}
+  mainScene: AlfRoomOfCretivity
   phraseLength: 16
   phrases: []
 --- !u!114 &14121693
@@ -2200,9 +2201,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1245351861}
-        m_TargetAssemblyTypeName: BeatBroadcast, Assembly-CSharp
-        m_MethodName: PlayMusic
+      - m_Target: {fileID: 14121692}
+        m_TargetAssemblyTypeName: TimelineEditor, Assembly-CSharp
+        m_MethodName: PlayGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac2a674e33395c64286f89fb871eaf18, type: 3}
-  m_Name: Parry45
+  m_Script: {fileID: 11500000, guid: c5f79ecfda563ea4aab22c7a9f4ab1e8, type: 3}
+  m_Name: 6ShotOffset
   m_EditorClassIdentifier: 
-  angle: 45
-  distance: 10
-  time: 0.25
-  curve: 2.5
-  reverse: 0
+  arm: 0
+  shots: 6
+  firingArc: 360
+  arcOffset: 90
+  bulletType: {fileID: 0}

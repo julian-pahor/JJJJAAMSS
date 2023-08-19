@@ -4,6 +4,8 @@ using TMPro;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor; //Remove this once we figure out proper file management
+using UnityEngine.SceneManagement;
 
 public class TimelineEditor : MonoBehaviour
 {
@@ -19,6 +21,8 @@ public class TimelineEditor : MonoBehaviour
 
     public SongSave saveData;
     public SaveFileDropdown saveFileDropdown;
+
+    public string mainScene;
 
     public int phraseLength = 16;
 
@@ -49,6 +53,11 @@ public class TimelineEditor : MonoBehaviour
     public void Beat(int m, int b)
     {
 
+    }
+
+    public void PlayGame()
+    {
+        SceneManager.LoadScene(mainScene);
     }
 
     //creates the beat blocks for each phrase in our phrase list
@@ -184,11 +193,14 @@ public class TimelineEditor : MonoBehaviour
         {
             Debug.LogError("couldn't find asset path to saves folder");
         }
+        AssetDatabase.Refresh(); //Take this out later
+        saveFileDropdown.LoadSavesFromFolder(); //refresh dropdown
         Debug.Log("Saved");
     }
 
 }
 
+//TODO: script is getting hefty, maybe break these classes into their own files
 
 //Data for a phrase(assumes these will all be the same length)
 

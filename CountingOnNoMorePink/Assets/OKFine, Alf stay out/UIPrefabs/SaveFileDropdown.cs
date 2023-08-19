@@ -19,7 +19,7 @@ public class SaveFileDropdown : MonoBehaviour
     }
 
     //TODO: THIS WILL NOT WORK IN BUILD (apparently) - FIND A WAY THAT WILL (https://docs.unity3d.com/ScriptReference/Resources.LoadAll.html)
-    void LoadSavesFromFolder()
+    public void LoadSavesFromFolder()
     {
         //clear any existing files
         files.Clear();
