@@ -62,7 +62,7 @@ public class OrbiterAttack : AttackEvent
                     Vector3 point = Utilities.PointWithPolarOffset(origin.position, dist + minDistance, rotationO + (arcStep * j));
                     Orbiter o = Instantiate(Wobbit.instance.orbiterPrefab, point, Quaternion.identity);
 
-                    o.Initialise(lifeTime, speed, direction,rotationO);
+                    o.Initialise(lifeTime, speed, direction,rotationO,(BeatBroadcast.instance.beatLength/segments) *j);
                 
 
                 //float pop = popTime;

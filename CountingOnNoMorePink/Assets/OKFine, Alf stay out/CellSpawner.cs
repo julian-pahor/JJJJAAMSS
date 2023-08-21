@@ -11,8 +11,7 @@ public class CellSpawner : MonoBehaviour
 
     public Cell cell;
 
-    public float cellWidth;
-    public float cellHeight;
+    public float cellSize;
 
     public Cell[,] cells;
 
@@ -54,7 +53,7 @@ public class CellSpawner : MonoBehaviour
             for (int y = 0; y < column; y++)
             {
                 Cell go;
-                go = Instantiate(cell, new Vector3(i * cellWidth, 0, y * cellHeight), Quaternion.identity);
+                go = Instantiate(cell, new Vector3(transform.position.x + (i * cellSize), transform.position.y, transform.position.z + (y * cellSize)), Quaternion.identity);
                 go.name = $"X: {i}, Y: {y}";
                 cells[i, y] = go;
             }
