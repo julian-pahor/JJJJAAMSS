@@ -11,12 +11,12 @@ public class Orbiter : MonoBehaviour
     float angle;
     float angleOffset;
     float distance;
-
-    bool bop;
+    float bopIndex;
+    float bopTimer;
 
     Rigidbody rb;
 
-    public void Initialise(int lifetime, float speed, int direction, float offset)
+    public void Initialise(int lifetime, float speed, int direction, float offset, float bopIndex)
 
     {
         rb = GetComponent<Rigidbody>();
@@ -27,13 +27,19 @@ public class Orbiter : MonoBehaviour
         distance = Vector3.Distance(transform.position, origin.position);
         this.speed = speed;
         this.direction = direction;
+        this.bopIndex = bopIndex;
     }
 
     // Update is called once per frame
     void Update()
     {
         angle += speed * direction * Time.deltaTime;
-       
+        bopTimer += Time.deltaTime;
+        float lerp = bopTimer/bopIndex;
+        if(lerp < 1)
+        {
+            transform.localScale = Vector3.Lerp(Vector3.one * 2f, Vector3.one,lerp);
+        }
 
     }
 
@@ -46,9 +52,9 @@ public class Orbiter : MonoBehaviour
     void OnBeat(int measure, int beat)
     {
         lifetime -= 1;
-        float bopindex = bop ? 1f : 1.5f;
-        transform.localScale = Vector3.one * bopindex;
-        bop = !bop;
+        
+        //transform.localScale = Vector3.one * 1.5f;
+        bopTimer = 0;
 
         if (lifetime <= 0)
             Destroy(gameObject);

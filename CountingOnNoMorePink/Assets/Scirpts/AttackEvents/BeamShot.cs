@@ -61,7 +61,9 @@ public class BeamShot : AttackEvent
             {
                 float dist = increment * j;
                 Vector3 point = Utilities.PointWithPolarOffset(origin.position, dist + minDistance, rotationO + (arcStep * j));
-                BoomBlock b = Instantiate(Wobbit.instance.zoneFab, point, Quaternion.identity);
+                //BoomBlock b = Instantiate(Wobbit.instance.zoneFab, point, Quaternion.identity);
+
+                DelayedDangerZone dd = Instantiate(Wobbit.instance.delayedDangerZoneTest,point,Quaternion.identity);
 
                 //assign waypoints to tracer (revisit this)
                 if (lineTracer != null)
@@ -69,12 +71,13 @@ public class BeamShot : AttackEvent
                     tempTracer.waypoints.Add(point);
                 }
 
-
+                popTime = BeatBroadcast.instance.beatLength / segments;
+                
                 float pop = popTime;
 
                 if(type == BeamType.RadiateOutward) { pop = popTime * j;}
 
-                if(type == BeamType.RadiateInward) 
+                if (type == BeamType.RadiateInward) 
                 { 
                     pop = (popTime * segments) - (popTime * j);
                     if (lineTracer != null)
@@ -83,7 +86,25 @@ public class BeamShot : AttackEvent
                     }
                 }
 
-                b.Initialise(pop);
+                dd.InitialiseOnTimer(pop, popTime, popTime);
+
+                /*
+                int pop = 1;
+
+                if (type == BeamType.RadiateOutward) { pop = j; }
+
+                if (type == BeamType.RadiateInward)
+                {
+                    pop = (int)segments - j;
+                    if (lineTracer != null)
+                    {
+                        tempTracer.waypoints.Reverse();
+                    }
+                }
+
+                dd.InitialiseOnBeat(pop, 1);
+                */
+
             }
 
             //assign waypoints to tracer (revisit this)
