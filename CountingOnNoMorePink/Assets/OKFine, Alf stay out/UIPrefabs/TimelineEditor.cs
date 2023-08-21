@@ -169,7 +169,7 @@ public class TimelineEditor : MonoBehaviour
             //each phrase has 16 blocks
             foreach (BlockData blockData in phrase.phraseData)
             {
-
+                //gets the array of event slots out of blockdata
                 for (int i = 0; i < blockData.events.Length; i++)
                 {
                     string reference = blockData.events[i] == null ? "null" : blockData.events[i].name;
