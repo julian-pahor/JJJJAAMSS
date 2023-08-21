@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Wobbit : MonoBehaviour
 {
@@ -19,6 +20,12 @@ public class Wobbit : MonoBehaviour
     private void Start()
     {
         timeline = FindObjectOfType<BeatTimeline>();
+    }
+
+
+    public void GoToEditor()
+    {
+        SceneManager.LoadScene("UITesting");
     }
 
     //very temporary references to junk I need for the demo

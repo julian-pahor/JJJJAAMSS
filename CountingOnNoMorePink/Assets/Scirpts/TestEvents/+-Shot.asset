@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c5f79ecfda563ea4aab22c7a9f4ab1e8, type: 3}
-  m_Name: 4Shot
+  m_Name: +-Shot
   m_EditorClassIdentifier: 
+  arm: 0
   shots: 4
   firingArc: 360
   arcOffset: 0
-  bulletType: {fileID: 3653562589611167354, guid: 768061178dc7c1e46b6a4de766997990, type: 3}
+  bulletType: {fileID: 0}

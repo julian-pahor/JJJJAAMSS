@@ -6,6 +6,9 @@ public class BeatTimeline : MonoBehaviour
 {
     public float beatLength;
     public List<AttackEvent> attackEvents; //make this list of lists to enable multiple attackevents per beat
+    public SaveFileDropdown saveFileDropdown;
+    public SongSave saveFile;
+
     public GameObject win;
 
     float timer;
@@ -37,6 +40,8 @@ public class BeatTimeline : MonoBehaviour
     private void Start()
     {
         BeatBroadcast.instance.timelineInfo.onBeatTrigger += Beat;
+        saveFile = GetComponent<SongSave>();
+
     }
 
     private void OnDestroy()
@@ -44,12 +49,31 @@ public class BeatTimeline : MonoBehaviour
         BeatBroadcast.instance.timelineInfo.onBeatTrigger -= Beat;
     }
 
+    public void StartGame()
+    {
+        string saveName = saveFileDropdown.GetSelectedSave();
+        if(saveName != null && saveName != string.Empty)
+        {
+            saveFile.LoadSave("Assets/SongSaves/" + saveName + ".txt");
+            BeatBroadcast.instance.PlayMusic();
+            return;
+        }
+        Debug.LogError("Couldn't start game - save name was null or empty");
+
+    }
+
     private void Beat(int bar, int beat)
     {
-        attackEvents[index].Fire();
+        if (saveFile == null)
+        {
+            Debug.LogError("No save file in BeatTimeline");
+            return;
+        }
+        
+        saveFile.DoBeat(index);
         index++;
 
-        if (index >= attackEvents.Count)
+        if (index >= saveFile.SongLength)
         {
             index = 0;
         }

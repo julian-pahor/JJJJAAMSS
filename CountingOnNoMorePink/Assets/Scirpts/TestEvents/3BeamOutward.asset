@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 965af55d089815947a27d334a74f7c0d, type: 3}
-  m_Name: Beam15Degree
+  m_Name: 3BeamOutward
   m_EditorClassIdentifier: 
+  arm: 0
   beams: 3
-  segments: 30
+  segments: 10
   firingArc: 360
-  distance: 20
+  distance: 16
   minDistance: 0
   arcOffset: 45
   popTime: 0.1
   type: 2
-  arcStep: 15
+  arcStep: 0
   lineTracer: {fileID: 6365503444600798367, guid: 17cde94b3c36594458c6bdff1af20fb6, type: 3}

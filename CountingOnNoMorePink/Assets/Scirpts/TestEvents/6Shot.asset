@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5f79ecfda563ea4aab22c7a9f4ab1e8, type: 3}
   m_Name: 6Shot
   m_EditorClassIdentifier: 
+  arm: 0
   shots: 6
   firingArc: 360
   arcOffset: 0
-  bulletType: {fileID: 2069922927951912278, guid: 15e0c5334d498494e878f862f37f5e36, type: 3}
+  bulletType: {fileID: 0}

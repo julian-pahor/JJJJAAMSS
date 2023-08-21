@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor; //Remove this once we figure out proper file management
+using UnityEngine.SceneManagement;
 
 public class TimelineEditor : MonoBehaviour
 {
@@ -14,6 +16,13 @@ public class TimelineEditor : MonoBehaviour
     public Transform chunkContent;
 
     public TMP_Dropdown phraseSelector;
+
+    public TMP_InputField saveFileNameField;
+
+    public SongSave saveData;
+    public SaveFileDropdown saveFileDropdown;
+
+    public string mainScene;
 
     public int phraseLength = 16;
 
@@ -32,10 +41,36 @@ public class TimelineEditor : MonoBehaviour
 
         BeatBroadcast.instance.timelineInfo.onBeatTrigger += Beat;
 
+        GenerateTimelineUI();
+
+    }
+
+    private void OnDestroy()
+    {
+        BeatBroadcast.instance.timelineInfo.onBeatTrigger -= Beat;
+    }
+
+    public void Beat(int m, int b)
+    {
+
+    }
+
+    public void PlayGame()
+    {
+        SceneManager.LoadScene(mainScene);
+    }
+
+    //creates the beat blocks for each phrase in our phrase list
+    void GenerateTimelineUI()
+    {
+        //clear out any existing blocks
+        foreach (BeatBlokk b in beatTimeLine)
+        {
+            Destroy(b.gameObject);
+        }
         beatTimeLine.Clear();
 
         currentPhrase = phraseSelector.value;
-
 
         //generate timeline bars (beat chunks)
         //generate a beatblock for each segment of the phrase
@@ -52,21 +87,10 @@ public class TimelineEditor : MonoBehaviour
         }
 
         //save each phrase to generate initial data
-        foreach(Phrase p in phrases)
+        foreach (Phrase p in phrases)
         {
             p.Save(beatTimeLine);
         }
-
-    }
-
-    private void OnDestroy()
-    {
-        BeatBroadcast.instance.timelineInfo.onBeatTrigger -= Beat;
-    }
-
-    public void Beat(int m, int b)
-    {
-
     }
 
     public void ChangePhrase()
@@ -84,8 +108,99 @@ public class TimelineEditor : MonoBehaviour
         }
     }
 
+    //rework so we can save by calling savesong directly
+    public void TrySave()
+    {
+        Debug.Log("Saving...");
+        phrases[currentPhrase].Save(beatTimeLine);
+        SaveSong(phrases);
+    }
+
+    public void TryLoad()
+    {
+        if (saveFileDropdown.GetSelectedSave() == null)
+            return;
+        Debug.Log("Loading...");
+        //reset selector
+        phraseSelector.value = 0;
+        currentPhrase = phraseSelector.value;
+        //load save
+        saveData.LoadSave("Assets/SongSaves/" + saveFileDropdown.GetSelectedSave() + ".txt");
+        //clear our phrases and regenerate ui
+        phrases.Clear();
+        GenerateTimelineUI();
+        //get stored phrases from data
+        phrases = saveData.GetSavedPhrases();
+        //load into UI view and apply to timeline
+        saveFileNameField.text = saveFileDropdown.GetSelectedSave();
+        phrases[currentPhrase].LoadPhraseData(beatTimeLine);
+        foreach (BeatBlokk b in beatTimeLine)
+        {
+            b.Updoot();
+        }
+        Debug.Log("Load complete");
+    }
+
+    //Trying to write songdata to text file god speed me
+    public void SaveSong(List<Phrase> songData)
+    {
+        if (songData.Count == 0)
+            return;
+
+        string saveName = saveFileNameField.text;
+        if(saveName == string.Empty)
+        {
+            Debug.LogWarning("save name cannot be blank");
+            return;
+        }
+
+        //wipe old save
+        List<string> saveData = new List<string>();
+        int phraseCount = songData.Count;
+        int phraseLength = songData[0].phraseLength;
+
+        //load length and number of phrases
+        saveData.Add(phraseCount.ToString());
+        saveData.Add(phraseLength.ToString());
+
+        foreach (Phrase phrase in songData)
+        {
+
+            //each phrase has 16 blocks
+            foreach (BlockData blockData in phrase.phraseData)
+            {
+                //gets the array of event slots out of blockdata
+                for (int i = 0; i < blockData.events.Length; i++)
+                {
+                    string reference = blockData.events[i] == null ? "null" : blockData.events[i].name;
+
+                    saveData.Add(reference);
+                }
+            }
+        }
+
+        try
+        {
+            using (StreamWriter writer = new StreamWriter("Assets/SongSaves/" + saveName + ".txt"))
+            {
+                foreach (string s in saveData)
+                {
+                    writer.WriteLine(s);
+                }
+            }
+        }
+        catch
+        {
+            Debug.LogError("couldn't find asset path to saves folder");
+        }
+        AssetDatabase.Refresh(); //Take this out later
+        saveFileDropdown.LoadSavesFromFolder(); //refresh dropdown
+        Debug.Log("Saved");
+    }
+
 }
 
+//TODO: script is getting hefty, maybe break these classes into their own files
 
 //Data for a phrase(assumes these will all be the same length)
 
@@ -160,5 +275,7 @@ public class BlockData
         }
       
     }
+
+   
 
 }
