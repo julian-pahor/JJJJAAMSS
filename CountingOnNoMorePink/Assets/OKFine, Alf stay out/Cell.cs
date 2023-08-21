@@ -1,57 +1,48 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class Cell : MonoBehaviour
 {
+    [System.Serializable]
+    public class Edge
+    {
+        Edge() { target = null; cost = 0; }
+        public Edge(Cell c, float f)
+        {
+            target = c;
+            cost = f;
+        }
 
-    private Vector3 standard;
-    private float lerp;
+        public Cell target;
+        public float cost;
+    }
 
-    public List<Cell> neighbours = new List<Cell>();
+    public List<Edge> connections = new List<Edge>();
+    public float gScore;
+    public float hSCore;
+    public float fSCore;
+
+    [HideInInspector]
+    public Cell previous;
+
+    public MeshRenderer mr;
+
     // Start is called before the first frame update
     void Start()
     {
-        standard = transform.position;
-        lerp = 0;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.Lerp(standard, standard + Vector3.up * 3f, lerp);
-        lerp -= Time.deltaTime;
-        lerp = Mathf.Clamp01(lerp);
+
     }
 
-    public void AddNeighbour(Cell c)
+    public void AddConnection(Cell c, float f)
     {
-        neighbours.Add(c);
+        connections.Add(new Edge(c, f));
     }
-
-    public void Jump(float f)
-    {
-        lerp = f;
-    }
-
-    public void OnMouseDown()
-    {
-        foreach (Cell c in neighbours)
-        {
-            if (c != this)
-            {
-                c.Jump(0.675f);
-            }
-
-            foreach (Cell b in c.neighbours)
-            {
-                b.Jump(0.3f);
-            }
-        }
-
-        Jump(1f);
-    }
-
-
-
 }

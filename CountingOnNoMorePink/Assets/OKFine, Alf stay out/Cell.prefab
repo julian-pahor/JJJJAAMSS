@@ -96,4 +96,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52fb6345fb782f54e98a7e6362030a5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  neighbours: []
+  connections: []
+  gScore: 0
+  hSCore: 0
+  fSCore: 0
+  previous: {fileID: 0}
+  mr: {fileID: 3509165976842641337}
