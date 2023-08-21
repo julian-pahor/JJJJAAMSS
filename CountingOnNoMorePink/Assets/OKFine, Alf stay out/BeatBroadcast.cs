@@ -7,6 +7,8 @@ public class BeatBroadcast : MonoBehaviour
 {
     public static BeatBroadcast instance;
 
+    public float beatLength; //pretend lenght of a beat (calculate this roughly)
+
     private void Awake()
     {
         if(instance == null)
