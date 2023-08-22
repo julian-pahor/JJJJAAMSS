@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-
-using UnityEditor;
+using System.Linq;
 
 public class SongSave : MonoBehaviour
 {
@@ -31,13 +30,10 @@ public class SongSave : MonoBehaviour
         blockDatas.Clear();
 
         //grab all attack event data
-
-        string[] guids = AssetDatabase.FindAssets(string.Format("t:{0}", typeof(AttackEvent)));
-
-        for (int i = 0; i < guids.Length; i++)
+        List<AttackEvent> attackEvents = new List<AttackEvent>();
+        attackEvents = Resources.LoadAll<AttackEvent>("AttackEvents").ToList();
+        foreach (AttackEvent attackEvent in attackEvents)
         {
-            string assetPath = AssetDatabase.GUIDToAssetPath(guids[i]);
-            AttackEvent attackEvent = AssetDatabase.LoadAssetAtPath<AttackEvent>(assetPath);
             attackEventsDatabase.Add(attackEvent);
         }
 
@@ -121,7 +117,6 @@ public class SongSave : MonoBehaviour
     {
         for (int i = 0; i < blockDataSize; ++i)
         {
-     
             if (blockDatas[index].events[i] != null)
             {
                 blockDatas[index].events[i].Fire();

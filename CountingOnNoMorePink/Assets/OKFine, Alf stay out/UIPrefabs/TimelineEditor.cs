@@ -4,8 +4,11 @@ using TMPro;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEditor; //Remove this once we figure out proper file management
 using UnityEngine.SceneManagement;
+
+#if UNITY_EDITOR
+using UnityEditor; //Remove this once we figure out proper file management
+#endif
 
 public class TimelineEditor : MonoBehaviour
 {
@@ -125,7 +128,7 @@ public class TimelineEditor : MonoBehaviour
         phraseSelector.value = 0;
         currentPhrase = phraseSelector.value;
         //load save
-        saveData.LoadSave("Assets/SongSaves/" + saveFileDropdown.GetSelectedSave() + ".txt");
+        saveData.LoadSave("Assets/Resources/SongSaves/" + saveFileDropdown.GetSelectedSave() + ".txt");
         //clear our phrases and regenerate ui
         phrases.Clear();
         GenerateTimelineUI();
@@ -181,7 +184,7 @@ public class TimelineEditor : MonoBehaviour
 
         try
         {
-            using (StreamWriter writer = new StreamWriter("Assets/SongSaves/" + saveName + ".txt"))
+            using (StreamWriter writer = new StreamWriter("Assets/Resources/SongSaves/" + saveName + ".txt"))
             {
                 foreach (string s in saveData)
                 {
@@ -193,7 +196,12 @@ public class TimelineEditor : MonoBehaviour
         {
             Debug.LogError("couldn't find asset path to saves folder");
         }
-        AssetDatabase.Refresh(); //Take this out later
+
+
+//#if UNITY_EDITOR
+//        AssetDatabase.Refresh(); //Take this out later
+//#endif
+
         saveFileDropdown.LoadSavesFromFolder(); //refresh dropdown
         Debug.Log("Saved");
     }

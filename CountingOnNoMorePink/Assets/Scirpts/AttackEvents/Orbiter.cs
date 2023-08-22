@@ -4,30 +4,46 @@ using UnityEngine;
 
 public class Orbiter : MonoBehaviour
 {
+    public Material baseMat;
+
     Transform origin;
-    int lifetime;
+
     float speed;
     int direction;
     float angle;
-    float angleOffset;
+    float angleOffset;//offset of 
     float distance;
+
+    //these are measured in beats
+    int duration;
+    int warmup;
+
+    bool isActive;
+    bool isDestroyed;
+
+    //boppin
     float bopIndex;
     float bopTimer;
 
     Rigidbody rb;
+    Collider col;
 
-    public void Initialise(int lifetime, float speed, int direction, float offset, float bopIndex)
+    public void Initialise(int lifetime, float speed, int direction, float offset, float bopIndex, int warmup)
 
     {
         rb = GetComponent<Rigidbody>();
+        col = GetComponent<Collider>();
+        col.enabled = false;
+        
         BeatBroadcast.instance.timelineInfo.onBeatTrigger += OnBeat;
         origin = Wobbit.instance.bossOrigin;
-        this.lifetime = lifetime;
+        this.duration = lifetime;
         angleOffset = offset;
         distance = Vector3.Distance(transform.position, origin.position);
         this.speed = speed;
         this.direction = direction;
         this.bopIndex = bopIndex;
+        this.warmup = warmup;
     }
 
     // Update is called once per frame
@@ -35,12 +51,36 @@ public class Orbiter : MonoBehaviour
     {
         angle += speed * direction * Time.deltaTime;
         bopTimer += Time.deltaTime;
-        float lerp = bopTimer/bopIndex;
-        if(lerp < 1)
-        {
-            transform.localScale = Vector3.Lerp(Vector3.one * 2f, Vector3.one,lerp);
-        }
 
+        if (!isDestroyed)
+        {
+            //bop while active
+            if (isActive)
+            {
+
+                float lerp = bopTimer / bopIndex;
+                if (lerp < 1)
+                {
+                    transform.localScale = Vector3.Lerp(Vector3.one * 2f, Vector3.one, lerp);
+                }
+            }
+            else
+            {
+                float halfBop = BeatBroadcast.instance.beatLength / 2;
+                float lerp = Mathf.PingPong(bopTimer, halfBop) / halfBop;
+                transform.localScale = Vector3.Lerp(Vector3.one * 0.01f, Vector3.one, lerp);
+            }
+        }
+        else
+        {
+            float lerp = bopTimer / BeatBroadcast.instance.beatLength;
+            transform.localScale = Vector3.Lerp(Vector3.one, Vector3.one * 0.01f, lerp);
+            if(lerp >= 1)
+            {
+                Destroy(gameObject);
+            }
+
+        }
     }
 
     private void FixedUpdate()
@@ -51,13 +91,37 @@ public class Orbiter : MonoBehaviour
 
     void OnBeat(int measure, int beat)
     {
-        lifetime -= 1;
-        
-        //transform.localScale = Vector3.one * 1.5f;
-        bopTimer = 0;
+        if (isActive)
+        {
+            duration -= 1;
 
-        if (lifetime <= 0)
-            Destroy(gameObject);
+            //transform.localScale = Vector3.one * 1.5f;
+            bopTimer = 0;
+
+            if (duration <= 0)
+            {
+                bopTimer = 0;
+                isDestroyed = true;
+                col.enabled = false;
+            }
+        }
+        else
+        {
+            warmup -= 1;
+            if(warmup <= 0)
+            {
+                Activate();
+            }
+        }
+    }
+
+
+    void Activate()
+    {
+        isActive = true;
+        bopTimer = 0;
+        col.enabled = true;
+        GetComponentInChildren<Renderer>().material = baseMat;
     }
 
     private void OnDestroy()

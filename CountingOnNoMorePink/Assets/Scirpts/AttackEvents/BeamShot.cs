@@ -12,8 +12,12 @@ public class BeamShot : AttackEvent
     public float distance;
     public float minDistance;
     public float arcOffset;
-    public float popTime;
+
+    public int duration;
+
+
     public BeamType type;
+    public BeamBehaviour behaviour;
 
     public float arcStep;
 
@@ -21,6 +25,7 @@ public class BeamShot : AttackEvent
     LineTracer tempTracer;
 
     public enum BeamType { Instant,RadiateInward,RadiateOutward}
+    public enum BeamBehaviour { BeatToBeat, BetweenBeats}
 
     public override void Fire()
     {
@@ -63,7 +68,7 @@ public class BeamShot : AttackEvent
                 Vector3 point = Utilities.PointWithPolarOffset(origin.position, dist + minDistance, rotationO + (arcStep * j));
                 //BoomBlock b = Instantiate(Wobbit.instance.zoneFab, point, Quaternion.identity);
 
-                DelayedDangerZone dd = Instantiate(Wobbit.instance.delayedDangerZoneTest,point,Quaternion.identity);
+                DelayedDangerZone delayedZone = Instantiate(Wobbit.instance.delayedDangerZoneTest,point,Quaternion.identity);
 
                 //assign waypoints to tracer (revisit this)
                 if (lineTracer != null)
@@ -71,51 +76,69 @@ public class BeamShot : AttackEvent
                     tempTracer.waypoints.Add(point);
                 }
 
-                popTime = BeatBroadcast.instance.beatLength / segments;
-                
-                float pop = popTime;
-
-                if(type == BeamType.RadiateOutward) { pop = popTime * j;}
-
-                if (type == BeamType.RadiateInward) 
-                { 
-                    pop = (popTime * segments) - (popTime * j);
-                    if (lineTracer != null)
-                    {
-                        tempTracer.waypoints.Reverse();
-                    }
-                }
-
-                dd.InitialiseOnTimer(pop, popTime, popTime);
-
-                /*
-                int pop = 1;
-
-                if (type == BeamType.RadiateOutward) { pop = j; }
-
-                if (type == BeamType.RadiateInward)
+                switch(behaviour)
                 {
-                    pop = (int)segments - j;
-                    if (lineTracer != null)
-                    {
-                        tempTracer.waypoints.Reverse();
-                    }
+                    case BeamBehaviour.BeatToBeat:
+                        OnBeat(delayedZone, j);
+
+                        break;
+                    case BeamBehaviour.BetweenBeats:
+                        OnTimer(delayedZone, j);
+                        break;
                 }
 
-                dd.InitialiseOnBeat(pop, 1);
-                */
-
+               
             }
 
             //assign waypoints to tracer (revisit this)
             if (lineTracer != null)
             {
-                tempTracer.Initialise(popTime, 2);
+                tempTracer.Initialise(BeatBroadcast.instance.beatLength * duration, 2);
             }
 
         }
 
+        void OnTimer(DelayedDangerZone dd, int index)
+        {
+            if (duration <= 0) duration = 1; //min duration of 1 beat (maybe change later)
 
+            //multiply a single beatlength by the duration in beats, divide by segments to get time for each segment
+            float popTime = (BeatBroadcast.instance.beatLength * duration) / segments;
+
+            float pop = popTime;
+
+            if (type == BeamType.RadiateOutward) { pop = popTime * index; }
+
+            if (type == BeamType.RadiateInward)
+            {
+                pop = (popTime * segments) - (popTime * index);
+                if (lineTracer != null)
+                {
+                    tempTracer.waypoints.Reverse();
+                }
+            }
+
+            dd.InitialiseOnTimer(pop, popTime, popTime);
+
+        }
+
+        void OnBeat(DelayedDangerZone dd, int index)
+        {
+            int pop = 1;
+
+            if (type == BeamType.RadiateOutward) { pop = index;}
+
+            if (type == BeamType.RadiateInward)
+            {
+                pop = (int)segments - index;
+                if (lineTracer != null)
+                {
+                    tempTracer.waypoints.Reverse();
+                }
+            }
+
+            dd.InitialiseOnBeat(pop, 1);
+        }
 
     }
 }
