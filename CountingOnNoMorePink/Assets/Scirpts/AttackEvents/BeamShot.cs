@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +22,11 @@ public class BeamShot : AttackEvent
 
     public float arcStep;
 
+    public DelayedDangerZone effectsPrefab;
+
+    public Artillery artilleryEffect;
+
+    //phase out this stuff
     public LineTracer lineTracer;
     LineTracer tempTracer;
 
@@ -66,9 +72,11 @@ public class BeamShot : AttackEvent
             {
                 float dist = increment * j;
                 Vector3 point = Utilities.PointWithPolarOffset(origin.position, dist + minDistance, rotationO + (arcStep * j));
-                //BoomBlock b = Instantiate(Wobbit.instance.zoneFab, point, Quaternion.identity);
+            
 
-                DelayedDangerZone delayedZone = Instantiate(Wobbit.instance.delayedDangerZoneTest,point,Quaternion.identity);
+                if (effectsPrefab == null) effectsPrefab = Wobbit.instance.delayedDangerZoneTest;
+
+                DelayedDangerZone delayedZone = Instantiate(effectsPrefab,point,Quaternion.identity);
 
                 //assign waypoints to tracer (revisit this)
                 if (lineTracer != null)
@@ -87,14 +95,43 @@ public class BeamShot : AttackEvent
                         break;
                 }
 
-               
+                  //assign waypoints to tracer (revisit this)
+                if (lineTracer != null)
+                {
+                    tempTracer.Initialise(BeatBroadcast.instance.beatLength * duration, 2);
+                }
+
+
+
+                if (artilleryEffect != null)
+                {
+                    if (duration <= 0) duration = 1;
+                    float travelTime = behaviour == BeamBehaviour.BeatToBeat ? BeatBroadcast.instance.beatLength : (BeatBroadcast.instance.beatLength * duration) / segments;
+
+
+                    if (type == BeamType.RadiateOutward) { travelTime = travelTime * j; }
+
+                    if (type == BeamType.RadiateInward)
+                    {
+                        travelTime = (travelTime * segments) - (travelTime * j);
+                   
+                    }
+
+                    Vector3 launchPoint = origin.position;
+
+                    float distanceToCentre = Vector3.Distance(origin.position, point) / 2;
+                    Vector3 directionToTarget = new Vector3(point.x - origin.position.x, 0 ,point.z - origin.position.z).normalized;
+
+                    Vector3 anchorPoint = origin.position + (distanceToCentre * directionToTarget);
+                    anchorPoint = new Vector3(anchorPoint.x + Random.Range(-5f, 5f), anchorPoint.y + 30, anchorPoint.z + Random.Range(-5f, 5f));
+
+                    Artillery effect = Instantiate(artilleryEffect, origin.position, Quaternion.identity);
+                    effect.Initialise(launchPoint, anchorPoint, point, travelTime);
+                }
+
             }
 
-            //assign waypoints to tracer (revisit this)
-            if (lineTracer != null)
-            {
-                tempTracer.Initialise(BeatBroadcast.instance.beatLength * duration, 2);
-            }
+         
 
         }
 
@@ -119,7 +156,7 @@ public class BeamShot : AttackEvent
             }
 
             dd.InitialiseOnTimer(pop, popTime, popTime);
-
+          
         }
 
         void OnBeat(DelayedDangerZone dd, int index)

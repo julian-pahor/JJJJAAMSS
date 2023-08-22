@@ -123,7 +123,8 @@ public class DelayedDangerZone : MonoBehaviour
     }
 
     void Activate()
-    {
+    {  
+        tellEffect.gameObject.SetActive(false);
         launchEffect.Play(true);
         isActive = true;
         col.enabled = true;
@@ -131,7 +132,7 @@ public class DelayedDangerZone : MonoBehaviour
     //turns off collider, but keeps the object around for a beat to let the particles play
     void Deactivate()
     {
-        tellEffect.gameObject.SetActive(false);
+      
         col.enabled = false;
     }
 
