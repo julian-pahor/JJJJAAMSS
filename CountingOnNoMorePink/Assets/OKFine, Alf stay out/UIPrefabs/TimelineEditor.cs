@@ -4,9 +4,10 @@ using TMPro;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEditor; //Remove this once we figure out proper file management
 using UnityEngine.SceneManagement;
-
+#if UNITY_EDITOR
+using UnityEditor; //Remove this once we figure out proper file management
+#endif
 public class TimelineEditor : MonoBehaviour
 {
     public List<BeatBlokk> beatTimeLine = new List<BeatBlokk>();
@@ -193,7 +194,9 @@ public class TimelineEditor : MonoBehaviour
         {
             Debug.LogError("couldn't find asset path to saves folder");
         }
+#if UNITY_EDITOR
         AssetDatabase.Refresh(); //Take this out later
+#endif
         saveFileDropdown.LoadSavesFromFolder(); //refresh dropdown
         Debug.Log("Saved");
     }
