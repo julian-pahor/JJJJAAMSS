@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
+using System.Linq;
+
 //Helper component that checks the SongSave folder for save files and creates a dropdown list of them
 //returns a string that should correspond to the name of the file we want to load
 public class SaveFileDropdown : MonoBehaviour
@@ -20,22 +19,20 @@ public class SaveFileDropdown : MonoBehaviour
     }
 
     //TODO: THIS WILL NOT WORK IN BUILD (apparently) - FIND A WAY THAT WILL (https://docs.unity3d.com/ScriptReference/Resources.LoadAll.html)
+    //Julian has been here and has fixed it so now it will work in build :^)
     public void LoadSavesFromFolder()
     {
         //clear any existing files
         files.Clear();
+        dropdown.ClearOptions();
 
-#if UNITY_EDITOR
-        //grab all text files in the saves folder
-        string[] guids = AssetDatabase.FindAssets("t:TextAsset", new[] { "Assets/SongSaves" });
-        //add their names to the list
-        for (int i = 0; i < guids.Length; i++)
+        List<TextAsset> songSaves = new List<TextAsset>();
+        songSaves = Resources.LoadAll<TextAsset>("SongSaves").ToList();
+        foreach(TextAsset file in songSaves)
         {
-            string assetPath = AssetDatabase.GUIDToAssetPath(guids[i]);
-            TextAsset file = AssetDatabase.LoadAssetAtPath<TextAsset>(assetPath);
             files.Add(file.name);
         }
-#endif
+
         dropdown.AddOptions(files);
     }
 

@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
+using System.Linq;
 
 public class AttackEventList : MonoBehaviour
 {
@@ -28,20 +26,18 @@ public class AttackEventList : MonoBehaviour
     public void GetAllAttacks()
     {
         list.Clear();
-#if UNITY_EDITOR
-        string[] guids = AssetDatabase.FindAssets(string.Format("t:{0}", typeof(AttackEvent)));
 
-        for(int i = 0; i < guids.Length; i++)
+        List<AttackEvent> attackEvents = new List<AttackEvent>();
+        attackEvents = Resources.LoadAll<AttackEvent>("AttackEvents").ToList();
+
+        foreach(AttackEvent ae in attackEvents)
         {
-            string assetPath = AssetDatabase.GUIDToAssetPath(guids[i]);
-            AttackEvent attackEvent = AssetDatabase.LoadAssetAtPath<AttackEvent>(assetPath);
-
             AttackEventHolder aeh = Instantiate(holderPreFab, contentView);
 
-            aeh.SetEvent(attackEvent);
+            aeh.SetEvent(ae);
 
             list.Add(aeh);
         }
-#endif
+
     }
 }
