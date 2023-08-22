@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.UI.Image;
 
 //Used by attack events to create an area with a 'tell' that will become dangerous after a fixed number of beats
 public class DelayedDangerZone : MonoBehaviour
@@ -17,13 +19,21 @@ public class DelayedDangerZone : MonoBehaviour
 
     bool isActive; //if we're dangerous or not
     Collider col;
+    Artillery artilleryTracer;
 
     //timers for if we're not on beat
     float armTime;
     float activeTime;
     float timer;
+ 
     bool isArmed;
+    bool tracerLaunched;
 
+    //do this before initialising yeh that makes sense
+    public void SetArtilleryTracer(Artillery tracer)
+    {
+        artilleryTracer = tracer;
+    }
     public void InitialiseOnBeat(int armTime, int activeTime)
     {
         BeatBroadcast.instance.timelineInfo.onBeatTrigger += Tick;
@@ -38,7 +48,7 @@ public class DelayedDangerZone : MonoBehaviour
 
     public void InitialiseOnTimer(float delay, float armTime, float activeTime)
     {
-    
+        
         beatLocked = false;
         timer = delay + armTime + activeTime + 1; //total time we're active for (plus 1 sec for particles)
         col = GetComponent<Collider>();
@@ -49,7 +59,7 @@ public class DelayedDangerZone : MonoBehaviour
         this.activeTime = activeTime + 1;
 
     }
-
+    //FIX YOUR MATHEMATICS ALFRED
     private void Update()
     {
         if (beatLocked)
@@ -58,10 +68,17 @@ public class DelayedDangerZone : MonoBehaviour
 
         if(!isActive)
         {
-            if(!isArmed && timer <= armTime)
+            //arm
+            if(!tracerLaunched && timer <= (armTime - activeTime) *2)
+            {
+                StartTracer(armTime);
+                tracerLaunched = true;
+            }
+            else if (!isArmed && timer <= armTime)
             {
                 tellEffect.Play(true);
                 isArmed = true;
+                //StartTracer(armTime- activeTime); 
             }
 
             else if(timer <= activeTime)
@@ -97,9 +114,15 @@ public class DelayedDangerZone : MonoBehaviour
             {
                 Activate();
             }
-            else if(armBeats == 1)
+            else if(armBeats == 1) //arm
             {
                 tellEffect.Play(true);
+                //(BeatBroadcast.instance.beatLength);
+            }
+            else if (armBeats == 2) //aUHHHHHHHUAHUAHG
+            {
+                //tellEffect.Play(true);
+                StartTracer(BeatBroadcast.instance.beatLength);
             }
             armBeats -= 1;
             //change value after checks
@@ -134,6 +157,24 @@ public class DelayedDangerZone : MonoBehaviour
     {
       
         col.enabled = false;
+    }
+
+    void StartTracer(float timing)
+    {
+        if (artilleryTracer == null)
+            return;
+
+        Vector3 launchPoint = Wobbit.instance.bossOrigin.position; //hmmmmm
+
+        float distanceToCentre = Vector3.Distance(launchPoint, transform.position) / 2;
+        Vector3 directionToTarget = new Vector3(transform.position.x - launchPoint.x, 0, transform.position.z - launchPoint.z).normalized;
+        Vector3 anchorPoint = launchPoint + (distanceToCentre * directionToTarget);
+        anchorPoint = new Vector3(anchorPoint.x, anchorPoint.y + 20, anchorPoint.z);
+
+        Artillery effect = Instantiate(artilleryTracer, launchPoint, Quaternion.identity);
+        effect.Initialise(launchPoint, anchorPoint, transform.position, timing);
+
+
     }
 
     private void OnDestroy()

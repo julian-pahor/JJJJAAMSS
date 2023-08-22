@@ -84,6 +84,11 @@ public class BeamShot : AttackEvent
                     tempTracer.waypoints.Add(point);
                 }
 
+                if (artilleryEffect != null)
+                {
+                    delayedZone.SetArtilleryTracer(artilleryEffect);
+                }
+                                
                 switch(behaviour)
                 {
                     case BeamBehaviour.BeatToBeat:
@@ -103,31 +108,7 @@ public class BeamShot : AttackEvent
 
 
 
-                if (artilleryEffect != null)
-                {
-                    if (duration <= 0) duration = 1;
-                    float travelTime = behaviour == BeamBehaviour.BeatToBeat ? BeatBroadcast.instance.beatLength : (BeatBroadcast.instance.beatLength * duration) / segments;
-
-
-                    if (type == BeamType.RadiateOutward) { travelTime = travelTime * j; }
-
-                    if (type == BeamType.RadiateInward)
-                    {
-                        travelTime = (travelTime * segments) - (travelTime * j);
-                   
-                    }
-
-                    Vector3 launchPoint = origin.position;
-
-                    float distanceToCentre = Vector3.Distance(origin.position, point) / 2;
-                    Vector3 directionToTarget = new Vector3(point.x - origin.position.x, 0 ,point.z - origin.position.z).normalized;
-
-                    Vector3 anchorPoint = origin.position + (distanceToCentre * directionToTarget);
-                    anchorPoint = new Vector3(anchorPoint.x + Random.Range(-5f, 5f), anchorPoint.y + 30, anchorPoint.z + Random.Range(-5f, 5f));
-
-                    Artillery effect = Instantiate(artilleryEffect, origin.position, Quaternion.identity);
-                    effect.Initialise(launchPoint, anchorPoint, point, travelTime);
-                }
+               
 
             }
 
