@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e453eeab11e295641a87d35b83729137, type: 3}
-  m_Name: Orbiter 2
+  m_Name: Orbiter 3 (Spiral)
   m_EditorClassIdentifier: 
   arm: 0
-  beams: 2
+  beams: 3
   segments: 20
   firingArc: 360
   distance: 16
   minDistance: 1
   arcOffset: 0
   lifeTime: 18
-  direction: -1
-  speed: 60
+  direction: 1
+  speed: 5
   type: 0
-  arcStep: 0
+  arcStep: 5
