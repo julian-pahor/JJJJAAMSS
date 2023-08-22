@@ -1,8 +1,11 @@
+using OpenCover.Framework.Model;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using Unity.VisualScripting;
+using UnityEditor.PackageManager;
 using UnityEngine;
+using System.IO;
 
 public static class Utilities
 {
@@ -70,5 +73,48 @@ public static class Utilities
 
     }
   
+
+    //Save and Load DataClasses And Functionality
+
+    public class GameData
+    {
+        //Load it up with variables of whatever we need to save
+        public int phraseCount;
+        public int phraseLength;
+
+        public string[] fileData;
+    }
+
+    public static void SaveData(GameData saveData, string saveName)
+    {
+        string path = $"Assets/Resources/SongSaves/{saveName}.json";
+        string jsonData = JsonUtility.ToJson(saveData);
+        System.IO.File.WriteAllText(path, jsonData);
+    }
+
+    public static GameData LoadData(string saveName)
+    {
+        
+        string path = $"Assets/Resources/SongSaves/{saveName}.json";
+
+        if (!System.IO.File.Exists(path)) return null;
+
+        path = System.IO.File.ReadAllText(path);
+        GameData thisData = new GameData();
+        thisData = JsonUtility.FromJson<GameData>(path);
+
+        return thisData;
+    }
+
+    public static void DeleteData(string saveName)
+    {
+        string path = $"Assets/Resources/SongSaves/{saveName}.json";
+
+        if (System.IO.File.Exists(path))
+        {
+            System.IO.File.Delete(path);
+        }
+
+    }
 
 }

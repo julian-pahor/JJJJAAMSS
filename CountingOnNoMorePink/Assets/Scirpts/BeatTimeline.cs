@@ -54,7 +54,7 @@ public class BeatTimeline : MonoBehaviour
         string saveName = saveFileDropdown.GetSelectedSave();
         if(saveName != null && saveName != string.Empty)
         {
-            saveFile.LoadSave("Assets/SongSaves/" + saveName + ".txt");
+            saveFile.LoadSave("Assets/Resources/SongSaves/" + saveName + ".txt");
             BeatBroadcast.instance.PlayMusic();
             return;
         }
