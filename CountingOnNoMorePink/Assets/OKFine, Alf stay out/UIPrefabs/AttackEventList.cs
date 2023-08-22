@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 public class AttackEventList : MonoBehaviour
 {
@@ -26,7 +28,7 @@ public class AttackEventList : MonoBehaviour
     public void GetAllAttacks()
     {
         list.Clear();
-
+#if UNITY_EDITOR
         string[] guids = AssetDatabase.FindAssets(string.Format("t:{0}", typeof(AttackEvent)));
 
         for(int i = 0; i < guids.Length; i++)
@@ -40,6 +42,6 @@ public class AttackEventList : MonoBehaviour
 
             list.Add(aeh);
         }
-
+#endif
     }
 }

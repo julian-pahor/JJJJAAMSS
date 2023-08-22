@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 using TMPro;
-
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 //Helper component that checks the SongSave folder for save files and creates a dropdown list of them
 //returns a string that should correspond to the name of the file we want to load
 public class SaveFileDropdown : MonoBehaviour
@@ -23,6 +24,8 @@ public class SaveFileDropdown : MonoBehaviour
     {
         //clear any existing files
         files.Clear();
+
+#if UNITY_EDITOR
         //grab all text files in the saves folder
         string[] guids = AssetDatabase.FindAssets("t:TextAsset", new[] { "Assets/SongSaves" });
         //add their names to the list
@@ -32,7 +35,7 @@ public class SaveFileDropdown : MonoBehaviour
             TextAsset file = AssetDatabase.LoadAssetAtPath<TextAsset>(assetPath);
             files.Add(file.name);
         }
-
+#endif
         dropdown.AddOptions(files);
     }
 

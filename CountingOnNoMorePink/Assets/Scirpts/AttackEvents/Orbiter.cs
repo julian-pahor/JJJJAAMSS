@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Orbiter : MonoBehaviour
 {
+    public Material warningMat;
+    public Material baseMat;
+
     Transform origin;
     int lifetime;
     float speed;
@@ -11,6 +14,9 @@ public class Orbiter : MonoBehaviour
     float angle;
     float angleOffset;
     float distance;
+
+
+    //boppin
     float bopIndex;
     float bopTimer;
 

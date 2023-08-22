@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-
+#if UNITY_EDITOR
 using UnityEditor;
-
+#endif
 public class SongSave : MonoBehaviour
 {
     //song is list of phrases
@@ -31,7 +31,7 @@ public class SongSave : MonoBehaviour
         blockDatas.Clear();
 
         //grab all attack event data
-
+#if UNITY_EDITOR
         string[] guids = AssetDatabase.FindAssets(string.Format("t:{0}", typeof(AttackEvent)));
 
         for (int i = 0; i < guids.Length; i++)
@@ -40,7 +40,7 @@ public class SongSave : MonoBehaviour
             AttackEvent attackEvent = AssetDatabase.LoadAssetAtPath<AttackEvent>(assetPath);
             attackEventsDatabase.Add(attackEvent);
         }
-
+#endif
         //try and load our text
         List<string> fileData = new List<string>();
         phraseCount = 0;
