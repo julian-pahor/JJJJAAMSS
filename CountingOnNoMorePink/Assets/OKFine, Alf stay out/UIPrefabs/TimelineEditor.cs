@@ -240,9 +240,9 @@ public class TimelineEditor : MonoBehaviour
 
         ///---JSON TESTING ENDS HERE
 
-        //#if UNITY_EDITOR
-        //        AssetDatabase.Refresh(); //Take this out later
-        //#endif
+#if UNITY_EDITOR
+        AssetDatabase.Refresh();
+#endif
 
         saveFileDropdown.LoadSavesFromFolder(); //refresh dropdown
         Debug.Log("Saved");
