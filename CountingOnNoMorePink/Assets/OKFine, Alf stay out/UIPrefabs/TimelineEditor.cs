@@ -212,8 +212,6 @@ public class TimelineEditor : MonoBehaviour
             return;
         }
 
-        //wipe old save
-
         Utilities.GameData gameData = new Utilities.GameData();
         //List<string> saveData = new List<string>();
         gameData.phraseCount = songData.Count;
@@ -323,9 +321,5 @@ public class BlockData
         {
             bb.slots[i].SetSlotEvent(events[i]);
         }
-      
     }
-
-   
-
 }
