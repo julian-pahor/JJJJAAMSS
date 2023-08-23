@@ -37,54 +37,84 @@ public class SongSave : MonoBehaviour
             attackEventsDatabase.Add(attackEvent);
         }
 
+        ////try and load our text
+        //List<string> fileData = new List<string>();
+        //phraseCount = 0;
+        //phraseLength = 0;
+
+        //try
+        //{
+
+        //    using (StreamReader sr = new StreamReader(path))
+        //    {
+        //        //read first two lines for count and length
+        //        int.TryParse(sr.ReadLine(), out phraseCount);
+        //        int.TryParse(sr.ReadLine(), out phraseLength);
+
+        //        //remaining data is attackevent ids
+        //        string line;
+        //        while ((line = sr.ReadLine()) != null)
+        //        {
+        //            fileData.Add(line);
+        //        }
+        //    }
+        //}
+        //catch 
+        //{
+        //    // will see this 90% of the time
+        //    Debug.Log("file bad");
+        //    return;
+        //}
+
+        //int totalbeats = phraseCount * phraseLength;
+        //int fileIndex = 0; //current position in the file
+
+        ////now setup blockdata list
+
+        ////for every beat block
+        //for(int i = 0; i < totalbeats; i++)
+        //{
+        //    //create set of data
+        //    BlockData b = new BlockData(blockDataSize);
+
+        //    //set each slot to the attack event (comparing names in database list)
+        //    for(int j = 0; j < blockDataSize; j++)
+        //    {
+        //        b.events[j] = GetAttackEvent(fileData[fileIndex]);
+        //        fileIndex++;
+        //    }
+        //    blockDatas.Add(b);
+        //}
+
+
+        ///---- JSON TESTING BEGINS HERE
+        ///
+
         //try and load our text
-        List<string> fileData = new List<string>();
-        phraseCount = 0;
-        phraseLength = 0;
+        Utilities.GameData thisData = Utilities.LoadData(path);
 
-        try
-        {
+        int totalbeats = thisData.phraseCount * thisData.phraseLength;
+        this.phraseCount = thisData.phraseCount;
+        this.phraseLength = thisData.phraseLength;
+        int fileIndex = 0;
 
-            using (StreamReader sr = new StreamReader(path))
-            {
-                //read first two lines for count and length
-                int.TryParse(sr.ReadLine(), out phraseCount);
-                int.TryParse(sr.ReadLine(), out phraseLength);
-
-                //remaining data is attackevent ids
-                string line;
-                while ((line = sr.ReadLine()) != null)
-                {
-                    fileData.Add(line);
-                }
-            }
-        }
-        catch 
-        {
-            // will see this 90% of the time
-            Debug.Log("file bad");
-            return;
-        }
-
-        int totalbeats = phraseCount * phraseLength;
-        int fileIndex = 0; //current position in the file
-
-        //now setup blockdata list
 
         //for every beat block
-        for(int i = 0; i < totalbeats; i++)
+        for (int i = 0; i < totalbeats; i++)
         {
             //create set of data
             BlockData b = new BlockData(blockDataSize);
-            
+
             //set each slot to the attack event (comparing names in database list)
-            for(int j = 0; j < blockDataSize; j++)
+            for (int j = 0; j < blockDataSize; j++)
             {
-                b.events[j] = GetAttackEvent(fileData[fileIndex]);
+                b.events[j] = GetAttackEvent(thisData.fileData[fileIndex]);
                 fileIndex++;
             }
             blockDatas.Add(b);
         }
+
+        ///---- JSON TESTING ENDS HERE
 
     }
 

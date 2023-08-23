@@ -128,7 +128,7 @@ public class TimelineEditor : MonoBehaviour
         phraseSelector.value = 0;
         currentPhrase = phraseSelector.value;
         //load save
-        saveData.LoadSave("Assets/Resources/SongSaves/" + saveFileDropdown.GetSelectedSave() + ".txt");
+        saveData.LoadSave(saveFileDropdown.GetSelectedSave());
         //clear our phrases and regenerate ui
         phrases.Clear();
         GenerateTimelineUI();
@@ -144,31 +144,83 @@ public class TimelineEditor : MonoBehaviour
         Debug.Log("Load complete");
     }
 
+    
+
     //Trying to write songdata to text file god speed me
     public void SaveSong(List<Phrase> songData)
     {
+        //if (songData.Count == 0)
+        //    return;
+
+        //string saveName = saveFileNameField.text;
+        //if(saveName == string.Empty)
+        //{
+        //    Debug.LogWarning("save name cannot be blank");
+        //    return;
+        //}
+
+        ////wipe old save
+        //List<string> saveData = new List<string>();
+        //int phraseCount = songData.Count;
+        //int phraseLength = songData[0].phraseLength;
+
+        ////load length and number of phrases
+        //saveData.Add(phraseCount.ToString());
+        //saveData.Add(phraseLength.ToString());
+
+        //foreach (Phrase phrase in songData)
+        //{
+
+        //    //each phrase has 16 blocks
+        //    foreach (BlockData blockData in phrase.phraseData)
+        //    {
+        //        //gets the array of event slots out of blockdata
+        //        for (int i = 0; i < blockData.events.Length; i++)
+        //        {
+        //            string reference = blockData.events[i] == null ? "null" : blockData.events[i].name;
+
+        //            saveData.Add(reference);
+        //        }
+        //    }
+        //}
+
+        //try
+        //{
+        //    using (StreamWriter writer = new StreamWriter("Assets/Resources/SongSaves/" + saveName + ".txt"))
+        //    {
+        //        foreach (string s in saveData)
+        //        {
+        //            writer.WriteLine(s);
+        //        }
+        //    }
+        //}
+        //catch
+        //{
+        //    Debug.LogError("couldn't find asset path to saves folder");
+        //}
+
+        ///----JSON TESTING BEGINS HERE
+        ///
+
         if (songData.Count == 0)
             return;
 
         string saveName = saveFileNameField.text;
-        if(saveName == string.Empty)
+        if (saveName == string.Empty)
         {
             Debug.LogWarning("save name cannot be blank");
             return;
         }
 
         //wipe old save
-        List<string> saveData = new List<string>();
-        int phraseCount = songData.Count;
-        int phraseLength = songData[0].phraseLength;
 
-        //load length and number of phrases
-        saveData.Add(phraseCount.ToString());
-        saveData.Add(phraseLength.ToString());
+        Utilities.GameData gameData = new Utilities.GameData();
+        //List<string> saveData = new List<string>();
+        gameData.phraseCount = songData.Count;
+        gameData.phraseLength = songData[0].phraseLength;
 
         foreach (Phrase phrase in songData)
         {
-
             //each phrase has 16 blocks
             foreach (BlockData blockData in phrase.phraseData)
             {
@@ -177,30 +229,20 @@ public class TimelineEditor : MonoBehaviour
                 {
                     string reference = blockData.events[i] == null ? "null" : blockData.events[i].name;
 
-                    saveData.Add(reference);
+                    gameData.fileData.Add(reference);
+                    
                 }
             }
         }
 
-        try
-        {
-            using (StreamWriter writer = new StreamWriter("Assets/Resources/SongSaves/" + saveName + ".txt"))
-            {
-                foreach (string s in saveData)
-                {
-                    writer.WriteLine(s);
-                }
-            }
-        }
-        catch
-        {
-            Debug.LogError("couldn't find asset path to saves folder");
-        }
+        //GameData should be filled appropraitely at this point
+        Utilities.SaveData(gameData, saveName);
 
+        ///---JSON TESTING ENDS HERE
 
-//#if UNITY_EDITOR
-//        AssetDatabase.Refresh(); //Take this out later
-//#endif
+        //#if UNITY_EDITOR
+        //        AssetDatabase.Refresh(); //Take this out later
+        //#endif
 
         saveFileDropdown.LoadSavesFromFolder(); //refresh dropdown
         Debug.Log("Saved");

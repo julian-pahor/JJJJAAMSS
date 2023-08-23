@@ -36,6 +36,25 @@ public class SaveFileDropdown : MonoBehaviour
         dropdown.AddOptions(files);
     }
 
+    //[ContextMenu("TRANSLATE (BECAREFUL) !AHHH!")]
+    //public void TranslateCurrentSaves()
+    //{
+    //    List<TextAsset> songSaves = new List<TextAsset>();
+    //    songSaves = Resources.LoadAll<TextAsset>("SongSaves").ToList();
+
+    //    List<Utilities.GameData> translatedSaves = new List<Utilities.GameData>();
+
+    //    foreach (TextAsset file in songSaves)
+    //    {
+    //        translatedSaves.Add(Utilities.TranslateData("Assets/Resources/SongSaves/" + file.name + ".txt"));
+    //    }
+
+    //    for (int i = 0; i < translatedSaves.Count; i++)
+    //    {
+    //        Utilities.SaveData(translatedSaves[i], songSaves[i].name);
+    //    }
+    //}
+
     public string GetSelectedSave()
     {
         if (files.Count == 0)
