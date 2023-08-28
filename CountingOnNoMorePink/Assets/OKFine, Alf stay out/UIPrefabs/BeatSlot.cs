@@ -66,6 +66,11 @@ public class BeatSlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPointer
     public void UpdateSlot()
     {
         uiCard.SetDisplay(attackEvent);
+
+        //THE CERBERUS OPERATOR
+
+        GetComponent<Image>().color = attackEvent == null ? baseColour : editor.eventEditor.currentlySelectedEvent == attackEvent ? selectedColour : baseColour;
+        
     }
 
     //create a dummy object to allow draggin between slots

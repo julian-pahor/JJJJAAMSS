@@ -28,7 +28,7 @@ public class EventEditor : MonoBehaviour
     public void SelectNewObject(AttackEvent attackEvent)
     {
 
-      
+        currentlySelectedEvent = attackEvent;
 
         //set all our values and display name to match the selected object
         if(attackEvent == null)
@@ -36,7 +36,7 @@ public class EventEditor : MonoBehaviour
             selectedEventName.text = "No event selected";
             return;
         }
-        currentlySelectedEvent = attackEvent;
+        
 
         selectedEventName.text = currentlySelectedEvent.name;
 

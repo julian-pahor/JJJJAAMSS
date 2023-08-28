@@ -11,16 +11,38 @@ public class ValueEditor : MonoBehaviour
 
     public Slider slider;
     public TextMeshProUGUI displayUI;
-    public InputField inputField;
+    public TMP_InputField inputField;
 
     string displayText;
     float currentValue;
 
-   
 
-    void Refresh(float value)
+    private void Start()
     {
-        inputField.text = value.ToString("0.00");
-        slider.value = value;
+        inputField.onEndEdit.AddListener(delegate { OnEditInput(); });
+        slider.onValueChanged.AddListener(delegate { OnEditSlider(); });
+    }
+
+    void OnEditSlider()
+    {
+        currentValue = slider.value;
+        Refresh(currentValue);
+    }
+
+    void OnEditInput()
+    {
+        float parsed;
+        if (float.TryParse(inputField.text, out parsed))
+        {
+            Refresh(parsed);
+        }
+    }
+
+    void Refresh(float newValue)
+    {
+        currentValue = newValue;
+        inputField.text = currentValue.ToString("0.00");
+        slider.value = currentValue;
+      
     }
 }

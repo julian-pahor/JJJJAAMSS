@@ -68,6 +68,10 @@ public class TimelineEditor : MonoBehaviour
     public void SelectEvent(AttackEvent attackEvent)
     {
         eventEditor.SelectNewObject(attackEvent);
+        foreach (BeatBlokk b in beatTimeLine)
+        {
+            b.Updoot();
+        }
     }
 
     //creates the beat blocks for each phrase in our phrase list
