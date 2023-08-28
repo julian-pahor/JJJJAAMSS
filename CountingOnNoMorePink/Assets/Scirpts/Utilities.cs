@@ -82,7 +82,45 @@ public static class Utilities
         public int phraseCount;
         public int phraseLength;
 
-        public string[] fileData;
+        public List<string> fileData;
+
+        public GameData()
+        {
+            fileData = new List<string>();
+        }
+    }
+
+    public static GameData TranslateData(string path)
+    {
+        GameData data = new GameData();
+
+        try
+        {
+            using (StreamReader sr = new StreamReader(path))
+            {
+                //read first two lines for count and length
+                int.TryParse(sr.ReadLine(), out data.phraseCount);
+                int.TryParse(sr.ReadLine(), out data.phraseLength);
+
+                //remaining data is attackevent ids
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    //fileData.Add(line);
+                    data.fileData.Add(line);
+                }
+            }
+
+            return data;
+        }
+        catch
+        {
+            // will see this 90% of the time
+            Debug.Log("file bad");
+            return null;
+        }
+        
+        
     }
 
     public static void SaveData(GameData saveData, string saveName)
@@ -114,7 +152,5 @@ public static class Utilities
         {
             System.IO.File.Delete(path);
         }
-
     }
-
 }

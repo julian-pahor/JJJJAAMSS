@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8783765161486864134
+--- !u!114 &-2330661389081061198
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10,24 +10,49 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Attacks/DemoAttack
+  m_Name: event:/Music/DemoLoop
   m_EditorClassIdentifier: 
-  Path: event:/Attacks/DemoAttack
+  Path: event:/Music/DemoLoop
   Guid:
-    Data1: 169840632
-    Data2: 1238137403
-    Data3: -537036153
-    Data4: 347810792
+    Data1: -1033962312
+    Data2: 1279856267
+    Data3: -1865157498
+    Data4: -892386967
   Banks:
-  - {fileID: -2905332157472219407}
-  IsStream: 0
+  - {fileID: 3082865066685349662}
+  IsStream: 1
   Is3D: 0
-  IsOneShot: 1
+  IsOneShot: 0
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 2229
---- !u!114 &-6774477133602550355
+  Length: 14769
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
+  m_Name: FMODStudioCache
+  m_EditorClassIdentifier: 
+  EditorBanks:
+  - {fileID: 1128078290026191828}
+  - {fileID: 3082865066685349662}
+  EditorEvents:
+  - {fileID: -2330661389081061198}
+  - {fileID: 8640161846128399619}
+  EditorParameters: []
+  MasterBanks:
+  - {fileID: 3082865066685349662}
+  StringsBanks:
+  - {fileID: 1128078290026191828}
+  cacheTime: 638288238531888661
+  cacheVersion: 131605
+--- !u!114 &1128078290026191828
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -47,7 +72,7 @@ MonoBehaviour:
   - Name: Desktop
     Value: 824
   Exists: 1
---- !u!114 &-2905332157472219407
+--- !u!114 &3082865066685349662
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -67,32 +92,7 @@ MonoBehaviour:
   - Name: Desktop
     Value: 220640
   Exists: 1
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
-  m_Name: FMODStudioCache
-  m_EditorClassIdentifier: 
-  EditorBanks:
-  - {fileID: -6774477133602550355}
-  - {fileID: -2905332157472219407}
-  EditorEvents:
-  - {fileID: 6729639689084861280}
-  - {fileID: -8783765161486864134}
-  EditorParameters: []
-  MasterBanks:
-  - {fileID: -2905332157472219407}
-  StringsBanks:
-  - {fileID: -6774477133602550355}
-  cacheTime: 638288238531888661
-  cacheVersion: 131605
---- !u!114 &6729639689084861280
+--- !u!114 &8640161846128399619
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -102,20 +102,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music/DemoLoop
+  m_Name: event:/Attacks/DemoAttack
   m_EditorClassIdentifier: 
-  Path: event:/Music/DemoLoop
+  Path: event:/Attacks/DemoAttack
   Guid:
-    Data1: -1033962312
-    Data2: 1279856267
-    Data3: -1865157498
-    Data4: -892386967
+    Data1: 169840632
+    Data2: 1238137403
+    Data3: -537036153
+    Data4: 347810792
   Banks:
-  - {fileID: -2905332157472219407}
-  IsStream: 1
+  - {fileID: 3082865066685349662}
+  IsStream: 0
   Is3D: 0
-  IsOneShot: 0
+  IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 14769
+  Length: 2229

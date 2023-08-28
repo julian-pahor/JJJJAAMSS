@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +22,11 @@ public class BeamShot : AttackEvent
 
     public float arcStep;
 
+    public DelayedDangerZone effectsPrefab;
+
+    public Artillery artilleryEffect;
+
+    //phase out this stuff
     public LineTracer lineTracer;
     LineTracer tempTracer;
 
@@ -66,9 +72,11 @@ public class BeamShot : AttackEvent
             {
                 float dist = increment * j;
                 Vector3 point = Utilities.PointWithPolarOffset(origin.position, dist + minDistance, rotationO + (arcStep * j));
-                //BoomBlock b = Instantiate(Wobbit.instance.zoneFab, point, Quaternion.identity);
+            
 
-                DelayedDangerZone delayedZone = Instantiate(Wobbit.instance.delayedDangerZoneTest,point,Quaternion.identity);
+                if (effectsPrefab == null) effectsPrefab = Wobbit.instance.delayedDangerZoneTest;
+
+                DelayedDangerZone delayedZone = Instantiate(effectsPrefab,point,Quaternion.identity);
 
                 //assign waypoints to tracer (revisit this)
                 if (lineTracer != null)
@@ -76,6 +84,11 @@ public class BeamShot : AttackEvent
                     tempTracer.waypoints.Add(point);
                 }
 
+                if (artilleryEffect != null)
+                {
+                    delayedZone.SetArtilleryTracer(artilleryEffect);
+                }
+                                
                 switch(behaviour)
                 {
                     case BeamBehaviour.BeatToBeat:
@@ -87,14 +100,19 @@ public class BeamShot : AttackEvent
                         break;
                 }
 
+                  //assign waypoints to tracer (revisit this)
+                if (lineTracer != null)
+                {
+                    tempTracer.Initialise(BeatBroadcast.instance.beatLength * duration, 2);
+                }
+
+
+
                
+
             }
 
-            //assign waypoints to tracer (revisit this)
-            if (lineTracer != null)
-            {
-                tempTracer.Initialise(BeatBroadcast.instance.beatLength * duration, 2);
-            }
+         
 
         }
 
@@ -119,7 +137,7 @@ public class BeamShot : AttackEvent
             }
 
             dd.InitialiseOnTimer(pop, popTime, popTime);
-
+          
         }
 
         void OnBeat(DelayedDangerZone dd, int index)
