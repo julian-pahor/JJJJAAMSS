@@ -39,7 +39,7 @@ public class BeatSlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPointer
 
         if (draggedItem != null)
         {
-            SetSlotEvent(draggedItem.thisEvent);
+            SetSlotEvent(Instantiate(draggedItem.thisEvent));
         }
 
     }

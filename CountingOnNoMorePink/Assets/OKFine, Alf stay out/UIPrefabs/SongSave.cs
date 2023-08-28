@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
 using System.Linq;
+
 
 public class SongSave : MonoBehaviour
 {
@@ -24,7 +24,7 @@ public class SongSave : MonoBehaviour
 
     List<AttackEvent> attackEventsDatabase = new List<AttackEvent>();
 
-    public void LoadSave(string path)
+    public List<BlockData> LoadSave(string path)
     {
         //should be empty, but clear in case
         blockDatas.Clear();
@@ -36,56 +36,6 @@ public class SongSave : MonoBehaviour
         {
             attackEventsDatabase.Add(attackEvent);
         }
-
-        ////try and load our text
-        //List<string> fileData = new List<string>();
-        //phraseCount = 0;
-        //phraseLength = 0;
-
-        //try
-        //{
-
-        //    using (StreamReader sr = new StreamReader(path))
-        //    {
-        //        //read first two lines for count and length
-        //        int.TryParse(sr.ReadLine(), out phraseCount);
-        //        int.TryParse(sr.ReadLine(), out phraseLength);
-
-        //        //remaining data is attackevent ids
-        //        string line;
-        //        while ((line = sr.ReadLine()) != null)
-        //        {
-        //            fileData.Add(line);
-        //        }
-        //    }
-        //}
-        //catch 
-        //{
-        //    // will see this 90% of the time
-        //    Debug.Log("file bad");
-        //    return;
-        //}
-
-        //int totalbeats = phraseCount * phraseLength;
-        //int fileIndex = 0; //current position in the file
-
-        ////now setup blockdata list
-
-        ////for every beat block
-        //for(int i = 0; i < totalbeats; i++)
-        //{
-        //    //create set of data
-        //    BlockData b = new BlockData(blockDataSize);
-
-        //    //set each slot to the attack event (comparing names in database list)
-        //    for(int j = 0; j < blockDataSize; j++)
-        //    {
-        //        b.events[j] = GetAttackEvent(fileData[fileIndex]);
-        //        fileIndex++;
-        //    }
-        //    blockDatas.Add(b);
-        //}
-
 
         ///---- JSON TESTING BEGINS HERE
         ///
@@ -108,13 +58,69 @@ public class SongSave : MonoBehaviour
             //set each slot to the attack event (comparing names in database list)
             for (int j = 0; j < blockDataSize; j++)
             {
-                b.events[j] = GetAttackEvent(thisData.fileData[fileIndex]);
+                AttackEvent twemp = null;
+                if (thisData.fileData[fileIndex].attackEventID != "null")
+                {
+                   twemp = (AttackEvent)ScriptableObject.CreateInstance(thisData.fileData[fileIndex].attackEventID);
+                }
+                //there's no way this works
+                thisData.fileData[fileIndex].DeserialiseIntoObject(twemp);
+                b.events[j] = twemp;
                 fileIndex++;
             }
             blockDatas.Add(b);
         }
 
+        return blockDatas;
+
         ///---- JSON TESTING ENDS HERE
+
+    }
+
+    public void SaveSong(List<Phrase> songData, string saveName)
+    {
+       
+        ///----JSON TESTING BEGINS HERE
+        ///
+
+        if (songData.Count == 0)
+            return;
+
+        if (saveName == string.Empty)
+        {
+            Debug.LogWarning("save name cannot be blank");
+            return;
+        }
+
+        Utilities.GameData gameData = new Utilities.GameData();
+        //List<string> saveData = new List<string>();
+        gameData.phraseCount = songData.Count;
+        gameData.phraseLength = songData[0].phraseLength;
+
+        foreach (Phrase phrase in songData)
+        {
+            //each phrase has 16 blocks
+            foreach (BlockData blockData in phrase.phraseData)
+            {
+                //gets the array of event slots out of blockdata
+                for (int i = 0; i < blockData.events.Length; i++)
+                {
+                    AttackEventData reference = new AttackEventData();
+                        
+                    reference.SerialiseAsData(blockData.events[i]); // == null ? "null" : blockData.events[i].name;
+
+                    gameData.fileData.Add(reference);
+                   
+
+                }
+            }
+        }
+
+        //GameData should be filled appropraitely at this point
+        Utilities.SaveData(gameData, saveName);
+
+        ///---JSON TESTING ENDS HERE
+
 
     }
 
@@ -142,62 +148,26 @@ public class SongSave : MonoBehaviour
         return phrases;
     }
 
-    //TODO: this is a beattimeline thing, move it there
-    public void DoBeat(int index)
-    {
-        for (int i = 0; i < blockDataSize; ++i)
-        {
-            if (blockDatas[index].events[i] != null)
-            {
-                blockDatas[index].events[i].Fire();
-            }
-        }
-    }
+    
 
-    //TODO: change this so it's using guid and not name
-    AttackEvent GetAttackEvent(string name)
-    {
-        //early exit
-        if(name == "null")
-            return null;
-
-        foreach(AttackEvent ae in attackEventsDatabase)
-        {
-            if(ae.name == name)
-                return ae;
-        }
-        return null;
-    }
-    //NOW LOADS FROM TEXT FILE
-
-    //public void SaveSong(List<Phrase> songData)
+   
+    //AttackEvent GetAttackEvent(AttackEventData data)
     //{
-    //    //wipe old save
-    //    blockDatas.Clear();
+    //    //early exit
+    //    if(name == "null")
+    //        return null;
 
-    //    foreach (Phrase phrase in songData)
+        
+            
+    //        data.DeserialiseIntoObject(data);
+
+    //    foreach(AttackEvent ae in attackEventsDatabase)
     //    {
-    //        //each phrase has 16 blocks
-    //        foreach (BlockData blockData in phrase.phraseData)
-    //        {
-
-
-
-    //            BlockData b = new BlockData(blockDataSize);
-
-    //            for (int i = 0; i < blockDataSize; i++)
-    //            {
-
-    //                b.events[i] = blockData.events[i];
-    //            }
-    //            blockDatas.Add(b);
-    //        }
+    //        if(ae.name == name)
+    //            return ae;
     //    }
-
-    //    EditorUtility.SetDirty(this);
-
+    //    return null;
     //}
-
-    //oh lord whty
+    
 
 }
