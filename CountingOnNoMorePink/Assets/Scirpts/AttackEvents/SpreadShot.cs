@@ -7,7 +7,7 @@ public class SpreadShot : AttackEvent
 {
     
     public int shots;
-    public float firingArc;
+    public float firingArc = 360f;
     public float arcOffset;
     public Bullit bulletType;
     public override void Fire()
