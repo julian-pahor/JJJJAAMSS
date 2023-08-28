@@ -10,7 +10,12 @@ public class BeatSlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPointer
     public BeatItem preFab;
     public AttackEventUICard uiCard;
 
+    public Color selectedColour;
+    public Color baseColour;
+
     AttackEvent attackEvent; // If attackEvent is null that means this event should be dictated by a rest
+
+    public TimelineEditor editor;
 
     private void Start()
     {
@@ -27,6 +32,7 @@ public class BeatSlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPointer
         this.attackEvent = attackEvent;
    
         UpdateSlot();
+        editor.SelectEvent(attackEvent);
     }
     //----------------------
 
@@ -80,7 +86,8 @@ public class BeatSlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPointer
     //need these interfaces or the other ones don't work cheers thx unity
     public void OnPointerDown(PointerEventData eventData)
     {
-       
+        //send selected event data to editor
+        editor.SelectEvent(attackEvent);
     }   
     
     public void OnDrag(PointerEventData eventData)

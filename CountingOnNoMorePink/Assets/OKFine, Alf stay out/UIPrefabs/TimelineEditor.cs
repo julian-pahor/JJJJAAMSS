@@ -20,8 +20,10 @@ public class TimelineEditor : MonoBehaviour
 
     public TMP_Dropdown phraseSelector;
 
-    public TMP_InputField saveFileNameField;
 
+    public EventEditor eventEditor;
+
+    public TMP_InputField saveFileNameField;
     public SongSave saveData;
     public SaveFileDropdown saveFileDropdown;
 
@@ -63,6 +65,11 @@ public class TimelineEditor : MonoBehaviour
         SceneManager.LoadScene(mainScene);
     }
 
+    public void SelectEvent(AttackEvent attackEvent)
+    {
+        eventEditor.SelectNewObject(attackEvent);
+    }
+
     //creates the beat blocks for each phrase in our phrase list
     void GenerateTimelineUI()
     {
@@ -85,6 +92,8 @@ public class TimelineEditor : MonoBehaviour
             {
                 b.GetComponent<Image>().color = Color.green;
             }
+
+            b.Initialise(this);
 
             beatTimeLine.Add(b);
         }
@@ -110,6 +119,8 @@ public class TimelineEditor : MonoBehaviour
             b.Updoot();
         }
     }
+
+    #region save/load
 
     //accesses the savesong component to create a save file
     public void TrySave()
@@ -156,6 +167,7 @@ public class TimelineEditor : MonoBehaviour
         }
         Debug.Log("Load complete");
     }
+    #endregion
 
 }
 
