@@ -86,5 +86,10 @@ public class OrbiterAttack : AttackEvent
 
 
     }
+
+    public override void HookUp(EventEditor ee)
+    {
+        base.HookUp(ee);
+    }
 }
 

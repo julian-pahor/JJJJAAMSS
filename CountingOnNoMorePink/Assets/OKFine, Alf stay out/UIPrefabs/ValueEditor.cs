@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using System;
 
 public class ValueEditor : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class ValueEditor : MonoBehaviour
     string displayText;
     float currentValue;
 
+    public Action<float> onChange;
 
     private void Start()
     {
@@ -43,6 +45,21 @@ public class ValueEditor : MonoBehaviour
         currentValue = newValue;
         inputField.text = currentValue.ToString("0.00");
         slider.value = currentValue;
+
+        if(onChange != null)
+        {
+            onChange(currentValue);
+        }
       
+    }
+    public void SetListener(Action<float> func)
+    {
+        onChange = func;
+    }
+
+    public void RemoveListeners()
+    {
+        inputField.onEndEdit.RemoveAllListeners();
+        slider.onValueChanged.RemoveAllListeners();
     }
 }

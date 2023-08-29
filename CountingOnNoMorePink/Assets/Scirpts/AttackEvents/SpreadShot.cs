@@ -55,4 +55,22 @@ public class SpreadShot : AttackEvent
 
     }
 
+    public override void HookUp(EventEditor ee)
+    {
+        //base.HookUp(ee);
+        //Set Up Shots 
+        ValueEditor ve;
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { shots = (int)f; });
+
+        //set Up Firing Arc
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { firingArc = f; });
+
+
+        //Set Up Arc Offset
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { arcOffset = f; });
+
+    }
 }

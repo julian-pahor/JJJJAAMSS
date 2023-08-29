@@ -18,6 +18,11 @@ public class EventEditor : MonoBehaviour
     public Slider offsetSlider;
     public TextMeshProUGUI offsetSliderText;
 
+    //Prefab To use for all value editing
+    public ValueEditor editorPreFab;
+    public Transform editorParent;
+
+    public List<ValueEditor> currentEditors = new List<ValueEditor>();
  
 
     private void Start()
@@ -27,6 +32,12 @@ public class EventEditor : MonoBehaviour
 
     public void SelectNewObject(AttackEvent attackEvent)
     {
+        //Unhook up and destroy currently used UI
+        foreach(ValueEditor editor in currentEditors)
+        {
+            editor.RemoveListeners();
+            Destroy(editor);
+        }
 
         currentlySelectedEvent = attackEvent;
 
@@ -36,12 +47,19 @@ public class EventEditor : MonoBehaviour
             selectedEventName.text = "No event selected";
             return;
         }
-        
 
         selectedEventName.text = currentlySelectedEvent.name;
 
-        RefreshValues();
+        attackEvent.HookUp(this);
 
+        RefreshValues();
+    }
+
+    public ValueEditor CreateEditor()
+    {
+        ValueEditor ve = Instantiate(editorPreFab, editorParent);
+
+        return ve;
     }
 
     //call when we select something to change our sliders to match its data

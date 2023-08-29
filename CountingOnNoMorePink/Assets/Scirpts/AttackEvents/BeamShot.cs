@@ -159,4 +159,9 @@ public class BeamShot : AttackEvent
         }
 
     }
+
+    public override void HookUp(EventEditor ee)
+    {
+        base.HookUp(ee);
+    }
 }

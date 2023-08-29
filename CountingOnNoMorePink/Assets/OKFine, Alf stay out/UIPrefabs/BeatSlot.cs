@@ -13,6 +13,7 @@ public class BeatSlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPointer
     public Color selectedColour;
     public Color baseColour;
 
+    [SerializeField]
     AttackEvent attackEvent; // If attackEvent is null that means this event should be dictated by a rest
 
     public TimelineEditor editor;

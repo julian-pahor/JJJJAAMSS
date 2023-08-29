@@ -15,4 +15,9 @@ public class AttackEvent : ScriptableObject
         Debug.Log("Virtual attack event. If you are seeing this you have done a wrong");
     }
 
+    public virtual void HookUp(EventEditor ee)
+    {
+        Debug.Log("Call for dynamically hooked up UI. You should not be seeing this.");
+    }
+
 }
