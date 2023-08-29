@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class AttackEvent : ScriptableObject
 {
+
+    public string displayName;
+
+    //not in use?
     public int arm;
 
     public virtual void Arm(int beatIndex)

@@ -9,7 +9,7 @@ public class BeamShot : AttackEvent
 
     public int beams;
     public float segments;
-    public float firingArc = 360f;
+    public float firingArc;
     public float distance;
     public float minDistance;
     public float arcOffset;
@@ -171,5 +171,25 @@ public class BeamShot : AttackEvent
         //Set Up Arc offset
         ve = ee.CreateEditor();
         ve.SetListener((float f) => { arcOffset = f; }, arcOffset, "Arc Offset");
+
+        //Inner Radius
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { minDistance = f; }, minDistance, "Inner Radius");
+
+        //Outer Radius
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { distance = f; }, distance, "Outer Radius");
+
+        //Beam Segments
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { segments = f; }, segments, "Beam Segments");
+
+        //Duration
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { duration = (int)f; }, duration, "Duration");
+
+        //SpiralStep;
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { arcStep = f; }, arcStep, "Spiral Step");
     }
 }

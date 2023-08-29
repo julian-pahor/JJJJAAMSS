@@ -8,22 +8,29 @@ public class EventEditor : MonoBehaviour
 {
     public AttackEvent currentlySelectedEvent;
 
-    public TextMeshProUGUI selectedEventName;
+    public TMP_InputField selectedEventName;
 
     //Prefab To use for all value editing
     public ValueEditor editorPreFab;
     public Transform editorParent;
 
     public List<ValueEditor> currentEditors = new List<ValueEditor>();
- 
 
     private void Start()
     {
        
     }
 
+    public void OnNameTextChanged()
+    {
+        if(currentlySelectedEvent == null) return;
+
+        currentlySelectedEvent.displayName = selectedEventName.text;
+    }
+
     public void SelectNewObject(AttackEvent attackEvent)
     {
+
         //Unhook up and destroy currently used UI
         foreach(ValueEditor editor in currentEditors)
         {
@@ -42,7 +49,7 @@ public class EventEditor : MonoBehaviour
             return;
         }
 
-        selectedEventName.text = currentlySelectedEvent.name;
+        selectedEventName.text = currentlySelectedEvent.displayName;
 
         //Call Attackevent to create editors as neccesary
         attackEvent.HookUp(this);

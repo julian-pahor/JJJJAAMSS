@@ -18,7 +18,7 @@ public class AttackEventUICard : MonoBehaviour
         gameObject.SetActive(attackEvent != null);
         if(attackEvent != null)
         {
-            displayText.text = attackEvent.name;
+            displayText.text = attackEvent.displayName;
         }
     }
 

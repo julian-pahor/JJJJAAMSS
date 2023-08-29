@@ -9,7 +9,7 @@ public class OrbiterAttack : AttackEvent
 
     public int beams;
     public float segments;
-    public float firingArc = 360f;
+    public float firingArc;
     public float distance;
     public float minDistance;
     public float arcOffset;

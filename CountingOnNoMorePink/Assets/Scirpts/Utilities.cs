@@ -1,9 +1,7 @@
-using OpenCover.Framework.Model;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using Unity.VisualScripting;
-using UnityEditor.PackageManager;
 using UnityEngine;
 using System.IO;
 
@@ -132,15 +130,27 @@ public static class Utilities
     */
     public static void SaveData(GameData saveData, string saveName)
     {
+
+#if UNITY_EDITOR
         string path = $"Assets/Resources/SongSaves/{saveName}.json";
+
+#else
+        string path = Application.persistentDataPath + "/" + saveName + ".json";
+#endif
+
+
         string jsonData = JsonUtility.ToJson(saveData);
         System.IO.File.WriteAllText(path, jsonData);
     }
 
     public static GameData LoadData(string saveName)
     {
-        
+#if UNITY_EDITOR
         string path = $"Assets/Resources/SongSaves/{saveName}.json";
+
+#else
+        string path = Application.persistentDataPath + "/" + saveName + ".json";
+#endif
 
         if (!System.IO.File.Exists(path)) return null;
 
@@ -153,7 +163,12 @@ public static class Utilities
 
     public static void DeleteData(string saveName)
     {
+#if UNITY_EDITOR
         string path = $"Assets/Resources/SongSaves/{saveName}.json";
+
+#else
+        string path = Application.persistentDataPath + "/" + saveName + ".json";
+#endif
 
         if (System.IO.File.Exists(path))
         {

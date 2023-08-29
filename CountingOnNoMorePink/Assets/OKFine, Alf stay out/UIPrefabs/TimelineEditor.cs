@@ -65,13 +65,18 @@ public class TimelineEditor : MonoBehaviour
         SceneManager.LoadScene(mainScene);
     }
 
-    public void SelectEvent(AttackEvent attackEvent)
+    public void UpdateAllSlots()
     {
-        eventEditor.SelectNewObject(attackEvent);
         foreach (BeatBlokk b in beatTimeLine)
         {
             b.Updoot();
         }
+    }
+
+    public void SelectEvent(AttackEvent attackEvent)
+    {
+        eventEditor.SelectNewObject(attackEvent);
+        UpdateAllSlots();
     }
 
     //creates the beat blocks for each phrase in our phrase list

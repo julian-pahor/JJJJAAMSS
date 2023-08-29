@@ -85,7 +85,10 @@ public class BeatSlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPointer
         item.DragInitialise(transform.root);
         eventData.pointerDrag = item.gameObject;
 
-        attackEvent = null;
+        if (!Input.GetKey(KeyCode.LeftShift))
+        {
+            attackEvent = null;
+        }
         UpdateSlot();
     }
 

@@ -51,6 +51,6 @@ public class BeatItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public void SetAttack(AttackEvent ae)
     {
         thisEvent = ae;
-        text.text = ae.name;
+        text.text = ae.displayName;
     }
 }

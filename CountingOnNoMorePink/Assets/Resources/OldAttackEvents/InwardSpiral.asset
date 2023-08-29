@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 965af55d089815947a27d334a74f7c0d, type: 3}
   m_Name: InwardSpiral
   m_EditorClassIdentifier: 
+  displayName: old
   arm: 0
   beams: 6
   segments: 30
@@ -23,4 +24,6 @@ MonoBehaviour:
   type: 1
   behaviour: 0
   arcStep: 5
+  effectsPrefab: {fileID: 0}
+  artilleryEffect: {fileID: 0}
   lineTracer: {fileID: 0}

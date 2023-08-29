@@ -12,6 +12,7 @@ public class AttackEventData
     //beams and bullets
     public int shots;
     public float offset;
+    public float firingArc;
 
     public float innerRadius;
     public float outerRadius;
@@ -43,7 +44,7 @@ public class AttackEventData
 
         //make scrobject into datable object
         attackEventID = attackEvent.GetType().Name;
-        fileName = attackEvent.name;
+        fileName = attackEvent.displayName;
 
         //do not question me
         switch(attackEvent)
@@ -52,6 +53,7 @@ public class AttackEventData
 
                 shots = ss.shots;
                 offset = ss.arcOffset;
+                firingArc = ss.firingArc;
 
                 break;
 
@@ -59,6 +61,7 @@ public class AttackEventData
 
                 shots = bs.beams;
                 offset = bs.arcOffset;
+                firingArc = bs.firingArc;
 
                 innerRadius = bs.minDistance;
                 outerRadius = bs.distance;
@@ -79,6 +82,7 @@ public class AttackEventData
 
                 shots = oa.beams;
                 offset = oa.arcOffset;
+                firingArc = oa.firingArc;
 
                 innerRadius = oa.minDistance;
                 outerRadius = oa.distance;
@@ -110,7 +114,7 @@ public class AttackEventData
         if (attackEvent == null)
             return;
 
-        attackEvent.name = fileName;
+        attackEvent.displayName = fileName;
 
         //DO NOT QUESTION ME
         switch (attackEvent)
@@ -119,6 +123,7 @@ public class AttackEventData
 
                 ss.shots = shots;
                 ss.arcOffset = offset;
+                ss.firingArc = firingArc;
 
                 break;
 
@@ -126,6 +131,7 @@ public class AttackEventData
 
                 bs.beams = shots;
                 bs.arcOffset = offset;
+                bs.firingArc = firingArc;
 
                 bs.minDistance = innerRadius;
                 bs.distance = outerRadius;
@@ -146,6 +152,7 @@ public class AttackEventData
 
                 oa.beams = shots;
                 oa.arcOffset = offset;
+                oa.firingArc = firingArc;
 
                 oa.minDistance = innerRadius;
                 oa.distance = outerRadius;

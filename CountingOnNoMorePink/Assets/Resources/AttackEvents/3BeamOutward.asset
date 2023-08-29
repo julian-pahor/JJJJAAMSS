@@ -12,15 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 965af55d089815947a27d334a74f7c0d, type: 3}
   m_Name: 3BeamOutward
   m_EditorClassIdentifier: 
+  displayName: Outward Beam
   arm: 0
   beams: 3
   segments: 10
   firingArc: 360
   distance: 16
   minDistance: 0
-  arcOffset: 45
+  arcOffset: 0
   duration: 1
   type: 2
   behaviour: 1
   arcStep: 0
+  effectsPrefab: {fileID: 0}
+  artilleryEffect: {fileID: 0}
   lineTracer: {fileID: 0}

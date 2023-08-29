@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 965af55d089815947a27d334a74f7c0d, type: 3}
   m_Name: 6BeamInward
   m_EditorClassIdentifier: 
+  displayName: Inward Beam
   arm: 0
-  beams: 6
+  beams: 3
   segments: 10
   firingArc: 360
   distance: 16
-  minDistance: 2
-  arcOffset: 45
-  duration: 20
+  minDistance: 0
+  arcOffset: 0
+  duration: 1
   type: 1
   behaviour: 1
   arcStep: 0
