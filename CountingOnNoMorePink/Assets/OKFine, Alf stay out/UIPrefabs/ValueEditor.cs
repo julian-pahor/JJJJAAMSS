@@ -65,6 +65,15 @@ public class ValueEditor : MonoBehaviour
         displayUI.text = s;
         onChange = func;
     }
+    
+
+    /*
+     * TODO:
+     * -Add range values to set listener call, initialise slider with appropriate values
+     * -Add more ui objects to prefab (dropdown menu) for enum selections
+     * -Might need to swap to using UnityAction calls instead to subscribe directly to UI objects
+     * 
+     */
 
     public void RemoveListeners()
     {

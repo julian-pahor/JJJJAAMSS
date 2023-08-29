@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "AttackEvent/OrbiterAttack")]
@@ -89,7 +90,43 @@ public class OrbiterAttack : AttackEvent
 
     public override void HookUp(EventEditor ee)
     {
-        base.HookUp(ee);
+        ValueEditor ve;
+
+        //Beams
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { beams = (int)f; }, beams, "Beams");
+
+        //Offset
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { arcOffset = f; }, arcOffset, "Arc Offset");
+
+        //Inner Radius
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { minDistance = f; }, minDistance, "Inner Radius");
+
+        //Outer Radius
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { distance = f; }, distance, "Outer Radius");
+
+        //Beam Segments
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { segments = f; }, segments, "Beam Segments");
+
+        //Duration
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { lifeTime = (int)f; }, lifeTime, "Duration");
+
+        //Orbital Speed
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { speed = f; }, speed, "Orbital Speed");
+
+        //Orbital Direction
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { direction = (int)f; }, direction, "Orbital Direction");
+
+        //SpiralStep;
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { arcStep = f; }, arcStep, "Spiral Step");
     }
 }
 
