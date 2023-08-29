@@ -29,6 +29,10 @@ public class DelayedDangerZone : MonoBehaviour
     bool isArmed;
     bool tracerLaunched;
 
+    float armTimeStart;
+    float activeTimeStart;
+
+
     //do this before initialising yeh that makes sense
     public void SetArtilleryTracer(Artillery tracer)
     {
@@ -55,8 +59,12 @@ public class DelayedDangerZone : MonoBehaviour
         col.enabled = false;
 
         //DO NOT QUESTION ME JULIAN
-        this.armTime = armTime + activeTime + 1;
-        this.activeTime = activeTime + 1;
+
+        this.armTime = armTime;
+        this.activeTime = activeTime;
+
+        armTimeStart = armTime + activeTime + 1;
+        activeTimeStart = activeTime + 1;
 
     }
     //FIX YOUR MATHEMATICS ALFRED
@@ -69,19 +77,19 @@ public class DelayedDangerZone : MonoBehaviour
         if(!isActive)
         {
             //arm
-            if(!tracerLaunched && timer <= (armTime - activeTime) *2)
+            if(!tracerLaunched && timer <= armTimeStart + armTime)
             {
                 StartTracer(armTime);
                 tracerLaunched = true;
             }
-            else if (!isArmed && timer <= armTime)
+            else if (!isArmed && timer <= armTimeStart)
             {
                 tellEffect.Play(true);
                 isArmed = true;
                 //StartTracer(armTime- activeTime); 
             }
 
-            else if(timer <= activeTime)
+            else if(timer <= activeTimeStart)
             {
                 Activate();
             }
@@ -164,17 +172,24 @@ public class DelayedDangerZone : MonoBehaviour
         if (artilleryTracer == null)
             return;
 
-        Vector3 launchPoint = Wobbit.instance.bossOrigin.position; //hmmmmm
+        Vector3 launchPoint = transform.position;
 
         float distanceToCentre = Vector3.Distance(launchPoint, transform.position) / 2;
         Vector3 directionToTarget = new Vector3(transform.position.x - launchPoint.x, 0, transform.position.z - launchPoint.z).normalized;
-        Vector3 anchorPoint = launchPoint + (distanceToCentre * directionToTarget);
-        anchorPoint = new Vector3(anchorPoint.x, anchorPoint.y + 20, anchorPoint.z);
+
+        Vector3 anchorPoint1 = new Vector3(launchPoint.x + GetRandomOffset(), launchPoint.y + 8f, launchPoint.z + GetRandomOffset()); //launchPoint + (distanceToCentre * directionToTarget);
+        Vector3 anchorPoint2 = new Vector3(transform.position.x + GetRandomOffset(), transform.position.y + 5f, transform.position.z + GetRandomOffset());
+        //anchorPoint = new Vector3(anchorPoint.x, anchorPoint.y + 20, anchorPoint.z);
 
         Artillery effect = Instantiate(artilleryTracer, launchPoint, Quaternion.identity);
-        effect.Initialise(launchPoint, anchorPoint, transform.position, timing);
+        effect.Initialise(launchPoint, anchorPoint1,anchorPoint2, transform.position, timing);
 
 
+    }
+    //Yes this does nothing I should remove it
+    float GetRandomOffset()
+    {
+        return 0;
     }
 
     private void OnDestroy()
