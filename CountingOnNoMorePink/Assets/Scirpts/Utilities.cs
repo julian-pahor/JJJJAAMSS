@@ -72,6 +72,8 @@ public static class Utilities
         return QuadraticLerp(a - offset, b, c, t);
 
     }
+
+
   
 
     //Save and Load DataClasses And Functionality
@@ -82,14 +84,19 @@ public static class Utilities
         public int phraseCount;
         public int phraseLength;
 
-        public List<string> fileData;
+        //public List<string> fileData;
+
+        public List<AttackEventData> fileData;
+       
 
         public GameData()
         {
-            fileData = new List<string>();
+            fileData = new List<AttackEventData>();
         }
     }
 
+    //I busted this it's dead
+    /*
     public static GameData TranslateData(string path)
     {
         GameData data = new GameData();
@@ -120,9 +127,9 @@ public static class Utilities
             return null;
         }
         
-        
     }
 
+    */
     public static void SaveData(GameData saveData, string saveName)
     {
         string path = $"Assets/Resources/SongSaves/{saveName}.json";

@@ -4,37 +4,14 @@ using UnityEngine;
 
 public class BeatTimeline : MonoBehaviour
 {
-    public float beatLength;
-    public List<AttackEvent> attackEvents; //make this list of lists to enable multiple attackevents per beat
+
+    
     public SaveFileDropdown saveFileDropdown;
     public SongSave saveFile;
 
-    public GameObject win;
+    public List<BlockData> eventTimeline = new List<BlockData>();
 
-    float timer;
     int index;
-
-    //private void Update()
-    //{
-    //    if (attackEvents.Count == 0)
-    //        return;
-
-    //    timer += Time.deltaTime;
-
-    //    if (timer >= beatLength)
-    //    {
-
-    //        timer = 0;
-    //        attackEvents[index].Fire();
-    //        index++;
-
-    //        if (index >= attackEvents.Count)
-    //        {
-    //            index = 0;
-    //        }
-
-    //    }
-    //}
 
 
     private void Start()
@@ -54,7 +31,7 @@ public class BeatTimeline : MonoBehaviour
         string saveName = saveFileDropdown.GetSelectedSave();
         if(saveName != null && saveName != string.Empty)
         {
-            saveFile.LoadSave(saveName);
+            eventTimeline = saveFile.LoadSave(saveName);
             BeatBroadcast.instance.PlayMusic();
             return;
         }
@@ -70,12 +47,24 @@ public class BeatTimeline : MonoBehaviour
             return;
         }
         
-        saveFile.DoBeat(index);
+        DoBeat(index);
         index++;
 
         if (index >= saveFile.SongLength)
         {
             index = 0;
+        }
+    }
+
+    //TODO: Blockdata size is hardcoded to 5, figure out where this and songsave get that number from
+    void DoBeat(int index)
+    {
+        for (int i = 0; i < 5; ++i)
+        {
+            if (eventTimeline[index].events[i] != null)
+            {
+                eventTimeline[index].events[i].Fire();
+            }
         }
     }
 

@@ -10,7 +10,12 @@ public class BeatSlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPointer
     public BeatItem preFab;
     public AttackEventUICard uiCard;
 
+    public Color selectedColour;
+    public Color baseColour;
+
     AttackEvent attackEvent; // If attackEvent is null that means this event should be dictated by a rest
+
+    public TimelineEditor editor;
 
     private void Start()
     {
@@ -27,6 +32,7 @@ public class BeatSlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPointer
         this.attackEvent = attackEvent;
    
         UpdateSlot();
+        editor.SelectEvent(attackEvent);
     }
     //----------------------
 
@@ -39,7 +45,7 @@ public class BeatSlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPointer
 
         if (draggedItem != null)
         {
-            SetSlotEvent(draggedItem.thisEvent);
+            SetSlotEvent(Instantiate(draggedItem.thisEvent));
         }
 
     }
@@ -60,6 +66,11 @@ public class BeatSlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPointer
     public void UpdateSlot()
     {
         uiCard.SetDisplay(attackEvent);
+
+        //THE CERBERUS OPERATOR
+
+        GetComponent<Image>().color = attackEvent == null ? baseColour : editor.eventEditor.currentlySelectedEvent == attackEvent ? selectedColour : baseColour;
+        
     }
 
     //create a dummy object to allow draggin between slots
@@ -80,7 +91,8 @@ public class BeatSlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPointer
     //need these interfaces or the other ones don't work cheers thx unity
     public void OnPointerDown(PointerEventData eventData)
     {
-       
+        //send selected event data to editor
+        editor.SelectEvent(attackEvent);
     }   
     
     public void OnDrag(PointerEventData eventData)
