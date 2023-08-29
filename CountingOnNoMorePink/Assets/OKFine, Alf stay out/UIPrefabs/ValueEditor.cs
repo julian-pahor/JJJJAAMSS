@@ -14,7 +14,6 @@ public class ValueEditor : MonoBehaviour
     public TextMeshProUGUI displayUI;
     public TMP_InputField inputField;
 
-    string displayText;
     float currentValue;
 
     public Action<float> onChange;
@@ -52,8 +51,18 @@ public class ValueEditor : MonoBehaviour
         }
       
     }
-    public void SetListener(Action<float> func)
+
+    /// <summary>
+    /// Can potentially change this to use UnityAction as well to subscribe directly
+    /// to the event calls on UI objects
+    /// </summary>
+    /// <param name="func"></param>
+    /// <param name="f"></param>
+    /// <param name="s"></param>
+    public void SetListener(Action<float> func, float f, string s)
     {
+        Refresh(f);
+        displayUI.text = s;
         onChange = func;
     }
 

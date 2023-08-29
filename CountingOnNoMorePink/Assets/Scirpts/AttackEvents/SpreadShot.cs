@@ -47,30 +47,25 @@ public class SpreadShot : AttackEvent
 
 
             b.Initialise(bulletDir);
-            
-
-
         }
-
-
     }
 
     public override void HookUp(EventEditor ee)
     {
-        //base.HookUp(ee);
+        
         //Set Up Shots 
         ValueEditor ve;
         ve = ee.CreateEditor();
-        ve.SetListener((float f) => { shots = (int)f; });
+        ve.SetListener((float f) => { shots = (int)f; }, shots, "Shots");
 
         //set Up Firing Arc
         ve = ee.CreateEditor();
-        ve.SetListener((float f) => { firingArc = f; });
+        ve.SetListener((float f) => { firingArc = f; }, firingArc, "Firing Arc");
 
 
         //Set Up Arc Offset
         ve = ee.CreateEditor();
-        ve.SetListener((float f) => { arcOffset = f; });
+        ve.SetListener((float f) => { arcOffset = f; }, arcOffset, "Arc Offset");
 
     }
 }

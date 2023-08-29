@@ -10,14 +10,6 @@ public class EventEditor : MonoBehaviour
 
     public TextMeshProUGUI selectedEventName;
 
-
-    //make prefab thinfs
-    public Slider shotsSlider;
-    public TextMeshProUGUI shotsSliderText;
-
-    public Slider offsetSlider;
-    public TextMeshProUGUI offsetSliderText;
-
     //Prefab To use for all value editing
     public ValueEditor editorPreFab;
     public Transform editorParent;
@@ -36,8 +28,10 @@ public class EventEditor : MonoBehaviour
         foreach(ValueEditor editor in currentEditors)
         {
             editor.RemoveListeners();
-            Destroy(editor);
+            Destroy(editor.gameObject);
         }
+
+        currentEditors.Clear();
 
         currentlySelectedEvent = attackEvent;
 
@@ -50,77 +44,79 @@ public class EventEditor : MonoBehaviour
 
         selectedEventName.text = currentlySelectedEvent.name;
 
+        //Call Attackevent to create editors as neccesary
         attackEvent.HookUp(this);
 
-        RefreshValues();
+        //RefreshValues();
     }
 
     public ValueEditor CreateEditor()
     {
         ValueEditor ve = Instantiate(editorPreFab, editorParent);
+        currentEditors.Add(ve);
 
         return ve;
     }
 
     //call when we select something to change our sliders to match its data
-    void RefreshValues()
-    {
-        if(currentlySelectedEvent == null)
-            return;
+    //void RefreshValues()
+    //{
+    //    if(currentlySelectedEvent == null)
+    //        return;
         
-        switch(currentlySelectedEvent)
-        {
-            case SpreadShot ss:
+    //    switch(currentlySelectedEvent)
+    //    {
+    //        case SpreadShot ss:
 
-                shotsSlider.value = ss.shots;
-                shotsSliderText.text = "Shots: " + shotsSlider.value;
+    //            shotsSlider.value = ss.shots;
+    //            shotsSliderText.text = "Shots: " + shotsSlider.value;
 
-                offsetSlider.value = ss.arcOffset;
-                offsetSliderText.text = "Offset " + offsetSlider.value.ToString("00.0");
+    //            offsetSlider.value = ss.arcOffset;
+    //            offsetSliderText.text = "Offset " + offsetSlider.value.ToString("00.0");
 
-                break;
+    //            break;
 
-            case BeamShot bs:
-                shotsSlider.value = bs.beams;
-                shotsSliderText.text = "Beams: " + shotsSlider.value;
+    //        case BeamShot bs:
+    //            shotsSlider.value = bs.beams;
+    //            shotsSliderText.text = "Beams: " + shotsSlider.value;
 
-                offsetSlider.value = bs.arcOffset;
-                offsetSliderText.text = "Offset " + offsetSlider.value.ToString("00.0");
+    //            offsetSlider.value = bs.arcOffset;
+    //            offsetSliderText.text = "Offset " + offsetSlider.value.ToString("00.0");
 
-                break;
-
-
-        }
-
-    }
-    //called when we change a slider to update the target event
-    public void RefreshValuesOnChange()
-    {
-
-        if (currentlySelectedEvent == null)
-            return;
-
-        switch (currentlySelectedEvent)
-        {
-            case SpreadShot ss:
-
-                ss.shots = (int)shotsSlider.value;
-                ss.arcOffset = offsetSlider.value;
+    //            break;
 
 
+    //    }
 
-                break;
+    //}
+    ////called when we change a slider to update the target event
+    //public void RefreshValuesOnChange()
+    //{
 
-            case BeamShot bs:
-                bs.beams = (int)shotsSlider.value;
-                bs.arcOffset = offsetSlider.value;
-                break;
+    //    if (currentlySelectedEvent == null)
+    //        return;
 
-        }
+    //    switch (currentlySelectedEvent)
+    //    {
+    //        case SpreadShot ss:
 
-        RefreshValues();
+    //            ss.shots = (int)shotsSlider.value;
+    //            ss.arcOffset = offsetSlider.value;
 
-    }
+
+
+    //            break;
+
+    //        case BeamShot bs:
+    //            bs.beams = (int)shotsSlider.value;
+    //            bs.arcOffset = offsetSlider.value;
+    //            break;
+
+    //    }
+
+    //    RefreshValues();
+
+    //}
 
 
 }

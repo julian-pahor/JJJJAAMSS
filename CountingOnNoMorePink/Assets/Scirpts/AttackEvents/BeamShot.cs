@@ -162,6 +162,14 @@ public class BeamShot : AttackEvent
 
     public override void HookUp(EventEditor ee)
     {
-        base.HookUp(ee);
+        ValueEditor ve;
+
+        //Set Up Beam Amount
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { beams = (int)f; }, beams, "Beams");
+
+        //Set Up Arc offset
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { arcOffset = f; }, arcOffset, "Arc Offset");
     }
 }
