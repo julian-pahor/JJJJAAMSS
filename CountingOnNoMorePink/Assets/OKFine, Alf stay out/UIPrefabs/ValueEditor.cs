@@ -59,11 +59,14 @@ public class ValueEditor : MonoBehaviour
     /// <param name="func"></param>
     /// <param name="f"></param>
     /// <param name="s"></param>
-    public void SetListener(Action<float> func, float f, string s)
+    public void SetListener(Action<float> func, float f, string s, float min = 0, float max = 360, bool intTrue = false)
     {
         Refresh(f);
         displayUI.text = s;
         onChange = func;
+        slider.minValue = min;
+        slider.maxValue = max;
+        slider.wholeNumbers = intTrue;
     }
     
 

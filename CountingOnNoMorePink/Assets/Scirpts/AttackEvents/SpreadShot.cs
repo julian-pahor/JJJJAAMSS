@@ -56,16 +56,16 @@ public class SpreadShot : AttackEvent
         //Set Up Shots 
         ValueEditor ve;
         ve = ee.CreateEditor();
-        ve.SetListener((float f) => { shots = (int)f; }, shots, "Shots");
+        ve.SetListener((float f) => { shots = (int)f; }, shots, "Shots", 1, 360, true);
 
         //set Up Firing Arc
         ve = ee.CreateEditor();
-        ve.SetListener((float f) => { firingArc = f; }, firingArc, "Firing Arc");
+        ve.SetListener((float f) => { firingArc = f; }, firingArc, "Firing Arc", 0, 360);
 
 
         //Set Up Arc Offset
         ve = ee.CreateEditor();
-        ve.SetListener((float f) => { arcOffset = f; }, arcOffset, "Arc Offset");
+        ve.SetListener((float f) => { arcOffset = f; }, arcOffset, "Arc Offset", 0, 360);
 
     }
 }
