@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e453eeab11e295641a87d35b83729137, type: 3}
-  m_Name: Orbiter 1
+  m_Name: Orbiter AC
   m_EditorClassIdentifier: 
-  displayName: Orbiter Clockwise
+  displayName: Orbiter Anticlockwise
   arm: 0
   beams: 4
   segments: 20
@@ -21,7 +21,7 @@ MonoBehaviour:
   minDistance: 1
   arcOffset: 0
   lifeTime: 12
-  direction: 1
+  direction: -1
   speed: 30
   type: 0
   arcStep: 0

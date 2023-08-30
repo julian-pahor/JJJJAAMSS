@@ -19,6 +19,8 @@ public class AttackEventData
 
     public float spiralStep;
 
+    public SpreadShot.ShotType shotType;
+
     //this might need to move so it applies to bullets too
     public BeamShot.BeamBehaviour behaviour;
     public BeamShot.BeamType radiateStyle;
@@ -54,6 +56,7 @@ public class AttackEventData
                 shots = ss.shots;
                 offset = ss.arcOffset;
                 firingArc = ss.firingArc;
+                shotType = ss.shotType;
 
                 break;
 
@@ -124,7 +127,7 @@ public class AttackEventData
                 ss.shots = shots;
                 ss.arcOffset = offset;
                 ss.firingArc = firingArc;
-
+                ss.shotType = shotType;
                 break;
 
             case BeamShot bs:

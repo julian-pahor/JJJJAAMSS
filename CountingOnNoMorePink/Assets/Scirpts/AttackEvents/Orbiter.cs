@@ -75,7 +75,7 @@ public class Orbiter : MonoBehaviour
         {
             float lerp = bopTimer / BeatBroadcast.instance.beatLength;
             transform.localScale = Vector3.Lerp(Vector3.one, Vector3.one * 0.01f, lerp);
-            if(lerp >= 1)
+            if(lerp >= 0.9f)
             {
                 Destroy(gameObject);
             }
