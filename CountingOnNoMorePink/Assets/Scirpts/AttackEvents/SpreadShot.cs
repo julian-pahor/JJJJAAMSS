@@ -10,6 +10,8 @@ public class SpreadShot : AttackEvent
     public float firingArc;
     public float arcOffset;
     public Bullit bulletType;
+    public ShotType shotType;
+    public enum ShotType { Standard, TargetPlayer}
     public override void Fire()
     {
 
@@ -18,8 +20,20 @@ public class SpreadShot : AttackEvent
 
         Transform origin = Wobbit.instance.bossOrigin;
 
+       
         Vector3 launchvector = Utilities.PointWithPolarOffset(origin.position, 1, arcOffset) - origin.position;
         launchvector = launchvector.normalized;
+ 
+        //override launchvector if targeting player
+        if(shotType == ShotType.TargetPlayer)
+        {
+            launchvector = Wobbit.instance.player.position - origin.position;
+       
+            float angle = (float)Mathf.Atan2(launchvector.x, launchvector.z) * 180 / Mathf.PI;
+            launchvector = Utilities.PointWithPolarOffset(origin.position, 1, angle) - origin.position;
+            launchvector = launchvector.normalized;
+      
+        }
 
 
         float rotation = (float)Mathf.Atan2(launchvector.x, launchvector.z) * 180 / Mathf.PI;
