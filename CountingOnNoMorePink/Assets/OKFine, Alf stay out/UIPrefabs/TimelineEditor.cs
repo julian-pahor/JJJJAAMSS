@@ -142,7 +142,8 @@ public class TimelineEditor : MonoBehaviour
         AssetDatabase.Refresh();
 #endif
 
-        saveFileDropdown.LoadSavesFromFolder(); //refresh dropdown
+        //saveFileDropdown.LoadSavesFromFolder(); //refresh dropdown
+        saveFileDropdown.LoadSavesFromPersistent();
         Debug.Log("Saved");
 
     }

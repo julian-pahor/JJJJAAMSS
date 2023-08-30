@@ -72,7 +72,6 @@ public class ValueEditor : MonoBehaviour
 
     /*
      * TODO:
-     * -Add range values to set listener call, initialise slider with appropriate values
      * -Add more ui objects to prefab (dropdown menu) for enum selections
      * -Might need to swap to using UnityAction calls instead to subscribe directly to UI objects
      * 

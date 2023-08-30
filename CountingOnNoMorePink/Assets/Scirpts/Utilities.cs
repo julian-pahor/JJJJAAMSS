@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Windows;
 using System.IO;
 
 public static class Utilities
@@ -131,34 +132,78 @@ public static class Utilities
     public static void SaveData(GameData saveData, string saveName)
     {
 
-#if UNITY_EDITOR
-        string path = $"Assets/Resources/SongSaves/{saveName}.json";
+//#if UNITY_EDITOR
+//        string path = $"Assets/Resources/SongSaves/{saveName}.json";
 
-#else
-        string path = Application.persistentDataPath + "/" + saveName + ".json";
-#endif
+//#else
+//        string path = Application.persistentDataPath + "/SongSaves/" + saveName + ".json";
+//#endif
 
 
+//        string jsonData = JsonUtility.ToJson(saveData);
+//        System.IO.File.WriteAllText(path, jsonData);
+
+
+
+
+        //PERSISTENT DATA PATH LOADING STARTS HERE----------
+
+        string path = Application.persistentDataPath + "/SongSaves/" + saveName + ".json";
         string jsonData = JsonUtility.ToJson(saveData);
         System.IO.File.WriteAllText(path, jsonData);
+
     }
 
     public static GameData LoadData(string saveName)
     {
-#if UNITY_EDITOR
-        string path = $"Assets/Resources/SongSaves/{saveName}.json";
+//#if UNITY_EDITOR
+//        string path = $"Assets/Resources/SongSaves/{saveName}.json";
 
-#else
-        string path = Application.persistentDataPath + "/" + saveName + ".json";
-#endif
+//#else
+//        //string path = Application.persistentDataPath + "/SongSaves/" + saveName + ".json";
 
-        if (!System.IO.File.Exists(path)) return null;
+//#endif
+//        if (!System.IO.File.Exists(path)) return null;
 
-        path = System.IO.File.ReadAllText(path);
-        GameData thisData = new GameData();
-        thisData = JsonUtility.FromJson<GameData>(path);
+//        path = System.IO.File.ReadAllText(path);
+//        GameData thisData = new GameData();
+//        thisData = JsonUtility.FromJson<GameData>(path);
 
-        return thisData;
+//        return thisData;
+
+
+
+
+        //PERSISTENT DATA PATH LOADING STARTS HERE----------
+        string path = Application.persistentDataPath + "/SongSaves/";
+
+        DirectoryInfo di = new DirectoryInfo(path);
+
+        if (di.Exists)
+        {
+            Debug.Log("Directory Exists Yay");
+            foreach (var file in System.IO.Directory.GetFiles(path))
+            {
+                string filePath = file.Replace(path, "");
+                filePath = filePath.Replace(".json", "");
+                if(filePath == saveName)
+                {
+                    string json = System.IO.File.ReadAllText(file);
+                    GameData data = new GameData();
+                    data = JsonUtility.FromJson<GameData>(json);
+                    return data;
+                    
+                }
+               
+            }
+
+            Debug.Log("Found Directory but could not find save");
+
+        }
+         
+         Debug.Log("That directory doesn't exist oops");
+         return new GameData();
+       
     }
 
     public static void DeleteData(string saveName)
@@ -167,7 +212,7 @@ public static class Utilities
         string path = $"Assets/Resources/SongSaves/{saveName}.json";
 
 #else
-        string path = Application.persistentDataPath + "/" + saveName + ".json";
+        string path = Application.persistentDataPath + "/SongSaves/" + saveName + ".json";
 #endif
 
         if (System.IO.File.Exists(path))
@@ -175,4 +220,35 @@ public static class Utilities
             System.IO.File.Delete(path);
         }
     }
+
+    //This creates the directory folder
+    public static bool DirectoryStuff(string path)
+    {
+        DirectoryInfo di = new DirectoryInfo(path);
+
+        try
+        {
+            if (di.Exists)
+            {
+                Debug.Log("Directory Exists Yay");
+                return true;
+
+            }
+            else
+            {
+                di.Create();
+                Debug.Log("Directory Created");
+                return false;
+            }
+        }
+        catch (System.Exception ex)
+        {
+            Debug.Log($"The process failed: {ex.ToString()})");
+            return false;
+        }
+    }
+
+
+    //System.IO.DirectoryInfo CreateDirectory(string path)
+
 }
