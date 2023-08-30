@@ -79,13 +79,7 @@ public class OrbiterAttack : AttackEvent
                 //    }
                 //}
             }
-
-
-
         }
-
-
-
     }
 
     public override void HookUp(EventEditor ee)
@@ -94,11 +88,11 @@ public class OrbiterAttack : AttackEvent
 
         //Beams
         ve = ee.CreateEditor();
-        ve.SetListener((float f) => { beams = (int)f; }, beams, "Beams");
+        ve.SetListener((float f) => { beams = (int)f; }, beams, "Beams", 1, 360, true);
 
         //Offset
         ve = ee.CreateEditor();
-        ve.SetListener((float f) => { arcOffset = f; }, arcOffset, "Arc Offset");
+        ve.SetListener((float f) => { arcOffset = f; }, arcOffset, "Arc Offset", 0, 360);
 
         //Inner Radius
         ve = ee.CreateEditor();
@@ -122,7 +116,7 @@ public class OrbiterAttack : AttackEvent
 
         //Orbital Direction
         ve = ee.CreateEditor();
-        ve.SetListener((float f) => { direction = (int)f; }, direction, "Orbital Direction");
+        ve.SetListener((float f) => { direction = (int)f; }, direction, "Orbital Direction", -1, 1, true);
 
         //SpiralStep;
         ve = ee.CreateEditor();
