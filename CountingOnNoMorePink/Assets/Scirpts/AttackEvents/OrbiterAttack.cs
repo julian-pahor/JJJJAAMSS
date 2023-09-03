@@ -100,7 +100,7 @@ public class OrbiterAttack : AttackEvent
 
         //Outer Radius
         ve = ee.CreateEditor();
-        ve.SetListener((float f) => { distance = f; }, distance, "Outer Radius");
+        ve.SetListener((float f) => { distance = f; }, distance, "Beam Length");
 
         //Beam Segments
         ve = ee.CreateEditor();

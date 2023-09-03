@@ -31,7 +31,7 @@ public class BeamShot : AttackEvent
     LineTracer tempTracer;
 
     public enum BeamType { Instant,RadiateInward,RadiateOutward}
-    public enum BeamBehaviour { BeatToBeat, BetweenBeats}
+    public enum BeamBehaviour {BetweenBeats, BeatToBeat}
 
     public override void Fire()
     {
@@ -178,7 +178,7 @@ public class BeamShot : AttackEvent
 
         //Outer Radius
         ve = ee.CreateEditor();
-        ve.SetListener((float f) => { distance = f; }, distance, "Outer Radius");
+        ve.SetListener((float f) => { distance = f; }, distance, "Beam Length");
 
         //Beam Segments
         ve = ee.CreateEditor();
