@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class Bullit : MonoBehaviour
+public class Bullet : MonoBehaviour
 {
     Vector3 direction;
     public float speed;
@@ -11,12 +11,14 @@ public class Bullit : MonoBehaviour
 
     float lifespan;
     public bool flying;
+
     
     public void Initialise(Vector3 dir)
     {
         direction = dir;
         transform.LookAt(transform.position + dir.normalized);
         lifespan = 0;
+   
     }
 
 
@@ -26,7 +28,8 @@ public class Bullit : MonoBehaviour
     {
         lifespan += Time.deltaTime;
         if(flying)transform.position += direction.normalized * speed * Time.deltaTime;
-        if(lifespan > maxLife)
+
+        if (lifespan > maxLife)
             Destroy(gameObject);
     }
 }

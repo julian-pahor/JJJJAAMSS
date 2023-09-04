@@ -64,7 +64,7 @@ public class SaveFileDropdown : MonoBehaviour
         {
             foreach(var file in System.IO.Directory.GetFiles(path))
             {
-                //Debug.Log(path);
+                Debug.Log(path);
                 string filePath = file.Replace(path, "");
                 filePath = filePath.Replace(".json", "");
                 files.Add(filePath);

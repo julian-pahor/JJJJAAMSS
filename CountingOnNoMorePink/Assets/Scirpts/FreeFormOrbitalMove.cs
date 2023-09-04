@@ -18,6 +18,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
     float currentDistance;
     float angle;
+    public float CurrentAngle { get { return angle; } }
 
     //stats and effects
     public int maxHP;

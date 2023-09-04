@@ -337,9 +337,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 919533474}
-  distance: 16
+  distance: 9
+  focusDistance: 2
   focus: {fileID: 920961725}
-  offset: 8
+  offset: 14
+  speed: 9
 --- !u!114 &26522128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -929,7 +931,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &314966775
 GameObject:
@@ -949,7 +951,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &314966776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6386,13 +6388,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bullet_Sludge
       objectReference: {fileID: 0}
+    - target: {fileID: 1572759178933805933, guid: 15e0c5334d498494e878f862f37f5e36, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2069922927951912278, guid: 15e0c5334d498494e878f862f37f5e36, type: 3}
       propertyPath: maxLife
       value: 555
       objectReference: {fileID: 0}
     - target: {fileID: 8743038137183829391, guid: 15e0c5334d498494e878f862f37f5e36, type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 8743038137183829391, guid: 15e0c5334d498494e878f862f37f5e36, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6454,7 +6460,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &567620497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6748,7 +6754,7 @@ GameObject:
   - component: {fileID: 643523449}
   - component: {fileID: 643523448}
   - component: {fileID: 643523447}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6852,7 +6858,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &658678564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12506,7 +12512,7 @@ MonoBehaviour:
   origin: {fileID: 920961725}
   baseSpeed: 10
   dashSpeed: 50
-  minDistance: 2
+  minDistance: 4
   maxDistance: 14
   maxDash: 0.1
   maxHP: 3
@@ -12558,6 +12564,18 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: c503d1fd1096df04c9d831f3f6a13b80, type: 3}
       propertyPath: m_RootOrder
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c503d1fd1096df04c9d831f3f6a13b80, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c503d1fd1096df04c9d831f3f6a13b80, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c503d1fd1096df04c9d831f3f6a13b80, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c503d1fd1096df04c9d831f3f6a13b80, type: 3}
       propertyPath: m_LocalPosition.x
@@ -12696,7 +12714,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 964523381}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.93, z: 0}
+  m_LocalPosition: {x: 0, y: 1.53, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -13040,7 +13058,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1221588035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13117,7 +13135,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1237238831
 GameObject:
@@ -23413,7 +23431,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 4ed168febae992a489abc1660e03154d, type: 3}
       propertyPath: m_RootOrder
-      value: 20
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4ed168febae992a489abc1660e03154d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -23635,7 +23653,7 @@ GameObject:
   - component: {fileID: 1872185220}
   - component: {fileID: 1872185219}
   - component: {fileID: 1872185218}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23662,7 +23680,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5b60598f699c9ac4cb93fd4f424915cb, type: 2}
+  - {fileID: 2100000, guid: df7364cd7d48f9040820670853184627, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
