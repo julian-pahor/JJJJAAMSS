@@ -8,28 +8,28 @@ public class CircleRenderer : MonoBehaviour
 {
 
     public int points;
-    public float maxRadius;
-    LineRenderer lineRenderer;
+    public float outerRadius;
+    public LineRenderer innerRenderer;
+    public LineRenderer outerRenderer;
 
     bool active;
     float lifeSpan;
     float timer;
     
-    float radius;
+    float innerRadius;
 
     // Start is called before the first frame update
     void Start()
     {
-        lineRenderer = GetComponent<LineRenderer>();
-        lineRenderer.enabled = false;
-        radius = maxRadius;
+        outerRenderer.positionCount = points + 1;
+        outerRenderer.SetPositions(GeneratePoints(outerRadius));
     }
 
     public void StartTimer(float life)
     {
        
-        lineRenderer.enabled = true;
-        timer = life;
+        //lineRenderer.enabled = true;
+       
         lifeSpan = life;
         active = true;
         
@@ -43,20 +43,21 @@ public class CircleRenderer : MonoBehaviour
         
         if(active)
         {
-            timer -= Time.deltaTime;
-            radius = Mathf.Lerp(0.1f, maxRadius, timer / lifeSpan);
-            if(timer <= 0)
+            timer += Time.deltaTime;
+            innerRadius = Mathf.Lerp(0.1f,outerRadius, timer / lifeSpan);
+            if(timer >= lifeSpan)
             {
-                lineRenderer.enabled = false;
+                innerRenderer.enabled = false;
+                outerRenderer.enabled = false;
             }
         }
 
-       lineRenderer.positionCount = points+1;
-       lineRenderer.SetPositions(GeneratePoints());
+       innerRenderer.positionCount = points+1;
+       innerRenderer.SetPositions(GeneratePoints(innerRadius));
     }
 
 
-    Vector3[] GeneratePoints()
+    Vector3[] GeneratePoints(float radius)
     {
        
 

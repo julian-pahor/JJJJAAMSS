@@ -79,7 +79,6 @@ public class DelayedDangerZone : MonoBehaviour
             //arm
             if(!tracerLaunched && timer <= armStart + (armTime*2))
             {
-              
                 StartIndicator(armTime*3);
                 StartTracer(armTime);
                 tracerLaunched = true;

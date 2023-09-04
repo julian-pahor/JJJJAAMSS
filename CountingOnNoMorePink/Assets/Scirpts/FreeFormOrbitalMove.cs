@@ -36,6 +36,8 @@ public class FreeFormOrbitalMove : MonoBehaviour
     Rigidbody rb;
     float directionX;
     float directionY;
+    public Vector2 Movement { get { return new Vector2(directionX,directionY); } }
+
     float speed;
 
     //stats

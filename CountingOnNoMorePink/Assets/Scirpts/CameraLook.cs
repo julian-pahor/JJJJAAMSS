@@ -10,6 +10,7 @@ public class CameraLook : MonoBehaviour
     public Transform focus;
     public float offset;
     public float speed;
+    public float lead;
 
     Vector3 target;
     Vector3 lookTarget;
@@ -26,7 +27,7 @@ public class CameraLook : MonoBehaviour
         float angle = player.CurrentAngle;
         float adjustedSpeed = speed * Vector3.Distance(target, transform.position);
 
-        target = Utilities.PointWithPolarOffset(player.transform.position, distance, angle) + new Vector3(0, offset, 0);
+        target = Utilities.PointWithPolarOffset(player.transform.position, distance, angle + (-player.Movement.x * lead)) + new Vector3(0, offset, 0);
 
         transform.position = Vector3.MoveTowards(transform.position,target,adjustedSpeed * Time.deltaTime);
         //lt incredible mathfs
