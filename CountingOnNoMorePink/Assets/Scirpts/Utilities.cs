@@ -1,8 +1,11 @@
+using OpenCover.Framework.Model;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using Unity.VisualScripting;
+using UnityEditor.PackageManager;
 using UnityEngine;
+using System.IO;
 
 public static class Utilities
 {
@@ -71,4 +74,83 @@ public static class Utilities
     }
   
 
+    //Save and Load DataClasses And Functionality
+
+    public class GameData
+    {
+        //Load it up with variables of whatever we need to save
+        public int phraseCount;
+        public int phraseLength;
+
+        public List<string> fileData;
+
+        public GameData()
+        {
+            fileData = new List<string>();
+        }
+    }
+
+    public static GameData TranslateData(string path)
+    {
+        GameData data = new GameData();
+
+        try
+        {
+            using (StreamReader sr = new StreamReader(path))
+            {
+                //read first two lines for count and length
+                int.TryParse(sr.ReadLine(), out data.phraseCount);
+                int.TryParse(sr.ReadLine(), out data.phraseLength);
+
+                //remaining data is attackevent ids
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    //fileData.Add(line);
+                    data.fileData.Add(line);
+                }
+            }
+
+            return data;
+        }
+        catch
+        {
+            // will see this 90% of the time
+            Debug.Log("file bad");
+            return null;
+        }
+        
+        
+    }
+
+    public static void SaveData(GameData saveData, string saveName)
+    {
+        string path = $"Assets/Resources/SongSaves/{saveName}.json";
+        string jsonData = JsonUtility.ToJson(saveData);
+        System.IO.File.WriteAllText(path, jsonData);
+    }
+
+    public static GameData LoadData(string saveName)
+    {
+        
+        string path = $"Assets/Resources/SongSaves/{saveName}.json";
+
+        if (!System.IO.File.Exists(path)) return null;
+
+        path = System.IO.File.ReadAllText(path);
+        GameData thisData = new GameData();
+        thisData = JsonUtility.FromJson<GameData>(path);
+
+        return thisData;
+    }
+
+    public static void DeleteData(string saveName)
+    {
+        string path = $"Assets/Resources/SongSaves/{saveName}.json";
+
+        if (System.IO.File.Exists(path))
+        {
+            System.IO.File.Delete(path);
+        }
+    }
 }

@@ -14,6 +14,8 @@ public class HexGridMaker : MonoBehaviour
     public bool isFlatTopped;
     public Material material;
 
+    public List<HexRenderer> hexes = new List<HexRenderer>();
+
     private void OnEnable()
     {
         LayoutGrid();
@@ -29,25 +31,44 @@ public class HexGridMaker : MonoBehaviour
 
     void LayoutGrid()
     {
-        for(int y = 0; y < gridSize.y; y++)
+        //First iteration creates game objects
+        if(hexes.Count <= 0)
         {
-            for(int x = 0; x < gridSize.x; x++)
+            for (int y = 0; y < gridSize.y; y++)
             {
-                GameObject tile = new GameObject($"Hex {x},{y}", typeof(HexRenderer));
-                tile.transform.position = GetPositionForHexFromCoordinate(new Vector2Int(x, y));
+                for (int x = 0; x < gridSize.x; x++)
+                {
+                    GameObject tile = new GameObject($"Hex {x},{y}", typeof(HexRenderer));
+                    tile.transform.position = GetPositionForHexFromCoordinate(new Vector2Int(x, y));
 
-                HexRenderer hex = tile.GetComponent<HexRenderer>();
+                    HexRenderer hex = tile.GetComponent<HexRenderer>();
+                    hexes.Add(hex);
+
+                    hex.isFlatTopped = isFlatTopped;
+                    hex.outerSize = outerSize;
+                    hex.innerSize = innerSize;
+                    hex.height = height;
+                    hex.gridPos = new Vector2Int(x, y);
+                    hex.SetMaterial(material);
+                    hex.DrawMesh();
+
+                    tile.transform.parent = transform;
+                }
+            }
+        }
+        else
+        {
+            foreach (HexRenderer hex in hexes)
+            {
+                hex.transform.position = GetPositionForHexFromCoordinate(hex.gridPos);
                 hex.isFlatTopped = isFlatTopped;
                 hex.outerSize = outerSize;
                 hex.innerSize = innerSize;
                 hex.height = height;
-
-                hex.SetMaterial(material);
                 hex.DrawMesh();
-
-                tile.transform.parent = transform;
             }
         }
+        
     }
 
     public Vector3 GetPositionForHexFromCoordinate(Vector2Int coordinate)
@@ -95,7 +116,7 @@ public class HexGridMaker : MonoBehaviour
         }
 
 
-        return new Vector3(xPosition, 0, -yPosition);
+        return new Vector3(xPosition + transform.position.x, transform.position.y, yPosition + transform.position.z);
 
     }
 

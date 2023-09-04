@@ -37,6 +37,9 @@ public class HexRenderer : MonoBehaviour
 
     public Material material;
 
+    [HideInInspector]
+    public Vector2Int gridPos;
+
     private void Awake()
     {
         m_meshFilter = GetComponent<MeshFilter>();

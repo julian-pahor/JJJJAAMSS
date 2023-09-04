@@ -76,6 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 640a9637cbd65b94aacbfb0e2457b13e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseMat: {fileID: 2100000, guid: b519948a3409bbe45824f55dad13f746, type: 2}
 --- !u!1001 &4772107744907341938
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -126,6 +127,18 @@ PrefabInstance:
     - target: {fileID: 382571648269529144, guid: 0a6ed7cbc677a964ea85dcd01f2752a3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064999710961798661, guid: 0a6ed7cbc677a964ea85dcd01f2752a3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6ddbe12b32a7d0249ad78d23c96c00b1, type: 2}
+    - target: {fileID: 7539890101239120803, guid: 0a6ed7cbc677a964ea85dcd01f2752a3, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7644032560125799486, guid: 0a6ed7cbc677a964ea85dcd01f2752a3, type: 3}
+      propertyPath: maxLife
+      value: 99
       objectReference: {fileID: 0}
     - target: {fileID: 7812017705498102174, guid: 0a6ed7cbc677a964ea85dcd01f2752a3, type: 3}
       propertyPath: m_Name

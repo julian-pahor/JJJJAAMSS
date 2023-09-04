@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 965af55d089815947a27d334a74f7c0d, type: 3}
   m_Name: Spiral
   m_EditorClassIdentifier: 
-  beams: 3
+  arm: 0
+  beams: 2
   segments: 30
   firingArc: 360
   distance: 20
   minDistance: 0
   arcOffset: 0
-  popTime: 0.1
+  duration: 4
   type: 2
+  behaviour: 1
   arcStep: 15
   lineTracer: {fileID: 0}

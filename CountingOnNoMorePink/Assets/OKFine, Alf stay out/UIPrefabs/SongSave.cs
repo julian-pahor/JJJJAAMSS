@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-
-using UnityEditor;
+using System.Linq;
 
 public class SongSave : MonoBehaviour
 {
@@ -31,64 +30,91 @@ public class SongSave : MonoBehaviour
         blockDatas.Clear();
 
         //grab all attack event data
-
-        string[] guids = AssetDatabase.FindAssets(string.Format("t:{0}", typeof(AttackEvent)));
-
-        for (int i = 0; i < guids.Length; i++)
+        List<AttackEvent> attackEvents = new List<AttackEvent>();
+        attackEvents = Resources.LoadAll<AttackEvent>("AttackEvents").ToList();
+        foreach (AttackEvent attackEvent in attackEvents)
         {
-            string assetPath = AssetDatabase.GUIDToAssetPath(guids[i]);
-            AttackEvent attackEvent = AssetDatabase.LoadAssetAtPath<AttackEvent>(assetPath);
             attackEventsDatabase.Add(attackEvent);
         }
 
+        ////try and load our text
+        //List<string> fileData = new List<string>();
+        //phraseCount = 0;
+        //phraseLength = 0;
+
+        //try
+        //{
+
+        //    using (StreamReader sr = new StreamReader(path))
+        //    {
+        //        //read first two lines for count and length
+        //        int.TryParse(sr.ReadLine(), out phraseCount);
+        //        int.TryParse(sr.ReadLine(), out phraseLength);
+
+        //        //remaining data is attackevent ids
+        //        string line;
+        //        while ((line = sr.ReadLine()) != null)
+        //        {
+        //            fileData.Add(line);
+        //        }
+        //    }
+        //}
+        //catch 
+        //{
+        //    // will see this 90% of the time
+        //    Debug.Log("file bad");
+        //    return;
+        //}
+
+        //int totalbeats = phraseCount * phraseLength;
+        //int fileIndex = 0; //current position in the file
+
+        ////now setup blockdata list
+
+        ////for every beat block
+        //for(int i = 0; i < totalbeats; i++)
+        //{
+        //    //create set of data
+        //    BlockData b = new BlockData(blockDataSize);
+
+        //    //set each slot to the attack event (comparing names in database list)
+        //    for(int j = 0; j < blockDataSize; j++)
+        //    {
+        //        b.events[j] = GetAttackEvent(fileData[fileIndex]);
+        //        fileIndex++;
+        //    }
+        //    blockDatas.Add(b);
+        //}
+
+
+        ///---- JSON TESTING BEGINS HERE
+        ///
+
         //try and load our text
-        List<string> fileData = new List<string>();
-        phraseCount = 0;
-        phraseLength = 0;
+        Utilities.GameData thisData = Utilities.LoadData(path);
 
-        try
-        {
+        int totalbeats = thisData.phraseCount * thisData.phraseLength;
+        this.phraseCount = thisData.phraseCount;
+        this.phraseLength = thisData.phraseLength;
+        int fileIndex = 0;
 
-            using (StreamReader sr = new StreamReader(path))
-            {
-                //read first two lines for count and length
-                int.TryParse(sr.ReadLine(), out phraseCount);
-                int.TryParse(sr.ReadLine(), out phraseLength);
-
-                //remaining data is attackevent ids
-                string line;
-                while ((line = sr.ReadLine()) != null)
-                {
-                    fileData.Add(line);
-                }
-            }
-        }
-        catch 
-        {
-            // will see this 90% of the time
-            Debug.Log("file bad");
-            return;
-        }
-
-        int totalbeats = phraseCount * phraseLength;
-        int fileIndex = 0; //current position in the file
-
-        //now setup blockdata list
 
         //for every beat block
-        for(int i = 0; i < totalbeats; i++)
+        for (int i = 0; i < totalbeats; i++)
         {
             //create set of data
             BlockData b = new BlockData(blockDataSize);
-            
+
             //set each slot to the attack event (comparing names in database list)
-            for(int j = 0; j < blockDataSize; j++)
+            for (int j = 0; j < blockDataSize; j++)
             {
-                b.events[j] = GetAttackEvent(fileData[fileIndex]);
+                b.events[j] = GetAttackEvent(thisData.fileData[fileIndex]);
                 fileIndex++;
             }
             blockDatas.Add(b);
         }
+
+        ///---- JSON TESTING ENDS HERE
 
     }
 
@@ -121,7 +147,6 @@ public class SongSave : MonoBehaviour
     {
         for (int i = 0; i < blockDataSize; ++i)
         {
-     
             if (blockDatas[index].events[i] != null)
             {
                 blockDatas[index].events[i].Fire();
