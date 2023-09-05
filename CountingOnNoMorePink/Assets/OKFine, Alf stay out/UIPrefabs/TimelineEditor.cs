@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 #if UNITY_EDITOR
-using UnityEditor; //Remove this once we figure out proper file management
+using UnityEditor;
 #endif
+
 
 public class TimelineEditor : MonoBehaviour
 {
@@ -20,8 +20,10 @@ public class TimelineEditor : MonoBehaviour
 
     public TMP_Dropdown phraseSelector;
 
-    public TMP_InputField saveFileNameField;
 
+    public EventEditor eventEditor;
+
+    public TMP_InputField saveFileNameField;
     public SongSave saveData;
     public SaveFileDropdown saveFileDropdown;
 
@@ -63,6 +65,20 @@ public class TimelineEditor : MonoBehaviour
         SceneManager.LoadScene(mainScene);
     }
 
+    public void UpdateAllSlots()
+    {
+        foreach (BeatBlokk b in beatTimeLine)
+        {
+            b.Updoot();
+        }
+    }
+
+    public void SelectEvent(AttackEvent attackEvent)
+    {
+        eventEditor.SelectNewObject(attackEvent);
+        UpdateAllSlots();
+    }
+
     //creates the beat blocks for each phrase in our phrase list
     void GenerateTimelineUI()
     {
@@ -85,6 +101,8 @@ public class TimelineEditor : MonoBehaviour
             {
                 b.GetComponent<Image>().color = Color.green;
             }
+
+            b.Initialise(this);
 
             beatTimeLine.Add(b);
         }
@@ -111,12 +129,23 @@ public class TimelineEditor : MonoBehaviour
         }
     }
 
-    //rework so we can save by calling savesong directly
+    #region save/load
+
+    //accesses the savesong component to create a save file
     public void TrySave()
     {
         Debug.Log("Saving...");
         phrases[currentPhrase].Save(beatTimeLine);
-        SaveSong(phrases);
+        saveData.SaveSong(phrases, saveFileNameField.text);
+
+#if UNITY_EDITOR
+        AssetDatabase.Refresh();
+#endif
+
+        //saveFileDropdown.LoadSavesFromFolder(); //refresh dropdown
+        saveFileDropdown.LoadSavesFromPersistent();
+        Debug.Log("Saved");
+
     }
 
     public void TryLoad()
@@ -124,16 +153,24 @@ public class TimelineEditor : MonoBehaviour
         if (saveFileDropdown.GetSelectedSave() == null)
             return;
         Debug.Log("Loading...");
+
         //reset selector
         phraseSelector.value = 0;
         currentPhrase = phraseSelector.value;
+
         //load save
         saveData.LoadSave(saveFileDropdown.GetSelectedSave());
+<<<<<<< HEAD
+=======
+
+>>>>>>> SaveFeatureTestingV2
         //clear our phrases and regenerate ui
         phrases.Clear();
         GenerateTimelineUI();
+
         //get stored phrases from data
         phrases = saveData.GetSavedPhrases();
+
         //load into UI view and apply to timeline
         saveFileNameField.text = saveFileDropdown.GetSelectedSave();
         phrases[currentPhrase].LoadPhraseData(beatTimeLine);
@@ -143,6 +180,7 @@ public class TimelineEditor : MonoBehaviour
         }
         Debug.Log("Load complete");
     }
+<<<<<<< HEAD
 
     
 
@@ -245,6 +283,9 @@ public class TimelineEditor : MonoBehaviour
         saveFileDropdown.LoadSavesFromFolder(); //refresh dropdown
         Debug.Log("Saved");
     }
+=======
+    #endregion
+>>>>>>> SaveFeatureTestingV2
 
 }
 

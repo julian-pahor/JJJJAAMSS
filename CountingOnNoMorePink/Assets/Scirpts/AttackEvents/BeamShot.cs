@@ -31,7 +31,7 @@ public class BeamShot : AttackEvent
     LineTracer tempTracer;
 
     public enum BeamType { Instant,RadiateInward,RadiateOutward}
-    public enum BeamBehaviour { BeatToBeat, BetweenBeats}
+    public enum BeamBehaviour {BetweenBeats, BeatToBeat}
 
     public override void Fire()
     {
@@ -158,5 +158,38 @@ public class BeamShot : AttackEvent
             dd.InitialiseOnBeat(pop, 1);
         }
 
+    }
+
+    public override void HookUp(EventEditor ee)
+    {
+        ValueEditor ve;
+
+        //Set Up Beam Amount
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { beams = (int)f; }, beams, "Beams");
+
+        //Set Up Arc offset
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { arcOffset = f; }, arcOffset, "Arc Offset");
+
+        //Inner Radius
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { minDistance = f; }, minDistance, "Inner Radius");
+
+        //Outer Radius
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { distance = f; }, distance, "Beam Length");
+
+        //Beam Segments
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { segments = f; }, segments, "Beam Segments");
+
+        //Duration
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { duration = (int)f; }, duration, "Duration");
+
+        //SpiralStep;
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { arcStep = f; }, arcStep, "Spiral Step");
     }
 }

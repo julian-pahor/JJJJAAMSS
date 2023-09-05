@@ -12,10 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 965af55d089815947a27d334a74f7c0d, type: 3}
   m_Name: 10BeamInstant
   m_EditorClassIdentifier: 
-  beams: 10
-  segments: 20
+  displayName: Instant Beam
+  arm: 0
+  beams: 3
+  segments: 10
   firingArc: 360
-  distance: 20
+  distance: 10
+  minDistance: 0
   arcOffset: 0
-  popTime: 0.5
+  duration: 0
   type: 0
+  behaviour: 0
+  arcStep: 0
+  effectsPrefab: {fileID: 0}
+  artilleryEffect: {fileID: 0}
+  lineTracer: {fileID: 0}

@@ -1,10 +1,9 @@
-using OpenCover.Framework.Model;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using Unity.VisualScripting;
-using UnityEditor.PackageManager;
 using UnityEngine;
+using UnityEngine.Windows;
 using System.IO;
 
 public static class Utilities
@@ -72,6 +71,8 @@ public static class Utilities
         return QuadraticLerp(a - offset, b, c, t);
 
     }
+
+
   
 
     //Save and Load DataClasses And Functionality
@@ -82,6 +83,7 @@ public static class Utilities
         public int phraseCount;
         public int phraseLength;
 
+<<<<<<< HEAD
         public List<string> fileData;
 
         public GameData()
@@ -121,36 +123,177 @@ public static class Utilities
         }
         
         
+=======
+        //public List<string> fileData;
+
+        public List<AttackEventData> fileData;
+       
+
+        public GameData()
+        {
+            fileData = new List<AttackEventData>();
+        }
+>>>>>>> SaveFeatureTestingV2
     }
 
+    //I busted this it's dead
+    /*
+    public static GameData TranslateData(string path)
+    {
+        GameData data = new GameData();
+
+        try
+        {
+            using (StreamReader sr = new StreamReader(path))
+            {
+                //read first two lines for count and length
+                int.TryParse(sr.ReadLine(), out data.phraseCount);
+                int.TryParse(sr.ReadLine(), out data.phraseLength);
+
+                //remaining data is attackevent ids
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    //fileData.Add(line);
+                    data.fileData.Add(line);
+                }
+            }
+
+            return data;
+        }
+        catch
+        {
+            // will see this 90% of the time
+            Debug.Log("file bad");
+            return null;
+        }
+        
+    }
+
+    */
     public static void SaveData(GameData saveData, string saveName)
     {
-        string path = $"Assets/Resources/SongSaves/{saveName}.json";
+
+//#if UNITY_EDITOR
+//        string path = $"Assets/Resources/SongSaves/{saveName}.json";
+
+//#else
+//        string path = Application.persistentDataPath + "/SongSaves/" + saveName + ".json";
+//#endif
+
+
+//        string jsonData = JsonUtility.ToJson(saveData);
+//        System.IO.File.WriteAllText(path, jsonData);
+
+
+
+
+        //PERSISTENT DATA PATH LOADING STARTS HERE----------
+
+        string path = Application.persistentDataPath + "/SongSaves/" + saveName + ".json";
         string jsonData = JsonUtility.ToJson(saveData);
         System.IO.File.WriteAllText(path, jsonData);
+
     }
 
     public static GameData LoadData(string saveName)
     {
-        
-        string path = $"Assets/Resources/SongSaves/{saveName}.json";
+//#if UNITY_EDITOR
+//        string path = $"Assets/Resources/SongSaves/{saveName}.json";
 
-        if (!System.IO.File.Exists(path)) return null;
+//#else
+//        //string path = Application.persistentDataPath + "/SongSaves/" + saveName + ".json";
 
-        path = System.IO.File.ReadAllText(path);
-        GameData thisData = new GameData();
-        thisData = JsonUtility.FromJson<GameData>(path);
+//#endif
+//        if (!System.IO.File.Exists(path)) return null;
 
-        return thisData;
+//        path = System.IO.File.ReadAllText(path);
+//        GameData thisData = new GameData();
+//        thisData = JsonUtility.FromJson<GameData>(path);
+
+//        return thisData;
+
+
+
+
+        //PERSISTENT DATA PATH LOADING STARTS HERE----------
+        string path = Application.persistentDataPath + "/SongSaves/";
+
+        DirectoryInfo di = new DirectoryInfo(path);
+
+        if (di.Exists)
+        {
+            Debug.Log("Directory Exists Yay");
+            foreach (var file in System.IO.Directory.GetFiles(path))
+            {
+                string filePath = file.Replace(path, "");
+                filePath = filePath.Replace(".json", "");
+                if(filePath == saveName)
+                {
+                    string json = System.IO.File.ReadAllText(file);
+                    GameData data = new GameData();
+                    data = JsonUtility.FromJson<GameData>(json);
+                    return data;
+                    
+                }
+               
+            }
+
+            Debug.Log("Found Directory but could not find save");
+
+        }
+         
+         Debug.Log("That directory doesn't exist oops");
+         return new GameData();
+       
     }
 
     public static void DeleteData(string saveName)
     {
+#if UNITY_EDITOR
         string path = $"Assets/Resources/SongSaves/{saveName}.json";
+
+#else
+        string path = Application.persistentDataPath + "/SongSaves/" + saveName + ".json";
+#endif
 
         if (System.IO.File.Exists(path))
         {
             System.IO.File.Delete(path);
         }
     }
+<<<<<<< HEAD
+=======
+
+    //This creates the directory folder
+    public static bool DirectoryStuff(string path)
+    {
+        DirectoryInfo di = new DirectoryInfo(path);
+
+        try
+        {
+            if (di.Exists)
+            {
+                Debug.Log("Directory Exists Yay");
+                return true;
+
+            }
+            else
+            {
+                di.Create();
+                Debug.Log("Directory Created");
+                return false;
+            }
+        }
+        catch (System.Exception ex)
+        {
+            Debug.Log($"The process failed: {ex.ToString()})");
+            return false;
+        }
+    }
+
+
+    //System.IO.DirectoryInfo CreateDirectory(string path)
+
+>>>>>>> SaveFeatureTestingV2
 }

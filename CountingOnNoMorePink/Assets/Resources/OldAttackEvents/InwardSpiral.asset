@@ -10,19 +10,35 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 965af55d089815947a27d334a74f7c0d, type: 3}
-  m_Name: InwardShockwave
+  m_Name: InwardSpiral
   m_EditorClassIdentifier: 
+<<<<<<< HEAD:CountingOnNoMorePink/Assets/Resources/AttackEvents/InwardShockwave.asset
   arm: 0
   beams: 30
   segments: 10
+=======
+  displayName: old
+  arm: 0
+  beams: 6
+  segments: 30
+>>>>>>> SaveFeatureTestingV2:CountingOnNoMorePink/Assets/Resources/OldAttackEvents/InwardSpiral.asset
   firingArc: 360
   distance: 30
-  minDistance: 5
+  minDistance: 0
   arcOffset: 0
+<<<<<<< HEAD:CountingOnNoMorePink/Assets/Resources/AttackEvents/InwardShockwave.asset
   duration: 1
   type: 1
   behaviour: 0
   arcStep: 0
   effectsPrefab: {fileID: 8761158838029511234, guid: c86f98645f64b99488af4fc7542e089f, type: 3}
   artilleryEffect: {fileID: 3475748706500403554, guid: 368e69fa97a935b47906cdd24a5aeb3e, type: 3}
+=======
+  duration: 8
+  type: 1
+  behaviour: 0
+  arcStep: 5
+  effectsPrefab: {fileID: 0}
+  artilleryEffect: {fileID: 0}
+>>>>>>> SaveFeatureTestingV2:CountingOnNoMorePink/Assets/Resources/OldAttackEvents/InwardSpiral.asset
   lineTracer: {fileID: 0}

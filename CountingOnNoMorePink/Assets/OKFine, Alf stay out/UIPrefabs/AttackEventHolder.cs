@@ -34,6 +34,6 @@ public class AttackEventHolder : MonoBehaviour, IBeginDragHandler, IDragHandler,
     public void SetEvent(AttackEvent ae)
     {
         attackEvent = ae;
-        text.text = attackEvent.name;
+        text.text = attackEvent.displayName;
     }
 }

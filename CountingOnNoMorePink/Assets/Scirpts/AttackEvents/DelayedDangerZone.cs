@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using Unity.VisualScripting;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using static UnityEngine.UI.Image;
 
@@ -14,6 +15,7 @@ public class DelayedDangerZone : MonoBehaviour
 
     public ParticleSystem tellEffect;
     public ParticleSystem launchEffect;
+    public CircleRenderer indicator;
 
     public bool beatLocked; //whether this is locked to the beat, or runs on a timer
 
@@ -25,10 +27,20 @@ public class DelayedDangerZone : MonoBehaviour
     float armTime;
     float activeTime;
     float timer;
+<<<<<<< HEAD
  
     bool isArmed;
     bool tracerLaunched;
 
+=======
+
+    float armStart;
+    float activeStart;
+ 
+    bool isArmed;
+    bool tracerLaunched;
+
+>>>>>>> SaveFeatureTestingV2
     //do this before initialising yeh that makes sense
     public void SetArtilleryTracer(Artillery tracer)
     {
@@ -55,8 +67,11 @@ public class DelayedDangerZone : MonoBehaviour
         col.enabled = false;
 
         //DO NOT QUESTION ME JULIAN
-        this.armTime = armTime + activeTime + 1;
-        this.activeTime = activeTime + 1;
+        this.armTime = armTime;
+        this.activeTime = activeTime;
+
+        armStart = armTime + activeTime + 1;
+        activeStart = activeTime + 1;
 
     }
     //FIX YOUR MATHEMATICS ALFRED
@@ -69,19 +84,29 @@ public class DelayedDangerZone : MonoBehaviour
         if(!isActive)
         {
             //arm
+<<<<<<< HEAD
             if(!tracerLaunched && timer <= (armTime - activeTime) *2)
             {
                 StartTracer(armTime);
                 tracerLaunched = true;
             }
             else if (!isArmed && timer <= armTime)
+=======
+            if(!tracerLaunched && timer <= armStart + (armTime*2))
+            {
+                StartIndicator(armTime*3);
+                StartTracer(armTime);
+                tracerLaunched = true;
+            }
+            else if (!isArmed && timer <= armStart)
+>>>>>>> SaveFeatureTestingV2
             {
                 tellEffect.Play(true);
                 isArmed = true;
                 //StartTracer(armTime- activeTime); 
             }
 
-            else if(timer <= activeTime)
+            else if(timer <= activeStart)
             {
                 Activate();
             }
@@ -177,6 +202,18 @@ public class DelayedDangerZone : MonoBehaviour
 
     }
 
+<<<<<<< HEAD
+=======
+    void StartIndicator(float time)
+    {
+        if (indicator == null)
+            return;
+        
+        indicator.StartTimer(time);
+
+    }
+
+>>>>>>> SaveFeatureTestingV2
     private void OnDestroy()
     {
         if(beatLocked)

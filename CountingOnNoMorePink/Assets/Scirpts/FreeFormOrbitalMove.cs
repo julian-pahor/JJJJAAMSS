@@ -16,6 +16,10 @@ public class FreeFormOrbitalMove : MonoBehaviour
     public float maxDistance;
     public float maxDash;
 
+    float currentDistance;
+    float angle;
+    public float CurrentAngle { get { return angle; } }
+
     //stats and effects
     public int maxHP;
     public int currentHP;
@@ -32,6 +36,8 @@ public class FreeFormOrbitalMove : MonoBehaviour
     Rigidbody rb;
     float directionX;
     float directionY;
+    public Vector2 Movement { get { return new Vector2(directionX,directionY); } }
+
     float speed;
 
     //stats
@@ -56,30 +62,30 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
         //parry
         isParry = Input.GetMouseButton(1);
-       
 
-        if(isParry)
+
+        if (isParry)
             shieldTime += Time.deltaTime;
         else
             shieldTime -= Time.deltaTime;
 
-        shieldTime = Mathf.Clamp(shieldTime,0,maxShield);
-    
-        parrySphere.transform.localScale = Vector3.Lerp(new Vector3(0.1f, 0.1f, 0.1f), new Vector3(3f, 3f, 3f), shieldTime/maxShield);
-       
+        shieldTime = Mathf.Clamp(shieldTime, 0, maxShield);
+
+        parrySphere.transform.localScale = Vector3.Lerp(new Vector3(0.1f, 0.1f, 0.1f), new Vector3(3f, 3f, 3f), shieldTime / maxShield);
+
 
         //dash
         dashTime -= Time.deltaTime;
         isDash = dashTime > 0;
-        speed = isDash ? dashSpeed : baseSpeed;
+
 
         //if(Input.GetMouseButtonDown(0))
         //{
         //    slashFx.Play();
-         
+
         //}
 
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             dashTime = maxDash;
         }
@@ -91,14 +97,14 @@ public class FreeFormOrbitalMove : MonoBehaviour
         //julian hates optimistation
         //he is a square
         //root
-        float distance = Vector3.Distance(transform.position,origin.position);
+        float distance = Vector3.Distance(transform.position, origin.position);
 
 
         //TODO: some kind of bug where dashing while moving diagonally will let you go past the max distance
         //may be a non-issue once we rework the dash
-        if(distance <= minDistance && -directionY < 0) directionY = 0;
-        if(distance >= maxDistance && -directionY > 0) directionY = 0;
-       
+        if (distance <= minDistance && -directionY < 0) directionY = 0;
+        if (distance >= maxDistance && -directionY > 0) directionY = 0;
+
 
 
     }
@@ -106,14 +112,27 @@ public class FreeFormOrbitalMove : MonoBehaviour
     void FixedUpdate()
     {
 
-        rb.rotation  = Quaternion.LookRotation(transform.position - origin.transform.position);
+        rb.rotation = Quaternion.LookRotation(transform.position - origin.transform.position);
 
         if (isParry) return;
 
-        Vector3 direction = (transform.forward * -directionY) + (transform.right * -directionX);
-        direction = direction.normalized;
-        rb.MovePosition(rb.position + (direction * speed * Time.deltaTime));
-      
+        float currentSpeed = isDash ? dashSpeed : baseSpeed;
+
+        currentDistance += -directionY * currentSpeed * Time.fixedDeltaTime;
+        currentDistance = Mathf.Clamp(currentDistance, minDistance, maxDistance);
+
+        float speed = (currentSpeed / currentDistance) * Mathf.Rad2Deg * Time.fixedDeltaTime;
+        angle += -directionX * speed;
+
+        if (angle < 0f) angle = 360f;
+        if (angle > 360f) angle = 0f;
+
+        Vector3 moveTo = Utilities.PointWithPolarOffset(origin.position, currentDistance, angle);
+
+        //Vector3 direction = (transform.forward * -directionY) + (transform.right * -directionX);
+        //direction = direction.normalized;
+        rb.MovePosition(moveTo);
+
     }
 
 
@@ -146,7 +165,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
             if (currentHP <= 0)
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
-            if(onTakeDamage != null)
+            if (onTakeDamage != null)
             {
                 onTakeDamage();
             }
