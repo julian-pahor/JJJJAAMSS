@@ -190,6 +190,6 @@ public class BeamShot : AttackEvent
 
         //SpiralStep;
         ve = ee.CreateEditor();
-        ve.SetListener((float f) => { arcStep = f; }, arcStep, "Spiral Step");
+        ve.SetListener((float f) => { arcStep = f; }, arcStep, "Spiral Step",-360f,360f);
     }
 }
