@@ -18,7 +18,7 @@ public class BoomBlock : MonoBehaviour
     Vector3 end;
 
     Collider col;
-    Bullit bull;
+    Bullet bull;
 
     bool doesDrop;
 
@@ -31,13 +31,13 @@ public class BoomBlock : MonoBehaviour
     }
 
     public void Initialise(float formtime)
-    {   bull = GetComponent<Bullit>();
+    {   bull = GetComponent<Bullet>();
         formTimeTotal = formtime;
         bull.maxLife = formtime;
     }
     public void Initialise(float formtime, Vector3 start, Vector3 target)
     {
-        bull = GetComponent<Bullit>();
+        bull = GetComponent<Bullet>();
         formTimeTotal = formtime;
         bull.maxLife = formtime;
         this.start = start;

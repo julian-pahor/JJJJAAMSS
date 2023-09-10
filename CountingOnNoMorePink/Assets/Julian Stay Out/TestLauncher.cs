@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class TestLauncher : MonoBehaviour
 {
-    public Bullit bellet;
+    public Bullet bellet;
   
     // Update is called once per frame
     void Update()
     {
         if(Input.GetMouseButtonDown(0))
         {
-            Bullit bullit = Instantiate(bellet,transform.position,Quaternion.identity);
+            Bullet bullit = Instantiate(bellet,transform.position,Quaternion.identity);
             bullit.Initialise(transform.forward);
         }
     }

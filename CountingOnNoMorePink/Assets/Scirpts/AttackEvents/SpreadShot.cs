@@ -9,7 +9,9 @@ public class SpreadShot : AttackEvent
     public int shots;
     public float firingArc;
     public float arcOffset;
-    public Bullit bulletType;
+    public Bullet bulletType;
+    public ShotType shotType;
+    public enum ShotType { Standard, TargetPlayer}
     public override void Fire()
     {
 
@@ -18,8 +20,20 @@ public class SpreadShot : AttackEvent
 
         Transform origin = Wobbit.instance.bossOrigin;
 
+       
         Vector3 launchvector = Utilities.PointWithPolarOffset(origin.position, 1, arcOffset) - origin.position;
         launchvector = launchvector.normalized;
+ 
+        //override launchvector if targeting player
+        if(shotType == ShotType.TargetPlayer)
+        {
+            launchvector = Wobbit.instance.player.position - origin.position;
+       
+            float angle = (float)Mathf.Atan2(launchvector.x, launchvector.z) * 180 / Mathf.PI;
+            launchvector = Utilities.PointWithPolarOffset(origin.position, 1, angle) - origin.position;
+            launchvector = launchvector.normalized;
+      
+        }
 
 
         float rotation = (float)Mathf.Atan2(launchvector.x, launchvector.z) * 180 / Mathf.PI;
@@ -28,7 +42,7 @@ public class SpreadShot : AttackEvent
 
         for (var i = 0; i < shots; ++i)
         {
-            Bullit b;
+            Bullet b;
             //TODO: grab this from pool instead of instantiating
             if (bulletType == null)
             {
@@ -47,12 +61,25 @@ public class SpreadShot : AttackEvent
 
 
             b.Initialise(bulletDir);
-            
-
-
         }
-
-
     }
 
+    public override void HookUp(EventEditor ee)
+    {
+        
+        //Set Up Shots 
+        ValueEditor ve;
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { shots = (int)f; }, shots, "Shots", 1, 360, true);
+
+        //set Up Firing Arc
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { firingArc = f; }, firingArc, "Firing Arc", 0, 360);
+
+
+        //Set Up Arc Offset
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { arcOffset = f; }, arcOffset, "Arc Offset", 0, 360);
+
+    }
 }

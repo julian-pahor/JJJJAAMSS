@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "AttackEvent/OrbiterAttack")]
@@ -62,7 +63,7 @@ public class OrbiterAttack : AttackEvent
                     Vector3 point = Utilities.PointWithPolarOffset(origin.position, dist + minDistance, rotationO + (arcStep * j));
                     Orbiter o = Instantiate(Wobbit.instance.orbiterPrefab, point, Quaternion.identity);
 
-                    o.Initialise(lifeTime, speed, direction,rotationO + (arcStep * j), (BeatBroadcast.instance.beatLength/segments) *j,2);
+                    o.Initialise(lifeTime, speed, direction,rotationO + (arcStep * j), (BeatBroadcast.instance.beatLength/segments) *(j+1),2);
                 
 
                 //float pop = popTime;
@@ -78,13 +79,48 @@ public class OrbiterAttack : AttackEvent
                 //    }
                 //}
             }
-
-
-
         }
+    }
 
+    public override void HookUp(EventEditor ee)
+    {
+        ValueEditor ve;
 
+        //Beams
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { beams = (int)f; }, beams, "Beams", 1, 360, true);
 
+        //Offset
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { arcOffset = f; }, arcOffset, "Arc Offset", 0, 360);
+
+        //Inner Radius
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { minDistance = f; }, minDistance, "Inner Radius");
+
+        //Outer Radius
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { distance = f; }, distance, "Beam Length");
+
+        //Beam Segments
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { segments = f; }, segments, "Beam Segments");
+
+        //Duration
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { lifeTime = (int)f; }, lifeTime, "Duration");
+
+        //Orbital Speed
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { speed = f; }, speed, "Orbital Speed");
+
+        //Orbital Direction
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { direction = (int)f; }, direction, "Orbital Direction", -1, 1, true);
+
+        //SpiralStep;
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { arcStep = f; }, arcStep, "Spiral Step");
     }
 }
 

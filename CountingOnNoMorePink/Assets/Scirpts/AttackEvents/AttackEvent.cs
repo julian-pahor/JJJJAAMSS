@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class AttackEvent : ScriptableObject
 {
+
+    public string displayName;
+
+    //not in use?
     public int arm;
 
     public virtual void Arm(int beatIndex)
@@ -13,6 +17,11 @@ public class AttackEvent : ScriptableObject
     public virtual void Fire()
     {
         Debug.Log("Virtual attack event. If you are seeing this you have done a wrong");
+    }
+
+    public virtual void HookUp(EventEditor ee)
+    {
+        Debug.Log("Call for dynamically hooked up UI. You should not be seeing this.");
     }
 
 }

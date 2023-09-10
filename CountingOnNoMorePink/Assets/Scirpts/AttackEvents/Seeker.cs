@@ -9,7 +9,7 @@ public class Seeker : AttackEvent
     //public float safeTime;
     //public float height;
  
-
+    
     public override void Fire()
     {
         
@@ -22,5 +22,9 @@ public class Seeker : AttackEvent
        // go.transform.SetParent(b.transform);
     }
 
+    public override void HookUp(EventEditor ee)
+    {
+        base.HookUp(ee);
+    }
 
 }
