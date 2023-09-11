@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,5 +24,21 @@ public class BeatBlokk : MonoBehaviour
         }
     }
 
+    public IEnumerator Couroot()
+    {
+        foreach (BeatSlot slot in slots)
+        {
+            AttackEvent attackEvent = slot.GetSlotEvent();
 
+            if(attackEvent != null)
+            {
+                slot.uiCard.LoadDisplay(attackEvent);
+                Tween t = slot.uiCard.OnLoad();
+                if (t != null)
+                {
+                    yield return t.WaitForCompletion();
+                }
+            }
+        }
+    }
 }

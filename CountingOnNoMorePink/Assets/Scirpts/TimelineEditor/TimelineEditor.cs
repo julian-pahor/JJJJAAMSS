@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -38,6 +39,7 @@ public class TimelineEditor : MonoBehaviour
  
     void Start()
     {
+        DOTween.SetTweensCapacity(20000, 20);
         //generate 4 phrases and add to list (doing this manually for now)
         phrases.Add(new Phrase(phraseLength));
         phrases.Add(new Phrase(phraseLength));
@@ -173,7 +175,8 @@ public class TimelineEditor : MonoBehaviour
         phrases[currentPhrase].LoadPhraseData(beatTimeLine);
         foreach (BeatBlokk b in beatTimeLine)
         {
-            b.Updoot();
+            //b.Updoot(true);
+            StartCoroutine(b.Couroot());
         }
         Debug.Log("Load complete");
     }
@@ -252,7 +255,7 @@ public class BlockData
         //lengths might not match so WATCH OUT
         for (int i = 0; i < events.Length; i++)
         {
-            bb.slots[i].SetSlotEvent(events[i]);
+            bb.slots[i].LoadSlotEvent(events[i]);
         }
     }
 }
