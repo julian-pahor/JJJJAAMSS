@@ -8,12 +8,15 @@ public class Seeker : AttackEvent
 
     
     public float delay;
+    public DelayedDangerZone attackEffect;
  
     
     public override void Fire()
     {
-        
-        DelayedDangerZone b = (Instantiate(Wobbit.instance.delayedDangerZoneTest, Wobbit.instance.player.position, Quaternion.identity));
+        if (attackEffect == null)
+            attackEffect = Wobbit.instance.seekerTest;
+
+        DelayedDangerZone b = (Instantiate(attackEffect, Wobbit.instance.player.position, Quaternion.identity));
         b.InitialiseOnTimer(0,BeatBroadcast.instance.beatLength + delay, BeatBroadcast.instance.beatLength);
       
     }

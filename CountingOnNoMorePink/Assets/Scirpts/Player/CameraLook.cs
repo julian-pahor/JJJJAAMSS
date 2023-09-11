@@ -39,7 +39,7 @@ public class CameraLook : MonoBehaviour
 
     void StartShake()
     {
-        StartCoroutine(Shake(.2f, .5f));
+        StartCoroutine(Shake(.2f, 1.1f));
     }
 
     public IEnumerator Shake(float duration, float magnitude)

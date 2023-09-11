@@ -50,5 +50,6 @@ public class Wobbit : MonoBehaviour
     public BeatTimeline timeline;
 
     public DelayedDangerZone delayedDangerZoneTest;
+    public DelayedDangerZone seekerTest;
 
 }
