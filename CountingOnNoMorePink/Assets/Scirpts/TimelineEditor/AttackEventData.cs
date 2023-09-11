@@ -14,6 +14,8 @@ public class AttackEventData
     public float offset;
     public float firingArc;
 
+    public float delay;
+
     public float innerRadius;
     public float outerRadius;
 
@@ -69,6 +71,8 @@ public class AttackEventData
                 innerRadius = bs.minDistance;
                 outerRadius = bs.distance;
 
+                delay = bs.delay;
+
                 beamSegments = bs.segments;
 
                 duration = bs.duration;
@@ -103,8 +107,7 @@ public class AttackEventData
                 break;
             case Seeker s:
 
-                //nothing really to save hey
-                //Hello!
+                delay = s.delay;
 
                 break;
         }
@@ -135,6 +138,8 @@ public class AttackEventData
                 bs.beams = shots;
                 bs.arcOffset = offset;
                 bs.firingArc = firingArc;
+
+                bs.delay = delay;
 
                 bs.minDistance = innerRadius;
                 bs.distance = outerRadius;
@@ -173,7 +178,7 @@ public class AttackEventData
                 break;
             case Seeker s:
 
-                //nothing really to save hey
+                s.delay = delay;
 
                 break;
             default:

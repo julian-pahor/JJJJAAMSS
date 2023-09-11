@@ -13,6 +13,7 @@ public class BeamShot : AttackEvent
     public float distance;
     public float minDistance;
     public float arcOffset;
+    public float delay;
 
     public int duration;
 
@@ -136,7 +137,7 @@ public class BeamShot : AttackEvent
                 }
             }
 
-            dd.InitialiseOnTimer(pop, popTime, popTime);
+            dd.InitialiseOnTimer(pop ,popTime + delay, popTime);
           
         }
 
@@ -160,36 +161,41 @@ public class BeamShot : AttackEvent
 
     }
 
-    public override void HookUp(EventEditor ee)
+    public override void HookUp(EventEditor eventEditor)
     {
-        ValueEditor ve;
+        ValueEditor valueEditor;
 
         //Set Up Beam Amount
-        ve = ee.CreateEditor();
-        ve.SetListener((float f) => { beams = (int)f; }, beams, "Beams");
+        valueEditor = eventEditor.CreateEditor();
+        valueEditor.SetListener((float f) => { beams = (int)f; }, beams, "Beams");
 
         //Set Up Arc offset
-        ve = ee.CreateEditor();
-        ve.SetListener((float f) => { arcOffset = f; }, arcOffset, "Arc Offset");
+        valueEditor = eventEditor.CreateEditor();
+        valueEditor.SetListener((float f) => { arcOffset = f; }, arcOffset, "Arc Offset");
+
+        //Set Up Delay
+        valueEditor = eventEditor.CreateEditor();
+        valueEditor.SetListener((float f) => { delay = f; }, delay, "Delay",0,10);
+
 
         //Inner Radius
-        ve = ee.CreateEditor();
-        ve.SetListener((float f) => { minDistance = f; }, minDistance, "Inner Radius");
+        valueEditor = eventEditor.CreateEditor();
+        valueEditor.SetListener((float f) => { minDistance = f; }, minDistance, "Inner Radius");
 
         //Outer Radius
-        ve = ee.CreateEditor();
-        ve.SetListener((float f) => { distance = f; }, distance, "Beam Length");
+        valueEditor = eventEditor.CreateEditor();
+        valueEditor.SetListener((float f) => { distance = f; }, distance, "Beam Length");
 
         //Beam Segments
-        ve = ee.CreateEditor();
-        ve.SetListener((float f) => { segments = f; }, segments, "Beam Segments");
+        valueEditor = eventEditor.CreateEditor();
+        valueEditor.SetListener((float f) => { segments = f; }, segments, "Beam Segments");
 
         //Duration
-        ve = ee.CreateEditor();
-        ve.SetListener((float f) => { duration = (int)f; }, duration, "Duration");
+        valueEditor = eventEditor.CreateEditor();
+        valueEditor.SetListener((float f) => { duration = (int)f; }, duration, "Duration");
 
         //SpiralStep;
-        ve = ee.CreateEditor();
-        ve.SetListener((float f) => { arcStep = f; }, arcStep, "Spiral Step");
+        valueEditor = eventEditor.CreateEditor();
+        valueEditor.SetListener((float f) => { arcStep = f; }, arcStep, "Spiral Step");
     }
 }

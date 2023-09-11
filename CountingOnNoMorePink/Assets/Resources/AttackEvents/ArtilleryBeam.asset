@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 965af55d089815947a27d334a74f7c0d, type: 3}
   m_Name: ArtilleryBeam
   m_EditorClassIdentifier: 
+  displayName: Artillery Beam (broken)
   arm: 0
   beams: 0
   segments: 0
@@ -19,6 +20,7 @@ MonoBehaviour:
   distance: 0
   minDistance: 0
   arcOffset: 0
+  delay: 0
   duration: 0
   type: 0
   behaviour: 0
