@@ -30,7 +30,7 @@ public class Wobbit : MonoBehaviour
 
     //very temporary references to junk I need for the demo
 
-    public Bullit bulletFab;
+    public Bullet bulletFab;
     public BoomBlock zoneFab;
     public Transform bossOrigin;
     public Transform player;
@@ -50,5 +50,6 @@ public class Wobbit : MonoBehaviour
     public BeatTimeline timeline;
 
     public DelayedDangerZone delayedDangerZoneTest;
+    public DelayedDangerZone seekerTest;
 
 }

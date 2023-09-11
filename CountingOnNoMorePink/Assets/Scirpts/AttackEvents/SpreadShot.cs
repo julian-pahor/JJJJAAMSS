@@ -9,7 +9,7 @@ public class SpreadShot : AttackEvent
     public int shots;
     public float firingArc;
     public float arcOffset;
-    public Bullit bulletType;
+    public Bullet bulletType;
     public ShotType shotType;
     public enum ShotType { Standard, TargetPlayer}
     public override void Fire()
@@ -42,7 +42,7 @@ public class SpreadShot : AttackEvent
 
         for (var i = 0; i < shots; ++i)
         {
-            Bullit b;
+            Bullet b;
             //TODO: grab this from pool instead of instantiating
             if (bulletType == null)
             {
