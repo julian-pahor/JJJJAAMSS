@@ -181,7 +181,7 @@ public class DelayedDangerZone : MonoBehaviour
         anchorPoint = new Vector3(anchorPoint.x, anchorPoint.y + 20, anchorPoint.z);
 
         Artillery effect = Instantiate(artilleryTracer, launchPoint, Quaternion.identity);
-        effect.Initialise(launchPoint, anchorPoint, transform.position, timing);
+        //effect.Initialise(launchPoint, anchorPoint, transform.position, timing);
 
 
     }
