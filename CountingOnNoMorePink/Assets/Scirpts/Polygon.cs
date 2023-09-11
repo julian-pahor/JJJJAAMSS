@@ -16,15 +16,20 @@ public class Polygon : MonoBehaviour
     public int polygonSides;
     public float polygonRadius;
     public float centerRadius;
+    
 
     void Start()
     {
         mesh = new Mesh();
         this.GetComponent<MeshFilter>().mesh = mesh;
+      
+ 
     }
 
     void Update()
     {
+        
+
         if (isFilled)
         {
             DrawFilled(polygonSides, polygonRadius);

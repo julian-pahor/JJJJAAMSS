@@ -181,7 +181,7 @@ public static class Utilities
 
         if (di.Exists)
         {
-            Debug.Log("Directory Exists Yay");
+            //Debug.Log("Directory Exists Yay");
             foreach (var file in System.IO.Directory.GetFiles(path))
             {
                 string filePath = file.Replace(path, "");
@@ -230,14 +230,14 @@ public static class Utilities
         {
             if (di.Exists)
             {
-                Debug.Log("Directory Exists Yay");
+                //Debug.Log("Directory Exists Yay");
                 return true;
 
             }
             else
             {
                 di.Create();
-                Debug.Log("Directory Created");
+                //Debug.Log("Directory Created");
                 return false;
             }
         }
