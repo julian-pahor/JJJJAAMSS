@@ -10,6 +10,7 @@ Material:
   m_Name: FurnitureTexture
   m_Shader: {fileID: 4800000, guid: 766736548846cdf459a9766614dcccab, type: 3}
   m_ValidKeywords:
+  - UTS_USE_RAYTRACING_SHADOW
   - _EMISSIVE_SIMPLE
   - _IS_ANGELRING_OFF
   - _IS_OUTLINE_CLIPPING_NO
@@ -82,7 +83,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: cae38d22772d73a4aa9effe3c4c03386, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MatCap_Sampler:
