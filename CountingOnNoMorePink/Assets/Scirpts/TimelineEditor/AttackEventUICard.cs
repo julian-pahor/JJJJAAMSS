@@ -58,9 +58,6 @@ public class AttackEventUICard : MonoBehaviour
 
     }
 
-    //THIS IS FOR WHEN THE SONG IS CALLED TO LOAD
-    //ITS OVERLOADING WITH TWEENS
-    //I WILL FIGURE THIS OUT EVENTUALLY BUT NOT RIGHT NOW
     public Tween OnLoad()
     {
         transform.localScale = Vector3.one / 10f;

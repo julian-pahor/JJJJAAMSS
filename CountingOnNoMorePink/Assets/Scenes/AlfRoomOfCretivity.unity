@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589245, b: 0.2978263, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -13025,6 +13025,7 @@ MonoBehaviour:
   timeline: {fileID: 1111214149}
   delayedDangerZoneTest: {fileID: 8761158838029511234, guid: c86f98645f64b99488af4fc7542e089f, type: 3}
   seekerTest: {fileID: 8761158838029511234, guid: c5e7206fd3ef5374f959aed1e5d213b7, type: 3}
+  playerMovement: {fileID: 919533474}
 --- !u!4 &1111214151
 Transform:
   m_ObjectHideFlags: 0
