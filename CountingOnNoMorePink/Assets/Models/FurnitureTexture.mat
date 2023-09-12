@@ -10,7 +10,6 @@ Material:
   m_Name: FurnitureTexture
   m_Shader: {fileID: 4800000, guid: 766736548846cdf459a9766614dcccab, type: 3}
   m_ValidKeywords:
-  - UTS_USE_RAYTRACING_SHADOW
   - _EMISSIVE_SIMPLE
   - _IS_ANGELRING_OFF
   - _IS_OUTLINE_CLIPPING_NO
@@ -281,7 +280,7 @@ Material:
     - _Tweak_MatcapMaskLevel: 0
     - _Tweak_RimLightMaskLevel: 0
     - _Tweak_ShadingGradeMapLevel: 0
-    - _Tweak_SystemShadowsLevel: 0
+    - _Tweak_SystemShadowsLevel: -0.186
     - _Tweak_transparency: 0
     - _Unlit_Intensity: 1
     - _Use_1stAs2nd: 1
