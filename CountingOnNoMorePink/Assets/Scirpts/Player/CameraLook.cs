@@ -24,6 +24,7 @@ public class CameraLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         float angle = player.CurrentAngle;
         float adjustedSpeed = speed * Vector3.Distance(target, transform.position);
 
@@ -33,7 +34,16 @@ public class CameraLook : MonoBehaviour
         //lt incredible mathfs
         lookTarget = Utilities.PointWithPolarOffset(focus.position, distance - (focusDistance + Vector3.Distance(player.transform.position, focus.position)), angle + 180f);
 
-        transform.LookAt(lookTarget);
+
+   
+        Quaternion targetRotation = Quaternion.LookRotation(lookTarget - transform.position);
+
+        // Smoothly rotate towards the target point.
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, adjustedSpeed * Time.deltaTime);
+        
+
+
+        //transform.LookAt(lookTarget);
     }
 
 

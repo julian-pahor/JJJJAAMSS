@@ -16,6 +16,9 @@ public class FreeFormOrbitalMove : MonoBehaviour
     public float maxDistance;
     public float maxDash;
 
+    public float dashInvulnerability;
+    public float hitInvulnerability;
+
     float currentDistance;
     float angle;
     public float CurrentAngle { get { return angle; } }
@@ -30,6 +33,8 @@ public class FreeFormOrbitalMove : MonoBehaviour
     public ParticleSystem slashFx;
     public GameObject slashTransform;
 
+    public AnimationCurve shieldPop;
+
     public System.Action onTakeDamage;
 
     //movement
@@ -38,11 +43,8 @@ public class FreeFormOrbitalMove : MonoBehaviour
     float directionY;
     public Vector2 Movement { get { return new Vector2(directionX,directionY); } }
 
-    float speed;
-
-    //stats
-    float hitTime;
     float dashTime;
+    float invulnerabilityTime;
     float shieldTime;
 
     //flags
@@ -53,6 +55,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         currentHP = maxHP;
+        //StartCoroutine(SpeedCheck());
     }
 
 
@@ -71,23 +74,32 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
         shieldTime = Mathf.Clamp(shieldTime, 0, maxShield);
 
-        parrySphere.transform.localScale = Vector3.Lerp(new Vector3(0.1f, 0.1f, 0.1f), new Vector3(3f, 3f, 3f), shieldTime / maxShield);
+        
 
 
         //dash
         dashTime -= Time.deltaTime;
         isDash = dashTime > 0;
 
+        if (isParry)
+            parrySphere.transform.localScale = Vector3.Lerp(new Vector3(0.1f, 0.1f, 0.1f), new Vector3(3f, 3f, 3f), shieldTime / maxShield);
+        else if (invulnerabilityTime > 0)
+        {
+            parrySphere.transform.localScale = new Vector3(3f, 3f, 3f) * shieldPop.Evaluate(1 - (invulnerabilityTime/dashInvulnerability));
+        }
+        else
+            parrySphere.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 
-        //if(Input.GetMouseButtonDown(0))
-        //{
-        //    slashFx.Play();
+            //if(Input.GetMouseButtonDown(0))
+            //{
+            //    slashFx.Play();
 
-        //}
+            //}
 
-        if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space))
         {
             dashTime = maxDash;
+            invulnerabilityTime = dashInvulnerability;
         }
 
 
@@ -112,18 +124,20 @@ public class FreeFormOrbitalMove : MonoBehaviour
     void FixedUpdate()
     {
 
-        rb.rotation = Quaternion.LookRotation(transform.position - origin.transform.position);
+       // rb.rotation = Quaternion.LookRotation(transform.position - origin.transform.position);
 
         if (isParry) return;
 
         float currentSpeed = isDash ? dashSpeed : baseSpeed;
 
+        //move us closer to origin based on speed
         currentDistance += -directionY * currentSpeed * Time.fixedDeltaTime;
         currentDistance = Mathf.Clamp(currentDistance, minDistance, maxDistance);
 
-        float speed = (currentSpeed / currentDistance) * Mathf.Rad2Deg * Time.fixedDeltaTime;
-        angle += -directionX * speed;
-
+        //move us around circle based on speed
+        float arcSpeed = (currentSpeed / currentDistance) * Mathf.Rad2Deg * Time.fixedDeltaTime;
+        angle += -directionX * arcSpeed;
+        
         if (angle < 0f) angle = 360f;
         if (angle > 360f) angle = 0f;
 
@@ -131,35 +145,49 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
         //Vector3 direction = (transform.forward * -directionY) + (transform.right * -directionX);
         //direction = direction.normalized;
+
+       // transform.LookAt(moveTo);
+
+
+        Quaternion targetRotation = Quaternion.LookRotation(moveTo - transform.position);
+
+        // Smoothly rotate towards the target point.
+        rb.rotation = targetRotation;
+
         rb.MovePosition(moveTo);
+        //if (rb.velocity.magnitude > baseSpeed)
+        //{
+        //    rb.velocity = rb.velocity.normalized * baseSpeed;
+        //}
 
     }
 
 
     void HitFlash()
     {
-        if (hitTime > 0)
+        if (invulnerabilityTime > 0)
         {
-            hitTime -= Time.deltaTime;
-            Color color = Color.Lerp(baseColour, Color.red, hitTime);
-            GetComponent<Renderer>().material.color = color;
+            invulnerabilityTime -= Time.deltaTime;
+           
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (hitTime > 0)
-            return;
 
-        if (isDash)
+        if (invulnerabilityTime > 0)
+        {
+            shieldFx.Play();
             return;
+        }
+           
         if (isParry && shieldTime >= (maxShield - 0.01))
         {
             shieldFx.Play();
         }
         else
         {
-            hitTime = 1;
+            invulnerabilityTime = hitInvulnerability;
             currentHP -= 1;
 
             if (currentHP <= 0)
@@ -170,6 +198,17 @@ public class FreeFormOrbitalMove : MonoBehaviour
                 onTakeDamage();
             }
         }
+    }
+
+    IEnumerator SpeedCheck()
+    {
+        Vector3 startPos = transform.position;
+
+        yield return new WaitForSeconds(1);
+
+        Debug.Log(Vector3.Distance(startPos, transform.position) / 1);
+        StartCoroutine(SpeedCheck());
+
     }
 
 }
