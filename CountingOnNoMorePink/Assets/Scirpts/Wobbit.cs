@@ -20,6 +20,11 @@ public class Wobbit : MonoBehaviour
     private void Start()
     {
         timeline = FindObjectOfType<BeatTimeline>();
+
+        playerMovement.onTakeDamage += StartSlow;
+
+        slowSnapShot = FMODUnity.RuntimeManager.CreateInstance("snapshot:/TimeSlow");
+        slowSnapShot.start();
     }
 
 
@@ -50,5 +55,33 @@ public class Wobbit : MonoBehaviour
     public BeatTimeline timeline;
 
     public DelayedDangerZone delayedDangerZoneTest;
+    public DelayedDangerZone seekerTest;
+
+
+    //TimeSlow stuff testing 
+
+    public FMOD.Studio.EventInstance slowSnapShot;
+    public FreeFormOrbitalMove playerMovement;
+    private float timeScale = 1;
+    private float targetScale = 1;
+    
+    public void StartSlow()
+    {
+        targetScale = 0;
+
+    }
+
+    private void Update()
+    {
+        
+        timeScale = Mathf.Lerp(timeScale, targetScale, Time.deltaTime * 4);
+        Time.timeScale = timeScale;
+        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("TimeSlow", timeScale);
+
+        targetScale += Time.deltaTime * 4.5f;
+        targetScale = Mathf.Clamp01(targetScale);
+    }
+
+
 
 }
