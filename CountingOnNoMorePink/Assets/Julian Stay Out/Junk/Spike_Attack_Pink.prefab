@@ -729,9 +729,13 @@ PrefabInstance:
       value: Tracer
       objectReference: {fileID: 0}
     - target: {fileID: 876830440323877607, guid: 17cde94b3c36594458c6bdff1af20fb6, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 876830440323877607, guid: 17cde94b3c36594458c6bdff1af20fb6, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: e2c43037fcbb3be47a6694284f3eae0c, type: 2}
+      objectReference: {fileID: 2100000, guid: 6ddbe12b32a7d0249ad78d23c96c00b1, type: 2}
     m_RemovedComponents:
     - {fileID: 6365503444600798367, guid: 17cde94b3c36594458c6bdff1af20fb6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 17cde94b3c36594458c6bdff1af20fb6, type: 3}

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using Unity.VisualScripting;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using static UnityEngine.UI.Image;
 
@@ -15,7 +14,6 @@ public class DelayedDangerZone : MonoBehaviour
 
     public ParticleSystem tellEffect;
     public ParticleSystem launchEffect;
-    public CircleRenderer indicator;
 
     public bool beatLocked; //whether this is locked to the beat, or runs on a timer
 
@@ -27,12 +25,13 @@ public class DelayedDangerZone : MonoBehaviour
     float armTime;
     float activeTime;
     float timer;
-
-    float armStart;
-    float activeStart;
  
     bool isArmed;
     bool tracerLaunched;
+
+    float armTimeStart;
+    float activeTimeStart;
+
 
     //do this before initialising yeh that makes sense
     public void SetArtilleryTracer(Artillery tracer)
@@ -60,11 +59,12 @@ public class DelayedDangerZone : MonoBehaviour
         col.enabled = false;
 
         //DO NOT QUESTION ME JULIAN
+
         this.armTime = armTime;
         this.activeTime = activeTime;
 
-        armStart = armTime + activeTime + 1;
-        activeStart = activeTime + 1;
+        armTimeStart = armTime + activeTime + 1;
+        activeTimeStart = activeTime + 1;
 
     }
     //FIX YOUR MATHEMATICS ALFRED
@@ -77,20 +77,19 @@ public class DelayedDangerZone : MonoBehaviour
         if(!isActive)
         {
             //arm
-            if(!tracerLaunched && timer <= armStart + (armTime*2))
+            if(!tracerLaunched && timer <= armTimeStart + armTime)
             {
-                StartIndicator(armTime*3);
                 StartTracer(armTime);
                 tracerLaunched = true;
             }
-            else if (!isArmed && timer <= armStart)
+            else if (!isArmed && timer <= armTimeStart)
             {
                 tellEffect.Play(true);
                 isArmed = true;
                 //StartTracer(armTime- activeTime); 
             }
 
-            else if(timer <= activeStart)
+            else if(timer <= activeTimeStart)
             {
                 Activate();
             }
@@ -173,26 +172,24 @@ public class DelayedDangerZone : MonoBehaviour
         if (artilleryTracer == null)
             return;
 
-        Vector3 launchPoint = Wobbit.instance.bossOrigin.position; //hmmmmm
+        Vector3 launchPoint = transform.position;
 
         float distanceToCentre = Vector3.Distance(launchPoint, transform.position) / 2;
         Vector3 directionToTarget = new Vector3(transform.position.x - launchPoint.x, 0, transform.position.z - launchPoint.z).normalized;
-        Vector3 anchorPoint = launchPoint + (distanceToCentre * directionToTarget);
-        anchorPoint = new Vector3(anchorPoint.x, anchorPoint.y + 20, anchorPoint.z);
+
+        Vector3 anchorPoint1 = new Vector3(launchPoint.x + GetRandomOffset(), launchPoint.y + 8f, launchPoint.z + GetRandomOffset()); //launchPoint + (distanceToCentre * directionToTarget);
+        Vector3 anchorPoint2 = new Vector3(transform.position.x + GetRandomOffset(), transform.position.y + 5f, transform.position.z + GetRandomOffset());
+        //anchorPoint = new Vector3(anchorPoint.x, anchorPoint.y + 20, anchorPoint.z);
 
         Artillery effect = Instantiate(artilleryTracer, launchPoint, Quaternion.identity);
-        effect.Initialise(launchPoint, anchorPoint, transform.position, timing);
+        effect.Initialise(launchPoint, anchorPoint1,anchorPoint2, transform.position, timing);
 
 
     }
-
-    void StartIndicator(float time)
+    //Yes this does nothing I should remove it
+    float GetRandomOffset()
     {
-        if (indicator == null)
-            return;
-        
-        indicator.StartTimer(time);
-
+        return 0;
     }
 
     private void OnDestroy()
