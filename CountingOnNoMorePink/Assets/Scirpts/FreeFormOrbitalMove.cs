@@ -172,4 +172,11 @@ public class FreeFormOrbitalMove : MonoBehaviour
         }
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(origin.position, minDistance);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(origin.position, maxDistance);
+    }
 }
