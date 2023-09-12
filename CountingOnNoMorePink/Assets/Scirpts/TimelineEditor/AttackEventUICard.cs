@@ -4,13 +4,16 @@ using UnityEngine;
 using TMPro;
 using DG.Tweening;
 using UnityEditor.Build;
+using UnityEngine.EventSystems;
 
 public class AttackEventUICard : MonoBehaviour
 {
 
     public TextMeshProUGUI displayText;
     private Tween onTween;
-   
+
+
+
     private void Awake()
     {
         gameObject.SetActive(false);
@@ -64,4 +67,6 @@ public class AttackEventUICard : MonoBehaviour
         gameObject.SetActive(true);
         return transform.DOScale(1f, 0.25f).SetEase(Ease.OutBack);
     }
+
+    
 }

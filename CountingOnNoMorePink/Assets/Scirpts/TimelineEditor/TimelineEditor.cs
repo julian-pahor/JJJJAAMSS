@@ -27,6 +27,7 @@ public class TimelineEditor : MonoBehaviour
     public TMP_InputField saveFileNameField;
     public SongSave saveData;
     public SaveFileDropdown saveFileDropdown;
+    public GameObject previewPopUp;
 
     public string mainScene;
 
@@ -39,6 +40,7 @@ public class TimelineEditor : MonoBehaviour
  
     void Start()
     {
+        previewPopUp.SetActive(false);
         DOTween.SetTweensCapacity(20000, 20);
         //generate 4 phrases and add to list (doing this manually for now)
         phrases.Add(new Phrase(phraseLength));
