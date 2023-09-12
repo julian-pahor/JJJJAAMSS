@@ -42,11 +42,39 @@ MonoBehaviour:
   Path: ../PitchDemoProject/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638276894514745941
+  lastModified: 638301114476632937
   FileSizes:
   - Name: Desktop
-    Value: 824
+    Value: 1058
   Exists: 1
+--- !u!114 &-5046043983647623807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: snapshot:/TimeSlow
+  m_EditorClassIdentifier: 
+  Path: snapshot:/TimeSlow
+  Guid:
+    Data1: -777460957
+    Data2: 1246788038
+    Data3: 371775616
+    Data4: -1279144037
+  Banks:
+  - {fileID: -2905332157472219407}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 8599104848970072489}
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
 --- !u!114 &-2905332157472219407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,10 +90,58 @@ MonoBehaviour:
   Path: ../PitchDemoProject/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638276894514745941
+  lastModified: 638301114476612977
   FileSizes:
   - Name: Desktop
-    Value: 220640
+    Value: 223264
+  Exists: 1
+--- !u!114 &-1029450653739027122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/TimeSlow
+  m_EditorClassIdentifier: 
+  Name: TimeSlow
+  StudioPath: parameter:/TimeSlow
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 1152369741
+    data2: 1741221101
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &-414703381044501206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/DemoLoop/TimeSlow
+  m_EditorClassIdentifier: 
+  Name: TimeSlow
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 1152369741
+    data2: 1741221101
+  Type: 0
+  IsGlobal: 1
+  Labels: []
   Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -85,12 +161,14 @@ MonoBehaviour:
   EditorEvents:
   - {fileID: 6729639689084861280}
   - {fileID: -8783765161486864134}
-  EditorParameters: []
+  - {fileID: -5046043983647623807}
+  EditorParameters:
+  - {fileID: -1029450653739027122}
   MasterBanks:
   - {fileID: -2905332157472219407}
   StringsBanks:
   - {fileID: -6774477133602550355}
-  cacheTime: 638276894514745941
+  cacheTime: 638301114476632937
   cacheVersion: 131605
 --- !u!114 &6729639689084861280
 MonoBehaviour:
@@ -115,7 +193,32 @@ MonoBehaviour:
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
-  Parameters: []
+  Parameters:
+  - {fileID: -414703381044501206}
   MinDistance: 1
   MaxDistance: 20
   Length: 14769
+--- !u!114 &8599104848970072489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/TimeSlow/TimeSlow
+  m_EditorClassIdentifier: 
+  Name: TimeSlow
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 1152369741
+    data2: 1741221101
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
