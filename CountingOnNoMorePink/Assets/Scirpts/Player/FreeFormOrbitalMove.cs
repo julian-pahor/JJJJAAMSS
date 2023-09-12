@@ -146,13 +146,13 @@ public class FreeFormOrbitalMove : MonoBehaviour
         //Vector3 direction = (transform.forward * -directionY) + (transform.right * -directionX);
         //direction = direction.normalized;
 
-       // transform.LookAt(moveTo);
+        // transform.LookAt(moveTo);
 
-
-        Quaternion targetRotation = Quaternion.LookRotation(moveTo - transform.position);
-
-        // Smoothly rotate towards the target point.
-        rb.rotation = targetRotation;
+        if (moveTo - transform.position != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(moveTo - transform.position);
+            rb.rotation = targetRotation;
+        }
 
         rb.MovePosition(moveTo);
         //if (rb.velocity.magnitude > baseSpeed)

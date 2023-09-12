@@ -19193,7 +19193,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3569889187259506950}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10.07}
+  m_LocalPosition: {x: 0, y: 0, z: 10.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -19224,6 +19224,8 @@ MonoBehaviour:
   minDistance: 4
   maxDistance: 14
   maxDash: 0.1
+  dashInvulnerability: 0
+  hitInvulnerability: 0
   maxHP: 3
   currentHP: 0
   maxShield: 0.05
@@ -19232,6 +19234,12 @@ MonoBehaviour:
   shieldFx: {fileID: 3569889187995897787}
   slashFx: {fileID: 3569889187626022511}
   slashTransform: {fileID: 3569889186771682827}
+  shieldPop:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!199 &3569889187626022508
 ParticleSystemRenderer:
   serializedVersion: 6
