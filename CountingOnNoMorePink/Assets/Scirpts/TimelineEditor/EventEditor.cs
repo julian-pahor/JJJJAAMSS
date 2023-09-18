@@ -23,16 +23,9 @@ public class EventEditor : MonoBehaviour
        
     }
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.K))
-        {
+  
 
-            SaveSelectedAsPrefab();
-        }
-    }
-
-    void SaveSelectedAsPrefab()
+    public void SaveSelectedAsPrefab()
     {
         if(currentlySelectedEvent != null)
         {

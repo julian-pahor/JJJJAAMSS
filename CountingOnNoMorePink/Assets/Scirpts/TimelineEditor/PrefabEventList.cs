@@ -21,7 +21,7 @@ public class PrefabEventList : MonoBehaviour
     public void AddPrefabEvent(AttackEvent attackEvent)
     {
         AttackEventHolder aeh = Instantiate(holderPreFab, contentView);
-        aeh.SetEvent(attackEvent);
+        aeh.SetEvent(attackEvent,this);
         holders.Add(aeh);
     }
 
