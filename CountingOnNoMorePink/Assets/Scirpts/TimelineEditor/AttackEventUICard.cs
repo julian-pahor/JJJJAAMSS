@@ -50,14 +50,14 @@ public class AttackEventUICard : MonoBehaviour
         
     }
 
-    private void TurnOff()
+    public Tween TurnOff()
     {
         if(onTween != null)
         {
             DOTween.Kill(onTween);
         }
         
-        transform.DOScale(0, 0.05f).SetEase(Ease.OutSine).OnComplete(() => { gameObject.SetActive(false); transform.localScale = Vector3.one; });
+        return transform.DOScale(0, 0.05f).SetEase(Ease.OutSine).OnComplete(() => { gameObject.SetActive(false); transform.localScale = Vector3.one; });
 
     }
 
