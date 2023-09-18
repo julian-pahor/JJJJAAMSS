@@ -132,7 +132,7 @@ public class TimelineEditor : MonoBehaviour
 
         foreach (BeatBlokk b in beatTimeLine)
         {
-            b.Updoot();
+            StartCoroutine(b.Couroot());
         }
     }
 
