@@ -31,16 +31,22 @@ public class FreeFormOrbitalMove : MonoBehaviour
     public GameObject parrySphere;
     public ParticleSystem shieldFx;
     public ParticleSystem slashFx;
+  
     public GameObject slashTransform;
 
     public AnimationCurve shieldPop;
 
     public System.Action onTakeDamage;
 
+    //walk puff effect
+    public ParticleSystem walkPuff;
+    public float puffInterval;
+    float puffTimer;
+
     //movement
     Rigidbody rb;
     float directionX;
-    float directionY;
+    float directionY;  
     public Vector2 Movement { get { return new Vector2(directionX,directionY); } }
 
     float dashTime;
@@ -51,10 +57,14 @@ public class FreeFormOrbitalMove : MonoBehaviour
     bool isDash;
     bool isParry;
 
+
+    Vector3 gizmoPoint;
+    Vector3 gizmoPoint2;
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         currentHP = maxHP;
+        currentDistance = maxDistance;
         //StartCoroutine(SpeedCheck());
     }
 
@@ -66,16 +76,12 @@ public class FreeFormOrbitalMove : MonoBehaviour
         //parry
         isParry = Input.GetMouseButton(1);
 
-
         if (isParry)
             shieldTime += Time.deltaTime;
         else
             shieldTime -= Time.deltaTime;
 
         shieldTime = Mathf.Clamp(shieldTime, 0, maxShield);
-
-        
-
 
         //dash
         dashTime -= Time.deltaTime;
@@ -90,22 +96,25 @@ public class FreeFormOrbitalMove : MonoBehaviour
         else
             parrySphere.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 
-            //if(Input.GetMouseButtonDown(0))
-            //{
-            //    slashFx.Play();
-
-            //}
-
-            if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             dashTime = maxDash;
             invulnerabilityTime = dashInvulnerability;
         }
 
-
         directionX = Input.GetAxisRaw("Horizontal");
         directionY = Input.GetAxisRaw("Vertical");
 
+        if (Movement.magnitude > 0)
+        {
+            puffTimer -= Time.deltaTime;
+            if(puffTimer < 0)
+            {
+                walkPuff.Play();
+                puffTimer = Random.Range(0,puffInterval);
+            }
+        }
+      
         //julian hates optimistation
         //he is a square
         //root
@@ -143,22 +152,32 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
         Vector3 moveTo = Utilities.PointWithPolarOffset(origin.position, currentDistance, angle);
 
+        if(Movement.magnitude <= 0)
+        {
+            moveTo = rb.position;
+        }
+
         //Vector3 direction = (transform.forward * -directionY) + (transform.right * -directionX);
         //direction = direction.normalized;
 
-       // transform.LookAt(moveTo);
+        // transform.LookAt(moveTo);
 
+        gizmoPoint = moveTo;
 
-        Quaternion targetRotation = Quaternion.LookRotation(moveTo - transform.position);
+        Vector3 direction = moveTo - rb.position;
 
-        // Smoothly rotate towards the target point.
-        rb.rotation = targetRotation;
-
-        rb.MovePosition(moveTo);
-        //if (rb.velocity.magnitude > baseSpeed)
-        //{
-        //    rb.velocity = rb.velocity.normalized * baseSpeed;
-        //}
+        if (direction.magnitude > .75f)
+        {
+            if (moveTo - transform.position != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(moveTo - transform.position);
+                rb.rotation = targetRotation;
+            }
+            Vector3 adjustedMove = rb.position + (direction.normalized * currentSpeed * Time.deltaTime);
+            gizmoPoint2 = adjustedMove;
+            rb.MovePosition(adjustedMove);
+        }
+        
 
     }
 
@@ -200,15 +219,12 @@ public class FreeFormOrbitalMove : MonoBehaviour
         }
     }
 
-    IEnumerator SpeedCheck()
+    private void OnDrawGizmos()
     {
-        Vector3 startPos = transform.position;
-
-        yield return new WaitForSeconds(1);
-
-        Debug.Log(Vector3.Distance(startPos, transform.position) / 1);
-        StartCoroutine(SpeedCheck());
-
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(gizmoPoint, 1f);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(gizmoPoint2, 1f);
     }
 
 }

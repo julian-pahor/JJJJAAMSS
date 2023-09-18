@@ -14,7 +14,7 @@ public class AttackEventList : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GetAllAttacks();
+        LoadFromResources();
     }
 
     // Update is called once per frame
@@ -23,7 +23,7 @@ public class AttackEventList : MonoBehaviour
         
     }
 
-    public void GetAllAttacks()
+    public void LoadFromResources()
     {
         list.Clear();
 

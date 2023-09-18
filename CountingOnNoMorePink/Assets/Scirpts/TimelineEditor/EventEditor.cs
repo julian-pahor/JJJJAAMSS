@@ -10,6 +10,8 @@ public class EventEditor : MonoBehaviour
 
     public TMP_InputField selectedEventName;
 
+    public PrefabEventList prefabsList;
+
     //Prefab To use for all value editing
     public ValueEditor editorPreFab;
     public Transform editorParent;
@@ -19,6 +21,17 @@ public class EventEditor : MonoBehaviour
     private void Start()
     {
        
+    }
+
+  
+
+    public void SaveSelectedAsPrefab()
+    {
+        if(currentlySelectedEvent != null)
+        {
+            prefabsList.AddPrefabEvent(currentlySelectedEvent);
+            prefabsList.SaveAll();
+        }
     }
 
     public void OnNameTextChanged()

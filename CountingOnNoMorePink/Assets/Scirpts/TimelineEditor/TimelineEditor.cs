@@ -29,6 +29,8 @@ public class TimelineEditor : MonoBehaviour
     public SaveFileDropdown saveFileDropdown;
     public GameObject previewPopUp;
 
+
+
     public string mainScene;
 
     public int phraseLength = 16;
@@ -53,6 +55,7 @@ public class TimelineEditor : MonoBehaviour
         GenerateTimelineUI();
 
     }
+
 
     private void OnDestroy()
     {
