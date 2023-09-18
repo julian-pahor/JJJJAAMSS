@@ -20,7 +20,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
     public float hitInvulnerability;
 
     float currentDistance;
-    float angle;
+    public float angle;
     public float CurrentAngle { get { return angle; } }
 
     //stats and effects
@@ -152,15 +152,17 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
         Vector3 moveTo = Utilities.PointWithPolarOffset(origin.position, currentDistance, angle);
 
+        //prevent slide + reset position
         if(Movement.magnitude <= 0)
         {
             moveTo = rb.position;
+            Vector3 currentDirection = transform.position - origin.position;
+            float currentAngle = Mathf.Atan2(currentDirection.z,currentDirection.x) * Mathf.Rad2Deg;
+            angle = currentAngle;
+            float calculatedDistance = Vector3.Distance(transform.position, origin.position);
+            currentDistance = calculatedDistance;
+
         }
-
-        //Vector3 direction = (transform.forward * -directionY) + (transform.right * -directionX);
-        //direction = direction.normalized;
-
-        // transform.LookAt(moveTo);
 
         gizmoPoint = moveTo;
 
@@ -180,7 +182,6 @@ public class FreeFormOrbitalMove : MonoBehaviour
         
 
     }
-
 
     void HitFlash()
     {

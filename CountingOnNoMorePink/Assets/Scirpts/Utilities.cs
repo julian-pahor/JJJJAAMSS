@@ -43,6 +43,9 @@ public static class Utilities
         return point;
     }
 
+
+    
+
     public static Vector3 QuadraticLerp(Vector3 a, Vector3 b, Vector3 c, float t)
     {
         Vector3 ab = Vector3.Lerp(a, b, t);
