@@ -73,7 +73,7 @@ public static class Utilities
     }
 
 
-  
+
 
     //Save and Load DataClasses And Functionality
 
@@ -86,7 +86,6 @@ public static class Utilities
         //public List<string> fileData;
 
         public List<AttackEventData> fileData;
-       
 
         public GameData()
         {
@@ -151,6 +150,7 @@ public static class Utilities
         string path = Application.persistentDataPath + "/SongSaves/" + saveName + ".json";
         string jsonData = JsonUtility.ToJson(saveData);
         System.IO.File.WriteAllText(path, jsonData);
+
 
     }
 
