@@ -43,6 +43,9 @@ public static class Utilities
         return point;
     }
 
+
+    
+
     public static Vector3 QuadraticLerp(Vector3 a, Vector3 b, Vector3 c, float t)
     {
         Vector3 ab = Vector3.Lerp(a, b, t);
@@ -73,7 +76,7 @@ public static class Utilities
     }
 
 
-  
+
 
     //Save and Load DataClasses And Functionality
 
@@ -86,7 +89,6 @@ public static class Utilities
         //public List<string> fileData;
 
         public List<AttackEventData> fileData;
-       
 
         public GameData()
         {
@@ -152,6 +154,7 @@ public static class Utilities
         string jsonData = JsonUtility.ToJson(saveData);
         System.IO.File.WriteAllText(path, jsonData);
 
+
     }
 
     public static GameData LoadData(string saveName)
@@ -181,7 +184,7 @@ public static class Utilities
 
         if (di.Exists)
         {
-            Debug.Log("Directory Exists Yay");
+            //Debug.Log("Directory Exists Yay");
             foreach (var file in System.IO.Directory.GetFiles(path))
             {
                 string filePath = file.Replace(path, "");
@@ -230,14 +233,14 @@ public static class Utilities
         {
             if (di.Exists)
             {
-                Debug.Log("Directory Exists Yay");
+                //Debug.Log("Directory Exists Yay");
                 return true;
 
             }
             else
             {
                 di.Create();
-                Debug.Log("Directory Created");
+                //Debug.Log("Directory Created");
                 return false;
             }
         }
