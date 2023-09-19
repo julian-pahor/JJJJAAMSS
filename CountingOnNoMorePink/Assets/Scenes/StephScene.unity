@@ -413,8 +413,8 @@ GameObject:
   - component: {fileID: 26522126}
   - component: {fileID: 26522125}
   - component: {fileID: 26522124}
-  - component: {fileID: 26522127}
   - component: {fileID: 26522128}
+  - component: {fileID: 26522129}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -488,25 +488,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 37.162, y: 0, z: 0}
---- !u!114 &26522127
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 26522123}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a6eb48b68b33b94d8525077f923a4bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 919533474}
-  distance: 16
-  focusDistance: 0
-  focus: {fileID: 920961725}
-  offset: 8
-  speed: 16
-  lead: 0
 --- !u!114 &26522128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -540,6 +521,19 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &26522129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26522123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 0}
 --- !u!1 &82180100
 GameObject:
   m_ObjectHideFlags: 0
@@ -1079,10 +1073,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 308903819}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57b24c4e53ab9db4ab9ac2e94c1ac747, type: 3}
+  m_Script: {fileID: 11500000, guid: ec3a59922832b1247b72cf8bdbd74c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  beatLength: 0.462
+  beatLength: 1
 --- !u!4 &308903821
 Transform:
   m_ObjectHideFlags: 0
@@ -7309,7 +7303,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 787686862}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28dc70f08ec59ec4ebd748550c2d3579, type: 3}
+  m_Script: {fileID: 11500000, guid: ed07aee7efc8f4c40ae507939ab62c11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dropdown: {fileID: 787686865}
@@ -7915,10 +7909,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 878779767}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd58588e1f92eb944b80eab539cacbe7, type: 3}
+  m_Script: {fileID: 11500000, guid: 0fb56717821281343a40b2dba91a329d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 919533474}
+  player: {fileID: 0}
 --- !u!114 &878779770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13343,23 +13337,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 919533467}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61b51e0ebdd44d7449ff7ffdb5441a66, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ab49d36185d6e74e9d393290292de65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  origin: {fileID: 920961725}
-  baseSpeed: 10
-  dashSpeed: 50
-  minDistance: 2
-  maxDistance: 20
-  maxDash: 0.1
+  origin: {fileID: 0}
+  baseSpeed: 1
+  dashSpeed: 1
+  minDistance: 0
+  maxDistance: 0
+  maxDash: 0
+  dashInvulnerability: 0
+  hitInvulnerability: 0
   maxHP: 3
-  currentHP: 0
-  maxShield: 0.05
-  baseColour: {r: 0.19103774, g: 0.764151, b: 0.45703605, a: 0}
+  currentHP: 3
+  maxShield: 0
+  baseColour: {r: 0, g: 0, b: 0, a: 0}
   parrySphere: {fileID: 199626414}
-  shieldFx: {fileID: 1657952550}
-  slashFx: {fileID: 1529241842}
-  slashTransform: {fileID: 702173334}
+  shieldFx: {fileID: 0}
+  slashFx: {fileID: 0}
+  slashTransform: {fileID: 0}
+  shieldPop:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  walkPuff: {fileID: 0}
+  puffInterval: 0
 --- !u!1 &920961724
 GameObject:
   m_ObjectHideFlags: 0
@@ -14017,9 +14021,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 944c75d45c1a3b74081aeedf743d1901, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  saveFileDropdown: {fileID: 787686864}
-  saveFile: {fileID: 1111214152}
-  eventTimeline: []
 --- !u!114 &1111214150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14046,6 +14047,8 @@ MonoBehaviour:
   orbiterPrefab: {fileID: 994258900174212055, guid: 327d07351dbea4447835b849119d608a, type: 3}
   timeline: {fileID: 1111214149}
   delayedDangerZoneTest: {fileID: 8761158838029511234, guid: c86f98645f64b99488af4fc7542e089f, type: 3}
+  seekerTest: {fileID: 0}
+  playerMovement: {fileID: 0}
 --- !u!4 &1111214151
 Transform:
   m_ObjectHideFlags: 0
@@ -14073,8 +14076,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12b906b6847a94b4fba45dbf8b834b93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockDatas: []
-  blockDataSize: 5
 --- !u!1 &1118661895
 GameObject:
   m_ObjectHideFlags: 0
