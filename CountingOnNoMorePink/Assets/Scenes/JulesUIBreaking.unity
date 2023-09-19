@@ -1614,7 +1614,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1915068533}
   m_HandleRect: {fileID: 1915068532}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -20706,7 +20706,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3569889187259506950}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 61b51e0ebdd44d7449ff7ffdb5441a66, type: 3}
   m_Name: 
@@ -20734,7 +20734,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   walkPuff: {fileID: 0}
-  puffInterval: 0
+  puffInterval: 1
 --- !u!199 &3569889187626022508
 ParticleSystemRenderer:
   serializedVersion: 6
