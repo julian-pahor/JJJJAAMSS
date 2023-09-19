@@ -32,17 +32,16 @@ public class HealthBar : MonoBehaviour
     {
         int currentHp = player.currentHP;
         int maxHp = player.maxHP;
-        string hpdisplay = "";
 
         for (int i = 0; i < maxHp; i++)
         {
             if(currentHp >= i+1)
             {
-                hpdisplay += "O";
+                healthPips[i].SetState(true);
             }
             else
             {
-                hpdisplay += "X";
+                healthPips[i].SetState(false);
             }
         }
     

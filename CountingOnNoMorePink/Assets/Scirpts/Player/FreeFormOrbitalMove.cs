@@ -32,6 +32,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
     public GameObject parrySphere;
     public ParticleSystem shieldFx;
     public ParticleSystem slashFx;
+    
   
     public GameObject slashTransform;
 
@@ -43,6 +44,10 @@ public class FreeFormOrbitalMove : MonoBehaviour
     public ParticleSystem walkPuff;
     public float puffInterval;
     float puffTimer;
+
+    //dash effect
+    public ParticleSystem dashEffect;
+    public ParticleSystem dashDepart;
 
     //movement
     Rigidbody rb;
@@ -102,6 +107,9 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            dashDepart.transform.position = transform.position;
+            dashDepart.Play();
+            dashEffect.Play();
             dashTime = maxDash;
             invulnerabilityTime = dashInvulnerability;
         }
@@ -118,6 +126,8 @@ public class FreeFormOrbitalMove : MonoBehaviour
                 puffTimer = Random.Range(0,puffInterval);
             }
         }
+
+        
       
         //julian hates optimistation
         //he is a square
