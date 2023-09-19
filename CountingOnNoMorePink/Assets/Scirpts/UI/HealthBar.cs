@@ -6,15 +6,26 @@ using TMPro;
 public class HealthBar : MonoBehaviour
 {
     public FreeFormOrbitalMove player;
-    TextMeshProUGUI readout;
+    public HealthPip pipPrefab;
 
+    List<HealthPip> healthPips = new List<HealthPip>();
 
-    // Start is called before the first frame update
     void Start()
     {
         if(player == null) player = FindObjectOfType<FreeFormOrbitalMove>();
         player.onTakeDamage += UpdateUI;
-        readout = GetComponent<TextMeshProUGUI>();
+
+        Setup();
+    }
+
+
+    void Setup()
+    {
+        for(int i = 0; i < player.maxHP; i++)
+        {
+            HealthPip pip = Instantiate(pipPrefab,transform);
+            healthPips.Add(pip);
+        }
     }
 
     void UpdateUI()
@@ -34,6 +45,6 @@ public class HealthBar : MonoBehaviour
                 hpdisplay += "X";
             }
         }
-        readout.text = hpdisplay;
+    
     }
 }

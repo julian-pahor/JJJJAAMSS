@@ -57,7 +57,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
     //flags
     bool isDash;
     bool isParry;
-
+    bool isDead;
 
     Vector3 gizmoPoint;
     Vector3 gizmoPoint2;
@@ -72,6 +72,9 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
     private void Update()
     {
+        if (isDead)
+            return;
+
         HitFlash();
 
         //parry
@@ -133,8 +136,10 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (isDead)
+            return;
 
-       // rb.rotation = Quaternion.LookRotation(transform.position - origin.transform.position);
+        // rb.rotation = Quaternion.LookRotation(transform.position - origin.transform.position);
 
         if (isParry) return;
 
@@ -204,6 +209,9 @@ public class FreeFormOrbitalMove : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
+        if (isDead)
+            return;
+
         if (invulnerabilityTime > 0)
         {
             shieldFx.Play();
@@ -220,7 +228,11 @@ public class FreeFormOrbitalMove : MonoBehaviour
             currentHP -= 1;
 
             if (currentHP <= 0)
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            {
+                isDead = true;
+                Wobbit.instance.EndGame();
+            }
+               
 
             if (onTakeDamage != null)
             {

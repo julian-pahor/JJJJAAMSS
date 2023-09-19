@@ -64,7 +64,10 @@ public class Wobbit : MonoBehaviour
     public FreeFormOrbitalMove playerMovement;
     private float timeScale = 1;
     private float targetScale = 1;
-    
+
+
+    public GameOverscreen gameOverScreen;
+
     public void StartSlow()
     {
         targetScale = 0;
@@ -81,7 +84,15 @@ public class Wobbit : MonoBehaviour
         targetScale += Time.deltaTime * 4.5f;
         targetScale = Mathf.Clamp01(targetScale);
     }
+    
+    public void EndGame()
+    {
+        gameOverScreen.Activate();
+    }
 
-
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 
 }
