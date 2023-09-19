@@ -29,6 +29,8 @@ public class TimelineEditor : MonoBehaviour
     public SaveFileDropdown saveFileDropdown;
     public GameObject previewPopUp;
 
+
+
     public string mainScene;
 
     public int phraseLength = 16;
@@ -53,6 +55,7 @@ public class TimelineEditor : MonoBehaviour
         GenerateTimelineUI();
 
     }
+
 
     private void OnDestroy()
     {
@@ -129,7 +132,7 @@ public class TimelineEditor : MonoBehaviour
 
         foreach (BeatBlokk b in beatTimeLine)
         {
-            b.Updoot();
+            StartCoroutine(b.Couroot());
         }
     }
 

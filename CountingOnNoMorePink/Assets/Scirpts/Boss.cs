@@ -7,6 +7,8 @@ public class Boss : MonoBehaviour
    
     void Update()
     {
-        transform.rotation = Quaternion.LookRotation(Wobbit.instance.player.position- transform.position);
+        Vector3 direction = Wobbit.instance.player.position - transform.position;
+
+        transform.rotation = Quaternion.LookRotation(new Vector3(direction.x,0,direction.z));
     }
 }

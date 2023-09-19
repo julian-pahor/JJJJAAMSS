@@ -30,7 +30,7 @@ public class Wobbit : MonoBehaviour
 
     public void GoToEditor()
     {
-        SceneManager.LoadScene("UITesting");
+        SceneManager.LoadScene("JulesUIBreaking");
     }
 
     //very temporary references to junk I need for the demo

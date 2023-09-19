@@ -196,6 +196,6 @@ public class BeamShot : AttackEvent
 
         //SpiralStep;
         valueEditor = eventEditor.CreateEditor();
-        valueEditor.SetListener((float f) => { arcStep = f; }, arcStep, "Spiral Step");
+        valueEditor.SetListener((float f) => { arcStep = f; }, arcStep, "Spiral Step",-360f,360f);
     }
 }
