@@ -20,8 +20,8 @@ public class FreeFormOrbitalMove : MonoBehaviour
     public float hitInvulnerability;
 
     float currentDistance;
-    public float angle;
-    public float tangle;
+    float angle;
+    
     public float CurrentAngle { get { return angle; } }
 
     //stats and effects
