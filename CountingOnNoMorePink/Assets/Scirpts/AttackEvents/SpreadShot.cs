@@ -9,6 +9,7 @@ public class SpreadShot : AttackEvent
     public int shots;
     public float firingArc;
     public float arcOffset;
+    public float bulletSpeed;
     public Bullet bulletType;
     public ShotType shotType;
     public enum ShotType { Standard, TargetPlayer}
@@ -47,11 +48,15 @@ public class SpreadShot : AttackEvent
             if (bulletType == null)
             {
                  b = Instantiate(Wobbit.instance.bulletFab, origin.position, Quaternion.identity);
+                   
             }
             else
             {
                 b = Instantiate(bulletType, origin.position, Quaternion.identity);
             }
+
+            b.speed = bulletSpeed > 0f ? bulletSpeed : 1;
+
             float rotationO = rotation;
             rotationO = rotation - firingArc / 2 + angleStep / 2;
             rotationO += angleStep * i;
@@ -71,6 +76,12 @@ public class SpreadShot : AttackEvent
         ValueEditor ve;
         ve = ee.CreateEditor();
         ve.SetListener((float f) => { shots = (int)f; }, shots, "Shots", 1, 360, true);
+
+        //set up bullet speed
+        ve = ee.CreateEditor();
+        ve.SetListener((float f) => { bulletSpeed = (int)f; }, bulletSpeed, "Speed", 1, 100);
+
+
 
         //set Up Firing Arc
         ve = ee.CreateEditor();

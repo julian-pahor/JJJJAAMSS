@@ -21,6 +21,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
     float currentDistance;
     float angle;
+    
     public float CurrentAngle { get { return angle; } }
 
     //stats and effects
@@ -152,21 +153,31 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
         Vector3 moveTo = Utilities.PointWithPolarOffset(origin.position, currentDistance, angle);
 
-        if(Movement.magnitude <= 0)
+        //Vector3 a = transform.position - origin.position;
+        //tangle = Mathf.Atan2(a.x, a.z) * Mathf.Rad2Deg;
+        //if (tangle < 0) { tangle = 360 + tangle; } //do not question me
+        //float calculatedDistance = Vector3.Distance(transform.position, origin.position);
+        //gizmoPoint2 = Utilities.PointWithPolarOffset(origin.position, calculatedDistance, tangle);
+
+
+        //prevent slide + reset position
+        if (Movement.magnitude <= 0)
         {
             moveTo = rb.position;
+            Vector3 currentDirection = transform.position - origin.position;
+            float currentAngle = Mathf.Atan2(currentDirection.x,currentDirection.z) * Mathf.Rad2Deg;
+            if (currentAngle < 0) { currentAngle = 360 + currentAngle; } //do not question me
+            angle = currentAngle;
+            float calculatedDistance = Vector3.Distance(transform.position, origin.position);
+            currentDistance = calculatedDistance;
+
         }
-
-        //Vector3 direction = (transform.forward * -directionY) + (transform.right * -directionX);
-        //direction = direction.normalized;
-
-        // transform.LookAt(moveTo);
 
         gizmoPoint = moveTo;
 
         Vector3 direction = moveTo - rb.position;
 
-        if (direction.magnitude > .75f)
+        if (direction.magnitude > .1f)
         {
             if (moveTo - transform.position != Vector3.zero)
             {
@@ -174,13 +185,12 @@ public class FreeFormOrbitalMove : MonoBehaviour
                 rb.rotation = targetRotation;
             }
             Vector3 adjustedMove = rb.position + (direction.normalized * currentSpeed * Time.deltaTime);
-            gizmoPoint2 = adjustedMove;
+        
             rb.MovePosition(adjustedMove);
         }
         
 
     }
-
 
     void HitFlash()
     {
