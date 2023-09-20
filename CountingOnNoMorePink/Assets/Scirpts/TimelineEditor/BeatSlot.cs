@@ -70,6 +70,9 @@ public class BeatSlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPointer
             
             if(Vector2.Distance(clickCheck, eventData.position) < 15)
             {
+                StopCoroutine(Preview());
+                hovering = false;
+                PreviewClose();
                 this.attackEvent = null;
                 UpdateSlot();
             }
@@ -137,15 +140,20 @@ public class BeatSlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPointer
     public void OnPointerExit(PointerEventData eventData)
     {
         hovering = false;
+        PreviewClose();
+
+        
+    }
+
+    public void PreviewClose()
+    {
         StopCoroutine(Preview());
-        editor.previewPopUp.transform.DOScale(0, 0.25f).SetEase(Ease.InBack).OnComplete(() => 
-        { 
-            editor.previewPopUp.SetActive(false); 
+        editor.previewPopUp.transform.DOScale(0, 0.25f).SetEase(Ease.InBack).OnComplete(() =>
+        {
+            editor.previewPopUp.SetActive(false);
             editor.previewPopUp.transform.localScale = Vector3.one;
             hoverTimer = .35f;
         });
-
-        
     }
 
     private IEnumerator Preview()
@@ -172,7 +180,11 @@ public class BeatSlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPointer
         while(hovering)
         {
             yield return new WaitForSeconds(1.5f);
-            attackEvent.Fire();
+            if(attackEvent != null)
+            {
+                attackEvent.Fire();
+            }
+            
         }
     }
 }
