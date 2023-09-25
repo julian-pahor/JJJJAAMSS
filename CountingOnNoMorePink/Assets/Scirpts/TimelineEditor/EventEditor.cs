@@ -18,12 +18,28 @@ public class EventEditor : MonoBehaviour
 
     public List<ValueEditor> currentEditors = new List<ValueEditor>();
 
+    public float previewTimer;
+    float timer;
+
     private void Start()
     {
        
     }
 
-  
+    private void Update()
+    {
+        if (currentlySelectedEvent == null)
+            return;
+        timer += Time.deltaTime;
+        {
+            if(timer >= previewTimer)
+            {
+                timer = 0;
+                currentlySelectedEvent.Fire();
+            }
+        }
+    }
+
 
     public void SaveSelectedAsPrefab()
     {

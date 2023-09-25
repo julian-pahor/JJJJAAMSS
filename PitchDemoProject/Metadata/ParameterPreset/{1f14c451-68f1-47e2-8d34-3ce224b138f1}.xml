@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{1f14c451-68f1-47e2-8d34-3ce224b138f1}">
+		<property name="name">
+			<value>TransitionSlow</value>
+		</property>
+		<relationship name="folder">
+			<destination>{82c41144-43cb-4c5a-a141-3e25cd06cba3}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{97064a39-e3fb-46c0-902e-1b145f02f6bd}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{97064a39-e3fb-46c0-902e-1b145f02f6bd}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<relationship name="automators">
+			<destination>{c19b18f6-d421-437c-9e6f-0fccc293a079}</destination>
+		</relationship>
+	</object>
+	<object class="Automator" id="{c19b18f6-d421-437c-9e6f-0fccc293a079}">
+		<property name="nameOfPropertyBeingAutomated">
+			<value>cursorPosition</value>
+		</property>
+	</object>
+</objects>
