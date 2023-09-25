@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BeatTimeline : MonoBehaviour
-{
-
-    
+{    
     public SaveFileDropdown saveFileDropdown;
     public SongSave saveFile;
 
     public List<BlockData> eventTimeline = new List<BlockData>();
 
     int index;
-
+    int lastBar;
 
     private void Start()
     {
@@ -46,14 +44,38 @@ public class BeatTimeline : MonoBehaviour
             Debug.LogError("No save file in BeatTimeline");
             return;
         }
-        
-        DoBeat(index);
-        index++;
+
+        if (bar == 13 || bar == 14 || bar == 23 || bar == 24)
+        {
+            return;
+        }
+
+        if (bar < lastBar)
+        {
+            //Means we have looped back 
+            index -= (((lastBar - bar) + 1) * 4);
+            Wobbit.instance.lifeAmount = 1;
+            Wobbit.instance.HealPlayer();
+
+            if(index < 0)
+            {
+                index = 0;
+            }
+        }
+
+        if(bar >= 5)
+        {
+            DoBeat(index);
+            DoArm(index);
+            index++;
+        }
 
         if (index >= saveFile.SongLength)
         {
             index = 0;
         }
+
+        lastBar = bar;
     }
 
     //TODO: Blockdata size is hardcoded to 5, figure out where this and songsave get that number from
@@ -64,6 +86,25 @@ public class BeatTimeline : MonoBehaviour
             if (eventTimeline[index].events[i] != null)
             {
                 eventTimeline[index].events[i].Fire();
+            }
+        }
+    }
+
+    void DoArm(int index)
+    {
+        for(int i = 1; i < 4; i++)
+        {
+            if(index + i > eventTimeline.Count - 1)
+            {
+                return;
+            }
+
+            for(int j = 0; j < 5; j++)
+            {
+                if (eventTimeline[index + i].events[j] != null)
+                {
+                    eventTimeline[index + i].events[j].Arm(index);
+                }
             }
         }
     }

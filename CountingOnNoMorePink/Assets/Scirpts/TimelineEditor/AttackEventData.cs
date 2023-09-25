@@ -34,6 +34,8 @@ public class AttackEventData
     public float orbitalSpeed;
     public int orbitalDirection;
 
+    public ParryEvent.ParryType parryType;
+
     public AttackEventData()
     {
         attackEventID = "null";
@@ -112,6 +114,9 @@ public class AttackEventData
                 delay = s.delay;
 
                 break;
+            case ParryEvent ps:
+                parryType = ps.type;
+                break;
         }
 
     }
@@ -183,6 +188,8 @@ public class AttackEventData
 
                 s.delay = delay;
 
+                break;
+            case ParryEvent ps:
                 break;
             default:
                 Debug.Log("There was a serious issue");
