@@ -12,7 +12,7 @@ public class Parry : MonoBehaviour
 
     float lateTimer;
     //  1/4 time in ms for 130 BPM   +a little extra  //462 = 1/4 for 130BPM
-    private float beatMS = 0.4f;
+    private float beatMS = 0.462f;
 
     private float perfectWindow;
 
@@ -71,7 +71,7 @@ public class Parry : MonoBehaviour
         {
             parryTime += Time.deltaTime;
         }
-        if (parryTime >= beatMS / 2.75)
+        if (parryTime >= beatMS / 4f)
         {
             parrying = false;
             parryTime = 0;
@@ -85,11 +85,13 @@ public class Parry : MonoBehaviour
         {
             lateTimer += Time.deltaTime;
         }
-        if (lateTimer >= beatMS / 1.8)
+        if (lateTimer >= beatMS / 2.5f)
         {
             attacked = false;
             lateTimer = 0;
             //Missed parry Take Damage
+            ///Horrible Horrible absolutlely horrible chain of reference call to make player take damage
+            Wobbit.instance.playerMovement.onTakeDamage();
             Debug.Log("TAKE DAMAGE AHHH");
             result = ParryResult.Miss;
         }
@@ -127,15 +129,15 @@ public class Parry : MonoBehaviour
         if(parrying)
         {
             double resultTime = attackTime - (inputTime + inputLag);
-            if(resultTime <= perfectWindow / 2.4)
+            if(resultTime <= perfectWindow / 2.4f)
             {
                 result = ParryResult.Perfect;
-
             }
-            else if(resultTime <= beatMS / 2.75)
+            else if(resultTime <= beatMS / 4f)
             {
                 result = ParryResult.Early;
             }
+            Debug.Log("ResultTime " + resultTime);
         }
         //Attacked flag for if player inputs after parried attack has already passed
         //(For both perfect + late checks)
@@ -143,14 +145,15 @@ public class Parry : MonoBehaviour
         {
             double resultTime = (inputTime + inputLag) - attackTime;
 
-            if (resultTime <= perfectWindow / 1.8)
+            if (resultTime <= perfectWindow / 2.4f)
             {
                 result = ParryResult.Perfect;
             }
-            else if (resultTime <= beatMS / 2)
+            else if (resultTime <= beatMS / 2.5f)
             {
                 result = ParryResult.Late;
             }
+            Debug.Log("ResultTime " + resultTime);
         }
 
         UpdateText();
