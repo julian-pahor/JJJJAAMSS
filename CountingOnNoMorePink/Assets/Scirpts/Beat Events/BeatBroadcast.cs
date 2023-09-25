@@ -58,7 +58,7 @@ public class BeatBroadcast : MonoBehaviour
         // by the garbage collected while it's being used
         beatCallback = new FMOD.Studio.EVENT_CALLBACK(BeatEventCallback);
 
-        musicInstance = FMODUnity.RuntimeManager.CreateInstance("event:/Music/DemoLoop");
+        musicInstance = FMODUnity.RuntimeManager.CreateInstance("event:/Music/CandyLoop");
 
         // Pin the class that will store the data modified during the callback
         timelineHandle = GCHandle.Alloc(timelineInfo, GCHandleType.Pinned);

@@ -66,6 +66,11 @@ public class SongSave : MonoBehaviour
                 //there's no way this works
                 thisData.fileData[fileIndex].DeserialiseIntoObject(twemp);
                 b.events[j] = twemp;
+                if(twemp != null)
+                {
+                    twemp.firingIndex = i;
+                }
+
                 fileIndex++;
             }
             blockDatas.Add(b);
