@@ -53,7 +53,6 @@ public class Wobbit : MonoBehaviour
 
     public Parry playerParry;
 
-
     public Orbiter orbiterPrefab;
 
     public BeatTimeline timeline;
@@ -61,6 +60,7 @@ public class Wobbit : MonoBehaviour
     public DelayedDangerZone delayedDangerZoneTest;
     public DelayedDangerZone seekerTest;
 
+    public ParryAttack2 pa2;
 
 
     //TimeSlow stuff testing 
