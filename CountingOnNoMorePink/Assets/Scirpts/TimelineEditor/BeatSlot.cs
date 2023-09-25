@@ -70,9 +70,9 @@ public class BeatSlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPointer
             
             if(Vector2.Distance(clickCheck, eventData.position) < 15)
             {
-                StopCoroutine(Preview());
+                //StopCoroutine(Preview());
                 hovering = false;
-                PreviewClose();
+                //PreviewClose();
                 this.attackEvent = null;
                 UpdateSlot();
             }
@@ -129,11 +129,11 @@ public class BeatSlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPointer
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if(attackEvent != null)
-        {
-            hovering = true;
-            StartCoroutine(Preview());
-        }
+        //if(attackEvent != null)
+        //{
+        //    hovering = true;
+        //    StartCoroutine(Preview());
+        //}
         
     }
 
@@ -147,15 +147,18 @@ public class BeatSlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPointer
 
     public void PreviewClose()
     {
-        StopCoroutine(Preview());
-        editor.previewPopUp.transform.DOScale(0, 0.25f).SetEase(Ease.InBack).OnComplete(() =>
-        {
-            editor.previewPopUp.SetActive(false);
-            editor.previewPopUp.transform.localScale = Vector3.one;
-            hoverTimer = .35f;
-        });
+        //StopCoroutine(Preview());
+        //editor.previewPopUp.transform.DOScale(0, 0.25f).SetEase(Ease.InBack).OnComplete(() =>
+        //{
+        //    editor.previewPopUp.SetActive(false);
+        //    editor.previewPopUp.transform.localScale = Vector3.one;
+        //    hoverTimer = .35f;
+        //});
     }
 
+    //This coroutine was judged and found wanting
+
+    /*
     private IEnumerator Preview()
     {
         yield return null;
@@ -187,4 +190,5 @@ public class BeatSlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPointer
             
         }
     }
+    */
 }

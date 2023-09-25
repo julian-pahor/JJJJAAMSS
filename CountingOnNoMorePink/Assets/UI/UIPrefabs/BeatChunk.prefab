@@ -118,7 +118,8 @@ MonoBehaviour:
   preFab: {fileID: 960837295024269188, guid: e905888a959b1a24a8bc3022d6776896, type: 3}
   uiCard: {fileID: 2038713843602309792}
   selectedColour: {r: 1, g: 0.95215833, b: 0, a: 1}
-  baseColour: {r: 0.9607844, g: 0.9607844, b: 0.9607844, a: 1}
+  baseColour: {r: 1, g: 0.8313726, b: 0.9725491, a: 1}
+  attackEvent: {fileID: 0}
   editor: {fileID: 0}
 --- !u!1 &5779099097216879413
 GameObject:
@@ -238,7 +239,8 @@ MonoBehaviour:
   preFab: {fileID: 960837295024269188, guid: e905888a959b1a24a8bc3022d6776896, type: 3}
   uiCard: {fileID: 1890728360343964166}
   selectedColour: {r: 1, g: 0.95215833, b: 0, a: 1}
-  baseColour: {r: 0.9607844, g: 0.9607844, b: 0.9607844, a: 1}
+  baseColour: {r: 1, g: 0.8313726, b: 0.9725491, a: 1}
+  attackEvent: {fileID: 0}
   editor: {fileID: 0}
 --- !u!1 &5779099097379400682
 GameObject:
@@ -358,7 +360,8 @@ MonoBehaviour:
   preFab: {fileID: 960837295024269188, guid: e905888a959b1a24a8bc3022d6776896, type: 3}
   uiCard: {fileID: 8149700091101210880}
   selectedColour: {r: 1, g: 0.95215833, b: 0, a: 1}
-  baseColour: {r: 0.9607844, g: 0.9607844, b: 0.9607844, a: 1}
+  baseColour: {r: 1, g: 0.8313726, b: 0.9725491, a: 1}
+  attackEvent: {fileID: 0}
   editor: {fileID: 0}
 --- !u!1 &5779099097398837769
 GameObject:
@@ -478,7 +481,8 @@ MonoBehaviour:
   preFab: {fileID: 960837295024269188, guid: e905888a959b1a24a8bc3022d6776896, type: 3}
   uiCard: {fileID: 6116729809423471313}
   selectedColour: {r: 1, g: 0.95215833, b: 0, a: 1}
-  baseColour: {r: 0.9607844, g: 0.9607844, b: 0.9607844, a: 1}
+  baseColour: {r: 1, g: 0.8313726, b: 0.9725491, a: 1}
+  attackEvent: {fileID: 0}
   editor: {fileID: 0}
 --- !u!1 &5779099098267941608
 GameObject:
@@ -598,7 +602,8 @@ MonoBehaviour:
   preFab: {fileID: 960837295024269188, guid: e905888a959b1a24a8bc3022d6776896, type: 3}
   uiCard: {fileID: 165841612233772102}
   selectedColour: {r: 1, g: 0.95215833, b: 0, a: 1}
-  baseColour: {r: 0.9607844, g: 0.9607844, b: 0.9607844, a: 1}
+  baseColour: {r: 1, g: 0.8313726, b: 0.9725491, a: 1}
+  attackEvent: {fileID: 0}
   editor: {fileID: 0}
 --- !u!1 &5779099099032420138
 GameObject:
@@ -667,7 +672,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.7834665, b: 0.7764706, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -742,6 +747,9 @@ MonoBehaviour:
   - {fileID: 4896376270581987879}
   - {fileID: 4058534088754619344}
   - {fileID: 8485251650410317366}
+  imig: {fileID: 5779099099032420134}
+  baseColour: {r: 1, g: 0.5803922, b: 0.9294118, a: 1}
+  beatColour: {r: 0.4784314, g: 0, b: 0.38431376, a: 1}
 --- !u!1001 &804547803466885805
 PrefabInstance:
   m_ObjectHideFlags: 0

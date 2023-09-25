@@ -2,11 +2,16 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BeatBlokk : MonoBehaviour
 {
     public List<BeatSlot> slots = new List<BeatSlot>();
     // Start is called before the first frame update
+
+    public Image imig;
+    public Color baseColour;
+    public Color beatColour;
 
     public void Initialise(TimelineEditor editor)
     {
