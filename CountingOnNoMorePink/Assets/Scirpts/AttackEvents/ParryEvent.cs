@@ -6,12 +6,12 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "AttackEvent/ParryEvent")]
 public class ParryEvent : AttackEvent
 {
-    public ParryType type = ParryType.ThreeBeat;
+    public ParryType type = ParryType.TwoBeat;
     public enum ParryType {OneBeat, TwoBeat, ThreeBeat}
 
     public override void Arm(int beatIndex)
     {
-        if(beatIndex == firingIndex - ((int)type))
+        if(beatIndex == firingIndex - ((int)type) - 1)
         {
             //Call corresponding fmod event
             switch(type)
@@ -20,12 +20,12 @@ public class ParryEvent : AttackEvent
 
                     break;
                 case ParryType.TwoBeat:
-
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/Attacks/DemoAttack", Wobbit.instance.bossOrigin.position);
+                    Instantiate(Wobbit.instance.pa2);
                     break;
                 case ParryType.ThreeBeat:
-                    FMODUnity.RuntimeManager.PlayOneShot("event:/Attacks/DemoAttack", Wobbit.instance.bossOrigin.position);
+                    
                     break;
-
             }
         }
     }
