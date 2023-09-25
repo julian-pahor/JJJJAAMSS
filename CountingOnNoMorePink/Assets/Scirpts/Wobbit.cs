@@ -50,6 +50,8 @@ public class Wobbit : MonoBehaviour
     public Transform hand1;
     public Transform hand2;
 
+    public Parry playerParry;
+
 
     public Orbiter orbiterPrefab;
 

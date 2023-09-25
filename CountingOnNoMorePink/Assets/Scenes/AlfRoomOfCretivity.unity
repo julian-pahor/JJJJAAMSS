@@ -248,9 +248,9 @@ GameObject:
   m_Component:
   - component: {fileID: 26522126}
   - component: {fileID: 26522125}
-  - component: {fileID: 26522124}
   - component: {fileID: 26522127}
   - component: {fileID: 26522128}
+  - component: {fileID: 26522129}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -258,14 +258,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &26522124
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 26522123}
-  m_Enabled: 1
 --- !u!20 &26522125
 Camera:
   m_ObjectHideFlags: 0
@@ -376,6 +368,19 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &26522129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26522123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 0}
 --- !u!1 &82180100
 GameObject:
   m_ObjectHideFlags: 0
@@ -12997,6 +13002,7 @@ GameObject:
   - component: {fileID: 919533469}
   - component: {fileID: 919533473}
   - component: {fileID: 919533474}
+  - component: {fileID: 919533475}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -13187,6 +13193,20 @@ MonoBehaviour:
     m_RotationOrder: 4
   walkPuff: {fileID: 798025428}
   puffInterval: 0.2
+--- !u!114 &919533475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919533467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0a3939aa11ecbe45bcbf0adab282b3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 0}
+  inputLag: -0.035
 --- !u!1 &920961724
 GameObject:
   m_ObjectHideFlags: 0
@@ -26577,6 +26597,10 @@ PrefabInstance:
       propertyPath: bossOrigin
       value: 
       objectReference: {fileID: 920961725}
+    - target: {fileID: 742059331134511709, guid: 3bdadac91a8fe4d49820586f3ba5c81f, type: 3}
+      propertyPath: playerParry
+      value: 
+      objectReference: {fileID: 919533475}
     - target: {fileID: 742059331134511709, guid: 3bdadac91a8fe4d49820586f3ba5c81f, type: 3}
       propertyPath: playerMovement
       value: 

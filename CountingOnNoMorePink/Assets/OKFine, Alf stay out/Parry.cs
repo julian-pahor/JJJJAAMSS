@@ -95,7 +95,7 @@ public class Parry : MonoBehaviour
         }
         //-----
 
-        UpdateText();
+
     }
 
     /// <summary>
@@ -130,6 +130,7 @@ public class Parry : MonoBehaviour
             if(resultTime <= perfectWindow / 2.4)
             {
                 result = ParryResult.Perfect;
+
             }
             else if(resultTime <= beatMS / 2.75)
             {
@@ -152,6 +153,7 @@ public class Parry : MonoBehaviour
             }
         }
 
+        UpdateText();
         parrying = false;
         attacked = false;
 
@@ -159,20 +161,42 @@ public class Parry : MonoBehaviour
 
     void UpdateText()
     {
-        switch(result)
+        if(text != null)
         {
-            case(ParryResult.Early):
-                text.text = "Parry - Early";
-                break;
-            case(ParryResult.Perfect):
-                text.text = "Parry - Perfect!";
+            switch (result)
+            {
+                case (ParryResult.Early):
+                    text.text = "Parry - Early";
                     break;
-            case (ParryResult.Late):
-                text.text = "Parry - Late";
-                break;
-            case (ParryResult.Miss):
-                text.text = "Parry - Miss";
-                break;
+                case (ParryResult.Perfect):
+                    text.text = "Parry - Perfect!";
+                    break;
+                case (ParryResult.Late):
+                    text.text = "Parry - Late";
+                    break;
+                case (ParryResult.Miss):
+                    text.text = "Parry - Miss";
+                    break;
+            }
         }
+        else
+        {
+            switch (result)
+            {
+                case (ParryResult.Early):
+                    Debug.Log("Parry - Early");
+                    break;
+                case (ParryResult.Perfect):
+                    Debug.Log("Parry - Perfect!");
+                    break;
+                case (ParryResult.Late):
+                    Debug.Log("Parry - Late");
+                    break;
+                case (ParryResult.Miss):
+                    Debug.Log("Parry - Miss");
+                    break;
+            }
+        }
+        
     }
 }

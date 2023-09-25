@@ -8927,8 +8927,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1890681105}
   - component: {fileID: 1890681104}
-  - component: {fileID: 1890681103}
   - component: {fileID: 1890681102}
+  - component: {fileID: 1890681106}
   m_Layer: 0
   m_Name: MainCam
   m_TagString: Untagged
@@ -8969,14 +8969,6 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!81 &1890681103
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1890681101}
-  m_Enabled: 1
 --- !u!20 &1890681104
 Camera:
   m_ObjectHideFlags: 0
@@ -9035,6 +9027,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: -46.821, y: 0, z: 0}
+--- !u!114 &1890681106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890681101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 0}
 --- !u!1 &1908089548
 GameObject:
   m_ObjectHideFlags: 0
@@ -10187,11 +10192,13 @@ MonoBehaviour:
   tracerWindup: {fileID: 0}
   hand1: {fileID: 0}
   hand2: {fileID: 0}
+  playerParry: {fileID: 3569889187259507008}
   orbiterPrefab: {fileID: 994258900174212055, guid: 327d07351dbea4447835b849119d608a, type: 3}
   timeline: {fileID: 742059331714017212}
   delayedDangerZoneTest: {fileID: 8761158838029511234, guid: c86f98645f64b99488af4fc7542e089f, type: 3}
   seekerTest: {fileID: 8761158838029511234, guid: c5e7206fd3ef5374f959aed1e5d213b7, type: 3}
   playerMovement: {fileID: 3569889187259507007}
+  lifeAmount: 1
 --- !u!33 &1008001133415026223
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -20655,6 +20662,7 @@ GameObject:
   - component: {fileID: 3569889187259506944}
   - component: {fileID: 3569889187259507004}
   - component: {fileID: 3569889187259507007}
+  - component: {fileID: 3569889187259507008}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -20735,6 +20743,20 @@ MonoBehaviour:
     m_RotationOrder: 4
   walkPuff: {fileID: 0}
   puffInterval: 1
+--- !u!114 &3569889187259507008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3569889187259506950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0a3939aa11ecbe45bcbf0adab282b3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 0}
+  inputLag: -0.035
 --- !u!199 &3569889187626022508
 ParticleSystemRenderer:
   serializedVersion: 6
