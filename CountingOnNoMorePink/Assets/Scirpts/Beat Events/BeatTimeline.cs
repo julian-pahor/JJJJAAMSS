@@ -66,6 +66,7 @@ public class BeatTimeline : MonoBehaviour
         if(bar >= 5)
         {
             DoBeat(index);
+            DoArm(index);
             index++;
         }
 
@@ -85,6 +86,25 @@ public class BeatTimeline : MonoBehaviour
             if (eventTimeline[index].events[i] != null)
             {
                 eventTimeline[index].events[i].Fire();
+            }
+        }
+    }
+
+    void DoArm(int index)
+    {
+        for(int i = 1; i < 4; i++)
+        {
+            if(index + i > eventTimeline.Count - 1)
+            {
+                return;
+            }
+
+            for(int j = 0; j < 5; j++)
+            {
+                if (eventTimeline[index + i].events[j] != null)
+                {
+                    eventTimeline[index + i].events[j].Arm(index);
+                }
             }
         }
     }
