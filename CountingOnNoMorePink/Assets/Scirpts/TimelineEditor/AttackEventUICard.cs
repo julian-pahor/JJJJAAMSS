@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using DG.Tweening;
-using UnityEditor.Build;
 using UnityEngine.EventSystems;
 
 public class AttackEventUICard : MonoBehaviour
