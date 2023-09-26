@@ -50,6 +50,7 @@ public class TimelineEditor : MonoBehaviour
         phrases.Add(new Phrase(phraseLength));
 
         BeatBroadcast.instance.timelineInfo.onBeatTrigger += Beat;
+        BeatBroadcast.instance.PlayPreview();
 
         GenerateTimelineUI();
 
