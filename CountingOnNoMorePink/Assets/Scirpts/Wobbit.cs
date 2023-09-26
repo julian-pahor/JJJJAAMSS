@@ -62,6 +62,8 @@ public class Wobbit : MonoBehaviour
 
     public ParryAttack2 pa2;
 
+    public ParryIndicator parryIndicatorPrefab;
+
 
     //TimeSlow stuff testing 
 
@@ -109,5 +111,14 @@ public class Wobbit : MonoBehaviour
     public void HealPlayer()
     {
         playerMovement.currentHP = playerMovement.maxHP;
+    }
+
+    public void CreateCountDownIndicator(int beats)
+    {
+        if (parryIndicatorPrefab == null)
+            return;
+
+        ParryIndicator indicator = Instantiate(parryIndicatorPrefab, player.position,Quaternion.identity);
+        indicator.Setup(beats,player);
     }
 }
