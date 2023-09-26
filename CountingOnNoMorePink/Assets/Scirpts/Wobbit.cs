@@ -31,6 +31,7 @@ public class Wobbit : MonoBehaviour
 
     public void GoToEditor()
     {
+        GetComponent<BeatTimeline>().saveFileDropdown.StoreSongIndex();
         SceneManager.LoadScene("JulesUIBreaking");
     }
 
@@ -60,6 +61,7 @@ public class Wobbit : MonoBehaviour
     public DelayedDangerZone seekerTest;
 
     public ParryAttack2 pa2;
+
 
     //TimeSlow stuff testing 
 

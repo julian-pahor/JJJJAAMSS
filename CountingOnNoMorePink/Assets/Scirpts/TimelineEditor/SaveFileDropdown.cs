@@ -13,12 +13,16 @@ public class SaveFileDropdown : MonoBehaviour
 
     List<string> files = new List<string>();
     public TMP_Dropdown dropdown;
+
+    public PersistentData persistentData;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         dropdown = GetComponent<TMP_Dropdown>();
         //LoadSavesFromFolder();
         LoadSavesFromPersistent();
+        SetCurrentIndex(persistentData.songIndex);
     }
 
     //TODO: THIS WILL NOT WORK IN BUILD (apparently) - FIND A WAY THAT WILL (https://docs.unity3d.com/ScriptReference/Resources.LoadAll.html)
@@ -81,8 +85,26 @@ public class SaveFileDropdown : MonoBehaviour
         }
     }
 
+    public void SetCurrentIndex(int index)
+    {
+        if (index >= files.Count)
+            return;
+        dropdown.value = index;
+        dropdown.RefreshShownValue();
+    }
+
+    public string GetSelectedSave()
+    {
+        if (files.Count == 0)
+            return null;
+
+        return files[dropdown.value];
+    }
     
-    
+    public void StoreSongIndex()
+    {
+        persistentData.songIndex = dropdown.value;
+    }
 
     //#if UNITY_EDITOR
     //    [ContextMenu("PortSaves")]
@@ -122,11 +144,5 @@ public class SaveFileDropdown : MonoBehaviour
     //    }
     //}
 
-    public string GetSelectedSave()
-    {
-        if (files.Count == 0)
-            return null;
-
-        return files[dropdown.value];
-    }
+    
 }
