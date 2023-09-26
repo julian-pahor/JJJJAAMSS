@@ -24,6 +24,8 @@ public class Parry : MonoBehaviour
 
     public float inputLag = 0.05f;
 
+    public ParryReturn2 parryReturn2;
+
     private enum ParryResult
     {
         Early,
@@ -49,6 +51,7 @@ public class Parry : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Return))
         {
             inputTime = Time.timeAsDouble;
+            Wobbit.instance.playerMovement.slashFx.Play();
 
             if(attacked)
             {
@@ -97,7 +100,6 @@ public class Parry : MonoBehaviour
         }
         //-----
 
-
     }
 
     /// <summary>
@@ -129,14 +131,15 @@ public class Parry : MonoBehaviour
         if(parrying)
         {
             double resultTime = attackTime - (inputTime + inputLag);
-            if(resultTime <= perfectWindow / 2.4f)
+            if (resultTime <= perfectWindow / 2.4f)
             {
                 result = ParryResult.Perfect;
             }
-            else if(resultTime <= beatMS / 4f)
+            else if (resultTime <= beatMS / 4f)
             {
                 result = ParryResult.Early;
             }
+            ParryReturn();
             Debug.Log("ResultTime " + resultTime);
         }
         //Attacked flag for if player inputs after parried attack has already passed
@@ -153,12 +156,19 @@ public class Parry : MonoBehaviour
             {
                 result = ParryResult.Late;
             }
+            ParryReturn();
             Debug.Log("ResultTime " + resultTime);
         }
 
         UpdateText();
         parrying = false;
         attacked = false;
+
+    }
+
+    public void ParryReturn()
+    {
+        Instantiate(parryReturn2, transform.position, Quaternion.identity);
 
     }
 

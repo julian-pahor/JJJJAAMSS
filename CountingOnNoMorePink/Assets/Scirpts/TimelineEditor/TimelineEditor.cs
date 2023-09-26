@@ -30,7 +30,6 @@ public class TimelineEditor : MonoBehaviour
     //public GameObject previewPopUp;
 
 
-
     public string mainScene;
 
     public int phraseLength = 16;
@@ -51,8 +50,12 @@ public class TimelineEditor : MonoBehaviour
         phrases.Add(new Phrase(phraseLength));
 
         BeatBroadcast.instance.timelineInfo.onBeatTrigger += Beat;
+        BeatBroadcast.instance.PlayPreview();
 
         GenerateTimelineUI();
+
+        
+        TryLoad();
 
     }
 
@@ -69,6 +72,12 @@ public class TimelineEditor : MonoBehaviour
 
     public void PlayGame()
     {
+
+        //save first
+
+        saveFileDropdown.StoreSongIndex();
+        TrySave();
+
         SceneManager.LoadScene(mainScene);
     }
 
