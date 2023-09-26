@@ -42,10 +42,10 @@ MonoBehaviour:
   Path: ../PitchDemoProject/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638312468595189595
+  lastModified: 638313170743857962
   FileSizes:
   - Name: Desktop
-    Value: 1220
+    Value: 1164
   Exists: 1
 --- !u!114 &-5046043983647623807
 MonoBehaviour:
@@ -90,10 +90,10 @@ MonoBehaviour:
   Path: ../PitchDemoProject/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638312468595179620
+  lastModified: 638313170743837960
   FileSizes:
   - Name: Desktop
-    Value: 1204128
+    Value: 1203872
   Exists: 1
 --- !u!114 &-1786946396110557196
 MonoBehaviour:
@@ -120,7 +120,6 @@ MonoBehaviour:
   IsOneShot: 0
   Parameters:
   - {fileID: 6347383588542512617}
-  - {fileID: 418760365869976540}
   MinDistance: 1
   MaxDistance: 20
   Length: 73846
@@ -199,32 +198,8 @@ MonoBehaviour:
   - {fileID: -2905332157472219407}
   StringsBanks:
   - {fileID: -6774477133602550355}
-  cacheTime: 638312468595189595
+  cacheTime: 638313170743857962
   cacheVersion: 131605
---- !u!114 &418760365869976540
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/CandyLoop/TransitionSlow
-  m_EditorClassIdentifier: 
-  Name: TransitionSlow
-  StudioPath: 
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 2481749888
-    data2: 164062572
-  Type: 0
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
 --- !u!114 &1945064465766609970
 MonoBehaviour:
   m_ObjectHideFlags: 0
