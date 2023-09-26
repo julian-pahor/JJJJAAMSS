@@ -68,6 +68,23 @@ public class BeatBroadcast : MonoBehaviour
         musicInstance.setCallback(beatCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT | FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
         musicInstance.start();
     }
+    [ContextMenu("PlayDemo")]
+    public void PlayPreview()
+    {
+        // Explicitly create the delegate object and assign it to a member so it doesn't get freed
+        // by the garbage collected while it's being used
+        beatCallback = new FMOD.Studio.EVENT_CALLBACK(BeatEventCallback);
+
+        musicInstance = FMODUnity.RuntimeManager.CreateInstance("event:/Music/DemoLoop");
+
+        // Pin the class that will store the data modified during the callback
+        timelineHandle = GCHandle.Alloc(timelineInfo, GCHandleType.Pinned);
+        // Pass the object through the userdata of the instance
+        musicInstance.setUserData(GCHandle.ToIntPtr(timelineHandle));
+
+        musicInstance.setCallback(beatCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT | FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
+        musicInstance.start();
+    }
 
     [ContextMenu("Stop")]
     public void StopMusic()
