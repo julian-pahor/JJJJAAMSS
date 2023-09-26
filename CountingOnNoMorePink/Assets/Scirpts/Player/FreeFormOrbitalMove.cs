@@ -65,6 +65,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
     float directionX;
     float directionY;  
     public Vector2 Movement { get { return new Vector2(directionX,directionY); } }
+    Vector2 deltaMove;
     
     //timers
     float dashCd;
@@ -73,6 +74,8 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
     //flags
     bool canDash;
+
+    Vector3 gixmo;
   
     private void Start()
     {
@@ -99,9 +102,10 @@ public class FreeFormOrbitalMove : MonoBehaviour
         {
             case State.Walk:
 
+                deltaMove = new Vector2(directionX, directionY);
                 directionX = Input.GetAxisRaw("Horizontal");
                 directionY = Input.GetAxisRaw("Vertical");
-
+               
                 dashCd -= Time.deltaTime;
                 if(dashCd <= 0 && !canDash)
                 {
@@ -220,13 +224,15 @@ public class FreeFormOrbitalMove : MonoBehaviour
         Vector3 moveTo = Utilities.PointWithPolarOffset(origin.position, currentDistance, angle);
 
         //prevent slide + reset position
-        if (Movement.magnitude <= 0)
+        if (Movement.magnitude <= 0 || Movement != deltaMove)
         {
             moveTo = rb.position;
             Vector3 currentDirection = transform.position - origin.position;
+
             float currentAngle = Mathf.Atan2(currentDirection.x, currentDirection.z) * Mathf.Rad2Deg;
             if (currentAngle < 0) { currentAngle = 360 + currentAngle; } //do not question me
             angle = currentAngle;
+
             float calculatedDistance = Vector3.Distance(transform.position, origin.position);
             currentDistance = calculatedDistance;
 
@@ -245,6 +251,13 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
             rb.MovePosition(adjustedMove);
         }
+
+
+        gixmo = moveTo;
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(gixmo, 2);
+    }
 }

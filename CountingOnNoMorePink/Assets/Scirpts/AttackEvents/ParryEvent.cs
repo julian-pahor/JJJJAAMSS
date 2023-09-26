@@ -30,6 +30,12 @@ public class ParryEvent : AttackEvent
         }
     }
 
+
+    public override void FirePreview()
+    {
+        //DO NOTHING
+    }
+
     public override void Fire()
     {
         //Compare/look for player input

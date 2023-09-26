@@ -24,6 +24,15 @@ public class OrbiterAttack : AttackEvent
 
     public enum BeamType { Instant, RadiateInward, RadiateOutward }
 
+    public override void FirePreview()
+    {
+        //um yes
+        int tempLife = lifeTime;
+        lifeTime = 2;
+        Fire();
+        lifeTime = tempLife;
+    }
+
     public override void Fire()
     {
         if (minDistance <= 0) minDistance = 1; //can't rotate around an exact center
