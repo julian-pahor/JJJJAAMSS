@@ -303,7 +303,7 @@ MonoBehaviour:
   saveFileNameField: {fileID: 891402881}
   saveData: {fileID: 14121693}
   saveFileDropdown: {fileID: 1294307503}
-  mainScene: AlfRoomOfCretivity
+  mainScene: JuliansDrums
   phraseLength: 16
   phrases: []
 --- !u!114 &14121693
@@ -1685,7 +1685,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1915068533}
   m_HandleRect: {fileID: 1915068532}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1812,7 +1812,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 802462505}
   m_HandleRect: {fileID: 802462504}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -10211,6 +10211,7 @@ MonoBehaviour:
   timeline: {fileID: 742059331714017212}
   delayedDangerZoneTest: {fileID: 8761158838029511234, guid: c86f98645f64b99488af4fc7542e089f, type: 3}
   seekerTest: {fileID: 8761158838029511234, guid: c5e7206fd3ef5374f959aed1e5d213b7, type: 3}
+  pa2: {fileID: 0}
   playerMovement: {fileID: 3569889187259507007}
   gameOverScreen: {fileID: 0}
   lifeAmount: 1
