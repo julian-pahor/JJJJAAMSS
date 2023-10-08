@@ -20,12 +20,19 @@ public class Wobbit : MonoBehaviour
     private void Start()
     {
         timeline = FindObjectOfType<BeatTimeline>();
+
+        playerMovement.onTakeDamage += StartSlow;
+
+        slowSnapShot = FMODUnity.RuntimeManager.CreateInstance("snapshot:/TimeSlow");
+        slowSnapShot.start();
+        lifeAmount = 1f;
     }
 
 
     public void GoToEditor()
     {
-        SceneManager.LoadScene("UITesting");
+        GetComponent<BeatTimeline>().saveFileDropdown.StoreSongIndex();
+        SceneManager.LoadScene("JulesUIBreaking");
     }
 
     //very temporary references to junk I need for the demo
@@ -44,6 +51,7 @@ public class Wobbit : MonoBehaviour
     public Transform hand1;
     public Transform hand2;
 
+    public Parry playerParry;
 
     public Orbiter orbiterPrefab;
 
@@ -52,4 +60,54 @@ public class Wobbit : MonoBehaviour
     public DelayedDangerZone delayedDangerZoneTest;
     public DelayedDangerZone seekerTest;
 
+    public ParryAttack2 pa2;
+
+
+    //TimeSlow stuff testing 
+
+    public FMOD.Studio.EventInstance slowSnapShot;
+    public FreeFormOrbitalMove playerMovement;
+    private float timeScale = 1;
+    private float targetScale = 1;
+
+
+    public GameOverscreen gameOverScreen;
+
+    public float lifeAmount = 1;
+    
+    public void StartSlow()
+    {
+        targetScale = 0;
+        lifeAmount -= 0.25f;
+
+    }
+
+    private void Update()
+    {
+        
+        timeScale = Mathf.Lerp(timeScale, targetScale, Time.deltaTime * 4.75f);
+        Time.timeScale = timeScale;
+        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("TimeSlow", timeScale);
+        
+
+        targetScale += Time.deltaTime * 4.5f;
+        targetScale = Mathf.Clamp01(targetScale);
+
+        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("PhrasePass", lifeAmount);
+    }
+    
+    public void EndGame()
+    {
+        gameOverScreen.Activate();
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void HealPlayer()
+    {
+        playerMovement.currentHP = playerMovement.maxHP;
+    }
 }

@@ -11,6 +11,7 @@ public class AttackEventData
 
     //beams and bullets
     public int shots;
+    public float shotSpeed;
     public float offset;
     public float firingArc;
 
@@ -32,6 +33,8 @@ public class AttackEventData
 
     public float orbitalSpeed;
     public int orbitalDirection;
+
+    public ParryEvent.ParryType parryType;
 
     public AttackEventData()
     {
@@ -56,6 +59,7 @@ public class AttackEventData
             case SpreadShot ss:
 
                 shots = ss.shots;
+                shotSpeed = ss.bulletSpeed;
                 offset = ss.arcOffset;
                 firingArc = ss.firingArc;
                 shotType = ss.shotType;
@@ -110,6 +114,9 @@ public class AttackEventData
                 delay = s.delay;
 
                 break;
+            case ParryEvent ps:
+                parryType = ps.type;
+                break;
         }
 
     }
@@ -128,6 +135,7 @@ public class AttackEventData
             case SpreadShot ss:
 
                 ss.shots = shots;
+                ss.bulletSpeed = shotSpeed;
                 ss.arcOffset = offset;
                 ss.firingArc = firingArc;
                 ss.shotType = shotType;
@@ -180,6 +188,8 @@ public class AttackEventData
 
                 s.delay = delay;
 
+                break;
+            case ParryEvent ps:
                 break;
             default:
                 Debug.Log("There was a serious issue");

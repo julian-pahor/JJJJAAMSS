@@ -43,6 +43,9 @@ public static class Utilities
         return point;
     }
 
+
+    
+
     public static Vector3 QuadraticLerp(Vector3 a, Vector3 b, Vector3 c, float t)
     {
         Vector3 ab = Vector3.Lerp(a, b, t);
@@ -73,7 +76,7 @@ public static class Utilities
     }
 
 
-  
+
 
     //Save and Load DataClasses And Functionality
 
@@ -86,7 +89,6 @@ public static class Utilities
         //public List<string> fileData;
 
         public List<AttackEventData> fileData;
-       
 
         public GameData()
         {
@@ -151,6 +153,7 @@ public static class Utilities
         string path = Application.persistentDataPath + "/SongSaves/" + saveName + ".json";
         string jsonData = JsonUtility.ToJson(saveData);
         System.IO.File.WriteAllText(path, jsonData);
+
 
     }
 

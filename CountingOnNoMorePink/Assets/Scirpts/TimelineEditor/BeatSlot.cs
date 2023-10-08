@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 
-public class BeatSlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPointerDownHandler, IBeginDragHandler, IDragHandler
+public class BeatSlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPointerDownHandler, IBeginDragHandler, IDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
     //maybe put the prefab in the timeline editor and get it from there
     public BeatItem preFab;
@@ -20,6 +20,8 @@ public class BeatSlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPointer
     public TimelineEditor editor;
 
     private Vector2 clickCheck;
+    private float hoverTimer = .35f;
+    private bool hovering = false;
 
     private void Start()
     {
@@ -68,6 +70,9 @@ public class BeatSlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPointer
             
             if(Vector2.Distance(clickCheck, eventData.position) < 15)
             {
+                //StopCoroutine(Preview());
+                hovering = false;
+                //PreviewClose();
                 this.attackEvent = null;
                 UpdateSlot();
             }
@@ -121,4 +126,69 @@ public class BeatSlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPointer
     {
        
     }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        //if(attackEvent != null)
+        //{
+        //    hovering = true;
+        //    StartCoroutine(Preview());
+        //}
+        
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        hovering = false;
+        PreviewClose();
+
+        
+    }
+
+    public void PreviewClose()
+    {
+        //StopCoroutine(Preview());
+        //editor.previewPopUp.transform.DOScale(0, 0.25f).SetEase(Ease.InBack).OnComplete(() =>
+        //{
+        //    editor.previewPopUp.SetActive(false);
+        //    editor.previewPopUp.transform.localScale = Vector3.one;
+        //    hoverTimer = .35f;
+        //});
+    }
+
+    //This coroutine was judged and found wanting
+
+    /*
+    private IEnumerator Preview()
+    {
+        yield return null;
+
+        while(hoverTimer > 0)
+        {
+            hoverTimer -= Time.deltaTime;
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+
+        if(!hovering)
+        {
+            hoverTimer = .35f;
+            yield break;
+        }
+
+
+        //Spawn Window and Fire Off Preview
+        editor.previewPopUp.SetActive(true);
+        editor.previewPopUp.transform.DOScale(0, 0.3f).From().SetEase(Ease.OutBack).OnComplete(() => { attackEvent.Fire(); });
+
+        while(hovering)
+        {
+            yield return new WaitForSeconds(1.5f);
+            if(attackEvent != null)
+            {
+                attackEvent.Fire();
+            }
+            
+        }
+    }
+    */
 }

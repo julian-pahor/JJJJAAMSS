@@ -31,6 +31,9 @@
 		<relationship name="timeline">
 			<destination>{fb484024-1b53-416c-8890-3551cabac220}</destination>
 		</relationship>
+		<relationship name="parameters">
+			<destination>{e8648256-3820-4937-8751-df2cf1f2fe1c}</destination>
+		</relationship>
 		<relationship name="banks">
 			<destination>{1f438be2-c5ae-4cf3-8de2-a62cbbe44eeb}</destination>
 		</relationship>
@@ -56,7 +59,7 @@
 			<destination>{d9d7c7dc-7f34-464f-8e1a-95c0d7d2efd2}</destination>
 		</relationship>
 		<relationship name="output">
-			<destination>{b9293374-94f7-41c2-a8b1-19b683c9002a}</destination>
+			<destination>{0159cfe0-b515-4752-b08f-1029d595bcb9}</destination>
 		</relationship>
 	</object>
 	<object class="EventAutomatableProperties" id="{74de65cc-777d-4973-9c33-259a1ac31da1}" />
@@ -73,6 +76,11 @@
 			<destination>{9e70ffff-c05b-4c54-9f96-fca687298b39}</destination>
 		</relationship>
 	</object>
+	<object class="ParameterProxy" id="{e8648256-3820-4937-8751-df2cf1f2fe1c}">
+		<relationship name="preset">
+			<destination>{1d8e5742-4d27-4179-b71d-4e4eac07d798}</destination>
+		</relationship>
+	</object>
 	<object class="EventMixerMaster" id="{f3a96fde-d3f3-4cb0-8528-2bc688dffa82}">
 		<relationship name="effectChain">
 			<destination>{ebe975ed-b14f-4251-99b0-f8f5b93acf4e}</destination>
@@ -87,6 +95,9 @@
 	<object class="SingleSound" id="{8d608c02-a004-4487-9934-c281ed2f0d28}">
 		<property name="length">
 			<value>14.769229024943311</value>
+		</property>
+		<property name="volume">
+			<value>-80</value>
 		</property>
 		<relationship name="audioFile">
 			<destination>{4ee8c0d4-beb6-4a2e-b312-692f5262cacc}</destination>

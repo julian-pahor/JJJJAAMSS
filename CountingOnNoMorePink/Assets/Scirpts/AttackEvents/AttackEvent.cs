@@ -9,6 +9,7 @@ public class AttackEvent : ScriptableObject
 
     //not in use?
     public int arm;
+    public int firingIndex;
 
     public virtual void Arm(int beatIndex)
     {

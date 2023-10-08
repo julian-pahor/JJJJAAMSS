@@ -27,6 +27,8 @@ public class TimelineEditor : MonoBehaviour
     public TMP_InputField saveFileNameField;
     public SongSave saveData;
     public SaveFileDropdown saveFileDropdown;
+    //public GameObject previewPopUp;
+
 
     public string mainScene;
 
@@ -39,6 +41,7 @@ public class TimelineEditor : MonoBehaviour
  
     void Start()
     {
+        //previewPopUp.SetActive(false);
         DOTween.SetTweensCapacity(20000, 20);
         //generate 4 phrases and add to list (doing this manually for now)
         phrases.Add(new Phrase(phraseLength));
@@ -47,10 +50,15 @@ public class TimelineEditor : MonoBehaviour
         phrases.Add(new Phrase(phraseLength));
 
         BeatBroadcast.instance.timelineInfo.onBeatTrigger += Beat;
+        BeatBroadcast.instance.PlayPreview();
 
         GenerateTimelineUI();
 
+        
+        TryLoad();
+
     }
+
 
     private void OnDestroy()
     {
@@ -64,6 +72,12 @@ public class TimelineEditor : MonoBehaviour
 
     public void PlayGame()
     {
+
+        //save first
+
+        saveFileDropdown.StoreSongIndex();
+        TrySave();
+
         SceneManager.LoadScene(mainScene);
     }
 
@@ -99,9 +113,11 @@ public class TimelineEditor : MonoBehaviour
         {
             BeatBlokk b = Instantiate(chunkFab, chunkContent);
 
+            b.imig.color = b.baseColour;
+
             if (i == 0 || i % 4 == 0)
             {
-                b.GetComponent<Image>().color = Color.green;
+                b.imig.color = b.beatColour;
             }
 
             b.Initialise(this);
@@ -127,7 +143,7 @@ public class TimelineEditor : MonoBehaviour
 
         foreach (BeatBlokk b in beatTimeLine)
         {
-            b.Updoot();
+            StartCoroutine(b.Couroot());
         }
     }
 

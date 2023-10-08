@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{31b27c2d-77b5-43f1-aff8-d6baf03628a8}">
+		<property name="name">
+			<value>TimeSlow</value>
+		</property>
+		<relationship name="folder">
+			<destination>{82c41144-43cb-4c5a-a141-3e25cd06cba3}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{1d8e5742-4d27-4179-b71d-4e4eac07d798}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{1d8e5742-4d27-4179-b71d-4e4eac07d798}">
+		<property name="isGlobal">
+			<value>true</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="isExposedRecursively">
+			<value>false</value>
+		</property>
+	</object>
+</objects>

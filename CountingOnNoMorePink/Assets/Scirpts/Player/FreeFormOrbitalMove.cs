@@ -7,168 +7,243 @@ using UnityEngine.SceneManagement;
 public class FreeFormOrbitalMove : MonoBehaviour
 {
 
-
     public Transform origin;
     //movement
+    [Header("Movement")]
     public float baseSpeed;
     public float dashSpeed;
     public float minDistance;
     public float maxDistance;
     public float maxDash;
 
+
+
+
+
     float currentDistance;
     float angle;
+    
     public float CurrentAngle { get { return angle; } }
 
-    //stats and effects
+    //stats
+    [Header("Stats")]
     public int maxHP;
     public int currentHP;
     public float maxShield;
+    public float dashInvulnerability;
+    public float hitInvulnerability;
+    public float dashCooldown;
+
+
+    //effects
+    [Header("Effects")]
     public Color baseColour;
     public GameObject parrySphere;
     public ParticleSystem shieldFx;
+    public AnimationCurve shieldPop;
+
     public ParticleSystem slashFx;
     public GameObject slashTransform;
 
+    //walk puff effect
+    public ParticleSystem walkPuff;
+    public float puffInterval;
+    float puffTimer;
+
+    //dash effects
+    public ParticleSystem dashRecover;
+    public ParticleSystem dashTrail;
+
     public System.Action onTakeDamage;
+
+   
+    enum State { Walk,Dash,Parry,Dead}
+    State state;
 
     //movement
     Rigidbody rb;
     float directionX;
-    float directionY;
+    float directionY;  
     public Vector2 Movement { get { return new Vector2(directionX,directionY); } }
-
-    float speed;
-
-    //stats
-    float hitTime;
+    
+    //timers
+    float dashCd;
     float dashTime;
-    float shieldTime;
+    float invulnerabilityTime;
 
     //flags
-    bool isDash;
-    bool isParry;
-
+    bool canDash;
+  
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         currentHP = maxHP;
+        currentDistance = maxDistance;
+        //StartCoroutine(SpeedCheck());
     }
 
 
     private void Update()
-    {
-        HitFlash();
-
-        //parry
-        isParry = Input.GetMouseButton(1);
-
-
-        if (isParry)
-            shieldTime += Time.deltaTime;
-        else
-            shieldTime -= Time.deltaTime;
-
-        shieldTime = Mathf.Clamp(shieldTime, 0, maxShield);
-
-        parrySphere.transform.localScale = Vector3.Lerp(new Vector3(0.1f, 0.1f, 0.1f), new Vector3(3f, 3f, 3f), shieldTime / maxShield);
-
-
-        //dash
-        dashTime -= Time.deltaTime;
-        isDash = dashTime > 0;
-
-
-        //if(Input.GetMouseButtonDown(0))
-        //{
-        //    slashFx.Play();
-
-        //}
-
-        if (Input.GetKeyDown(KeyCode.Space))
+    {   
+        //decrease inv timer        
+        if (invulnerabilityTime > 0)
         {
-            dashTime = maxDash;
+            invulnerabilityTime -= Time.deltaTime;
+            parrySphere.transform.localScale = new Vector3(3f, 3f, 3f) * shieldPop.Evaluate(1 - (invulnerabilityTime / dashInvulnerability));
+        }
+        else
+            parrySphere.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+
+
+        switch (state)
+        {
+            case State.Walk:
+
+                directionX = Input.GetAxisRaw("Horizontal");
+                directionY = Input.GetAxisRaw("Vertical");
+
+                dashCd -= Time.deltaTime;
+                if(dashCd <= 0 && !canDash)
+                {
+                    canDash = true;
+                    dashRecover.Play(true);
+                }
+
+                if (Input.GetKeyDown(KeyCode.Space) && dashCd <= 0)
+                {
+                    dashTrail.Play();
+                    canDash = false;
+                    dashCd = dashCooldown;
+                    dashTime = maxDash;
+                    invulnerabilityTime = dashInvulnerability;
+                    state = State.Dash;
+                }
+
+                //walk puff
+                if (Movement.magnitude > 0)
+                {
+                    puffTimer -= Time.deltaTime;
+                    if (puffTimer < 0)
+                    {
+                        walkPuff.Play();
+                        puffTimer = Random.Range(0, puffInterval);
+                    }
+                }
+
+                break;
+            case State.Dash:
+
+                dashTime -= Time.deltaTime;
+                if (dashTime <= 0)
+                {
+                    state = State.Walk;
+                    dashTrail.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+                }
+                   
+                
+
+                break;
+            case State.Parry:
+
+                break;
+            case State.Dead:
+
+                break;
         }
 
-
-        directionX = Input.GetAxisRaw("Horizontal");
-        directionY = Input.GetAxisRaw("Vertical");
-
-        //julian hates optimistation
-        //he is a square
-        //root
+        //clamp position inside circle
         float distance = Vector3.Distance(transform.position, origin.position);
-
-
-        //TODO: some kind of bug where dashing while moving diagonally will let you go past the max distance
-        //may be a non-issue once we rework the dash
         if (distance <= minDistance && -directionY < 0) directionY = 0;
         if (distance >= maxDistance && -directionY > 0) directionY = 0;
 
-
+        
+    
 
     }
 
     void FixedUpdate()
     {
+        switch (state)
+        {
+            case State.Walk:
+            case State.Dash:
+                DoMovement();
+                break;
+        }
+    }
 
-        rb.rotation = Quaternion.LookRotation(transform.position - origin.transform.position);
+    private void OnTriggerEnter(Collider other)
+    {
 
-        if (isParry) return;
+        if (state == State.Dead)
+            return;
 
-        float currentSpeed = isDash ? dashSpeed : baseSpeed;
+        if (invulnerabilityTime > 0)
+        {
+            shieldFx.Play();
+            return;
+        }
+        else
+        {
+            invulnerabilityTime = hitInvulnerability;
+            currentHP -= 1;
 
+            if (currentHP <= 0)
+            {
+                state = State.Dead;
+                Wobbit.instance.EndGame();
+            }
+               
+
+            if (onTakeDamage != null)
+            {
+                onTakeDamage();
+            }
+        }
+    }
+
+    void DoMovement()
+    {
+        float currentSpeed = state == State.Dash ? dashSpeed : baseSpeed;
+
+        //move us closer to origin based on speed
         currentDistance += -directionY * currentSpeed * Time.fixedDeltaTime;
         currentDistance = Mathf.Clamp(currentDistance, minDistance, maxDistance);
 
-        float speed = (currentSpeed / currentDistance) * Mathf.Rad2Deg * Time.fixedDeltaTime;
-        angle += -directionX * speed;
+        //move us around circle based on speed
+        float arcSpeed = (currentSpeed / currentDistance) * Mathf.Rad2Deg * Time.fixedDeltaTime;
+        angle += -directionX * arcSpeed;
 
         if (angle < 0f) angle = 360f;
         if (angle > 360f) angle = 0f;
 
         Vector3 moveTo = Utilities.PointWithPolarOffset(origin.position, currentDistance, angle);
 
-        //Vector3 direction = (transform.forward * -directionY) + (transform.right * -directionX);
-        //direction = direction.normalized;
-        rb.MovePosition(moveTo);
-
-    }
-
-
-    void HitFlash()
-    {
-        if (hitTime > 0)
+        //prevent slide + reset position
+        if (Movement.magnitude <= 0)
         {
-            hitTime -= Time.deltaTime;
-            Color color = Color.Lerp(baseColour, Color.red, hitTime);
-            GetComponent<Renderer>().material.color = color;
+            moveTo = rb.position;
+            Vector3 currentDirection = transform.position - origin.position;
+            float currentAngle = Mathf.Atan2(currentDirection.x, currentDirection.z) * Mathf.Rad2Deg;
+            if (currentAngle < 0) { currentAngle = 360 + currentAngle; } //do not question me
+            angle = currentAngle;
+            float calculatedDistance = Vector3.Distance(transform.position, origin.position);
+            currentDistance = calculatedDistance;
+
         }
-    }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (hitTime > 0)
-            return;
+        Vector3 direction = moveTo - rb.position;
 
-        if (isDash)
-            return;
-        if (isParry && shieldTime >= (maxShield - 0.01))
+        if (direction.magnitude > .1f)
         {
-            shieldFx.Play();
-        }
-        else
-        {
-            hitTime = 1;
-            currentHP -= 1;
-
-            if (currentHP <= 0)
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
-            if (onTakeDamage != null)
+            if (moveTo - transform.position != Vector3.zero)
             {
-                onTakeDamage();
+                Quaternion targetRotation = Quaternion.LookRotation(moveTo - transform.position);
+                rb.rotation = targetRotation;
             }
+            Vector3 adjustedMove = rb.position + (direction.normalized * currentSpeed * Time.deltaTime);
+
+            rb.MovePosition(adjustedMove);
         }
     }
 
