@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class Wobbit : MonoBehaviour
 {
@@ -63,6 +64,8 @@ public class Wobbit : MonoBehaviour
     public ParryAttack2 pa2;
 
     public ParryIndicator parryIndicatorPrefab;
+
+    public TextMeshProUGUI numberwang;
 
 
     //TimeSlow stuff testing 
