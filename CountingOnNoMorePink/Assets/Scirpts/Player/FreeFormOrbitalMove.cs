@@ -208,7 +208,9 @@ public class FreeFormOrbitalMove : MonoBehaviour
     {
         float currentSpeed = state == State.Dash ? dashSpeed : baseSpeed;
 
+        //normalise the input (you spud)
         Vector2 movement = new Vector2(directionX, directionY).normalized;
+
         //move us closer to origin based on speed
         currentDistance += -movement.y * currentSpeed * Time.fixedDeltaTime;
         currentDistance = Mathf.Clamp(currentDistance, minDistance, maxDistance);
@@ -217,60 +219,69 @@ public class FreeFormOrbitalMove : MonoBehaviour
         float arcSpeed = (currentSpeed / currentDistance) * Mathf.Rad2Deg * Time.fixedDeltaTime;
         angle += -movement.x * arcSpeed;
 
-        //this never changes that's good
-        float arcSize = ((2 * Mathf.PI * currentDistance)/360) * arcSpeed;
 
         if (angle < 0f) angle = 360f;
         if (angle > 360f) angle = 0f;
 
         Vector3 moveTo = Utilities.PointWithPolarOffset(origin.position, currentDistance, angle);
 
-     
+        Vector3 lookDir = moveTo - transform.position;
+        if(lookDir != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(lookDir);
+            rb.rotation = targetRotation;
+        }
+
+        rb.MovePosition(moveTo);
+
+        
+    
+        
+
+        //-------------------------------------------------------------------------------------------------------------------------------
+        //Everything below is utterly useless because the solution all along has been to normalise the input which is how you would do it
+        //for regular movement anyway but I tricked myself into believing it was complicated because I am addicted to suffering
+        //-------------------------------------------------------------------------------------------------------------------------------
 
         //prevent slide + reset position
-        if (Movement.magnitude <= 0)
-        {
-            moveTo = rb.position;
-            RecalculatePosition();
-        }
+        //if (Movement.magnitude <= 0)
+        //{
+        //    moveTo = rb.position;
+        //    RecalculatePosition();
+        //}
 
-         Vector3 direction = moveTo - rb.position;
+        // Vector3 direction = moveTo - rb.position;
 
-        if (direction.magnitude > .1f)
-        {
-            if (moveTo - transform.position != Vector3.zero)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(moveTo - transform.position);
-                rb.rotation = targetRotation;
-            }
-            Vector3 adjustedMove = rb.position + (direction.normalized * currentSpeed * Time.deltaTime);
-            rb.MovePosition(adjustedMove);
-         
-           
-        }
+        //if (direction.magnitude > .1f)
+        //{
+        //    if (moveTo - transform.position != Vector3.zero)
+        //    {
+        //        Quaternion targetRotation = Quaternion.LookRotation(moveTo - transform.position);
+        //        rb.rotation = targetRotation;
+        //    }
+        //    Vector3 adjustedMove = rb.position + (direction.normalized * currentSpeed * Time.deltaTime);
+        //    rb.MovePosition(adjustedMove);
 
-        void RecalculatePosition()
-        {
-            Vector3 currentDirection = transform.position - origin.position;
 
-            //calculate angle from centre to player
-            float currentAngle = Mathf.Atan2(currentDirection.x, currentDirection.z) * Mathf.Rad2Deg;
-            if (currentAngle < 0) { currentAngle = 360 + currentAngle; } //do not question me
-            angle = currentAngle;
+        //}
 
-            //calculated distance from centre to player
-            float calculatedDistance = Vector3.Distance(transform.position, origin.position);
-            currentDistance = calculatedDistance;
-        }
+        //void RecalculatePosition()
+        //{
+        //    Vector3 currentDirection = transform.position - origin.position;
+
+        //    //calculate angle from centre to player
+        //    float currentAngle = Mathf.Atan2(currentDirection.x, currentDirection.z) * Mathf.Rad2Deg;
+        //    if (currentAngle < 0) { currentAngle = 360 + currentAngle; } //do not question me
+        //    angle = currentAngle;
+
+        //    //calculated distance from centre to player
+        //    float calculatedDistance = Vector3.Distance(transform.position, origin.position);
+        //    currentDistance = calculatedDistance;
+        //}
 
 
         gixmo = moveTo;
 
-        Wobbit.instance.numberwang.text = "";
-        Wobbit.instance.numberwang.text += "\nSpeed: " + currentSpeed;
-        Wobbit.instance.numberwang.text += "\nDistance: " + currentDistance;
-        Wobbit.instance.numberwang.text += "\nArc Degrees: " + arcSpeed;
-        Wobbit.instance.numberwang.text += "\nArc Size: " + arcSize;
     }
 
     private void OnDrawGizmos()
