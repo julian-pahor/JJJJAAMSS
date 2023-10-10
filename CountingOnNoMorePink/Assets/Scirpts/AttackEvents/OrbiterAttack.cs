@@ -70,8 +70,8 @@ public class OrbiterAttack : AttackEvent
               
                     float dist = increment * j;
                     Vector3 point = Utilities.PointWithPolarOffset(origin.position, dist + minDistance, rotationO + (arcStep * j));
-                    Orbiter o = Instantiate(Wobbit.instance.orbiterPrefab, point, Quaternion.identity);
-
+                    Orbiter o = Wobbit.instance.poolPool.orbiterPool.Spawn().GetComponent<Orbiter>();
+                    o.transform.position = point;
                     o.Initialise(lifeTime, speed, direction,rotationO + (arcStep * j), (BeatBroadcast.instance.beatLength/segments) *(j+1),2);
                 
 

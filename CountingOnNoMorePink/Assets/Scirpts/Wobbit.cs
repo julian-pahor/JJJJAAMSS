@@ -67,6 +67,8 @@ public class Wobbit : MonoBehaviour
 
     public TextMeshProUGUI numberwang;
 
+    public PoolPool poolPool;
+
 
     //TimeSlow stuff testing 
 

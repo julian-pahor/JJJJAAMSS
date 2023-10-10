@@ -116,7 +116,12 @@ public class DelayedDangerZone : MonoBehaviour
 
                 if (timer >= 1)
                 {
-                    Destroy(gameObject);
+                    PooledObject p = GetComponent<PooledObject>();
+
+                    if (p != null)
+                        p.Despawn();
+                    else
+                        Destroy(gameObject);
                 }
                 break;
         }
