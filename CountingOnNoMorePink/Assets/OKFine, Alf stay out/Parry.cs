@@ -26,6 +26,8 @@ public class Parry : MonoBehaviour
 
     public ParryReturn2 parryReturn2;
 
+    private bool inTestingZone = true;
+
     private enum ParryResult
     {
         Early,
@@ -43,6 +45,11 @@ public class Parry : MonoBehaviour
         parryTime = 0;
         lateTimer = 0;
 
+        if(Wobbit.instance != null)
+        {
+            inTestingZone = false;
+        }
+
     }
 
     // Update is called once per frame
@@ -51,6 +58,7 @@ public class Parry : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Return))
         {
             inputTime = Time.timeAsDouble;
+            if(!inTestingZone)
             Wobbit.instance.playerMovement.slashFx.Play();
 
             if(attacked)
@@ -94,6 +102,7 @@ public class Parry : MonoBehaviour
             lateTimer = 0;
             //Missed parry Take Damage
             ///Horrible Horrible absolutlely horrible chain of reference call to make player take damage
+            if(!inTestingZone)
             Wobbit.instance.playerMovement.onTakeDamage();
             Debug.Log("TAKE DAMAGE AHHH");
             result = ParryResult.Miss;
@@ -168,7 +177,14 @@ public class Parry : MonoBehaviour
 
     public void ParryReturn()
     {
-        Instantiate(parryReturn2, transform.position, Quaternion.identity);
+        if(!inTestingZone)
+        {
+            Instantiate(parryReturn2, transform.position, Quaternion.identity);
+        }
+        else
+        {
+            Debug.Log("You should only be seeing this in the Input Testing Zone");
+        }
 
     }
 
