@@ -15,6 +15,7 @@ public class SpreadShot : AttackEvent
     public enum ShotType { Standard, TargetPlayer}
     public override void Fire()
     {
+        base.Fire();
 
         if (shots <= 0) { shots = 1; } //stop it dividing by 0
         float angleStep = (firingArc / shots); //divide total arc of fire by number of shots

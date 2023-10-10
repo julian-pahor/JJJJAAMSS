@@ -26,6 +26,8 @@ public class OrbiterAttack : AttackEvent
 
     public override void Fire()
     {
+        base.Fire();
+
         if (minDistance <= 0) minDistance = 1; //can't rotate around an exact center
 
         Transform origin = Wobbit.instance.bossOrigin;
