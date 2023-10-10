@@ -51,6 +51,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
     public ParticleSystem dashTrail;
 
     public System.Action onTakeDamage;
+    public System.Action onHealthChanged;
 
    
     enum State { Walk,Dash,Parry,Dead}
@@ -163,6 +164,21 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
     }
 
+    void TakeDamage()
+    {
+        invulnerabilityTime = hitInvulnerability;
+        currentHP -= 1;
+
+        if (currentHP <= 0)
+        {
+            state = State.Dead;
+            Wobbit.instance.EndGame();
+        }
+
+        onTakeDamage?.Invoke();
+        onHealthChanged?.Invoke();
+    }
+
     void FixedUpdate()
     {
         switch (state)
@@ -187,20 +203,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
         }
         else
         {
-            invulnerabilityTime = hitInvulnerability;
-            currentHP -= 1;
-
-            if (currentHP <= 0)
-            {
-                state = State.Dead;
-                Wobbit.instance.EndGame();
-            }
-               
-
-            if (onTakeDamage != null)
-            {
-                onTakeDamage();
-            }
+            TakeDamage();
         }
     }
 

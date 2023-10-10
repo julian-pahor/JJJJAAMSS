@@ -116,6 +116,7 @@ public class Wobbit : MonoBehaviour
     public void HealPlayer()
     {
         playerMovement.currentHP = playerMovement.maxHP;
+        playerMovement.onHealthChanged?.Invoke();
     }
 
     public void CreateCountDownIndicator(int beats)
