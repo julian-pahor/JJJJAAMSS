@@ -11,6 +11,7 @@ public class ParryReturn2 : MonoBehaviour
     public float travelTime;
     private float currentTime;
     private float currentLerp;
+    public Transform hitFX;
 
 
     // Start is called before the first frame update
@@ -18,6 +19,7 @@ public class ParryReturn2 : MonoBehaviour
     {
         target = Wobbit.instance.bossOrigin.position + Vector3.up * 10f;
         travelTime = 0.462f * 1.5f;
+        hitFX.SetParent(null);
     }
 
     // Update is called once per frame
