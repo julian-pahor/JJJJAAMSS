@@ -35,7 +35,7 @@ public class EventEditor : MonoBehaviour
             if(timer >= previewTimer)
             {
                 timer = 0;
-                currentlySelectedEvent.Fire();
+                currentlySelectedEvent.FirePreview();
             }
         }
     }

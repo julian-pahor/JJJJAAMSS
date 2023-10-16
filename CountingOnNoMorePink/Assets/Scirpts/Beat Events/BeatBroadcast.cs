@@ -27,12 +27,12 @@ public class BeatBroadcast : MonoBehaviour
     [StructLayout(LayoutKind.Sequential)]
     public class TimelineInfo
     {
-        public event Action<int, int> onBeatTrigger;
+        public event Action<int, int, string> onBeatTrigger;
         public void BeatTrigger()
         {
             if (onBeatTrigger != null)
             {
-                onBeatTrigger(currentMusicBar, currentMusicBeat);
+                onBeatTrigger(currentMusicBar, currentMusicBeat, lastMarker);
             }
         }
         public int currentMusicBar = 0;

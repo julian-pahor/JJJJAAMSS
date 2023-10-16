@@ -29,7 +29,7 @@ public class ParryTester : MonoBehaviour
         
     }
 
-    void Beat(int m, int b)
+    void Beat(int m, int b, string marker)
     {
         if(b == 4)
         {

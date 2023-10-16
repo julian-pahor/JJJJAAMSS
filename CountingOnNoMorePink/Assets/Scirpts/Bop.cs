@@ -25,12 +25,12 @@ public class Bop : MonoBehaviour
         if (!isBop) return;
 
         float bopQuotient = Mathf.PingPong(Time.time, beatLength);
-        transform.rotation = Quaternion.Lerp(Quaternion.Euler(startRot),Quaternion.Euler(endRot), bop.Evaluate(bopQuotient/beatLength));
+        transform.localRotation = Quaternion.Lerp(Quaternion.Euler(startRot),Quaternion.Euler(endRot), bop.Evaluate(bopQuotient/beatLength));
 
 
     }
 
-    void BopBegins(int a, int b)
+    void BopBegins(int a, int b, string marker)
     {
         if(isBop) return;
         isBop = true;
