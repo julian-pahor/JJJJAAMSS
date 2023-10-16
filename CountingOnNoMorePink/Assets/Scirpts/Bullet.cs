@@ -30,6 +30,6 @@ public class Bullet : MonoBehaviour
         if(flying)transform.position += direction.normalized * speed * Time.deltaTime;
 
         if (lifespan > maxLife)
-            Destroy(gameObject);
+            GetComponent<PooledObject>().Despawn();
     }
 }

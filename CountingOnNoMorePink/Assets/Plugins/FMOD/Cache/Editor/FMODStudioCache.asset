@@ -1,5 +1,29 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8821203624225189855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Checkpoint
+  m_EditorClassIdentifier: 
+  Name: Checkpoint
+  StudioPath: parameter:/Checkpoint
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 94625880
+    data2: 3417460749
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
 --- !u!114 &-8783765161486864134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42,10 +66,10 @@ MonoBehaviour:
   Path: ../PitchDemoProject/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638313170743857962
+  lastModified: 638330540012661933
   FileSizes:
   - Name: Desktop
-    Value: 1164
+    Value: 1204
   Exists: 1
 --- !u!114 &-5046043983647623807
 MonoBehaviour:
@@ -90,10 +114,10 @@ MonoBehaviour:
   Path: ../PitchDemoProject/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638313170743837960
+  lastModified: 638330540012641974
   FileSizes:
   - Name: Desktop
-    Value: 1203872
+    Value: 1203776
   Exists: 1
 --- !u!114 &-1786946396110557196
 MonoBehaviour:
@@ -117,12 +141,12 @@ MonoBehaviour:
   - {fileID: -2905332157472219407}
   IsStream: 1
   Is3D: 0
-  IsOneShot: 0
+  IsOneShot: 1
   Parameters:
-  - {fileID: 6347383588542512617}
+  - {fileID: 7565180329041394707}
   MinDistance: 1
   MaxDistance: 20
-  Length: 73846
+  Length: 75692
 --- !u!114 &-1029450653739027122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,11 +218,12 @@ MonoBehaviour:
   EditorParameters:
   - {fileID: -1029450653739027122}
   - {fileID: 1945064465766609970}
+  - {fileID: -8821203624225189855}
   MasterBanks:
   - {fileID: -2905332157472219407}
   StringsBanks:
   - {fileID: -6774477133602550355}
-  cacheTime: 638313170743857962
+  cacheTime: 638330540012661933
   cacheVersion: 131605
 --- !u!114 &1945064465766609970
 MonoBehaviour:
@@ -214,30 +239,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: PhrasePass
   StudioPath: parameter:/PhrasePass
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 1630256411
-    data2: 1625814543
-  Type: 0
-  IsGlobal: 1
-  Labels: []
-  Exists: 1
---- !u!114 &6347383588542512617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/CandyLoop/PhrasePass
-  m_EditorClassIdentifier: 
-  Name: PhrasePass
-  StudioPath: 
   Min: 0
   Max: 1
   Default: 0
@@ -276,6 +277,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 14769
+--- !u!114 &7565180329041394707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/CandyLoop/Checkpoint
+  m_EditorClassIdentifier: 
+  Name: Checkpoint
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 94625880
+    data2: 3417460749
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
 --- !u!114 &8599104848970072489
 MonoBehaviour:
   m_ObjectHideFlags: 0

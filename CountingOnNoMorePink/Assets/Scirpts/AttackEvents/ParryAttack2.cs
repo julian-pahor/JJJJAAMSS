@@ -60,7 +60,7 @@ public class ParryAttack2 : MonoBehaviour
         }
     }
 
-    public void OnBeat(int m, int b)
+    public void OnBeat(int m, int b, string marker)
     {
         index++;
         if(index == 1)
