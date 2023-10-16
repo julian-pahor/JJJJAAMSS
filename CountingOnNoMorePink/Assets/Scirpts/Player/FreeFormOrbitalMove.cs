@@ -28,6 +28,8 @@ public class FreeFormOrbitalMove : MonoBehaviour
     public float maxShield;
     public float dashInvulnerability;
     public float hitInvulnerability;
+    public float hpRecoveryTime;
+    private float recoverTimer;
     public float dashCooldown;
 
 
@@ -79,6 +81,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         currentHP = maxHP;
         currentDistance = maxDistance;
+        recoverTimer = hpRecoveryTime;
         //StartCoroutine(SpeedCheck());
     }
 
@@ -94,6 +97,17 @@ public class FreeFormOrbitalMove : MonoBehaviour
         else
             parrySphere.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 
+        //Timed Heal on Player
+        if (currentHP < maxHP && invulnerabilityTime <= 0)
+        {
+            recoverTimer -= Time.deltaTime;
+            if (recoverTimer < 0)
+            {
+                recoverTimer = hpRecoveryTime;
+                currentHP += 1;
+                onHealthChanged?.Invoke();
+            }
+        }
 
         switch (state)
         {
@@ -167,6 +181,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
     void TakeDamage()
     {
         invulnerabilityTime = hitInvulnerability;
+        recoverTimer = hpRecoveryTime;
         currentHP -= 1;
 
         if (currentHP <= 0)

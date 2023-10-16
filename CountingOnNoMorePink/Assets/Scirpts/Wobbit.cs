@@ -117,9 +117,10 @@ public class Wobbit : MonoBehaviour
 
     public void MainMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        
         playerMovement.currentHP = playerMovement.maxHP;
         playerMovement.onHealthChanged?.Invoke();
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void CreateCountDownIndicator(int beats)
