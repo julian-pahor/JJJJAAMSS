@@ -118,7 +118,7 @@ MonoBehaviour:
   armBeats: 0
   activeBeats: 0
   tellEffect: {fileID: 4479599554304472896}
-  launchEffect: {fileID: 6680448299872214260}
+  launchEffect: {fileID: 6082572897309876566, guid: 7ca3f22a4b08ef446a152f8c89b17b37, type: 3}
   indicator: {fileID: 1831611541850029468}
   preIndicator: {fileID: 7887237345940122520}
   beatLocked: 0
@@ -1797,11 +1797,6 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 6365503444600798367, guid: 17cde94b3c36594458c6bdff1af20fb6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 17cde94b3c36594458c6bdff1af20fb6, type: 3}
---- !u!198 &6680448299872214260 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 876830440323877600, guid: 17cde94b3c36594458c6bdff1af20fb6, type: 3}
-  m_PrefabInstance: {fileID: 5809248752858289684}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6680448299872214261 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 876830440323877601, guid: 17cde94b3c36594458c6bdff1af20fb6, type: 3}
