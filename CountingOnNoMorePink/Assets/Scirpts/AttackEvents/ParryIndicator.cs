@@ -28,7 +28,7 @@ public class ParryIndicator : MonoBehaviour
         BeatBroadcast.instance.timelineInfo.onBeatTrigger -= OnBeat;
     }
 
-    void OnBeat(int beat, int bar)
+    void OnBeat(int beat, int bar, string marker)
     {
         currentRotation += rotationValue;
 
