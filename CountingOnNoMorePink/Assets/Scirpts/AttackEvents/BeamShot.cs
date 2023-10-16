@@ -79,7 +79,8 @@ public class BeamShot : AttackEvent
 
                 if (effectsPrefab == null) effectsPrefab = Wobbit.instance.delayedDangerZoneTest;
 
-                DelayedDangerZone delayedZone = Instantiate(effectsPrefab,point,Quaternion.identity);
+                DelayedDangerZone delayedZone = Wobbit.instance.poolPool.spikePool.Spawn().GetComponent<DelayedDangerZone>();
+                delayedZone.transform.position = point;
 
                 //assign waypoints to tracer (revisit this)
                 if (lineTracer != null)

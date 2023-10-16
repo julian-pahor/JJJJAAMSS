@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class Wobbit : MonoBehaviour
 {
@@ -61,6 +62,12 @@ public class Wobbit : MonoBehaviour
 
     public ParryAttack2 pa2;
 
+    public ParryIndicator parryIndicatorPrefab;
+
+    public TextMeshProUGUI numberwang;
+
+    public PoolPool poolPool;
+
 
     //TimeSlow stuff testing 
 
@@ -111,5 +118,16 @@ public class Wobbit : MonoBehaviour
     public void MainMenu()
     {
         SceneManager.LoadScene("MainMenu");
+        playerMovement.currentHP = playerMovement.maxHP;
+        playerMovement.onHealthChanged?.Invoke();
+    }
+
+    public void CreateCountDownIndicator(int beats)
+    {
+        if (parryIndicatorPrefab == null)
+            return;
+
+        ParryIndicator indicator = Instantiate(parryIndicatorPrefab, player.position,Quaternion.identity);
+        indicator.Setup(beats,player);
     }
 }

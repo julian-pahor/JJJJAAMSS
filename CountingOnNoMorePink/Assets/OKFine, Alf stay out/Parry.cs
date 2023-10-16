@@ -55,7 +55,7 @@ public class Parry : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Return))
+        if(Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0))
         {
             inputTime = Time.timeAsDouble;
             if(!inTestingZone)

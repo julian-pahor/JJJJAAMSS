@@ -24,6 +24,15 @@ public class OrbiterAttack : AttackEvent
 
     public enum BeamType { Instant, RadiateInward, RadiateOutward }
 
+    public override void FirePreview()
+    {
+        //um yes
+        int tempLife = lifeTime;
+        lifeTime = 2;
+        Fire();
+        lifeTime = tempLife;
+    }
+
     public override void Fire()
     {
         base.Fire();
@@ -63,8 +72,8 @@ public class OrbiterAttack : AttackEvent
               
                     float dist = increment * j;
                     Vector3 point = Utilities.PointWithPolarOffset(origin.position, dist + minDistance, rotationO + (arcStep * j));
-                    Orbiter o = Instantiate(Wobbit.instance.orbiterPrefab, point, Quaternion.identity);
-
+                    Orbiter o = Wobbit.instance.poolPool.orbiterPool.Spawn().GetComponent<Orbiter>();
+                    o.transform.position = point;
                     o.Initialise(lifeTime, speed, direction,rotationO + (arcStep * j), (BeatBroadcast.instance.beatLength/segments) *(j+1),2);
                 
 

@@ -35,6 +35,7 @@ public class BeatTimeline : MonoBehaviour
         if (saveName != null && saveName != string.Empty)
         {
             eventTimeline = saveFile.LoadSave(saveName);
+            saveFileDropdown.StoreSongIndex();
             BeatBroadcast.instance.PlayMusic();
             return;
         }

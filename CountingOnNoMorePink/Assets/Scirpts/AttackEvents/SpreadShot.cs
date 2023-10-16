@@ -45,17 +45,10 @@ public class SpreadShot : AttackEvent
         for (var i = 0; i < shots; ++i)
         {
             Bullet b;
-            //TODO: grab this from pool instead of instantiating
-            if (bulletType == null)
-            {
-                 b = Instantiate(Wobbit.instance.bulletFab, origin.position, Quaternion.identity);
-                   
-            }
-            else
-            {
-                b = Instantiate(bulletType, origin.position, Quaternion.identity);
-            }
 
+           
+            b = Wobbit.instance.poolPool.bulletPool.Spawn().GetComponent<Bullet>();
+            b.transform.position = origin.position;
             b.speed = bulletSpeed > 0f ? bulletSpeed : 1;
 
             float rotationO = rotation;
