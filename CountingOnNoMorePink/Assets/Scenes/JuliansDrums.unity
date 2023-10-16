@@ -20286,7 +20286,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1227329326}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1111214150}
+        m_TargetAssemblyTypeName: Wobbit, Assembly-CSharp
+        m_MethodName: MainMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1227329326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20656,8 +20668,9 @@ GameObject:
   - component: {fileID: 1337687411}
   - component: {fileID: 1337687413}
   - component: {fileID: 1337687412}
+  - component: {fileID: 1337687414}
   m_Layer: 5
-  m_Name: Block (1)
+  m_Name: HitsResult
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20724,6 +20737,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1337687410}
   m_CullTransparentMesh: 1
+--- !u!114 &1337687414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1337687410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14f3b52fe6e720f4b9decac1023c2f1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: {fileID: 877911635}
+  resultAmount: {fileID: 1309636674}
+  gradeScore: {fileID: 1450826034}
 --- !u!1 &1360840454
 GameObject:
   m_ObjectHideFlags: 0
@@ -26987,8 +27015,9 @@ GameObject:
   - component: {fileID: 1554284016}
   - component: {fileID: 1554284018}
   - component: {fileID: 1554284017}
+  - component: {fileID: 1554284019}
   m_Layer: 5
-  m_Name: Block
+  m_Name: ParryResult
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27055,6 +27084,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1554284015}
   m_CullTransparentMesh: 1
+--- !u!114 &1554284019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554284015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14f3b52fe6e720f4b9decac1023c2f1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: {fileID: 1222691182}
+  resultAmount: {fileID: 1659576888}
+  gradeScore: {fileID: 1460899310}
 --- !u!4 &1557978950 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4902667031669648423, guid: 4e8f11cb28b9eb64c9bde9f630f9946d, type: 3}
@@ -27353,8 +27397,9 @@ GameObject:
   - component: {fileID: 1633898016}
   - component: {fileID: 1633898018}
   - component: {fileID: 1633898017}
+  - component: {fileID: 1633898019}
   m_Layer: 5
-  m_Name: Block (2)
+  m_Name: RestartsResult
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27421,6 +27466,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1633898015}
   m_CullTransparentMesh: 1
+--- !u!114 &1633898019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1633898015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14f3b52fe6e720f4b9decac1023c2f1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: {fileID: 405553499}
+  resultAmount: {fileID: 281085420}
+  gradeScore: {fileID: 1935183527}
 --- !u!1 &1647811187
 GameObject:
   m_ObjectHideFlags: 0
@@ -27514,6 +27574,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 087b524f3bd02e24da1557d316dd6e10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parryResults: {fileID: 1554284019}
+  hitResults: {fileID: 1337687414}
+  restartResults: {fileID: 1633898019}
+  finalGrade: {fileID: 1623303602}
 --- !u!1 &1657952549
 GameObject:
   m_ObjectHideFlags: 0

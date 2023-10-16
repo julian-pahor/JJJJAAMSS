@@ -11,7 +11,6 @@ public class BeatTimeline : MonoBehaviour
     public List<BlockData> eventTimeline = new List<BlockData>();
 
     int index;
-    int lastBar;
 
     private void Start()
     {
