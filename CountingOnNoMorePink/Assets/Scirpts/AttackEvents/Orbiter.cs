@@ -89,7 +89,7 @@ public class Orbiter : MonoBehaviour
         rb.MovePosition(Utilities.PointWithPolarOffset(origin.position, distance, angle + angleOffset));
     }
 
-    void OnBeat(int measure, int beat)
+    void OnBeat(int measure, int beat, string marker)
     {
         if (isActive)
         {

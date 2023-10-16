@@ -51,7 +51,7 @@ public class DelayedDangerZone : MonoBehaviour
         col = GetComponent<Collider>();
         col.enabled = false;
        
-        Tick(0, 0);
+        Tick(0, 0, "");
     }
 
     //delay - time before we start the indicator effect
@@ -164,7 +164,7 @@ public class DelayedDangerZone : MonoBehaviour
 
     }
 
-    void Tick(int beat, int bar)
+    void Tick(int beat, int bar, string marker)
     {
         if(!isActive)
         { 

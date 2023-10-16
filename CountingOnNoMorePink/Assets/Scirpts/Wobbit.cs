@@ -25,7 +25,6 @@ public class Wobbit : MonoBehaviour
 
         slowSnapShot = FMODUnity.RuntimeManager.CreateInstance("snapshot:/TimeSlow");
         slowSnapShot.start();
-        lifeAmount = 1f;
     }
 
 
@@ -72,13 +71,11 @@ public class Wobbit : MonoBehaviour
 
 
     public GameOverscreen gameOverScreen;
-
-    public float lifeAmount = 1;
+    public ResultsScreen resultScreen;
     
     public void StartSlow()
     {
         targetScale = 0;
-        lifeAmount -= 0.25f;
 
     }
 
@@ -93,7 +90,7 @@ public class Wobbit : MonoBehaviour
         targetScale += Time.deltaTime * 4.5f;
         targetScale = Mathf.Clamp01(targetScale);
 
-        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("PhrasePass", lifeAmount);
+        
     }
     
     public void EndGame()
@@ -101,13 +98,13 @@ public class Wobbit : MonoBehaviour
         gameOverScreen.Activate();
     }
 
+    public void FinishSong()
+    {
+        resultScreen.Activate();
+    }
+
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
-    public void HealPlayer()
-    {
-        playerMovement.currentHP = playerMovement.maxHP;
     }
 }

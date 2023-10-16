@@ -30,7 +30,7 @@ public class InputTestingZone : MonoBehaviour
         
     }
 
-    public void BeatReader(int m, int b)
+    public void BeatReader(int m, int b, string marker)
     {
 
     }

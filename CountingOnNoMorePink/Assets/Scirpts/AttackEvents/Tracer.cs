@@ -30,7 +30,7 @@ public class Tracer : MonoBehaviour
         GenerateAnchors(curviness);
         BeatBroadcast.instance.timelineInfo.onBeatTrigger += BeatTake;
         countIN = 0;
-        BeatTake(0, 0);
+        BeatTake(0, 0, "");
     }
 
     private void OnDestroy()
@@ -83,7 +83,7 @@ public class Tracer : MonoBehaviour
         a2 = midpoint2 + directionToMid * curviness;
     }
 
-    public void BeatTake(int a, int b)
+    public void BeatTake(int a, int b, string marker)
     {
         switch(countIN)
         { case 0:
