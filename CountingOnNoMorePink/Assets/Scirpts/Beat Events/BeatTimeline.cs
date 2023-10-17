@@ -12,6 +12,29 @@ public class BeatTimeline : MonoBehaviour
 
     int index;
 
+    public float GetSongPercentage()
+    {
+        float f = (float)index / (float)saveFile.SongLength;
+        if(float.IsNaN(f))
+        {
+            return 0;
+        }
+        else
+        {
+            return f;
+        }
+        
+    }
+
+    private void ResetData()
+    {
+        Wobbit.instance.persistentData.currentSongTotalParrys = 0;
+        Wobbit.instance.persistentData.currentSongMissedParrys = 0;
+        Wobbit.instance.persistentData.currentSongPerfectParrys = 0;
+        Wobbit.instance.persistentData.currentSongRestarts = 0;
+        Wobbit.instance.persistentData.currentSongHits = 0;
+    }
+
     private void Start()
     {
         BeatBroadcast.instance.timelineInfo.onBeatTrigger += Beat;
@@ -36,6 +59,7 @@ public class BeatTimeline : MonoBehaviour
         {
             eventTimeline = saveFile.LoadSave(saveName);
             saveFileDropdown.StoreSongIndex();
+            ResetData();
             BeatBroadcast.instance.PlayMusic();
             return;
         }

@@ -106,6 +106,7 @@ public class Parry : MonoBehaviour
             Wobbit.instance.playerMovement.onTakeDamage();
             Debug.Log("TAKE DAMAGE AHHH");
             result = ParryResult.Miss;
+            Wobbit.instance.persistentData.currentSongMissedParrys += 1;
         }
         //-----
 
@@ -132,6 +133,8 @@ public class Parry : MonoBehaviour
 
     private void ParryOutcome()
     {
+
+        Wobbit.instance.persistentData.currentSongTotalParrys += 1;
         //TODO: Expose + visualise inputLag for better playtesting
         //Value is added to the time of the input to customise players sense of timing
 
@@ -143,6 +146,7 @@ public class Parry : MonoBehaviour
             if (resultTime <= perfectWindow / 2.4f)
             {
                 result = ParryResult.Perfect;
+                Wobbit.instance.persistentData.currentSongPerfectParrys += 1;
             }
             else if (resultTime <= beatMS / 4f)
             {
@@ -160,6 +164,7 @@ public class Parry : MonoBehaviour
             if (resultTime <= perfectWindow / 2.4f)
             {
                 result = ParryResult.Perfect;
+                Wobbit.instance.persistentData.currentSongPerfectParrys += 1;
             }
             else if (resultTime <= beatMS / 2.5f)
             {
