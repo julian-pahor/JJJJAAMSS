@@ -7,14 +7,16 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: LoftTableMaterial 1
+  m_Name: iPodMaterial
   m_Shader: {fileID: 4800000, guid: 766736548846cdf459a9766614dcccab, type: 3}
   m_ValidKeywords:
   - _EMISSIVE_SIMPLE
   - _IS_ANGELRING_OFF
+  - _IS_OUTLINE_CLIPPING_NO
   - _IS_TRANSCLIPPING_ON
   - _NORMALMAP
   - _OUTLINE_NML
+  - _PARALLAXMAP
   - _SHADINGGRADEMAP
   m_InvalidKeywords:
   - _
@@ -47,7 +49,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 2800000, guid: 9409f14e72695f4499fd84fad2fca58e, type: 3}
-        m_Scale: {x: 28.32, y: 32.3}
+        m_Scale: {x: 6, y: 6}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 2800000, guid: 627e4cee466bf4945991c2760302defa, type: 3}
@@ -82,8 +84,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 9409f14e72695f4499fd84fad2fca58e, type: 3}
-        m_Scale: {x: 0.22, y: 0.22}
+        m_Texture: {fileID: 2800000, guid: f8c7afa5dc093dc41878718e02ee0cf0, type: 3}
+        m_Scale: {x: 6, y: 6}
         m_Offset: {x: 0, y: 0}
     - _MatCap_Sampler:
         m_Texture: {fileID: 0}
@@ -199,7 +201,6 @@ Material:
     - _GI_Intensity: 0
     - _GlossMapScale: 0
     - _Glossiness: 0
-    - _GlossinessSource: 0
     - _GlossyReflections: 0
     - _HighColor_Power: 0
     - _Inverse_Clipping: 0
@@ -210,7 +211,7 @@ Material:
     - _Is_BakedNormal: 0
     - _Is_BlendAddToHiColor: 0
     - _Is_BlendAddToMatCap: 1
-    - _Is_BlendBaseColor: 0
+    - _Is_BlendBaseColor: 1
     - _Is_ColorShift: 0
     - _Is_Filter_HiCutPointLightColor: 1
     - _Is_Filter_LightColor: 0
@@ -261,11 +262,8 @@ Material:
     - _Scroll_EmissiveV: 0
     - _Set_SystemShadowsToBase: 1
     - _ShadeColor_Step: 0
-    - _Shininess: 0
     - _Smoothness: 0.5
-    - _SmoothnessSource: 0
     - _SmoothnessTextureChannel: 0
-    - _SpecSource: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _StencilComp: 0
@@ -293,7 +291,7 @@ Material:
     - _ZOverDrawMode: 0
     - _ZWrite: 1
     - _ZWriteMode: 1
-    - _simpleUI: 2
+    - _simpleUI: 0
     - _utsTechnique: 1
     - _utsVersionX: 2
     - _utsVersionY: 5
