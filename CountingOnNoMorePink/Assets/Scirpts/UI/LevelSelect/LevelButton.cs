@@ -15,7 +15,7 @@ public class LevelButton : MonoBehaviour
 
     RectTransform rt;
 
-    private void Start()
+    private void Awake()
     {
         rt = GetComponent<RectTransform>();
         currentScale = Vector3.one;
@@ -29,6 +29,12 @@ public class LevelButton : MonoBehaviour
         this.targetScale = targetScale;
         this.targetPosition = targetPosition;
         this.transitionTime = transitionTime;
+    }
+
+    public void SetImmediate(Vector2 targetPosition, Vector3 targetScale)
+    {
+        rt.anchoredPosition = targetPosition;
+        transform.localScale = targetScale;
     }
 
     public void Update()
