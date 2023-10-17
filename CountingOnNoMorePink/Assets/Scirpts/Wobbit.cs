@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class Wobbit : MonoBehaviour
 {
@@ -25,7 +26,6 @@ public class Wobbit : MonoBehaviour
 
         slowSnapShot = FMODUnity.RuntimeManager.CreateInstance("snapshot:/TimeSlow");
         slowSnapShot.start();
-        lifeAmount = 1f;
     }
 
 
@@ -62,6 +62,12 @@ public class Wobbit : MonoBehaviour
 
     public ParryAttack2 pa2;
 
+    public ParryIndicator parryIndicatorPrefab;
+
+    public TextMeshProUGUI numberwang;
+
+    public PoolPool poolPool;
+
 
     //TimeSlow stuff testing 
 
@@ -72,13 +78,11 @@ public class Wobbit : MonoBehaviour
 
 
     public GameOverscreen gameOverScreen;
-
-    public float lifeAmount = 1;
+    public ResultsScreen resultScreen;
     
     public void StartSlow()
     {
         targetScale = 0;
-        lifeAmount -= 0.25f;
 
     }
 
@@ -93,7 +97,7 @@ public class Wobbit : MonoBehaviour
         targetScale += Time.deltaTime * 4.5f;
         targetScale = Mathf.Clamp01(targetScale);
 
-        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("PhrasePass", lifeAmount);
+        
     }
     
     public void EndGame()
@@ -101,13 +105,29 @@ public class Wobbit : MonoBehaviour
         gameOverScreen.Activate();
     }
 
+    public void FinishSong()
+    {
+        resultScreen.Activate();
+    }
+
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void HealPlayer()
+    public void MainMenu()
     {
+        SceneManager.LoadScene("MainMenu");
         playerMovement.currentHP = playerMovement.maxHP;
+        playerMovement.onHealthChanged?.Invoke();
+    }
+
+    public void CreateCountDownIndicator(int beats)
+    {
+        if (parryIndicatorPrefab == null)
+            return;
+
+        ParryIndicator indicator = Instantiate(parryIndicatorPrefab, player.position,Quaternion.identity);
+        indicator.Setup(beats,player);
     }
 }

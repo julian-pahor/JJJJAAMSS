@@ -7,15 +7,18 @@ public class HealthBar : MonoBehaviour
 {
     public FreeFormOrbitalMove player;
     public HealthPip pipPrefab;
+    public Transform tracerAnchor;
+    public Transform tracerStart;
 
     List<HealthPip> healthPips = new List<HealthPip>();
 
     void Start()
     {
         if(player == null) player = FindObjectOfType<FreeFormOrbitalMove>();
-        player.onTakeDamage += UpdateUI;
+        player.onHealthChanged += UpdateUI;
 
         Setup();
+        UpdateUI();
     }
 
 
@@ -24,6 +27,7 @@ public class HealthBar : MonoBehaviour
         for(int i = 0; i < player.maxHP; i++)
         {
             HealthPip pip = Instantiate(pipPrefab,transform);
+            pip.Initialise(this);
             healthPips.Add(pip);
         }
     }
