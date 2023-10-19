@@ -42,6 +42,12 @@ public class MainMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     }
 
+    public void ResetHighlight()
+    {
+        timer = 0;
+        mouseOver = false;
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         mouseOver = true;

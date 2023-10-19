@@ -13,6 +13,8 @@ public class LevelSelectScroller : MonoBehaviour
     //scroll through them and choose one and then set the index and auto load it in the play scene
     //cool
 
+    public Canvas canvas;
+
     public LevelButton buttonFab;
     public List<LevelButton> levelList = new List<LevelButton>();
     public int visibleDistance;
@@ -21,7 +23,7 @@ public class LevelSelectScroller : MonoBehaviour
     public float transitionSpeed;
     public float buttonScale;
 
-    int currentIndex;
+    public int currentIndex;
 
     private void Start()
     {
@@ -39,10 +41,10 @@ public class LevelSelectScroller : MonoBehaviour
 
             int distance = Mathf.Abs(i - currentIndex) + 1;
 
-            //levelList[i].levelTitle.text = distance.ToString();
+            //let's not discuss how garbage this process is
 
             levelList[i].gameObject.SetActive(true);
-            levelList[i].SetImmediate(GetComponent<RectTransform>().anchoredPosition + new Vector2(distance * indent, (i - currentIndex) * spacing), (Vector3.one * buttonScale) / distance);
+            levelList[i].SetImmediate(GetComponent<RectTransform>().position + new Vector3(distance * indent, (i - currentIndex) * (canvas.scaleFactor * spacing)), (Vector3.one * buttonScale) / distance, Mathf.Abs(i - currentIndex));
         }
     }
 
@@ -103,7 +105,7 @@ public class LevelSelectScroller : MonoBehaviour
             else
             {
                 levelList[i].gameObject.SetActive(true);
-                levelList[i].Move(GetComponent<RectTransform>().anchoredPosition + new Vector2(distance * indent,(i-currentIndex)  * spacing), (Vector3.one * buttonScale) / distance, transitionSpeed);
+                levelList[i].Move(GetComponent<RectTransform>().position + new Vector3(distance * indent,(i-currentIndex) * (canvas.scaleFactor * spacing)), (Vector3.one * buttonScale) / distance, transitionSpeed, Mathf.Abs(i - currentIndex));
                 
             }
         }

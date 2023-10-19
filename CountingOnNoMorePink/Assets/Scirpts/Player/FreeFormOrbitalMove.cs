@@ -53,6 +53,9 @@ public class FreeFormOrbitalMove : MonoBehaviour
     public System.Action onTakeDamage;
     public System.Action onHealthChanged;
 
+
+    //animation
+    public Animator animator;
    
     enum State { Walk,Dash,Parry,Dead}
     State state;
@@ -99,9 +102,14 @@ public class FreeFormOrbitalMove : MonoBehaviour
         {
             case State.Walk:
 
-                deltaMove = new Vector2(directionX, directionY);
+               
+               
                 directionX = Input.GetAxisRaw("Horizontal");
                 directionY = Input.GetAxisRaw("Vertical");
+
+                Vector2 movement = new Vector2(directionX,directionY);
+
+                animator.SetBool("Moving", movement != Vector2.zero);
 
                 //dash recovery
                 dashCd -= Time.deltaTime;
