@@ -6,6 +6,8 @@ using DG.Tweening;
 
 public class MainMenuManager : MonoBehaviour
 {
+    public PersistentData persistentData;
+
     //everything is hardcoded cos graaah
     [Header("Main Menu Objects")]
     //Main menu
@@ -22,7 +24,9 @@ public class MainMenuManager : MonoBehaviour
     //level select
     public RectTransform selectorWheel;
     public RectTransform backButton;
-
+    public RectTransform playButton;
+    public RectTransform editorButton;
+    public RectTransform banner;
 
     //credits
 
@@ -54,6 +58,7 @@ public class MainMenuManager : MonoBehaviour
         inTransit = true;
 
         mainMenu.SetActive(true);
+        levelSelect.SetActive(false);
 
         //parallax will mess us up
         foreach (Parallax parallax in parallaxers)
@@ -112,29 +117,56 @@ public class MainMenuManager : MonoBehaviour
         mainMenu.SetActive(false);
         levelSelect.SetActive(true);
 
+        //get banner children
+
+        Sequence sequence = DOTween.Sequence();
+
+        int count = 0;
+        float delay = .2f;
+        foreach(RectTransform rt in banner)
+        {
+            count++;
+            rt.localScale = Vector3.zero;
+            rt.DOScale(Vector3.one, .2f).SetEase(Ease.OutCubic).SetDelay(delay - (delay/count));
+        }
+
+
+
         Vector2 selectorDesired = selectorWheel.localPosition;
         selectorWheel.localPosition = selectorDesired + new Vector2(500, 0);
 
         Vector2 backButtonDesired = backButton.localPosition;
         backButton.localPosition = backButtonDesired + new Vector2(-200, 0);
 
+        Vector2 playButtonDesired = playButton.localPosition;
+        playButton.localPosition = playButtonDesired + new Vector2(0, -250);
+
+        Vector2 editorButtonDesired = editorButton.localPosition;
+        editorButton.localPosition = editorButtonDesired + new Vector2(0, -150);
+
         selectorWheel.DOLocalMove(selectorDesired, .3f).SetEase(Ease.InSine).OnComplete(
             () => selectorWheel.GetComponent<LevelSelectScroller>().Swotch(0));
           
-        backButton.DOLocalMove(backButtonDesired,.3f).SetEase(Ease.OutBounce).OnComplete(() => inTransit = false);
+        backButton.DOLocalMove(backButtonDesired,.3f).SetEase(Ease.OutBounce);
 
 
+       playButton.DOLocalMove(playButtonDesired, .3f).SetEase(Ease.OutQuad);
+       editorButton.DOLocalMove(editorButtonDesired, .3f).SetEase(Ease.OutQuad);
+
+       backButton.DOLocalMove(backButtonDesired, .5f).SetEase(Ease.OutBounce).OnComplete(() => inTransit = false);
 
     }
 
 
-    public void PlayButton()
+    public void GoToEditor()
     {
-        
+        persistentData.songIndex = selectorWheel.GetComponent<LevelSelectScroller>().GetIndex();
+        SceneManager.LoadScene("JulesUIBreaking");
     }
 
     public void StartGame()
     {
+        persistentData.songIndex = selectorWheel.GetComponent<LevelSelectScroller>().GetIndex();
         SceneManager.LoadScene("AlfRoomOfCretivity");
     }
 

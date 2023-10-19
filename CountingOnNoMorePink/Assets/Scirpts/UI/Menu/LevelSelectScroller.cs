@@ -111,4 +111,10 @@ public class LevelSelectScroller : MonoBehaviour
         }
 
     }
+
+    //this is reversed for some reason
+    public int GetIndex()
+    {
+        return (levelList.Count -1) - currentIndex;
+    }
 }

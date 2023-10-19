@@ -30,6 +30,12 @@ public class Wobbit : MonoBehaviour
     }
 
 
+    public void GoToMenu()
+    {
+        GetComponent<BeatTimeline>().saveFileDropdown.StoreSongIndex();
+        SceneManager.LoadScene("MainMenu");
+    }
+
     public void GoToEditor()
     {
         GetComponent<BeatTimeline>().saveFileDropdown.StoreSongIndex();
