@@ -14,6 +14,7 @@ public class LevelSelectScroller : MonoBehaviour
     //cool
 
     public Canvas canvas;
+    public MainMenuManager manager;
 
     public LevelButton buttonFab;
     public List<LevelButton> levelList = new List<LevelButton>();
@@ -27,6 +28,7 @@ public class LevelSelectScroller : MonoBehaviour
 
     private void Start()
     {
+        
         LoadSavesFromPersistent();
         levelList.Reverse();
         StartUp();
@@ -64,6 +66,7 @@ public class LevelSelectScroller : MonoBehaviour
                 filePath = filePath.Replace(".json", "");
                 LevelButton b = Instantiate(buttonFab, transform);
                 b.levelTitle.text = filePath;
+                b.GetComponent<Button>().onClick.AddListener(() => manager.OpenPlayCard(b.levelTitle.text)); //who even knows
                 levelList.Add(b);
                
             }
@@ -106,7 +109,7 @@ public class LevelSelectScroller : MonoBehaviour
             {
                 levelList[i].gameObject.SetActive(true);
                 levelList[i].Move(GetComponent<RectTransform>().position + new Vector3(distance * indent,(i-currentIndex) * (canvas.scaleFactor * spacing)), (Vector3.one * buttonScale) / distance, transitionSpeed, Mathf.Abs(i - currentIndex));
-                
+                levelList[i].GetComponent<Button>().interactable = distance == 1;
             }
         }
 
