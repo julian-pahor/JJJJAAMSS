@@ -30,7 +30,7 @@ public class Bop : MonoBehaviour
 
     }
 
-    void BopBegins(int a, int b)
+    void BopBegins(int a, int b, string marker)
     {
         if(isBop) return;
         isBop = true;

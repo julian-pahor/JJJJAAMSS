@@ -16,7 +16,8 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 1
     motionNodeName: 
-    rigImportErrors: 
+    rigImportErrors: "Invalid Avatar Rig Configuration. Missing or invalid transform:\n\tRequired
+      human bone 'LeftLowerLeg' not found\n"
     rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
@@ -24,7 +25,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -80,7 +81,227 @@ ModelImporter:
   humanDescription:
     serializedVersion: 3
     human: []
-    skeleton: []
+    skeleton:
+    - name: Avril(Clone)
+      parentName: 
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Pants_Shoe_Top_HeadSet
+      parentName: Avril(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Pants
+      parentName: Pants_Shoe_Top_HeadSet
+      position: {x: -0, y: 0.31055355, z: -0.030130727}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Shoe_L
+      parentName: Pants_Shoe_Top_HeadSet
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Shoe
+      parentName: Shoe_L
+      position: {x: -0.13610458, y: 0.07266915, z: 0.17146364}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Show_Whell
+      parentName: Shoe_L
+      position: {x: -0.13698825, y: 0.023935013, z: -0.027918197}
+      rotation: {x: 0, y: -0, z: -0.7071068, w: 0.7071068}
+      scale: {x: 2.7338476, y: 1.1027378, z: 2.7338476}
+    - name: ShoeLace_END
+      parentName: Shoe_L
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ShoeLace_END_001
+      parentName: ShoeLace_END
+      position: {x: -0.17441009, y: 0.16155769, z: 0.109909706}
+      rotation: {x: 0.25817654, y: -0.09267087, z: 0.31556943, w: 0.90839034}
+      scale: {x: 1, y: 1.791521, z: 1}
+    - name: ShoeLace_END_002
+      parentName: ShoeLace_END
+      position: {x: -0.104025096, y: 0.15726717, z: 0.11740414}
+      rotation: {x: 0.33760667, y: 0.02711684, z: -0.2609071, w: 0.90399885}
+      scale: {x: 1, y: 1.791521, z: 1}
+    - name: ShowLace_Loop
+      parentName: Shoe_L
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ShowLace_Loop_002
+      parentName: ShowLace_Loop
+      position: {x: -0.13356188, y: 0.117472716, z: 0.08045827}
+      rotation: {x: 0.14484175, y: 0.20082535, z: -0.24678312, w: 0.93690354}
+      scale: {x: 1.6917926, y: 1.8766856, z: 1.6917926}
+    - name: ShowLace_Loop_001
+      parentName: ShowLace_Loop
+      position: {x: -0.13356188, y: 0.117472716, z: 0.08045827}
+      rotation: {x: 0.21590634, y: -0.15637912, z: 0.16136765, w: 0.9502055}
+      scale: {x: 1.6917926, y: 1.9717209, z: 1.6917926}
+    - name: ShoeLace_base
+      parentName: Shoe_L
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ShoeLace_base_001
+      parentName: ShoeLace_base
+      position: {x: -0.13586463, y: 0.107660405, z: 0.08626369}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ShoeLace_base_002
+      parentName: ShoeLace_base
+      position: {x: -0.13766617, y: 0.10929201, z: 0.086337425}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ShoeLace_base_003
+      parentName: ShoeLace_base
+      position: {x: -0.13238034, y: 0.12333576, z: 0.12663297}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ShoeLace_base_004
+      parentName: ShoeLace_base
+      position: {x: -0.13949999, y: 0.12217353, z: 0.12829025}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Top
+      parentName: Pants_Shoe_Top_HeadSet
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Top
+      parentName: Top
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: TopFringe
+      parentName: Top
+      position: {x: -3.330669e-18, y: 0.76861984, z: 0.014993214}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1.0371087, y: 1.029333, z: 1.029333}
+    - name: BottomFringe
+      parentName: Top
+      position: {x: -0, y: 0.60113424, z: 0.006177747}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1.017166, y: 1.017166, z: 1.017166}
+    - name: Shoe_R
+      parentName: Pants_Shoe_Top_HeadSet
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: -1, y: 1, z: 1}
+    - name: Shoe
+      parentName: Shoe_R
+      position: {x: -0.13610458, y: 0.07266915, z: 0.17146364}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Show_Whell
+      parentName: Shoe_R
+      position: {x: -0.13698825, y: 0.023935013, z: -0.027918197}
+      rotation: {x: 0, y: -0, z: -0.7071068, w: 0.7071068}
+      scale: {x: 2.7338476, y: 1.1027378, z: 2.7338476}
+    - name: ShoeLace_END
+      parentName: Shoe_R
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ShoeLace_END_001
+      parentName: ShoeLace_END
+      position: {x: -0.17441009, y: 0.16155769, z: 0.109909706}
+      rotation: {x: 0.25817654, y: -0.09267087, z: 0.31556943, w: 0.90839034}
+      scale: {x: 1, y: 1.791521, z: 1}
+    - name: ShoeLace_END_002
+      parentName: ShoeLace_END
+      position: {x: -0.104025096, y: 0.15726717, z: 0.11740414}
+      rotation: {x: 0.33760667, y: 0.02711684, z: -0.2609071, w: 0.90399885}
+      scale: {x: 1, y: 1.791521, z: 1}
+    - name: ShowLace_Loop
+      parentName: Shoe_R
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.11456707, y: 0, z: -0.19018298, w: 0.975041}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ShowLace_Loop_002
+      parentName: ShowLace_Loop
+      position: {x: -0.13356188, y: 0.117472716, z: 0.08045827}
+      rotation: {x: 0.14484175, y: 0.20082535, z: -0.24678312, w: 0.93690354}
+      scale: {x: 1.6917926, y: 1.8766856, z: 1.6917926}
+    - name: ShowLace_Loop_001
+      parentName: ShowLace_Loop
+      position: {x: -0.13356188, y: 0.117472716, z: 0.08045827}
+      rotation: {x: 0.21590634, y: -0.15637912, z: 0.16136765, w: 0.9502055}
+      scale: {x: 1.6917926, y: 1.9717209, z: 1.6917926}
+    - name: ShoeLace_base
+      parentName: Shoe_R
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ShoeLace_base_001
+      parentName: ShoeLace_base
+      position: {x: -0.13586463, y: 0.107660405, z: 0.08626369}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ShoeLace_base_002
+      parentName: ShoeLace_base
+      position: {x: -0.13766617, y: 0.10929201, z: 0.086337425}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ShoeLace_base_003
+      parentName: ShoeLace_base
+      position: {x: -0.13238034, y: 0.12333576, z: 0.12663297}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ShoeLace_base_004
+      parentName: ShoeLace_base
+      position: {x: -0.13949999, y: 0.12217353, z: 0.12829025}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Headset
+      parentName: Pants_Shoe_Top_HeadSet
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Headphones_piece1
+      parentName: Headset
+      position: {x: -0, y: 0.97750515, z: 0.0310742}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Headphones_piece
+      parentName: Headset
+      position: {x: -0, y: 0.97750515, z: 0.0310742}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Headset_Strap
+      parentName: Headset
+      position: {x: -0, y: 1.0454708, z: 0.010921441}
+      rotation: {x: -0.11614908, y: 0, z: -0, w: 0.9932318}
+      scale: {x: 22.906857, y: 1, z: 1}
+    - name: Hair_Body
+      parentName: Avril(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hair2
+      parentName: Hair_Body
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Body
+      parentName: Hair_Body
+      position: {x: -0, y: 0.63360745, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyes_plane
+      parentName: Avril(Clone)
+      position: {x: -0, y: 0.9868941, z: 0.10781888}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mouth_Plane
+      parentName: Avril(Clone)
+      position: {x: -0, y: 0.927707, z: 0.10645956}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -97,7 +318,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0

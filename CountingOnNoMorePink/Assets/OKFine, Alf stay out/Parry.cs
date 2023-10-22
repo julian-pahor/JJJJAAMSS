@@ -26,6 +26,8 @@ public class Parry : MonoBehaviour
 
     public ParryReturn2 parryReturn2;
 
+    private bool inTestingZone = true;
+
     private enum ParryResult
     {
         Early,
@@ -43,6 +45,11 @@ public class Parry : MonoBehaviour
         parryTime = 0;
         lateTimer = 0;
 
+        if(Wobbit.instance != null)
+        {
+            inTestingZone = false;
+        }
+
     }
 
     // Update is called once per frame
@@ -51,6 +58,7 @@ public class Parry : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0))
         {
             inputTime = Time.timeAsDouble;
+            if(!inTestingZone)
             Wobbit.instance.playerMovement.slashFx.Play();
 
             if(attacked)
@@ -94,9 +102,11 @@ public class Parry : MonoBehaviour
             lateTimer = 0;
             //Missed parry Take Damage
             ///Horrible Horrible absolutlely horrible chain of reference call to make player take damage
+            if(!inTestingZone)
             Wobbit.instance.playerMovement.onTakeDamage();
             Debug.Log("TAKE DAMAGE AHHH");
             result = ParryResult.Miss;
+            Wobbit.instance.persistentData.currentSongMissedParrys += 1;
         }
         //-----
 
@@ -123,6 +133,8 @@ public class Parry : MonoBehaviour
 
     private void ParryOutcome()
     {
+
+        Wobbit.instance.persistentData.currentSongTotalParrys += 1;
         //TODO: Expose + visualise inputLag for better playtesting
         //Value is added to the time of the input to customise players sense of timing
 
@@ -134,6 +146,7 @@ public class Parry : MonoBehaviour
             if (resultTime <= perfectWindow / 2.4f)
             {
                 result = ParryResult.Perfect;
+                Wobbit.instance.persistentData.currentSongPerfectParrys += 1;
             }
             else if (resultTime <= beatMS / 4f)
             {
@@ -151,6 +164,7 @@ public class Parry : MonoBehaviour
             if (resultTime <= perfectWindow / 2.4f)
             {
                 result = ParryResult.Perfect;
+                Wobbit.instance.persistentData.currentSongPerfectParrys += 1;
             }
             else if (resultTime <= beatMS / 2.5f)
             {
@@ -168,7 +182,14 @@ public class Parry : MonoBehaviour
 
     public void ParryReturn()
     {
-        Instantiate(parryReturn2, transform.position, Quaternion.identity);
+        if(!inTestingZone)
+        {
+            Instantiate(parryReturn2, transform.position, Quaternion.identity);
+        }
+        else
+        {
+            Debug.Log("You should only be seeing this in the Input Testing Zone");
+        }
 
     }
 

@@ -17,6 +17,11 @@ public class AttackEvent : ScriptableObject
     }
     public virtual void Fire()
     {
+        if(AnimationManager.instance != null)
+        {
+            AnimationManager.instance.FireAttackAnim();
+        }
+        
         Debug.Log("Virtual attack event. If you are seeing this you have done a wrong");
     }
 

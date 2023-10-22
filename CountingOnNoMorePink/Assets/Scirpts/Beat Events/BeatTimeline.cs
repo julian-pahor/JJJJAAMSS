@@ -6,11 +6,34 @@ public class BeatTimeline : MonoBehaviour
 {    
     public SaveFileDropdown saveFileDropdown;
     public SongSave saveFile;
+    public int lastCheckpoint = 0;
 
     public List<BlockData> eventTimeline = new List<BlockData>();
 
     int index;
-    int lastBar;
+
+    public float GetSongPercentage()
+    {
+        float f = (float)index / (float)saveFile.SongLength;
+        if(float.IsNaN(f))
+        {
+            return 0;
+        }
+        else
+        {
+            return f;
+        }
+        
+    }
+
+    private void ResetData()
+    {
+        Wobbit.instance.persistentData.currentSongTotalParrys = 0;
+        Wobbit.instance.persistentData.currentSongMissedParrys = 0;
+        Wobbit.instance.persistentData.currentSongPerfectParrys = 0;
+        Wobbit.instance.persistentData.currentSongRestarts = 0;
+        Wobbit.instance.persistentData.currentSongHits = 0;
+    }
 
     private void Start()
     {
@@ -27,18 +50,25 @@ public class BeatTimeline : MonoBehaviour
     public void StartGame()
     {
         string saveName = saveFileDropdown.GetSelectedSave();
-        if(saveName != null && saveName != string.Empty)
+
+        //Set playback checkpoint
+        //TODO: Set playback index correctly based on lastCheckpoint
+        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Checkpoint", lastCheckpoint);
+
+        if (saveName != null && saveName != string.Empty)
         {
             eventTimeline = saveFile.LoadSave(saveName);
             saveFileDropdown.StoreSongIndex();
+            ResetData();
             BeatBroadcast.instance.PlayMusic();
             return;
         }
+
         Debug.LogError("Couldn't start game - save name was null or empty");
 
     }
 
-    private void Beat(int bar, int beat)
+    private void Beat(int bar, int beat, string marker)
     {
         if (saveFile == null)
         {
@@ -46,22 +76,25 @@ public class BeatTimeline : MonoBehaviour
             return;
         }
 
-        if (bar == 13 || bar == 14 || bar == 23 || bar == 24)
+        //Finish + End are one time calls used to tidy up messes 
+        //End of music / Passed the level
+        if(marker == "Finish")
+        {
+            Wobbit.instance.FinishSong();
+            return;
+        }
+
+        //End of Audio Event / Last call from Beat Broadcast
+        if(marker == "End")
         {
             return;
         }
 
-        if (bar < lastBar)
+        //Currently stops functionality during transitional bars
+        //TODO: Move transitions to a seperate event that automatically stops and resumes timeline event
+        if (bar == 13 || bar == 14 || bar == 23 || bar == 24)
         {
-            //Means we have looped back 
-            index -= (((lastBar - bar) + 1) * 4);
-            Wobbit.instance.lifeAmount = 1;
-            Wobbit.instance.HealPlayer();
-
-            if(index < 0)
-            {
-                index = 0;
-            }
+            return;
         }
 
         if(bar >= 5)
@@ -71,12 +104,11 @@ public class BeatTimeline : MonoBehaviour
             index++;
         }
 
+        //looping index of beat timeline
         if (index >= saveFile.SongLength)
         {
             index = 0;
         }
-
-        lastBar = bar;
     }
 
     //TODO: Blockdata size is hardcoded to 5, figure out where this and songsave get that number from

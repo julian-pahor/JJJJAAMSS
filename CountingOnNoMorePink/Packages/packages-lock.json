@@ -1,10 +1,11 @@
 {
   "dependencies": {
-    "com.unity.2d.sprite": {
-      "version": "1.0.0",
+    "com.naelstrof.jigglephysics": {
+      "version": "https://github.com/naelstrof/UnityJigglePhysics.git#upm",
       "depth": 0,
-      "source": "builtin",
-      "dependencies": {}
+      "source": "git",
+      "dependencies": {},
+      "hash": "d7e2fa4853ec540a213d1d9f5c357feec9efc083"
     },
     "com.unity.burst": {
       "version": "1.7.3",

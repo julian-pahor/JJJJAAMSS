@@ -1685,7 +1685,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1915068533}
   m_HandleRect: {fileID: 1915068532}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1812,7 +1812,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 802462505}
   m_HandleRect: {fileID: 802462504}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -6575,7 +6575,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1567423060}
   m_HandleRect: {fileID: 1567423059}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -10210,6 +10210,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   saveFileDropdown: {fileID: 0}
   saveFile: {fileID: 742059331714017201}
+  lastCheckpoint: 0
   eventTimeline: []
 --- !u!1 &742059331714017213
 GameObject:
@@ -10277,9 +10278,10 @@ MonoBehaviour:
   parryIndicatorPrefab: {fileID: 0}
   numberwang: {fileID: 0}
   poolPool: {fileID: 3415864132458351411}
+  persistentData: {fileID: 11400000, guid: 252560ab1ce8a564abd1217a2847cf02, type: 2}
   playerMovement: {fileID: 3569889187259507007}
   gameOverScreen: {fileID: 0}
-  lifeAmount: 1
+  resultScreen: {fileID: 0}
 --- !u!199 &2056831194809365354
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -11030,6 +11032,7 @@ MonoBehaviour:
   maxShield: 0.05
   dashInvulnerability: 0
   hitInvulnerability: 0
+  hpRecoveryTime: 0
   dashCooldown: 0
   baseColour: {r: 0.19103774, g: 0.764151, b: 0.45703605, a: 0}
   parrySphere: {fileID: 3569889186271238195}

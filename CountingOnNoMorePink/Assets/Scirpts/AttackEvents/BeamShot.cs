@@ -36,6 +36,8 @@ public class BeamShot : AttackEvent
 
     public override void Fire()
     {
+        base.Fire();
+
         Transform origin = Wobbit.instance.bossOrigin;
 
         if (beams <= 0) { beams = 1; } //stop it dividing by 0

@@ -20,8 +20,6 @@ public class BeatSlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPointer
     public TimelineEditor editor;
 
     private Vector2 clickCheck;
-    private float hoverTimer = .35f;
-    private bool hovering = false;
 
     private void Start()
     {
@@ -71,7 +69,6 @@ public class BeatSlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPointer
             if(Vector2.Distance(clickCheck, eventData.position) < 15)
             {
                 //StopCoroutine(Preview());
-                hovering = false;
                 //PreviewClose();
                 this.attackEvent = null;
                 UpdateSlot();
@@ -139,7 +136,6 @@ public class BeatSlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPointer
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        hovering = false;
         PreviewClose();
 
         
