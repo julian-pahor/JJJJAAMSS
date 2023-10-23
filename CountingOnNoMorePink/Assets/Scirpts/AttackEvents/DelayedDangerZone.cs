@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.UI.Image;
 
 //Used by attack events to create an area with a 'tell' that will become dangerous after a fixed number of beats
 public class DelayedDangerZone : MonoBehaviour
@@ -51,7 +50,7 @@ public class DelayedDangerZone : MonoBehaviour
         col = GetComponent<Collider>();
         col.enabled = false;
        
-        Tick(0, 0);
+        Tick(0, 0, "");
     }
 
     //delay - time before we start the indicator effect
@@ -117,7 +116,12 @@ public class DelayedDangerZone : MonoBehaviour
 
                 if (timer >= 1)
                 {
-                    Destroy(gameObject);
+                    PooledObject p = GetComponent<PooledObject>();
+
+                    if (p != null)
+                        p.Despawn();
+                    else
+                        Destroy(gameObject);
                 }
                 break;
         }
@@ -164,7 +168,7 @@ public class DelayedDangerZone : MonoBehaviour
 
     }
 
-    void Tick(int beat, int bar)
+    void Tick(int beat, int bar, string marker)
     {
         if(!isActive)
         { 

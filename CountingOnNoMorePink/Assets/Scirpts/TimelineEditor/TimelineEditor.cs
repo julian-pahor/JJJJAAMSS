@@ -65,7 +65,7 @@ public class TimelineEditor : MonoBehaviour
         BeatBroadcast.instance.timelineInfo.onBeatTrigger -= Beat;
     }
 
-    public void Beat(int m, int b)
+    public void Beat(int m, int b, string marker)
     {
 
     }

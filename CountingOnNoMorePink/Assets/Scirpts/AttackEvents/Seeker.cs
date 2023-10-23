@@ -13,6 +13,8 @@ public class Seeker : AttackEvent
     
     public override void Fire()
     {
+        base.Fire();
+
         if (attackEffect == null)
             attackEffect = Wobbit.instance.seekerTest;
 

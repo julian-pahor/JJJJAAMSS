@@ -22,12 +22,22 @@ public class ParryEvent : AttackEvent
                 case ParryType.TwoBeat:
                     FMODUnity.RuntimeManager.PlayOneShot("event:/Attacks/DemoAttack", Wobbit.instance.bossOrigin.position);
                     Instantiate(Wobbit.instance.pa2);
+
+                    //create indicator PLACEHOLDER - this needs to be done dynamically and passed the number of beats before the parry attack lands
+                    Wobbit.instance.CreateCountDownIndicator(3);
+
                     break;
                 case ParryType.ThreeBeat:
                     
                     break;
             }
         }
+    }
+
+
+    public override void FirePreview()
+    {
+        //DO NOTHING
     }
 
     public override void Fire()
