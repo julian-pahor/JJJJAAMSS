@@ -7,14 +7,16 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MakeupKitMaterial
+  m_Name: NailPolishGlueMaterial
   m_Shader: {fileID: 4800000, guid: 766736548846cdf459a9766614dcccab, type: 3}
   m_ValidKeywords:
   - _EMISSIVE_SIMPLE
   - _IS_ANGELRING_OFF
   - _IS_OUTLINE_CLIPPING_NO
-  - _IS_TRANSCLIPPING_OFF
+  - _IS_TRANSCLIPPING_ON
+  - _NORMALMAP
   - _OUTLINE_POS
+  - _PARALLAXMAP
   - _SHADINGGRADEMAP
   m_InvalidKeywords:
   - _
@@ -24,18 +26,18 @@ Material:
   m_CustomRenderQueue: 2000
   stringTagMap:
     IgnoreProjection: False
-    RenderType: Opaque
+    RenderType: TransparentCutout
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - _1st_ShadeMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
+        m_Scale: {x: 6, y: 6}
         m_Offset: {x: 0, y: 0}
     - _2nd_ShadeMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
+        m_Scale: {x: 6, y: 6}
         m_Offset: {x: 0, y: 0}
     - _AngelRing_Sampler:
         m_Texture: {fileID: 0}
@@ -46,11 +48,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: cae38d22772d73a4aa9effe3c4c03386, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: 9409f14e72695f4499fd84fad2fca58e, type: 3}
+        m_Scale: {x: 6, y: 6}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 627e4cee466bf4945991c2760302defa, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ClippingMask:
@@ -59,7 +61,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
+        m_Scale: {x: -2.24, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailMask:
         m_Texture: {fileID: 0}
@@ -82,7 +84,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: db3c8bfcc3fb47543bafa6fffa4c0690, type: 3}
+        m_Texture: {fileID: 2800000, guid: 13ba03be76bdc4e4a9367980a4c73f6b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MatCap_Sampler:
@@ -114,7 +116,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 3be2a8d1c8cec05448ce8188ee08f37e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Set_1st_ShadePosition:
@@ -184,7 +186,7 @@ Material:
     - _CameraRolling_Stabilizer: 0
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
-    - _ClippingMode: 0
+    - _ClippingMode: 1
     - _Clipping_Level: 0
     - _ColorShift_Speed: 0
     - _Cull: 2
@@ -243,7 +245,7 @@ Material:
     - _Offset_X_Axis_BLD: -0.05
     - _Offset_Y_Axis_BLD: 0.09
     - _Offset_Z: 0
-    - _Outline_Width: 34.8
+    - _Outline_Width: 36.3
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1
@@ -295,8 +297,8 @@ Material:
     - _utsVersionY: 5
     - _utsVersionZ: 1
     m_Colors:
-    - _1st_ShadeColor: {r: 0.77254903, g: 0.545098, b: 0.7176471, a: 1}
-    - _2nd_ShadeColor: {r: 0.6509434, g: 0.2425685, b: 0.5523702, a: 1}
+    - _1st_ShadeColor: {r: 0.77254903, g: 0.54509807, b: 0.7176471, a: 1}
+    - _2nd_ShadeColor: {r: 0.6509434, g: 0.24256852, b: 0.5523702, a: 1}
     - _AngelRing_Color: {r: 1, g: 1, b: 1, a: 1}
     - _Ap_RimLightColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
@@ -306,12 +308,12 @@ Material:
     - _Emissive_Color: {r: 0, g: 0, b: 0, a: 1}
     - _HighColor: {r: 0, g: 0, b: 0, a: 1}
     - _MatCapColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Outline_Color: {r: 0.33018863, g: 0, b: 0.22831479, a: 1}
+    - _Outline_Color: {r: 0.3301887, g: 0, b: 0.22831483, a: 1}
     - _RimLightColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _ViewShift: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &1428467851613966596
+--- !u!114 &8729088375978527572
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

@@ -84,8 +84,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: bf9ec293041cc4c48a88612996790aa2, type: 3}
-        m_Scale: {x: 6, y: 6}
+        m_Texture: {fileID: 2800000, guid: 57dc20e51994bdd48b7675c49bba6d51, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MatCap_Sampler:
         m_Texture: {fileID: 0}
@@ -211,7 +211,7 @@ Material:
     - _Is_BakedNormal: 0
     - _Is_BlendAddToHiColor: 0
     - _Is_BlendAddToMatCap: 1
-    - _Is_BlendBaseColor: 0
+    - _Is_BlendBaseColor: 1
     - _Is_ColorShift: 0
     - _Is_Filter_HiCutPointLightColor: 1
     - _Is_Filter_LightColor: 0
