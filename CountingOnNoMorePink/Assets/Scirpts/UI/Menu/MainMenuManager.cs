@@ -217,4 +217,8 @@ public class MainMenuManager : MonoBehaviour
         SceneManager.LoadScene("AlfRoomOfCretivity");
     }
 
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }

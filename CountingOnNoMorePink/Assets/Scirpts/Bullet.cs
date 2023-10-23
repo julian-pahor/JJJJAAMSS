@@ -32,4 +32,12 @@ public class Bullet : MonoBehaviour
         if (lifespan > maxLife)
             GetComponent<PooledObject>().Despawn();
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.GetComponent<BulletKillSphere>() != null)
+        {
+            GetComponent<PooledObject>().Despawn();
+        }
+    }
 }

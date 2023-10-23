@@ -37,7 +37,7 @@ public class GameOverscreen : MonoBehaviour
 
         splash.color = new Color(splash.color.r, splash.color.g, splash.color.b,lerp);
 
-        retryButton.gameObject.SetActive(timer >= fadeTime);
+        //retryButton.gameObject.SetActive(timer >= fadeTime);
 
 
     }

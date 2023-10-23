@@ -90,7 +90,8 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
 
     private void Update()
-    {   
+    {
+
         //decrease inv timer        
         if (invulnerabilityTime > 0)
         {
@@ -124,6 +125,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
                 Vector2 movement = new Vector2(directionX,directionY);
 
                 animator.SetBool("Moving", movement != Vector2.zero);
+              
 
                 //dash recovery
                 dashCd -= Time.deltaTime;
@@ -136,6 +138,8 @@ public class FreeFormOrbitalMove : MonoBehaviour
                 //dash
                 if (Input.GetKeyDown(KeyCode.Space) && dashCd <= 0)
                 {
+                    if (movement != Vector2.zero)
+                        animator.Play("dash", 0, 0f);
                     dashTrail.Play();
                     canDash = false;
                     dashCd = dashCooldown;
@@ -191,10 +195,13 @@ public class FreeFormOrbitalMove : MonoBehaviour
         invulnerabilityTime = hitInvulnerability;
         recoverTimer = hpRecoveryTime;
         currentHP -= 1;
+        animator.Play("hurt", 0, 0f);
+
 
         if (currentHP <= 0)
         {
             state = State.Dead;
+            animator.Play("death", 0, 0f);
             Wobbit.instance.EndGame();
         }
 
