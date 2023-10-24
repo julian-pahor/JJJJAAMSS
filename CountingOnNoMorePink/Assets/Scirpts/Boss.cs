@@ -7,6 +7,7 @@ public class Boss : MonoBehaviour
 {
    
     public Animator animator;
+    public VisualEffect slash;
     public VisualEffect shockwave;
     void Update()
     {
@@ -19,5 +20,6 @@ public class Boss : MonoBehaviour
     {
         animator.Play("damage", 0, 0f);
         shockwave.Play();
+        slash.Play();
     }
 }
