@@ -32,7 +32,7 @@ public class LevelSelectScroller : MonoBehaviour
         LoadSavesFromPersistent();
         levelList.Reverse();
         StartUp();
-        Swotch(0);
+        //Swotch(0);
     }
 
     void StartUp()
