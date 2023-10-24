@@ -46,6 +46,7 @@ public class Wobbit : MonoBehaviour
     public Bullet bulletFab;
     public BoomBlock zoneFab;
     public Transform bossOrigin;
+    public Boss boss;
     public Transform player;
     public GameObject warning;
     public GameObject pink;

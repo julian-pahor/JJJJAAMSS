@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 962581974590947325}
     m_Modifications:
+    - target: {fileID: 3793535173291460928, guid: f37bfdf7103dcef4585cbf6148ea024f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e2344405fa543e6419fb3a56653b0db2, type: 2}
     - target: {fileID: 3793535173291460930, guid: f37bfdf7103dcef4585cbf6148ea024f, type: 3}
       propertyPath: m_Name
       value: ShadedCircle (1)
