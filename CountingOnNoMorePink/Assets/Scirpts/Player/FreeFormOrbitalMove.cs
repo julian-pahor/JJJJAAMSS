@@ -136,7 +136,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
                 }
 
                 //dash
-                if (Input.GetKeyDown(KeyCode.Space) && dashCd <= 0)
+                if ((Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Jump")) && dashCd <= 0)
                 {
                     if (movement != Vector2.zero)
                         animator.Play("dash", 0, 0f);
