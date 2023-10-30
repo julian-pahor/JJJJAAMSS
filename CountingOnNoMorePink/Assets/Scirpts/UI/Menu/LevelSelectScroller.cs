@@ -67,6 +67,7 @@ public class LevelSelectScroller : MonoBehaviour
                 LevelButton b = Instantiate(buttonFab, transform);
                 b.levelTitle.text = filePath;
                 b.GetComponent<Button>().onClick.AddListener(() => manager.OpenPlayCard(b.levelTitle.text)); //who even knows
+                b.GetComponent<Button>().onClick.AddListener((() => manager.audioManager.selGEmitter.Play())); //I dont even know either :'c
                 levelList.Add(b);
                
             }
@@ -112,7 +113,6 @@ public class LevelSelectScroller : MonoBehaviour
                 levelList[i].GetComponent<Button>().interactable = distance == 1;
             }
         }
-
     }
 
     //this is reversed for some reason

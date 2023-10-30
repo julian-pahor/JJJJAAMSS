@@ -19,6 +19,9 @@ public class MainMenuManager : MonoBehaviour
     public List<RectTransform> buttons = new List<RectTransform>();
     public List<Parallax> parallaxers = new List<Parallax>();
     public Vector2 gradientOffset;
+
+    //AudioManagerRef
+    public MenuAudioManager audioManager;
     
     [Space(10)]
     [Header("Level Select Menu Objects")]
@@ -76,7 +79,12 @@ public class MainMenuManager : MonoBehaviour
         gradient.localPosition = gradientOffset;
         foreach (RectTransform button in buttons)
         {
-            button.GetComponent<MainMenuButton>().ResetHighlight();
+            //button.GetComponent<MainMenuButton>().ResetHighlight();
+            MainMenuButton mmb = button.GetComponent<MainMenuButton>();
+            mmb.ResetHighlight();
+            mmb.blip = audioManager.blipEmitter;
+            mmb.selG = audioManager.selGEmitter;
+            mmb.selB = audioManager.selBEmitter;
             button.localPosition = (Vector2)button.localPosition + new Vector2(1000, 0);
         }
         Vector2 surtitleDesired = surtitle.localPosition;
