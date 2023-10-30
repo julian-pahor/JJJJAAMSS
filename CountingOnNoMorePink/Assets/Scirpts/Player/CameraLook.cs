@@ -43,7 +43,7 @@ public class CameraLook : MonoBehaviour
         
 
 
-        //transform.LookAt(lookTarget);
+        transform.LookAt(lookTarget);
     }
 
 

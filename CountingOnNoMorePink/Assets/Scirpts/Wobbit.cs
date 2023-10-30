@@ -116,7 +116,9 @@ public class Wobbit : MonoBehaviour
 
     public void FinishSong()
     {
-        resultScreen.Activate();
+        //do not win if you are not win
+        if(player.GetComponent<FreeFormOrbitalMove>().IsAlive())
+            resultScreen.Activate();
     }
 
     public void Restart()

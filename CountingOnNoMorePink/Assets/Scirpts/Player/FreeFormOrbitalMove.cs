@@ -31,7 +31,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
     public float hpRecoveryTime;
     private float recoverTimer;
     public float dashCooldown;
-
+    public float parryCooldown;
 
     //effects
     [Header("Effects")]
@@ -68,11 +68,15 @@ public class FreeFormOrbitalMove : MonoBehaviour
     float directionY;  
     public Vector2 Movement { get { return new Vector2(directionX,directionY); } }
     Vector2 deltaMove;
+
+    //parry
+    Parry parryHandler;
     
     //timers
     float dashCd;
     float dashTime;
     float invulnerabilityTime;
+    float parryCd;
 
     //flags
     bool canDash;
@@ -85,7 +89,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
         currentHP = maxHP;
         currentDistance = maxDistance;
         recoverTimer = hpRecoveryTime;
-        //StartCoroutine(SpeedCheck());
+        parryHandler = GetComponent<Parry>();
     }
 
 
@@ -133,6 +137,20 @@ public class FreeFormOrbitalMove : MonoBehaviour
                 {
                     canDash = true;
                     dashRecover.Play(true);
+                }
+
+                //parry
+                if(parryCd > 0f)
+                    parryCd -= Time.deltaTime;
+
+                if (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0) || Input.GetButtonDown("Parry"))
+                {
+                    if(parryCd <= 0)
+                    {
+                        parryHandler.DoParry();
+                        parryCd = parryCooldown;
+                    }
+
                 }
 
                 //dash
@@ -315,6 +333,11 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
         gixmo = moveTo;
 
+    }
+
+    public bool IsAlive()
+    {
+        return state != State.Dead;
     }
 
     private void OnDrawGizmos()

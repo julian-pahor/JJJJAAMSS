@@ -52,29 +52,29 @@ public class Parry : MonoBehaviour
 
     }
 
+    //exposing this so we can call it from player's input and not have button detections everywhere
+    public void DoParry()
+    {
+     inputTime = Time.timeAsDouble;
+                if(!inTestingZone)
+                Wobbit.instance.playerMovement.slashFx.Play();
+
+                if(attacked)
+                {
+                    ParryOutcome();
+                    lateTimer = 0;
+                    //attacked = false;
+                }
+                else
+                {
+                    parryTime = 0;
+                    parrying = true;
+                }
+    }
+
     // Update is called once per frame
     void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0) || Input.GetButtonDown("Parry"))
-        {
-            inputTime = Time.timeAsDouble;
-            if(!inTestingZone)
-            Wobbit.instance.playerMovement.slashFx.Play();
-
-            if(attacked)
-            {
-                ParryOutcome();
-                lateTimer = 0;
-                //attacked = false;
-            }
-            else
-            {
-                parryTime = 0;
-                parrying = true;
-            }
-        }
-
-
+    { 
         //-----
         //Parry flag for anticipated input timer
         //
