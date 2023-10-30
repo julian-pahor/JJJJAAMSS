@@ -335,6 +335,14 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
     }
 
+    //ok so it just kills you
+    public void SetDamageEnabled(bool enabled)
+    {
+        if (enabled)
+            state = State.Walk;
+        else
+            state = State.Dead;
+    }
     public bool IsAlive()
     {
         return state != State.Dead;
