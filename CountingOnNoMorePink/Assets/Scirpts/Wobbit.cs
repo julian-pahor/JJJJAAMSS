@@ -22,12 +22,18 @@ public class Wobbit : MonoBehaviour
     {
         timeline = FindObjectOfType<BeatTimeline>();
 
-        playerMovement.onTakeDamage += StartSlow;
+        playerMovement.onTakeDamage += TakeDamage;
 
         slowSnapShot = FMODUnity.RuntimeManager.CreateInstance("snapshot:/TimeSlow");
         slowSnapShot.start();
     }
 
+
+    public void GoToMenu()
+    {
+        GetComponent<BeatTimeline>().saveFileDropdown.StoreSongIndex();
+        SceneManager.LoadScene("MainMenu");
+    }
 
     public void GoToEditor()
     {
@@ -40,6 +46,7 @@ public class Wobbit : MonoBehaviour
     public Bullet bulletFab;
     public BoomBlock zoneFab;
     public Transform bossOrigin;
+    public Boss boss;
     public Transform player;
     public GameObject warning;
     public GameObject pink;
@@ -68,6 +75,8 @@ public class Wobbit : MonoBehaviour
 
     public PoolPool poolPool;
 
+    public PersistentData persistentData;
+
 
     //TimeSlow stuff testing 
 
@@ -80,10 +89,10 @@ public class Wobbit : MonoBehaviour
     public GameOverscreen gameOverScreen;
     public ResultsScreen resultScreen;
     
-    public void StartSlow()
+    public void TakeDamage()
     {
         targetScale = 0;
-
+        persistentData.currentSongHits += 1;
     }
 
     private void Update()
@@ -107,19 +116,23 @@ public class Wobbit : MonoBehaviour
 
     public void FinishSong()
     {
-        resultScreen.Activate();
+        //do not win if you are not win
+        if(player.GetComponent<FreeFormOrbitalMove>().IsAlive())
+            resultScreen.Activate();
     }
 
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        persistentData.currentSongRestarts += 1;
     }
 
     public void MainMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        
         playerMovement.currentHP = playerMovement.maxHP;
         playerMovement.onHealthChanged?.Invoke();
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void CreateCountDownIndicator(int beats)

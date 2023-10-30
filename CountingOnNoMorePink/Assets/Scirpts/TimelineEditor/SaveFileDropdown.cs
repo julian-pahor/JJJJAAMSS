@@ -23,6 +23,7 @@ public class SaveFileDropdown : MonoBehaviour
         //LoadSavesFromFolder();
         LoadSavesFromPersistent();
         SetCurrentIndex(persistentData.songIndex);
+        Debug.Log(files[persistentData.songIndex]);
     }
 
     //TODO: THIS WILL NOT WORK IN BUILD (apparently) - FIND A WAY THAT WILL (https://docs.unity3d.com/ScriptReference/Resources.LoadAll.html)

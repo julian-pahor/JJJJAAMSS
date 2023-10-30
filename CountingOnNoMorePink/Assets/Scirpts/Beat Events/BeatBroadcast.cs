@@ -92,7 +92,11 @@ public class BeatBroadcast : MonoBehaviour
         musicInstance.setUserData(IntPtr.Zero);
         musicInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
         musicInstance.release();
-        timelineHandle.Free();
+
+        if(timelineHandle.IsAllocated)
+        {
+            timelineHandle.Free();
+        }
     }
 
     void OnDestroy()

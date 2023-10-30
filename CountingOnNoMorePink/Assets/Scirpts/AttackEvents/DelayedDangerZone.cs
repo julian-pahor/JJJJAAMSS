@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
-using Unity.VisualScripting;
+
 using UnityEngine;
+using UnityEngine.VFX;
 
 //Used by attack events to create an area with a 'tell' that will become dangerous after a fixed number of beats
 public class DelayedDangerZone : MonoBehaviour
@@ -12,7 +12,8 @@ public class DelayedDangerZone : MonoBehaviour
     public int activeBeats; //how long we remain dangerous for (usually just one beat);
 
     public ParticleSystem tellEffect;
-    public ParticleSystem launchEffect;
+    public VisualEffect launchEffect;
+    //public ParticleSystem launchEffect;
     public AttackIndicator indicator;
     public AttackIndicator preIndicator;
 
@@ -211,7 +212,7 @@ public class DelayedDangerZone : MonoBehaviour
     void Activate()
     {  
         //tellEffect.gameObject.SetActive(false);
-        launchEffect.Play(true);
+        launchEffect.Play();
         isActive = true;
         col.enabled = true;
     }

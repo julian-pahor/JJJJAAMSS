@@ -28,8 +28,10 @@ public class FreeFormOrbitalMove : MonoBehaviour
     public float maxShield;
     public float dashInvulnerability;
     public float hitInvulnerability;
+    public float hpRecoveryTime;
+    private float recoverTimer;
     public float dashCooldown;
-
+    public float parryCooldown;
 
     //effects
     [Header("Effects")]
@@ -53,6 +55,9 @@ public class FreeFormOrbitalMove : MonoBehaviour
     public System.Action onTakeDamage;
     public System.Action onHealthChanged;
 
+
+    //animation
+    public Animator animator;
    
     enum State { Walk,Dash,Parry,Dead}
     State state;
@@ -63,11 +68,15 @@ public class FreeFormOrbitalMove : MonoBehaviour
     float directionY;  
     public Vector2 Movement { get { return new Vector2(directionX,directionY); } }
     Vector2 deltaMove;
+
+    //parry
+    Parry parryHandler;
     
     //timers
     float dashCd;
     float dashTime;
     float invulnerabilityTime;
+    float parryCd;
 
     //flags
     bool canDash;
@@ -79,12 +88,14 @@ public class FreeFormOrbitalMove : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         currentHP = maxHP;
         currentDistance = maxDistance;
-        //StartCoroutine(SpeedCheck());
+        recoverTimer = hpRecoveryTime;
+        parryHandler = GetComponent<Parry>();
     }
 
 
     private void Update()
-    {   
+    {
+
         //decrease inv timer        
         if (invulnerabilityTime > 0)
         {
@@ -94,14 +105,31 @@ public class FreeFormOrbitalMove : MonoBehaviour
         else
             parrySphere.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 
+        //Timed Heal on Player
+        if (currentHP < maxHP && invulnerabilityTime <= 0)
+        {
+            recoverTimer -= Time.deltaTime;
+            if (recoverTimer < 0)
+            {
+                recoverTimer = hpRecoveryTime;
+                currentHP += 1;
+                onHealthChanged?.Invoke();
+            }
+        }
 
         switch (state)
         {
             case State.Walk:
 
-                deltaMove = new Vector2(directionX, directionY);
+               
+               
                 directionX = Input.GetAxisRaw("Horizontal");
                 directionY = Input.GetAxisRaw("Vertical");
+
+                Vector2 movement = new Vector2(directionX,directionY);
+
+                animator.SetBool("Moving", movement != Vector2.zero);
+              
 
                 //dash recovery
                 dashCd -= Time.deltaTime;
@@ -111,9 +139,25 @@ public class FreeFormOrbitalMove : MonoBehaviour
                     dashRecover.Play(true);
                 }
 
-                //dash
-                if (Input.GetKeyDown(KeyCode.Space) && dashCd <= 0)
+                //parry
+                if(parryCd > 0f)
+                    parryCd -= Time.deltaTime;
+
+                if (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0) || Input.GetButtonDown("Parry"))
                 {
+                    if(parryCd <= 0)
+                    {
+                        parryHandler.DoParry();
+                        parryCd = parryCooldown;
+                    }
+
+                }
+
+                //dash
+                if ((Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Jump")) && dashCd <= 0)
+                {
+                    if (movement != Vector2.zero)
+                        animator.Play("dash", 0, 0f);
                     dashTrail.Play();
                     canDash = false;
                     dashCd = dashCooldown;
@@ -167,11 +211,15 @@ public class FreeFormOrbitalMove : MonoBehaviour
     void TakeDamage()
     {
         invulnerabilityTime = hitInvulnerability;
+        recoverTimer = hpRecoveryTime;
         currentHP -= 1;
+        animator.Play("hurt", 0, 0f);
+
 
         if (currentHP <= 0)
         {
             state = State.Dead;
+            animator.Play("death", 0, 0f);
             Wobbit.instance.EndGame();
         }
 
@@ -285,6 +333,11 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
         gixmo = moveTo;
 
+    }
+
+    public bool IsAlive()
+    {
+        return state != State.Dead;
     }
 
     private void OnDrawGizmos()
