@@ -16,10 +16,6 @@ public class FreeFormOrbitalMove : MonoBehaviour
     public float maxDistance;
     public float maxDash;
 
-
-
-
-
     float currentDistance;
     float angle;
     
@@ -27,16 +23,20 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
     //stats
     [Header("Stats")]
-    public int maxHP;
-    public int currentHP;
+    public float maxHP;
+    public float currentHP;
     public float maxShield;
     public float dashInvulnerability;
     public float hitInvulnerability;
-    public float dashCooldown;
+    public float hpRecoverySpeed;
 
+    public float dashCooldown;
+    //public float parryCooldown;
+    public float parryShieldDuration;
 
     //effects
     [Header("Effects")]
+
     public Color baseColour;
     public GameObject parrySphere;
     public ParticleSystem shieldFx;
@@ -55,7 +55,11 @@ public class FreeFormOrbitalMove : MonoBehaviour
     public ParticleSystem dashTrail;
 
     public System.Action onTakeDamage;
+    public System.Action onHealthChanged;
 
+
+    //animation
+    public Animator animator;
    
     enum State { Walk,Dash,Parry,Dead}
     State state;
@@ -65,26 +69,39 @@ public class FreeFormOrbitalMove : MonoBehaviour
     float directionX;
     float directionY;  
     public Vector2 Movement { get { return new Vector2(directionX,directionY); } }
+    Vector2 deltaMove;
+
+    //parry
+    Parry parryHandler;
+    public Shockwave wave;
     
     //timers
     float dashCd;
     float dashTime;
     float invulnerabilityTime;
+    float parryCd;
 
     //flags
     bool canDash;
+
+    Vector3 gixmo;
   
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         currentHP = maxHP;
         currentDistance = maxDistance;
-        //StartCoroutine(SpeedCheck());
+       
+        //recoverTimer = hpRecoveryTime;
+
+        parryHandler = GetComponent<Parry>();
+        parryHandler.onParrySuccess += ParrySuccess;
     }
 
 
     private void Update()
-    {   
+    {
+
         //decrease inv timer        
         if (invulnerabilityTime > 0)
         {
@@ -94,23 +111,61 @@ public class FreeFormOrbitalMove : MonoBehaviour
         else
             parrySphere.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 
+        //Timed Heal on Player
+        if (currentHP < maxHP && invulnerabilityTime <= 0)
+        {
+            currentHP += hpRecoverySpeed * Time.deltaTime;
+        }
 
         switch (state)
         {
             case State.Walk:
 
+               
+               
                 directionX = Input.GetAxisRaw("Horizontal");
                 directionY = Input.GetAxisRaw("Vertical");
 
+                Vector2 movement = new Vector2(directionX,directionY);
+
+                animator.SetBool("Moving", movement != Vector2.zero);
+              
+
+                //dash recovery
                 dashCd -= Time.deltaTime;
                 if(dashCd <= 0 && !canDash)
                 {
                     canDash = true;
-                    dashRecover.Play(true);
+                  
                 }
 
-                if (Input.GetKeyDown(KeyCode.Space) && dashCd <= 0)
+                //parry
+                //if(parryCd > 0f)
+                //    parryCd -= Time.deltaTime;
+
+                //if (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0) || Input.GetButtonDown("Parry"))
+                //{
+                //    if(parryCd <= 0)
+                //    {
+                //        parryHandler.DoParry();
+                //        parryCd = parryCooldown;
+                //    }
+
+                //}
+
+                //dash
+                if ((Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Jump")) && dashCd <= 0)
                 {
+                    if (movement == Vector2.zero)
+                    {
+                        parryHandler.DoParry();
+                        dashCd = dashCooldown;
+                        dashRecover.Play(true);
+                        return;
+                    }
+
+
+                    animator.Play("dash", 0, 0f);
                     dashTrail.Play();
                     canDash = false;
                     dashCd = dashCooldown;
@@ -161,6 +216,31 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
     }
 
+    public void TakeDamage()
+    {
+        if (invulnerabilityTime > 0)
+        {
+            shieldFx.Play();
+            return;
+        }
+
+        invulnerabilityTime = hitInvulnerability;
+
+        currentHP -= 1f;
+        animator.Play("hurt", 0, 0f);
+
+
+        if (currentHP <= 0)
+        {
+            state = State.Dead;
+            animator.Play("death", 0, 0f);
+            Wobbit.instance.EndGame();
+        }
+
+        onTakeDamage?.Invoke();
+        //onHealthChanged?.Invoke();
+    }
+
     void FixedUpdate()
     {
         switch (state)
@@ -178,73 +258,120 @@ public class FreeFormOrbitalMove : MonoBehaviour
         if (state == State.Dead)
             return;
 
-        if (invulnerabilityTime > 0)
-        {
-            shieldFx.Play();
-            return;
-        }
-        else
-        {
-            invulnerabilityTime = hitInvulnerability;
-            currentHP -= 1;
+        //despawn attacks when you touch them
 
-            if (currentHP <= 0)
-            {
-                state = State.Dead;
-                Wobbit.instance.EndGame();
-            }
-               
+        //PooledObject pop = other.GetComponent<PooledObject>();
+        //if (pop != null)
+        //    pop.Despawn();
+    
+        TakeDamage();
+        
+    }
 
-            if (onTakeDamage != null)
-            {
-                onTakeDamage();
-            }
-        }
+
+
+    void ParrySuccess()
+    {
+        invulnerabilityTime = parryShieldDuration;
+        if (wave != null)
+            Instantiate(wave, transform.position, Quaternion.identity);
     }
 
     void DoMovement()
     {
         float currentSpeed = state == State.Dash ? dashSpeed : baseSpeed;
 
+        //normalise the input (you spud)
+        Vector2 movement = new Vector2(directionX, directionY).normalized;
+
         //move us closer to origin based on speed
-        currentDistance += -directionY * currentSpeed * Time.fixedDeltaTime;
+        currentDistance += -movement.y * currentSpeed * Time.fixedDeltaTime;
         currentDistance = Mathf.Clamp(currentDistance, minDistance, maxDistance);
 
         //move us around circle based on speed
         float arcSpeed = (currentSpeed / currentDistance) * Mathf.Rad2Deg * Time.fixedDeltaTime;
-        angle += -directionX * arcSpeed;
+        angle += -movement.x * arcSpeed;
+
 
         if (angle < 0f) angle = 360f;
         if (angle > 360f) angle = 0f;
 
         Vector3 moveTo = Utilities.PointWithPolarOffset(origin.position, currentDistance, angle);
 
+        Vector3 lookDir = moveTo - transform.position;
+        if(lookDir != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(lookDir);
+            rb.rotation = targetRotation;
+        }
+
+        rb.MovePosition(moveTo);
+
+        
+    
+        
+
+        //-------------------------------------------------------------------------------------------------------------------------------
+        //Everything below is utterly useless because the solution all along has been to normalise the input which is how you would do it
+        //for regular movement anyway but I tricked myself into believing it was complicated because I am addicted to suffering
+        //-------------------------------------------------------------------------------------------------------------------------------
+
         //prevent slide + reset position
-        if (Movement.magnitude <= 0)
-        {
-            moveTo = rb.position;
-            Vector3 currentDirection = transform.position - origin.position;
-            float currentAngle = Mathf.Atan2(currentDirection.x, currentDirection.z) * Mathf.Rad2Deg;
-            if (currentAngle < 0) { currentAngle = 360 + currentAngle; } //do not question me
-            angle = currentAngle;
-            float calculatedDistance = Vector3.Distance(transform.position, origin.position);
-            currentDistance = calculatedDistance;
+        //if (Movement.magnitude <= 0)
+        //{
+        //    moveTo = rb.position;
+        //    RecalculatePosition();
+        //}
 
-        }
+        // Vector3 direction = moveTo - rb.position;
 
-        Vector3 direction = moveTo - rb.position;
+        //if (direction.magnitude > .1f)
+        //{
+        //    if (moveTo - transform.position != Vector3.zero)
+        //    {
+        //        Quaternion targetRotation = Quaternion.LookRotation(moveTo - transform.position);
+        //        rb.rotation = targetRotation;
+        //    }
+        //    Vector3 adjustedMove = rb.position + (direction.normalized * currentSpeed * Time.deltaTime);
+        //    rb.MovePosition(adjustedMove);
 
-        if (direction.magnitude > .1f)
-        {
-            if (moveTo - transform.position != Vector3.zero)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(moveTo - transform.position);
-                rb.rotation = targetRotation;
-            }
-            Vector3 adjustedMove = rb.position + (direction.normalized * currentSpeed * Time.deltaTime);
 
-            rb.MovePosition(adjustedMove);
-        }
+        //}
+
+        //void RecalculatePosition()
+        //{
+        //    Vector3 currentDirection = transform.position - origin.position;
+
+        //    //calculate angle from centre to player
+        //    float currentAngle = Mathf.Atan2(currentDirection.x, currentDirection.z) * Mathf.Rad2Deg;
+        //    if (currentAngle < 0) { currentAngle = 360 + currentAngle; } //do not question me
+        //    angle = currentAngle;
+
+        //    //calculated distance from centre to player
+        //    float calculatedDistance = Vector3.Distance(transform.position, origin.position);
+        //    currentDistance = calculatedDistance;
+        //}
+
+
+        gixmo = moveTo;
+
     }
 
+    //ok so it just kills you
+    public void SetDamageEnabled(bool enabled)
+    {
+        if (enabled)
+            state = State.Walk;
+        else
+            state = State.Dead;
+    }
+    public bool IsAlive()
+    {
+        return state != State.Dead;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(gixmo, 2);
+    }
 }

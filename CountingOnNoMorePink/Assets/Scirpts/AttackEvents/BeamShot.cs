@@ -36,6 +36,8 @@ public class BeamShot : AttackEvent
 
     public override void Fire()
     {
+        base.Fire();
+
         Transform origin = Wobbit.instance.bossOrigin;
 
         if (beams <= 0) { beams = 1; } //stop it dividing by 0
@@ -77,7 +79,8 @@ public class BeamShot : AttackEvent
 
                 if (effectsPrefab == null) effectsPrefab = Wobbit.instance.delayedDangerZoneTest;
 
-                DelayedDangerZone delayedZone = Instantiate(effectsPrefab,point,Quaternion.identity);
+                DelayedDangerZone delayedZone = Wobbit.instance.poolPool.spikePool.Spawn().GetComponent<DelayedDangerZone>();
+                delayedZone.transform.position = point;
 
                 //assign waypoints to tracer (revisit this)
                 if (lineTracer != null)

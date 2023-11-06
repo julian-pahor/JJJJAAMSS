@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class Orbiter : MonoBehaviour
 {
     public Material baseMat;
+    public VisualEffect vfx;
 
     Transform origin;
 
@@ -77,7 +79,7 @@ public class Orbiter : MonoBehaviour
             transform.localScale = Vector3.Lerp(Vector3.one, Vector3.one * 0.01f, lerp);
             if(lerp >= 0.9f)
             {
-                Destroy(gameObject);
+                GetComponent<PooledObject>().Despawn();
             }
 
         }
@@ -89,7 +91,7 @@ public class Orbiter : MonoBehaviour
         rb.MovePosition(Utilities.PointWithPolarOffset(origin.position, distance, angle + angleOffset));
     }
 
-    void OnBeat(int measure, int beat)
+    void OnBeat(int measure, int beat, string marker)
     {
         if (isActive)
         {
@@ -121,7 +123,8 @@ public class Orbiter : MonoBehaviour
         isActive = true;
         bopTimer = 0;
         col.enabled = true;
-        GetComponentInChildren<Renderer>().material = baseMat;
+        GetComponentInChildren<Renderer>().enabled = false;
+        vfx.Play();
     }
 
     private void OnDestroy()
