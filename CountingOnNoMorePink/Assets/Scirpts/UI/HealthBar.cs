@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+//DEPRECATED
+/*
 public class HealthBar : MonoBehaviour
 {
     public FreeFormOrbitalMove player;
@@ -51,3 +53,4 @@ public class HealthBar : MonoBehaviour
     
     }
 }
+*/

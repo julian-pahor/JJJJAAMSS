@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using JetBrains.Annotations;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -44,10 +45,10 @@ public class TimelineEditor : MonoBehaviour
         //previewPopUp.SetActive(false);
         DOTween.SetTweensCapacity(20000, 20);
         //generate 4 phrases and add to list (doing this manually for now)
-        phrases.Add(new Phrase(phraseLength));
-        phrases.Add(new Phrase(phraseLength));
-        phrases.Add(new Phrase(phraseLength));
-        phrases.Add(new Phrase(phraseLength));
+        phrases.Add(new Phrase(phraseLength * 2));
+        phrases.Add(new Phrase(phraseLength * 2));
+        phrases.Add(new Phrase(phraseLength * 4));
+        phrases.Add(new Phrase(phraseLength * 4));
 
         BeatBroadcast.instance.timelineInfo.onBeatTrigger += Beat;
         BeatBroadcast.instance.PlayPreview();
@@ -107,9 +108,11 @@ public class TimelineEditor : MonoBehaviour
 
         currentPhrase = phraseSelector.value;
 
+        int thisLength = currentPhrase <= 1 ? phraseLength * 2 : phraseLength * 4;
+
         //generate timeline bars (beat chunks)
         //generate a beatblock for each segment of the phrase
-        for (int i = 0; i < phraseLength; i++)
+        for (int i = 0; i < thisLength; i++)
         {
             BeatBlokk b = Instantiate(chunkFab, chunkContent);
 
@@ -139,11 +142,44 @@ public class TimelineEditor : MonoBehaviour
 
         currentPhrase = phraseSelector.value;
 
+        if(currentPhrase > 1)
+        {
+            for (int i = 0; i < 32; i++)
+            {
+                BeatBlokk b = Instantiate(chunkFab, chunkContent);
+
+                b.imig.color = b.baseColour;
+
+                if (i == 0 || i % 4 == 0)
+                {
+                    b.imig.color = b.beatColour;
+                }
+
+                b.Initialise(this);
+
+                beatTimeLine.Add(b);
+            }
+        }
+        else
+        {
+            if(beatTimeLine.Count > 32)
+            {
+                for (int i = 0; i < 32; i++)
+                {
+                    Destroy(beatTimeLine[63 - i].gameObject);
+
+                    beatTimeLine.RemoveAt(63 - i);
+
+                }
+            }
+        }
+
         phrases[currentPhrase].LoadPhraseData(beatTimeLine);
 
         foreach (BeatBlokk b in beatTimeLine)
         {
             StartCoroutine(b.Couroot());
+            //b.Updoot();
         }
     }
 
@@ -196,6 +232,25 @@ public class TimelineEditor : MonoBehaviour
         }
         Debug.Log("Load complete");
     }
+
+    //[ContextMenu("Please do not touch this ever")]
+    //public void TryTranslate()
+    //{
+    //    List<string> saveFiles = saveFileDropdown.GetAllSaves();
+
+
+    //    foreach (string s in saveFiles)
+    //    {
+    //        //load save
+    //        saveData.LoadSave(s);
+
+    //        phrases.Clear();
+
+    //        phrases = saveData.GetSavedPhrases();
+
+    //        saveData.TranslateExistingSaves(phrases, s + "_FULL");
+    //    }
+    //}
     #endregion
 
 }
