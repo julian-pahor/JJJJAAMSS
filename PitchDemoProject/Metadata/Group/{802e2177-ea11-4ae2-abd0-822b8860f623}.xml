@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.02.00">
 	<object class="MixerGroup" id="{802e2177-ea11-4ae2-abd0-822b8860f623}">
+		<property name="color">
+			<value>Red</value>
+		</property>
 		<property name="name">
 			<value>Sub-Master</value>
 		</property>
@@ -18,7 +21,6 @@
 		<relationship name="effects">
 			<destination>{6fc50230-0b55-4326-ac8f-8d3e8c1244d7}</destination>
 			<destination>{15ce96f3-131c-4bf0-90b4-d67440512ade}</destination>
-			<destination>{57ea1de0-a3f6-4525-9fea-27b86be6915a}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{c67f8b85-fceb-411c-9f20-5aa6decd4402}" />
@@ -27,16 +29,5 @@
 		<property name="filterTypeA">
 			<value>8</value>
 		</property>
-	</object>
-	<object class="MixerSend" id="{57ea1de0-a3f6-4525-9fea-27b86be6915a}">
-		<property name="level">
-			<value>-20.5</value>
-		</property>
-		<property name="inputFormat">
-			<value>1</value>
-		</property>
-		<relationship name="mixerReturn">
-			<destination>{723bb740-7cff-415a-b7e6-9c9ca8db65cf}</destination>
-		</relationship>
 	</object>
 </objects>
