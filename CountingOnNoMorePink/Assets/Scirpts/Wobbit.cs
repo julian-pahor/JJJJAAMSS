@@ -77,7 +77,7 @@ public class Wobbit : MonoBehaviour
 
     public PersistentData persistentData;
 
-
+    
     //TimeSlow stuff testing 
 
     public FMOD.Studio.EventInstance slowSnapShot;
@@ -116,7 +116,13 @@ public class Wobbit : MonoBehaviour
 
     public void FinishSong()
     {
-        resultScreen.Activate();
+        FreeFormOrbitalMove playerController = player.GetComponent<FreeFormOrbitalMove>();
+        //do not win if you are not win
+        if (playerController.IsAlive())
+        {
+            playerController.SetDamageEnabled(false);
+            resultScreen.Activate();
+        }
     }
 
     public void Restart()

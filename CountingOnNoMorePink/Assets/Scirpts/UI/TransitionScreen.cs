@@ -4,9 +4,15 @@ using UnityEngine;
 using DG.Tweening;
 public class TransitionScreen : MonoBehaviour
 {
-    void Start()
+    bool active = true;
+ 
+    private void Update()
     {
-        transform.DOScale(Vector2.zero,1f).SetEase(Ease.OutBounce).OnComplete( ()=> gameObject.SetActive(false));
+        if(Input.anyKeyDown && active)
+        {
+            active = false;
+            transform.DOScale(Vector2.zero, 1f).SetEase(Ease.OutBounce).OnComplete(() => gameObject.SetActive(false));
+        }
     }
 
 }

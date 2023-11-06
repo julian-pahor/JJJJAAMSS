@@ -23,18 +23,20 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
     //stats
     [Header("Stats")]
-    public int maxHP;
-    public int currentHP;
+    public float maxHP;
+    public float currentHP;
     public float maxShield;
     public float dashInvulnerability;
     public float hitInvulnerability;
-    public float hpRecoveryTime;
-    private float recoverTimer;
-    public float dashCooldown;
+    public float hpRecoverySpeed;
 
+    public float dashCooldown;
+    //public float parryCooldown;
+    public float parryShieldDuration;
 
     //effects
     [Header("Effects")]
+
     public Color baseColour;
     public GameObject parrySphere;
     public ParticleSystem shieldFx;
@@ -68,11 +70,16 @@ public class FreeFormOrbitalMove : MonoBehaviour
     float directionY;  
     public Vector2 Movement { get { return new Vector2(directionX,directionY); } }
     Vector2 deltaMove;
+
+    //parry
+    Parry parryHandler;
+    public Shockwave wave;
     
     //timers
     float dashCd;
     float dashTime;
     float invulnerabilityTime;
+    float parryCd;
 
     //flags
     bool canDash;
@@ -84,8 +91,11 @@ public class FreeFormOrbitalMove : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         currentHP = maxHP;
         currentDistance = maxDistance;
-        recoverTimer = hpRecoveryTime;
-        //StartCoroutine(SpeedCheck());
+       
+        //recoverTimer = hpRecoveryTime;
+
+        parryHandler = GetComponent<Parry>();
+        parryHandler.onParrySuccess += ParrySuccess;
     }
 
 
@@ -104,13 +114,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
         //Timed Heal on Player
         if (currentHP < maxHP && invulnerabilityTime <= 0)
         {
-            recoverTimer -= Time.deltaTime;
-            if (recoverTimer < 0)
-            {
-                recoverTimer = hpRecoveryTime;
-                currentHP += 1;
-                onHealthChanged?.Invoke();
-            }
+            currentHP += hpRecoverySpeed * Time.deltaTime;
         }
 
         switch (state)
@@ -132,14 +136,36 @@ public class FreeFormOrbitalMove : MonoBehaviour
                 if(dashCd <= 0 && !canDash)
                 {
                     canDash = true;
-                    dashRecover.Play(true);
+                  
                 }
 
+                //parry
+                //if(parryCd > 0f)
+                //    parryCd -= Time.deltaTime;
+
+                //if (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0) || Input.GetButtonDown("Parry"))
+                //{
+                //    if(parryCd <= 0)
+                //    {
+                //        parryHandler.DoParry();
+                //        parryCd = parryCooldown;
+                //    }
+
+                //}
+
                 //dash
-                if (Input.GetKeyDown(KeyCode.Space) && dashCd <= 0)
+                if ((Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Jump")) && dashCd <= 0)
                 {
-                    if (movement != Vector2.zero)
-                        animator.Play("dash", 0, 0f);
+                    if (movement == Vector2.zero)
+                    {
+                        parryHandler.DoParry();
+                        dashCd = dashCooldown;
+                        dashRecover.Play(true);
+                        return;
+                    }
+
+
+                    animator.Play("dash", 0, 0f);
                     dashTrail.Play();
                     canDash = false;
                     dashCd = dashCooldown;
@@ -190,11 +216,17 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
     }
 
-    void TakeDamage()
+    public void TakeDamage()
     {
+        if (invulnerabilityTime > 0)
+        {
+            shieldFx.Play();
+            return;
+        }
+
         invulnerabilityTime = hitInvulnerability;
-        recoverTimer = hpRecoveryTime;
-        currentHP -= 1;
+
+        currentHP -= 1f;
         animator.Play("hurt", 0, 0f);
 
 
@@ -206,7 +238,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
         }
 
         onTakeDamage?.Invoke();
-        onHealthChanged?.Invoke();
+        //onHealthChanged?.Invoke();
     }
 
     void FixedUpdate()
@@ -226,15 +258,23 @@ public class FreeFormOrbitalMove : MonoBehaviour
         if (state == State.Dead)
             return;
 
-        if (invulnerabilityTime > 0)
-        {
-            shieldFx.Play();
-            return;
-        }
-        else
-        {
-            TakeDamage();
-        }
+        //despawn attacks when you touch them
+
+        //PooledObject pop = other.GetComponent<PooledObject>();
+        //if (pop != null)
+        //    pop.Despawn();
+    
+        TakeDamage();
+        
+    }
+
+
+
+    void ParrySuccess()
+    {
+        invulnerabilityTime = parryShieldDuration;
+        if (wave != null)
+            Instantiate(wave, transform.position, Quaternion.identity);
     }
 
     void DoMovement()
@@ -315,6 +355,19 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
         gixmo = moveTo;
 
+    }
+
+    //ok so it just kills you
+    public void SetDamageEnabled(bool enabled)
+    {
+        if (enabled)
+            state = State.Walk;
+        else
+            state = State.Dead;
+    }
+    public bool IsAlive()
+    {
+        return state != State.Dead;
     }
 
     private void OnDrawGizmos()

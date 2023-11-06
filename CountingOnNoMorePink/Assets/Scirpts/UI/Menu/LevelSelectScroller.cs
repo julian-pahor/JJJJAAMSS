@@ -72,14 +72,14 @@ public class LevelSelectScroller : MonoBehaviour
                
             }
         }
-        //else
-        //{
-        //    //Called if the directory has not been created yet to move all existing saves
-        //    //from resources into the persistent data path 
+        else
+        {
+            //Called if the directory has not been created yet to move all existing saves
+            //from resources into the persistent data path 
 
-        //    TransportFilesFromResources();
-        //    LoadSavesFromPersistent();
-        //}
+            TransportFilesFromResources();
+            LoadSavesFromPersistent();
+        }
     }
 
     void TransportFilesFromResources()

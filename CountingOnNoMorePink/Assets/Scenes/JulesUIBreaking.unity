@@ -11035,6 +11035,7 @@ MonoBehaviour:
   hitInvulnerability: 0
   hpRecoveryTime: 0
   dashCooldown: 0
+  parryShieldDuration: 0
   baseColour: {r: 0.19103774, g: 0.764151, b: 0.45703605, a: 0}
   parrySphere: {fileID: 3569889186271238195}
   shieldFx: {fileID: 3569889187995897787}
@@ -11051,6 +11052,7 @@ MonoBehaviour:
   dashRecover: {fileID: 0}
   dashTrail: {fileID: 0}
   animator: {fileID: 0}
+  wave: {fileID: 0}
 --- !u!199 &3569889187626022508
 ParticleSystemRenderer:
   serializedVersion: 6
