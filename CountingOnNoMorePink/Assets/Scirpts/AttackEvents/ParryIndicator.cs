@@ -5,17 +5,20 @@ using UnityEngine;
 
 public class ParryIndicator : MonoBehaviour
 {
-
-    public Polygon polygon;
     public float rotationValue;
     int index;
     float currentRotation;
     Transform player;
+    public Transform indicator;
+    int totalBeats;
+    Vector3 baseScale;
     public void Setup(int beats, Transform player)
     {
         index = beats;
+        totalBeats = beats;
         this.player = player;
         BeatBroadcast.instance.timelineInfo.onBeatTrigger += OnBeat;
+        baseScale = indicator.localScale;
         
     }
 
@@ -28,14 +31,16 @@ public class ParryIndicator : MonoBehaviour
         BeatBroadcast.instance.timelineInfo.onBeatTrigger -= OnBeat;
     }
 
-    void OnBeat(int beat, int bar)
+    void OnBeat(int beat, int bar, string marker)
     {
         currentRotation += rotationValue;
+        index -= 1;
 
         transform.rotation = Quaternion.Euler(transform.rotation.x, currentRotation, transform.rotation.y);
-        polygon.polygonRadius -= 1;
-        polygon.centerRadius -= 1;
-        index -= 1;
+        indicator.localScale = baseScale * ((float)index / (float)totalBeats);
+
+   
+    
         if (index <= 0)
             Destroy(gameObject);
     }

@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class Orbiter : MonoBehaviour
 {
     public Material baseMat;
+    public VisualEffect vfx;
 
     Transform origin;
 
@@ -121,7 +123,8 @@ public class Orbiter : MonoBehaviour
         isActive = true;
         bopTimer = 0;
         col.enabled = true;
-        GetComponentInChildren<Renderer>().material = baseMat;
+        GetComponentInChildren<Renderer>().enabled = false;
+        vfx.Play();
     }
 
     private void OnDestroy()

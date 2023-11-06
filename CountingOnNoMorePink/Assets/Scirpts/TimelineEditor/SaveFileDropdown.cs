@@ -5,6 +5,7 @@ using TMPro;
 using System.Linq;
 using UnityEngine.Windows;
 using System.IO;
+using DG.Tweening.Plugins;
 
 //Helper component that checks the SongSave folder for save files and creates a dropdown list of them
 //returns a string that should correspond to the name of the file we want to load
@@ -23,6 +24,7 @@ public class SaveFileDropdown : MonoBehaviour
         //LoadSavesFromFolder();
         LoadSavesFromPersistent();
         SetCurrentIndex(persistentData.songIndex);
+        Debug.Log(files[persistentData.songIndex]);
     }
 
     //TODO: THIS WILL NOT WORK IN BUILD (apparently) - FIND A WAY THAT WILL (https://docs.unity3d.com/ScriptReference/Resources.LoadAll.html)
@@ -100,6 +102,11 @@ public class SaveFileDropdown : MonoBehaviour
 
         return files[dropdown.value];
     }
+
+    public List<string> GetAllSaves()
+    {
+        return files;
+    }
     
     public void StoreSongIndex()
     {
@@ -124,6 +131,10 @@ public class SaveFileDropdown : MonoBehaviour
 
     //    Debug.Log(Application.persistentDataPath);
     //}
+
+
+
+
 
     //[ContextMenu("TRANSLATE (BECAREFUL) !AHHH!")]
     //public void TranslateCurrentSaves()

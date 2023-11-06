@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class AttackIndicator : MonoBehaviour
 {
-    Polygon poly;
+    //Polygon poly;
     MeshRenderer mershRernderer;
+    Material circleShader;
 
     float initial;
     float lifespan;
@@ -16,15 +17,15 @@ public class AttackIndicator : MonoBehaviour
 
     private void Start()
     {
-        poly = GetComponent<Polygon>();
-        mershRernderer = poly.GetComponent<MeshRenderer>();
+        mershRernderer = GetComponent<MeshRenderer>();
         mershRernderer.enabled = false;
+        circleShader = mershRernderer.material;
     }
 
     public void Initialise(float timer)
     {
+        Debug.Log(timer);
         mershRernderer.enabled = true;
-        initial = poly.polygonRadius;
         lifespan = timer;
         currentLife = timer;
     }
@@ -38,11 +39,12 @@ public class AttackIndicator : MonoBehaviour
 
     void Update()
     {
+        //this lerp wasn't always pointless I swear
         currentLife -= Time.deltaTime;
-        if(!direction)
-        poly.centerRadius = Mathf.Lerp(0,initial,currentLife/lifespan);
+        if (!direction)
+            circleShader.SetFloat("_Inner", Mathf.Lerp(0, 1, currentLife / lifespan));
         else
-        poly.centerRadius = Mathf.Lerp(initial, 0, currentLife / lifespan);
+            circleShader.SetFloat("_Inner", Mathf.Lerp(1, 0, currentLife / lifespan));
 
         if (currentLife <= 0)
             mershRernderer.enabled = false;
