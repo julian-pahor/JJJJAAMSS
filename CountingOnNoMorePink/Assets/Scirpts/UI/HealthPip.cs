@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+//ALSO DEPRECATED
+/*
 public class HealthPip : MonoBehaviour
 {
 
@@ -74,3 +77,4 @@ public class HealthPip : MonoBehaviour
     }
    
 }
+*/

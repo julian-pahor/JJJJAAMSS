@@ -23,19 +23,20 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
     //stats
     [Header("Stats")]
-    public int maxHP;
-    public int currentHP;
+    public float maxHP;
+    public float currentHP;
     public float maxShield;
     public float dashInvulnerability;
     public float hitInvulnerability;
-    public float hpRecoveryTime;
-    private float recoverTimer;
+    public float hpRecoverySpeed;
+
     public float dashCooldown;
     //public float parryCooldown;
     public float parryShieldDuration;
 
     //effects
     [Header("Effects")]
+
     public Color baseColour;
     public GameObject parrySphere;
     public ParticleSystem shieldFx;
@@ -90,7 +91,9 @@ public class FreeFormOrbitalMove : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         currentHP = maxHP;
         currentDistance = maxDistance;
-        recoverTimer = hpRecoveryTime;
+       
+        //recoverTimer = hpRecoveryTime;
+
         parryHandler = GetComponent<Parry>();
         parryHandler.onParrySuccess += ParrySuccess;
     }
@@ -111,13 +114,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
         //Timed Heal on Player
         if (currentHP < maxHP && invulnerabilityTime <= 0)
         {
-            recoverTimer -= Time.deltaTime;
-            if (recoverTimer < 0)
-            {
-                recoverTimer = hpRecoveryTime;
-                currentHP += 1;
-                onHealthChanged?.Invoke();
-            }
+            currentHP += hpRecoverySpeed * Time.deltaTime;
         }
 
         switch (state)
@@ -228,8 +225,8 @@ public class FreeFormOrbitalMove : MonoBehaviour
         }
 
         invulnerabilityTime = hitInvulnerability;
-        recoverTimer = hpRecoveryTime;
-        currentHP -= 1;
+
+        currentHP -= 1f;
         animator.Play("hurt", 0, 0f);
 
 
@@ -241,7 +238,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
         }
 
         onTakeDamage?.Invoke();
-        onHealthChanged?.Invoke();
+        //onHealthChanged?.Invoke();
     }
 
     void FixedUpdate()
