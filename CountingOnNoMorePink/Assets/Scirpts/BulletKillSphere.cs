@@ -4,15 +4,5 @@ using UnityEngine;
 
 public class BulletKillSphere : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    //this script needs to exist for a getcomponent call on the bullet. don't remove it it needs to be here.
 }

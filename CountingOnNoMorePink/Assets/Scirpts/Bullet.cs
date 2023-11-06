@@ -11,6 +11,7 @@ public class Bullet : MonoBehaviour
 
     float lifespan;
     public bool flying;
+    public bool permanent;
 
     
     public void Initialise(Vector3 dir)
@@ -26,7 +27,9 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        lifespan += Time.deltaTime;
+        if(!permanent)
+            lifespan += Time.deltaTime;
+
         if(flying)transform.position += direction.normalized * speed * Time.deltaTime;
 
         if (lifespan > maxLife)

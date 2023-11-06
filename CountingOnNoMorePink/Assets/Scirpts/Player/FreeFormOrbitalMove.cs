@@ -31,7 +31,8 @@ public class FreeFormOrbitalMove : MonoBehaviour
     public float hpRecoveryTime;
     private float recoverTimer;
     public float dashCooldown;
-    public float parryCooldown;
+    //public float parryCooldown;
+    public float parryShieldDuration;
 
     //effects
     [Header("Effects")]
@@ -71,6 +72,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
     //parry
     Parry parryHandler;
+    public Shockwave wave;
     
     //timers
     float dashCd;
@@ -90,6 +92,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
         currentDistance = maxDistance;
         recoverTimer = hpRecoveryTime;
         parryHandler = GetComponent<Parry>();
+        parryHandler.onParrySuccess += ParrySuccess;
     }
 
 
@@ -136,28 +139,36 @@ public class FreeFormOrbitalMove : MonoBehaviour
                 if(dashCd <= 0 && !canDash)
                 {
                     canDash = true;
-                    dashRecover.Play(true);
+                  
                 }
 
                 //parry
-                if(parryCd > 0f)
-                    parryCd -= Time.deltaTime;
+                //if(parryCd > 0f)
+                //    parryCd -= Time.deltaTime;
 
-                if (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0) || Input.GetButtonDown("Parry"))
-                {
-                    if(parryCd <= 0)
-                    {
-                        parryHandler.DoParry();
-                        parryCd = parryCooldown;
-                    }
+                //if (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0) || Input.GetButtonDown("Parry"))
+                //{
+                //    if(parryCd <= 0)
+                //    {
+                //        parryHandler.DoParry();
+                //        parryCd = parryCooldown;
+                //    }
 
-                }
+                //}
 
                 //dash
                 if ((Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Jump")) && dashCd <= 0)
                 {
-                    if (movement != Vector2.zero)
-                        animator.Play("dash", 0, 0f);
+                    if (movement == Vector2.zero)
+                    {
+                        parryHandler.DoParry();
+                        dashCd = dashCooldown;
+                        dashRecover.Play(true);
+                        return;
+                    }
+
+
+                    animator.Play("dash", 0, 0f);
                     dashTrail.Play();
                     canDash = false;
                     dashCd = dashCooldown;
@@ -208,8 +219,14 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
     }
 
-    void TakeDamage()
+    public void TakeDamage()
     {
+        if (invulnerabilityTime > 0)
+        {
+            shieldFx.Play();
+            return;
+        }
+
         invulnerabilityTime = hitInvulnerability;
         recoverTimer = hpRecoveryTime;
         currentHP -= 1;
@@ -244,15 +261,23 @@ public class FreeFormOrbitalMove : MonoBehaviour
         if (state == State.Dead)
             return;
 
-        if (invulnerabilityTime > 0)
-        {
-            shieldFx.Play();
-            return;
-        }
-        else
-        {
-            TakeDamage();
-        }
+        //despawn attacks when you touch them
+
+        //PooledObject pop = other.GetComponent<PooledObject>();
+        //if (pop != null)
+        //    pop.Despawn();
+    
+        TakeDamage();
+        
+    }
+
+
+
+    void ParrySuccess()
+    {
+        invulnerabilityTime = parryShieldDuration;
+        if (wave != null)
+            Instantiate(wave, transform.position, Quaternion.identity);
     }
 
     void DoMovement()

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5149519100965945418}
   - component: {fileID: 8250862803637906100}
   - component: {fileID: 2319922787294789239}
-  - component: {fileID: 3070043914032395217}
   - component: {fileID: 2894936775397399628}
   - component: {fileID: 2783659211694820116}
   m_Layer: 8
@@ -86,19 +85,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &3070043914032395217
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3337222313661790700}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 0.25
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2894936775397399628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,8 +98,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
-  maxLife: 99
+  maxLife: 10
   flying: 1
+  permanent: 1
 --- !u!54 &2783659211694820116
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -142,7 +129,7 @@ GameObject:
   - component: {fileID: 6722106838791275156}
   - component: {fileID: 6256217896062519758}
   - component: {fileID: 994258900174212055}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Orbiter_Test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,7 +161,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5286234803533288739}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
@@ -220,7 +207,7 @@ GameObject:
   - component: {fileID: 4085273392482068541}
   - component: {fileID: 2159114737315147751}
   - component: {fileID: 3785817542555321363}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ElectroBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
