@@ -85,14 +85,14 @@ public class BeatTimeline : MonoBehaviour
         }
 
         //End of Audio Event / Last call from Beat Broadcast
-        if(marker == "End")
+        if(marker == "End" || marker == "Cooldown")
         {
             return;
         }
 
         //Currently stops functionality during transitional bars
         //TODO: Move transitions to a seperate event that automatically stops and resumes timeline event
-        if (bar == 13 || bar == 14 || bar == 23 || bar == 24)
+        if (bar == 13 || bar == 14 || bar == 23 || bar == 24 || bar == 40 || bar == 41)
         {
             return;
         }

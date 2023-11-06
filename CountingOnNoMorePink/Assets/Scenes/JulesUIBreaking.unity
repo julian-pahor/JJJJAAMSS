@@ -1812,7 +1812,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 802462505}
   m_HandleRect: {fileID: 802462504}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -5571,7 +5571,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -0.0000076293945, y: 134.695}
+  m_AnchoredPosition: {x: 0.0000076293945, y: 134.695}
   m_SizeDelta: {x: 0, y: 264.1614}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1250977418
@@ -6575,7 +6575,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1567423060}
   m_HandleRect: {fileID: 1567423059}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -10261,6 +10261,7 @@ MonoBehaviour:
   bulletFab: {fileID: 7644032560125799486, guid: 0a6ed7cbc677a964ea85dcd01f2752a3, type: 3}
   zoneFab: {fileID: -7176906844379118928, guid: 439b5796bad25ba499204b827d4b80ca, type: 3}
   bossOrigin: {fileID: 5370532112313369758}
+  boss: {fileID: 0}
   player: {fileID: 3569889187259507005}
   warning: {fileID: 8052978860759300613, guid: 98bac3819942fb849a36f5f3f80f6bbd, type: 3}
   pink: {fileID: 4733402312760868294, guid: 15ff1fa1221bad743b7936c16cb7f41f, type: 3}
@@ -11049,6 +11050,7 @@ MonoBehaviour:
   puffInterval: 1
   dashRecover: {fileID: 0}
   dashTrail: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!199 &3569889187626022508
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -20971,6 +20973,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b28848065856804db3dd89d8e4fea82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  slash: {fileID: 0}
+  shockwave: {fileID: 0}
 --- !u!1 &4667487693722676883
 GameObject:
   m_ObjectHideFlags: 0

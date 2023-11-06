@@ -178,15 +178,17 @@ public static class Utilities
 
 
         //PERSISTENT DATA PATH LOADING STARTS HERE----------
+        //Formatting string correctly to find folder in persistent data path
         string path = Application.persistentDataPath + "/SongSaves/";
 
         DirectoryInfo di = new DirectoryInfo(path);
 
+        //Checks if direcotory existed on computer
         if (di.Exists)
         {
-            //Debug.Log("Directory Exists Yay");
             foreach (var file in System.IO.Directory.GetFiles(path))
             {
+                //Formatting file names to just be the save name 
                 string filePath = file.Replace(path, "");
                 filePath = filePath.Replace(".json", "");
                 if(filePath == saveName)
