@@ -54,7 +54,7 @@ public class MainMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        blip.Play();
+        //blip.Play();
         mouseOver = true;
     }
 
