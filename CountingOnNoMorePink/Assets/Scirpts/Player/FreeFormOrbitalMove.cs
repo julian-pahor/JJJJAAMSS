@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.VFX;
 
 public class FreeFormOrbitalMove : MonoBehaviour
 {
@@ -38,9 +39,10 @@ public class FreeFormOrbitalMove : MonoBehaviour
     [Header("Effects")]
 
     public Color baseColour;
-    public GameObject parrySphere;
-    public ParticleSystem shieldFx;
-    public AnimationCurve shieldPop;
+    //public GameObject parrySphere;
+    public VisualEffect shieldFx;
+    //public AnimationCurve shieldPop;
+    InvulnerabilityHightlight highlight;
 
     public ParticleSystem slashFx;
     public GameObject slashTransform;
@@ -88,11 +90,14 @@ public class FreeFormOrbitalMove : MonoBehaviour
   
     private void Start()
     {
+
         rb = GetComponent<Rigidbody>();
         currentHP = maxHP;
         currentDistance = maxDistance;
        
         //recoverTimer = hpRecoveryTime;
+
+        highlight = GetComponent<InvulnerabilityHightlight>();
 
         parryHandler = GetComponent<Parry>();
         parryHandler.onParrySuccess += ParrySuccess;
@@ -101,15 +106,17 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
     private void Update()
     {
-
+        
         //decrease inv timer        
         if (invulnerabilityTime > 0)
         {
             invulnerabilityTime -= Time.deltaTime;
-            parrySphere.transform.localScale = new Vector3(3f, 3f, 3f) * shieldPop.Evaluate(1 - (invulnerabilityTime / dashInvulnerability));
+            highlight.GlowOn();
+            //parrySphere.transform.localScale = new Vector3(3f, 3f, 3f) * shieldPop.Evaluate(1 - (invulnerabilityTime / dashInvulnerability));
         }
         else
-            parrySphere.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+            highlight.GlowOff();
+        //parrySphere.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 
         //Timed Heal on Player
         if (currentHP < maxHP && invulnerabilityTime <= 0)

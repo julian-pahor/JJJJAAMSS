@@ -8,6 +8,9 @@ public class RadialHealthBar : MonoBehaviour
     public FreeFormOrbitalMove player;
     public Transform canvas;
     public Transform rotTarget;
+
+    public Gradient gradient;
+
     Image image;
 
     private void Start()
@@ -19,8 +22,11 @@ public class RadialHealthBar : MonoBehaviour
     {
         if(player == null)
             return;
+        image.enabled = player.currentHP < player.maxHP;
 
         image.fillAmount = player.currentHP / player.maxHP;
+
+        image.color = gradient.Evaluate(player.currentHP / player.maxHP);
 
         RotateTowardsTarget();
     }
