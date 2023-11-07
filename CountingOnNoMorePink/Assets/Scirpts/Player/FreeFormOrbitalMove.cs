@@ -32,7 +32,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
     public float hpRecoverySpeed;
 
     public float dashCooldown;
-    //public float parryCooldown;
+    public float parryCooldown;
     public float parryShieldDuration;
 
     //effects
@@ -143,42 +143,41 @@ public class FreeFormOrbitalMove : MonoBehaviour
                 if(dashCd <= 0 && !canDash)
                 {
                     canDash = true;
-                  
                 }
 
                 //parry
-                //if(parryCd > 0f)
-                //    parryCd -= Time.deltaTime;
-
-                //if (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0) || Input.GetButtonDown("Parry"))
-                //{
-                //    if(parryCd <= 0)
-                //    {
-                //        parryHandler.DoParry();
-                //        parryCd = parryCooldown;
-                //    }
-
-                //}
+                if (parryCd > 0f)
+                    parryCd -= Time.deltaTime;
 
                 //dash
-                if ((Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Jump")) && dashCd <= 0)
+                if ((Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Jump")))
                 {
+                    //try to parry
                     if (movement == Vector2.zero)
                     {
+                        if (parryCd > 0)
+                            return;
+
                         parryHandler.DoParry();
-                        dashCd = dashCooldown;
+                        parryCd = parryCooldown;
                         dashRecover.Play(true);
                         return;
                     }
 
+                    //try to dash
+                    else
+                    {
+                        if (dashCd > 0)
+                            return;
 
-                    animator.Play("dash", 0, 0f);
-                    dashTrail.Play();
-                    canDash = false;
-                    dashCd = dashCooldown;
-                    dashTime = maxDash;
-                    invulnerabilityTime = dashInvulnerability;
-                    state = State.Dash;
+                        animator.Play("dash", 0, 0f);
+                        dashTrail.Play();
+                        canDash = false;
+                        dashCd = dashCooldown;
+                        dashTime = maxDash;
+                        invulnerabilityTime = dashInvulnerability;
+                        state = State.Dash;
+                    }
                 }
 
                 //walk puff

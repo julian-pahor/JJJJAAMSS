@@ -10,25 +10,71 @@ public class RadialHealthBar : MonoBehaviour
     public Transform rotTarget;
 
     public Gradient gradient;
+    public AnimationCurve curve;
+
+    public float hitFlashDuration;
+    
+
+    public float flashLength;
+    public float healthFlashThreshold;
 
     Image image;
+    float healthPercentage;
+    float currentFlashAmount;
+    float hitFlashTimer;
+
+    Color currentColour;
+
 
     private void Start()
     {
         image = GetComponent<Image>();
+        player.onTakeDamage += Hit;
     }
 
     private void Update()
     {
         if(player == null)
             return;
+
+        healthPercentage = player.currentHP / player.maxHP;
+
         image.enabled = player.currentHP < player.maxHP;
 
-        image.fillAmount = player.currentHP / player.maxHP;
+        image.fillAmount = healthPercentage;
 
-        image.color = gradient.Evaluate(player.currentHP / player.maxHP);
+        DoColour();
 
         RotateTowardsTarget();
+    }
+
+
+    void Hit()
+    {
+        hitFlashTimer = hitFlashDuration;
+    }
+
+    void DoColour()
+    {
+      
+        if (hitFlashTimer > 0)
+            hitFlashTimer -= Time.deltaTime;
+
+        currentColour = gradient.Evaluate(healthPercentage);
+
+
+        //flash healthbar if we just took a hit, or if we're close to death
+        if (hitFlashTimer > 0 || healthPercentage <= healthFlashThreshold)
+        {
+            currentFlashAmount = Mathf.PingPong(Time.time, flashLength);
+            image.color = Color.Lerp(currentColour, Color.white, curve.Evaluate(currentFlashAmount / flashLength));
+        }
+        else
+        {
+
+            image.color = currentColour;
+        }
+
     }
 
     void RotateTowardsTarget()
