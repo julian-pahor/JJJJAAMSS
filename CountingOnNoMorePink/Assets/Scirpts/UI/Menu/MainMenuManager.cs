@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+//using UnityEngine.SceneManagement;
 using DG.Tweening;
 using TMPro;
 
 public class MainMenuManager : MonoBehaviour
 {
     public PersistentData persistentData;
+
+    LoadingScreen loadingScreen;
 
     //everything is hardcoded cos graaah
     [Header("Main Menu Objects")]
@@ -46,7 +48,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void Start()
     {
-
+        loadingScreen = GetComponent<LoadingScreen>();
         EnterMain();
     }
 
@@ -208,13 +210,13 @@ public class MainMenuManager : MonoBehaviour
     public void GoToEditor()
     {
         persistentData.songIndex = selectorWheel.GetComponent<LevelSelectScroller>().GetIndex();
-        SceneManager.LoadScene("JulesUIBreaking");
+        loadingScreen.BeginLoad("JulesUIBreaking");
     }
 
     public void StartGame()
     {
         persistentData.songIndex = selectorWheel.GetComponent<LevelSelectScroller>().GetIndex();
-        SceneManager.LoadScene("AlfRoomOfCretivity");
+        loadingScreen.BeginLoad("AlfRoomOfCretivity");
     }
 
     public void Quit()
