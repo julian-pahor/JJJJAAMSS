@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+
 using DG.Tweening;
 using JetBrains.Annotations;
 
@@ -79,7 +79,7 @@ public class TimelineEditor : MonoBehaviour
         saveFileDropdown.StoreSongIndex();
         TrySave();
 
-        SceneManager.LoadScene(mainScene);
+        Wobbit.instance.loadingScreen.BeginLoad(mainScene);
     }
 
     public void UpdateAllSlots()
@@ -142,36 +142,33 @@ public class TimelineEditor : MonoBehaviour
 
         currentPhrase = phraseSelector.value;
 
-        if(currentPhrase > 1)
+        //clear out any existing blocks
+        foreach (BeatBlokk b in beatTimeLine)
         {
-            for (int i = 0; i < 32; i++)
-            {
-                BeatBlokk b = Instantiate(chunkFab, chunkContent);
-
-                b.imig.color = b.baseColour;
-
-                if (i == 0 || i % 4 == 0)
-                {
-                    b.imig.color = b.beatColour;
-                }
-
-                b.Initialise(this);
-
-                beatTimeLine.Add(b);
-            }
+            StopAllCoroutines();
+            DOTween.KillAll();
+            Destroy(b.gameObject);
         }
-        else
+
+        beatTimeLine.Clear();
+        int thisLength = currentPhrase <= 1 ? phraseLength * 2 : phraseLength * 4;
+
+        //generate timeline bars (beat chunks)
+        //generate a beatblock for each segment of the phrase
+        for (int i = 0; i < thisLength; i++)
         {
-            if(beatTimeLine.Count > 32)
+            BeatBlokk b = Instantiate(chunkFab, chunkContent);
+
+            b.imig.color = b.baseColour;
+
+            if (i == 0 || i % 4 == 0)
             {
-                for (int i = 0; i < 32; i++)
-                {
-                    Destroy(beatTimeLine[63 - i].gameObject);
-
-                    beatTimeLine.RemoveAt(63 - i);
-
-                }
+                b.imig.color = b.beatColour;
             }
+
+            b.Initialise(this);
+
+            beatTimeLine.Add(b);
         }
 
         phrases[currentPhrase].LoadPhraseData(beatTimeLine);

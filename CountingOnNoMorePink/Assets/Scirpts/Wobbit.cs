@@ -21,6 +21,7 @@ public class Wobbit : MonoBehaviour
     private void Start()
     {
         timeline = FindObjectOfType<BeatTimeline>();
+        loadingScreen = GetComponent<LoadingScreen>();
 
         playerMovement.onTakeDamage += TakeDamage;
 
@@ -32,13 +33,15 @@ public class Wobbit : MonoBehaviour
     public void GoToMenu()
     {
         GetComponent<BeatTimeline>().saveFileDropdown.StoreSongIndex();
-        SceneManager.LoadScene("MainMenu");
+
+        loadingScreen.BeginLoad("MainMenu");
+     
     }
 
     public void GoToEditor()
     {
         GetComponent<BeatTimeline>().saveFileDropdown.StoreSongIndex();
-        SceneManager.LoadScene("JulesUIBreaking");
+        loadingScreen.BeginLoad("JulesUIBreaking");
     }
 
     //very temporary references to junk I need for the demo
@@ -88,7 +91,10 @@ public class Wobbit : MonoBehaviour
 
     public GameOverscreen gameOverScreen;
     public ResultsScreen resultScreen;
-    
+
+    //scene transition manager
+    public LoadingScreen loadingScreen;
+
     public void TakeDamage()
     {
         targetScale = 0;
@@ -127,7 +133,7 @@ public class Wobbit : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        loadingScreen.BeginLoad(SceneManager.GetActiveScene().name);
         persistentData.currentSongRestarts += 1;
     }
 
@@ -136,7 +142,7 @@ public class Wobbit : MonoBehaviour
         
         playerMovement.currentHP = playerMovement.maxHP;
         playerMovement.onHealthChanged?.Invoke();
-        SceneManager.LoadScene("MainMenu");
+        loadingScreen.BeginLoad("MainMenu");
     }
 
     public void CreateCountDownIndicator(int beats)
