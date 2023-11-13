@@ -91,7 +91,7 @@ public class ResultsScreen : MonoBehaviour
             return;
         }
 
-        parryScore = ((parryScore - Wobbit.instance.persistentData.currentSongMissedParrys) / parryScore * 100f);
+        parryScore = (int)((parryScore - Wobbit.instance.persistentData.currentSongMissedParrys) / parryScore * 100f);
     }
 
     //AUUAAGAUAAGAUGUUUGHGHG
