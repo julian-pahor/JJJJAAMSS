@@ -194,7 +194,8 @@ public class TimelineEditor : MonoBehaviour
 #endif
 
         //saveFileDropdown.LoadSavesFromFolder(); //refresh dropdown
-        saveFileDropdown.LoadSavesFromPersistent();
+        //saveFileDropdown.LoadSavesFromPersistent();
+        saveFileDropdown.LoadSaves();
         Debug.Log("Saved");
 
     }

@@ -166,7 +166,7 @@ public static class Utilities
 
         //PERSISTENT DATA PATH LOADING STARTS HERE----------
 
-        string path = Application.persistentDataPath + "/SongSaves/" + saveName + ".json";
+        string path = Application.persistentDataPath + "/SongSaves/CustomLevels/" + saveName + ".json";
         string jsonData = JsonUtility.ToJson(saveData);
         System.IO.File.WriteAllText(path, jsonData);
 
