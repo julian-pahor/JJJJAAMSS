@@ -95,6 +95,9 @@ public class Wobbit : MonoBehaviour
     //scene transition manager
     public LoadingScreen loadingScreen;
 
+    //highscoreSave
+    public SongScoreSaver songScoreSaver;
+
     public void TakeDamage()
     {
         targetScale = 0;
@@ -129,6 +132,9 @@ public class Wobbit : MonoBehaviour
             playerController.SetDamageEnabled(false);
             resultScreen.Activate();
         }
+
+        //TODO: GET SONG NAME AND SAVE THING
+       
     }
 
     public void Restart()
