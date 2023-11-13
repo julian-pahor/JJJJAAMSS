@@ -133,7 +133,9 @@ public class Wobbit : MonoBehaviour
             resultScreen.Activate();
         }
 
-        //TODO: GET SONG NAME AND SAVE THING
+        SongScoreData data = resultScreen.GetScoreData();
+
+        songScoreSaver.SaveSongScore(timeline.saveFileDropdown.SongNameFromIndex(persistentData.songIndex), data);
        
     }
 
