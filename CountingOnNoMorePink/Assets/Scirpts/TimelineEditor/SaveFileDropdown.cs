@@ -22,9 +22,10 @@ public class SaveFileDropdown : MonoBehaviour
     {
         dropdown = GetComponent<TMP_Dropdown>();
         //LoadSavesFromFolder();
-        LoadSavesFromPersistent();
+        //LoadSavesFromPersistent();
+        LoadSaves();
         SetCurrentIndex(persistentData.songIndex);
-        Debug.Log(files[persistentData.songIndex]);
+        //Debug.Log(files[persistentData.songIndex]);
     }
 
     //TODO: THIS WILL NOT WORK IN BUILD (apparently) - FIND A WAY THAT WILL (https://docs.unity3d.com/ScriptReference/Resources.LoadAll.html)
@@ -85,6 +86,21 @@ public class SaveFileDropdown : MonoBehaviour
             //from resources into the persistent data path 
             LoadSavesFromFolder();
         }
+    }
+
+    public void LoadSaves()
+    {
+        files.Clear();
+        dropdown.ClearOptions();
+
+        string path = Application.persistentDataPath + "/SongSaves/";
+
+        Utilities.SaveNames saves = new Utilities.SaveNames();
+        saves = Utilities.CheckGetSaves(path);
+
+        files = saves.customLevels;
+
+        dropdown.AddOptions(saves.customLevels);
     }
 
     public void SetCurrentIndex(int index)
