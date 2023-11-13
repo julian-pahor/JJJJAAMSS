@@ -21,6 +21,10 @@ public class MainMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     Image imig;
     RectTransform rectTransform;
 
+    public FMODUnity.StudioEventEmitter blip;
+    public FMODUnity.StudioEventEmitter selG;
+    public FMODUnity.StudioEventEmitter selB;
+
     private void Start()
     {
         imig = GetComponent<Image>();
@@ -50,6 +54,7 @@ public class MainMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        blip.Play();
         mouseOver = true;
     }
 
@@ -60,6 +65,15 @@ public class MainMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if(onClick.GetPersistentEventCount() > 0)
+        {
+            selG.Play();
+        }
+        else
+        {
+            selB.Play();
+        }
+
         onClick?.Invoke();
     }
 

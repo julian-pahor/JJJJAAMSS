@@ -48,6 +48,10 @@ public class SongSave : MonoBehaviour
         this.phraseLength = thisData.phraseLength;
         int fileIndex = 0;
 
+        if(path.Contains("_FULL"))
+        {
+            totalbeats = 32 + 32 + 64 + 64; //Holy jesus get me out of this hard coded spiral I'm in
+        }
 
         //for every beat block
         for (int i = 0; i < totalbeats; i++)
@@ -84,7 +88,7 @@ public class SongSave : MonoBehaviour
 
     public void SaveSong(List<Phrase> songData, string saveName)
     {
-       
+
         ///----JSON TESTING BEGINS HERE
         ///
 
@@ -98,24 +102,23 @@ public class SongSave : MonoBehaviour
         }
 
         Utilities.GameData gameData = new Utilities.GameData();
-        //List<string> saveData = new List<string>();
         gameData.phraseCount = songData.Count;
-        gameData.phraseLength = songData[0].phraseLength;
+        gameData.phraseLength = 16;
 
         foreach (Phrase phrase in songData)
         {
-            //each phrase has 16 blocks
+            //each phrase has 16 blocks -- NOT ANYMORE
             foreach (BlockData blockData in phrase.phraseData)
             {
                 //gets the array of event slots out of blockdata
                 for (int i = 0; i < blockData.events.Length; i++)
                 {
                     AttackEventData reference = new AttackEventData();
-                        
+
                     reference.SerialiseAsData(blockData.events[i]); // == null ? "null" : blockData.events[i].name;
 
                     gameData.fileData.Add(reference);
-                   
+
 
                 }
             }
@@ -126,8 +129,95 @@ public class SongSave : MonoBehaviour
 
         ///---JSON TESTING ENDS HERE
 
-
     }
+    
+    //public void TranslateExistingSaves(List<Phrase> songData, string saveName)
+    //{
+    //    ///----JSON TESTING BEGINS HERE
+    //    ///
+
+    //    if (songData.Count == 0)
+    //        return;
+
+    //    if (saveName == string.Empty)
+    //    {
+    //        Debug.LogWarning("save name cannot be blank");
+    //        return;
+    //    }
+
+    //    Utilities.GameData gameData = new Utilities.GameData();
+    //    gameData.phraseCount = songData.Count;
+    //    gameData.phraseLength = songData[0].phraseLength;
+
+    //    int phraseIndex = 0;
+
+    //    foreach (Phrase phrase in songData)
+    //    {
+    //        phraseIndex++;
+
+    //        //each phrase has 16 blocks -- NOT ANYMORE
+    //        foreach (BlockData blockData in phrase.phraseData)
+    //        {
+    //            //gets the array of event slots out of blockdata
+    //            for (int i = 0; i < blockData.events.Length; i++)
+    //            {
+    //                AttackEventData reference = new AttackEventData();
+
+    //                reference.SerialiseAsData(blockData.events[i]); // == null ? "null" : blockData.events[i].name;
+
+    //                gameData.fileData.Add(reference);
+
+
+    //            }
+    //        }
+
+    //        switch (phraseIndex)
+    //        {
+    //            case (1):
+    //                for (int i = 0; i < 16 ; i++)
+    //                {
+    //                    for(int y = 0; y < 5; y++)
+    //                    {
+    //                        gameData.fileData.Add(new AttackEventData());
+    //                    }
+                        
+    //                }
+    //                break;
+    //            case (2):
+    //                for (int i = 0; i < 16; i++)
+    //                {
+    //                    for (int y = 0; y < 5; y++)
+    //                    {
+    //                        gameData.fileData.Add(new AttackEventData());
+    //                    }
+    //                }
+    //                break;
+    //            case (3):
+    //                for (int i = 0; i < 48; i++)
+    //                {
+    //                    for (int y = 0; y < 5; y++)
+    //                    {
+    //                        gameData.fileData.Add(new AttackEventData());
+    //                    }
+    //                }
+    //                break;
+    //            case (4):
+    //                for (int i = 0; i < 48; i++)
+    //                {
+    //                    for (int y = 0; y < 5; y++)
+    //                    {
+    //                        gameData.fileData.Add(new AttackEventData());
+    //                    }
+    //                }
+    //                break;
+    //        }
+
+    //    }
+
+    //    //GameData should be filled appropraitely at this point
+    //    Utilities.SaveData(gameData, saveName);
+
+    //}
 
     public List<Phrase> GetSavedPhrases()
     {
@@ -139,10 +229,18 @@ public class SongSave : MonoBehaviour
 
         List<Phrase> phrases = new List<Phrase>();
 
-        for(int i = 0; i < phraseCount; i++)
+        for (int i = 0; i < phraseCount; i++)
         {
-            Phrase phrase = new Phrase(phraseLength);
-            for(int k = 0; k < phraseLength; k++)
+            int thisLength;
+            thisLength = i <= 1 ? phraseLength * 2 : phraseLength * 4;
+
+            if(SongLength <= 64)
+            {
+                thisLength = phraseLength;
+            }
+
+            Phrase phrase = new Phrase(thisLength);
+            for(int k = 0; k < thisLength; k++)
             {
                 phrase.phraseData.Add(blockDatas[index]);
                 index++;
