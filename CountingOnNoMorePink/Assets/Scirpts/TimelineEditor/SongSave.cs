@@ -103,7 +103,9 @@ public class SongSave : MonoBehaviour
 
         Utilities.GameData gameData = new Utilities.GameData();
         gameData.phraseCount = songData.Count;
-        gameData.phraseLength = songData[0].phraseLength;
+
+        //gameData.phraseLength = songData[0].phraseLength;
+        gameData.phraseLength = 16;
 
         foreach (Phrase phrase in songData)
         {
