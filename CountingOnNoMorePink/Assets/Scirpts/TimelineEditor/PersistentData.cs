@@ -17,4 +17,19 @@ public class PersistentData : ScriptableObject
 
     public int currentSongMissedParrys;
 
+
+    public SongScoreData GetFinalScore()
+    {
+        SongScoreData scoreData = new SongScoreData();
+
+        scoreData.bestHits = currentSongHits;
+        scoreData.attempts = currentSongRestarts;
+        scoreData.bestTotalParries = currentSongTotalParrys;
+        scoreData.bestPerfectParries = currentSongPerfectParrys;
+        scoreData.bestMissedParries = currentSongMissedParrys;
+
+        return scoreData;
+
+    }
+
 }
