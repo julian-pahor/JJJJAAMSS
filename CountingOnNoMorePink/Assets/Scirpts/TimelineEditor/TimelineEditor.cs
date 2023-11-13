@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+
 using DG.Tweening;
 using JetBrains.Annotations;
 
@@ -79,7 +79,7 @@ public class TimelineEditor : MonoBehaviour
         saveFileDropdown.StoreSongIndex();
         TrySave();
 
-        SceneManager.LoadScene(mainScene);
+        Wobbit.instance.loadingScreen.BeginLoad(mainScene);
     }
 
     public void UpdateAllSlots()
