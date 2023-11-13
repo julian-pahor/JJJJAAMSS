@@ -817,6 +817,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LoadingScreenImage
       objectReference: {fileID: 0}
+    - target: {fileID: 3677177193139874355, guid: 129eaf119c380be4fa0e1a3188d78d1f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 129eaf119c380be4fa0e1a3188d78d1f, type: 3}
 --- !u!1 &100829467 stripped
@@ -1793,7 +1797,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1915068533}
   m_HandleRect: {fileID: 1915068532}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1920,7 +1924,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 802462505}
   m_HandleRect: {fileID: 802462504}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -10392,6 +10396,7 @@ MonoBehaviour:
   playerMovement: {fileID: 3569889187259507007}
   gameOverScreen: {fileID: 0}
   resultScreen: {fileID: 0}
+  loadingScreen: {fileID: 0}
 --- !u!114 &742059331714017216
 MonoBehaviour:
   m_ObjectHideFlags: 0
