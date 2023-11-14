@@ -129,6 +129,11 @@ public class SaveFileDropdown : MonoBehaviour
         persistentData.songIndex = dropdown.value;
     }
 
+    public string SongNameFromIndex(int index)
+    {
+        return files[index];
+    }
+
     //#if UNITY_EDITOR
     //    [ContextMenu("PortSaves")]
     //    public void PortSavesToPersistent()

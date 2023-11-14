@@ -101,6 +101,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
         parryHandler = GetComponent<Parry>();
         parryHandler.onParrySuccess += ParrySuccess;
+
     }
 
 
@@ -119,9 +120,12 @@ public class FreeFormOrbitalMove : MonoBehaviour
         //parrySphere.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 
         //Timed Heal on Player
-        if (currentHP < maxHP && invulnerabilityTime <= 0)
+        if (state != State.Dead)
         {
-            currentHP += hpRecoverySpeed * Time.deltaTime;
+            if (currentHP < maxHP && invulnerabilityTime <= 0)
+            {
+                currentHP += hpRecoverySpeed * Time.deltaTime;
+            }
         }
 
         switch (state)
@@ -224,6 +228,9 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
     public void TakeDamage()
     {
+        if (state == State.Dead)
+            return;
+
         if (invulnerabilityTime > 0)
         {
             shieldFx.Play();
@@ -260,10 +267,6 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
-        if (state == State.Dead)
-            return;
-
         //despawn attacks when you touch them
 
         //PooledObject pop = other.GetComponent<PooledObject>();
