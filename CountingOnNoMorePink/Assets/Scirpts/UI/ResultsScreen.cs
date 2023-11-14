@@ -24,7 +24,7 @@ public class ResultsScreen : MonoBehaviour
 
     private float totalWeighting;
 
-    public Sprite pGrade, sGrade, aGrade, bGrade, cGrade;
+    public Sprite sGrade, aGrade, bGrade, cGrade;
 
 
     // Start is called before the first frame update
@@ -45,7 +45,11 @@ public class ResultsScreen : MonoBehaviour
         hitResults.resultAmount.text = "";
         restartResults.resultAmount.text = "";
 
-        finalGrade.color = new Color(1, 1, 1, 0);
+        parryResults.gradeScore.color = new Color(1,1,1,0);
+        hitResults.gradeScore.color = new Color(1, 1, 1, 0);
+        restartResults.gradeScore.color = new Color(1, 1, 1, 0);
+
+        finalGrade.transform.localScale = Vector3.zero;
 
         CalculateScore();
         SetDisplay();
@@ -61,7 +65,10 @@ public class ResultsScreen : MonoBehaviour
             hSeq = TweenResults(hitResults);
             rSeq = TweenResults(restartResults);
             pSeq.Append(hSeq).Append(rSeq);
-            pSeq.Play();
+            pSeq.Play().OnComplete(() =>
+            {
+                finalGrade.transform.DOScale(Vector3.one, 0.35f).SetEase(Ease.InQuad);
+            });
         });
     }
 
@@ -76,6 +83,7 @@ public class ResultsScreen : MonoBehaviour
         thisSequence.Append(rb.title.transform.DOPunchScale(Vector3.one * 1.15f, 0.25f));
         thisSequence.Insert(0.25f, rb.resultAmount.transform.DOPunchScale(Vector3.one * 1.15f, 0.25f));
         thisSequence.Insert(0.5f, rb.gradeScore.transform.DOPunchScale(Vector3.one * 1.15f, 0.25f));
+        thisSequence.Insert(0.45f, rb.gradeScore.DOFade(1, 0.1f).SetEase(Ease.InQuad));
         return thisSequence.Pause();
     }
 
@@ -94,6 +102,7 @@ public class ResultsScreen : MonoBehaviour
         {
             parryScore = 100;
             perfectFlag = true;
+            totalWeighting = 100;
             return;
         }
 
@@ -138,7 +147,7 @@ public class ResultsScreen : MonoBehaviour
 
 
         restartResults.resultAmount.text = restartScore.ToString();
-        switch (hitScore)
+        switch (restartScore)
         {
             case (0):
                 restartResults.gradeScore.sprite = sGrade;
@@ -161,7 +170,7 @@ public class ResultsScreen : MonoBehaviour
         parryResults.resultAmount.text = parryScore.ToString() + "%";
         if(perfectFlag)
         {
-            parryResults.gradeScore.sprite = pGrade;
+            parryResults.gradeScore.sprite = sGrade;
             totalWeighting *= 2f;
         }
         else
@@ -188,12 +197,7 @@ public class ResultsScreen : MonoBehaviour
             }
         }
 
-        if(totalWeighting >= 150)
-        {
-            finalGrade.sprite = pGrade;
-            return;
-        }
-        else if (totalWeighting >= 99)
+        if (totalWeighting >= 99)
         {
             finalGrade.sprite = sGrade;
             return;
