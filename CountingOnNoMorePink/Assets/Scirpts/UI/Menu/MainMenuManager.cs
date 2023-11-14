@@ -16,7 +16,7 @@ public class MainMenuManager : MonoBehaviour
     [Header("Main Menu Objects")]
     //Main menu
     public RectTransform title;
-    public RectTransform surtitle;
+    //public RectTransform surtitle;
     public RectTransform gradient;
     public RectTransform avril;
     public List<RectTransform> buttons = new List<RectTransform>();
@@ -93,8 +93,8 @@ public class MainMenuManager : MonoBehaviour
             mmb.selB = audioManager.selBEmitter;
             button.localPosition = (Vector2)button.localPosition + new Vector2(1000, 0);
         }
-        Vector2 surtitleDesired = surtitle.localPosition;
-        surtitle.localPosition = surtitleDesired + new Vector2(-500, 0);
+        //Vector2 surtitleDesired = surtitle.localPosition;
+        //surtitle.localPosition = surtitleDesired + new Vector2(-500, 0);
 
         Vector2 titleDesired = title.localPosition;
         title.localPosition = titleDesired + new Vector2(-500, 0);
@@ -103,7 +103,7 @@ public class MainMenuManager : MonoBehaviour
         avril.localPosition = avrilDesired + new Vector2(0, -500);
 
         //tween stuff
-        surtitle.DOLocalMove(surtitleDesired, .25f).SetEase(Ease.InSine).OnComplete(() => { surtitle.GetComponent<Parallax>().enabled = true; });
+        //surtitle.DOLocalMove(surtitleDesired, .25f).SetEase(Ease.InSine).OnComplete(() => { surtitle.GetComponent<Parallax>().enabled = true; });
         title.DOLocalMove(titleDesired, .4f).SetEase(Ease.InSine).OnComplete(() => { title.GetComponent<Parallax>().enabled = true; });
         avril.DOLocalMove(avrilDesired, .5f).SetEase(Ease.OutBounce).OnComplete(() => { avril.GetComponent<Parallax>().enabled = true;});
 
