@@ -7830,36 +7830,11 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 5866666021909216657, guid: 4e8f11cb28b9eb64c9bde9f630f9946d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4e8f11cb28b9eb64c9bde9f630f9946d, type: 3}
---- !u!1 &641035056 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4e8f11cb28b9eb64c9bde9f630f9946d, type: 3}
-  m_PrefabInstance: {fileID: 641035055}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &641035058 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4e8f11cb28b9eb64c9bde9f630f9946d, type: 3}
   m_PrefabInstance: {fileID: 641035055}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &641035059
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 641035056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d76f24409a39604ca3986f91ce6d28a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interpolate: 1
-  jiggleRigs:
-  - rootTransform: {fileID: 1557978950}
-    jiggleSettings: {fileID: 11400000, guid: 488d1751c7311da4d8f6a6183f675f8e, type: 2}
-    ignoredTransforms: []
-    colliders: []
-  wind: {x: 0, y: 0, z: 0}
-  debugDraw: 0
 --- !u!1 &658678563
 GameObject:
   m_ObjectHideFlags: 0
@@ -18724,62 +18699,12 @@ MonoBehaviour:
   maxShield: 0.05
   dashInvulnerability: 0.3
   hitInvulnerability: 1
-  hpRecoveryTime: 1.5
+  hpRecoverySpeed: 0
   dashCooldown: 0.5
+  parryCooldown: 0
+  parryShieldDuration: 0
   baseColour: {r: 0.19103774, g: 0.764151, b: 0.45703605, a: 0}
-  parrySphere: {fileID: 199626414}
   shieldFx: {fileID: 1657952550}
-  shieldPop:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: -0.0021095276
-      value: 1.0047188
-      inSlope: -0.0047088563
-      outSlope: -0.0047088563
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.07171185
-      value: 1.0043712
-      inSlope: -0.006863749
-      outSlope: -0.006863749
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 1
-    - serializedVersion: 3
-      time: 0.18192218
-      value: 1.2977948
-      inSlope: 0.27587652
-      outSlope: 0.27587652
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.32150033
-      value: 1.003195
-      inSlope: -0.027882166
-      outSlope: -0.027882166
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.87482613
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1.0134888
-      value: 0.9456482
-      inSlope: -0.08316158
-      outSlope: -0.08316158
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   slashFx: {fileID: 1529241842}
   slashTransform: {fileID: 702173334}
   walkPuff: {fileID: 798025428}
@@ -18787,6 +18712,7 @@ MonoBehaviour:
   dashRecover: {fileID: 1135880546}
   dashTrail: {fileID: 787581391}
   animator: {fileID: 0}
+  wave: {fileID: 0}
 --- !u!114 &919533475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18950,6 +18876,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   slash: {fileID: 0}
   shockwave: {fileID: 0}
+  damageLayer: {fileID: 0}
 --- !u!43 &1019021617
 Mesh:
   m_ObjectHideFlags: 0
@@ -27105,11 +27032,6 @@ MonoBehaviour:
   title: {fileID: 1222691182}
   resultAmount: {fileID: 1659576888}
   gradeScore: {fileID: 1460899310}
---- !u!4 &1557978950 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4902667031669648423, guid: 4e8f11cb28b9eb64c9bde9f630f9946d, type: 3}
-  m_PrefabInstance: {fileID: 641035055}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1585058215 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1693381907463343917, guid: 02995ffd4bea8924e8456ca0d1471e7e, type: 3}
@@ -27127,7 +27049,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e52dc535cafaffc48bebaba2f4c11d74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endRot: {x: 0, y: 133.408, z: 30}
   bop:
     serializedVersion: 2
     m_Curve:
@@ -27152,6 +27073,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  bopMagnitude: 0
+  offbeat: 0
 --- !u!43 &1610165185
 Mesh:
   m_ObjectHideFlags: 0
@@ -32680,7 +32603,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e52dc535cafaffc48bebaba2f4c11d74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endRot: {x: 10, y: 0, z: 25}
   bop:
     serializedVersion: 2
     m_Curve:
@@ -32705,6 +32627,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  bopMagnitude: 0
+  offbeat: 0
 --- !u!1 &1857011309
 GameObject:
   m_ObjectHideFlags: 0
@@ -33568,6 +33492,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8071160946006543529, guid: 8c36caa70c018584b935ce73a26c4323, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 95e297c95598a0547b9285781fc040f7, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c36caa70c018584b935ce73a26c4323, type: 3}
 --- !u!1 &2000456216

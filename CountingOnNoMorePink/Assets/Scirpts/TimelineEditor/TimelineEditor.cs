@@ -135,6 +135,54 @@ public class TimelineEditor : MonoBehaviour
         }
     }
 
+    [ContextMenu("Generate New Song Template")]
+    public void GenerateEmptySong()
+    {
+        //Clearing all existing data on screen
+        phraseSelector.value = 0;
+        currentPhrase = 0;
+
+        saveFileNameField.text = "";
+
+        phrases.Clear();
+
+        phrases.Add(new Phrase(phraseLength * 2));
+        phrases.Add(new Phrase(phraseLength * 2));
+        phrases.Add(new Phrase(phraseLength * 4));
+        phrases.Add(new Phrase(phraseLength * 4));
+
+        //clear out any existing blocks
+        foreach (BeatBlokk b in beatTimeLine)
+        {
+            StopAllCoroutines();
+            DOTween.KillAll();
+            Destroy(b.gameObject);
+        }
+
+        beatTimeLine.Clear();
+
+        int thisLength = currentPhrase <= 1 ? phraseLength * 2 : phraseLength * 4;
+
+        //generate timeline bars (beat chunks)
+        //generate a beatblock for each segment of the phrase
+        for (int i = 0; i < thisLength; i++)
+        {
+            BeatBlokk b = Instantiate(chunkFab, chunkContent);
+
+            b.imig.color = b.baseColour;
+
+            if (i == 0 || i % 4 == 0)
+            {
+                b.imig.color = b.beatColour;
+            }
+
+            b.Initialise(this);
+
+            beatTimeLine.Add(b);
+        }
+
+    }
+
     public void ChangePhrase()
     {
     
