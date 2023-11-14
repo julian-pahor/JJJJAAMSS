@@ -25,12 +25,20 @@ public class ResultsScreen : MonoBehaviour
     private float totalWeighting;
 
     public Sprite sGrade, aGrade, bGrade, cGrade;
+    public Dictionary<Sprite, string> letterGradings = new Dictionary<Sprite, string>();
 
 
     // Start is called before the first frame update
     void Start()
     {
+        //yeh I made a whole dictionary for four letters WHADRYDYE GONNAE DO HUH
+        letterGradings.Add(sGrade, "S");
+        letterGradings.Add(aGrade, "A");
+        letterGradings.Add(bGrade, "B");
+        letterGradings.Add(cGrade, "C");
+
         Deactivate();
+
 
     }
 
@@ -118,6 +126,8 @@ public class ResultsScreen : MonoBehaviour
         dat.bestTotalParries = (int)parryScore;
         dat.bestMissedParries = Wobbit.instance.persistentData.currentSongMissedParrys;
         dat.bestPerfectParries = Wobbit.instance.persistentData.currentSongPerfectParrys;
+
+        letterGradings.TryGetValue(finalGrade.sprite, out dat.grade);
 
         return dat;
     }

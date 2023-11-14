@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
 
@@ -38,6 +38,8 @@ public class MainMenuManager : MonoBehaviour
     public RectTransform playCardContent;
     public TextMeshProUGUI playCardTitle;
     public TextMeshProUGUI playCardInfo;
+    public Image gradeImage;
+    public List<Sprite> gradeSprites = new List<Sprite>();
     bool playCardIsOpen;
 
     //credits
@@ -245,6 +247,7 @@ public class MainMenuManager : MonoBehaviour
     string ScoreInfoFromData(SongScoreData data)
     {
         string s = "";
+        gradeImage.enabled = false;
 
         if (data != null)
         {
@@ -252,6 +255,15 @@ public class MainMenuManager : MonoBehaviour
             s += "Parry Accuracy: " + data.bestTotalParries + "%\n";
             s += "Perfect Parries: " + data.bestPerfectParries + "\n";
             s += "Missed Parries: " + data.bestMissedParries + "\n";
+
+            Sprite grade = GetGradeSprite(data.grade);
+
+            if(grade != null)
+            {
+                gradeImage.sprite = grade;
+                gradeImage.enabled = true;
+            }
+
        
         }
         else
@@ -264,5 +276,21 @@ public class MainMenuManager : MonoBehaviour
         }
 
         return s;
+    }
+
+    Sprite GetGradeSprite(string letterGrade)
+    {
+        switch(letterGrade)
+        {
+            case "S":
+                return gradeSprites[0];
+            case "A":
+                return gradeSprites[1];
+            case "B":
+                return gradeSprites[2];
+            case "C":
+                return gradeSprites[3];
+        }
+        return null;
     }
 }

@@ -55,12 +55,10 @@ public class SongScoreSaver : MonoBehaviour
         data.bestTotalParries = Mathf.Max(oldData.bestTotalParries, newData.bestTotalParries);
         data.bestPerfectParries = Mathf.Max(oldData.bestPerfectParries, newData.bestPerfectParries);
         data.bestHits = Mathf.Min(oldData.bestHits, newData.bestHits);
-
-        //total attempts rather than best number
         data.attempts = Mathf.Min(oldData.attempts,newData.attempts);
 
         //calculate grade here
-        data.grade = "X";
+        data.grade = newData.grade;
 
         return data;
 

@@ -37,7 +37,7 @@ public class Boss : MonoBehaviour
         //This color is green :-)
         //damageLayer.SetInputColor("paintoutputcolor", new Color(24, 255, 0, damage));
         //damageLayer.SetInputVector4("paintoutputcolor", new Vector4(24, 255, 0, damage));
-        damageLayer.SetInputFloat4(2, new Vector4(24, 255, 0, damage));
+        //damageLayer.SetInputFloat4(2, new Vector4(24, 255, 0, damage));
 
 
         damage -= 0.001f;
