@@ -10,6 +10,7 @@ public class MainMenuManager : MonoBehaviour
     public PersistentData persistentData;
 
     LoadingScreen loadingScreen;
+    SongScoreSaver songScoreManager;
 
     //everything is hardcoded cos graaah
     [Header("Main Menu Objects")]
@@ -30,11 +31,12 @@ public class MainMenuManager : MonoBehaviour
     //level select
     public RectTransform selectorWheel;
     public RectTransform backButton;
-    //public RectTransform playButton;
-    //public RectTransform editorButton;
     public RectTransform banner;
+
+    //card
     public RectTransform playCard;
     public RectTransform playCardContent;
+    public TextMeshProUGUI playCardTitle;
     public TextMeshProUGUI playCardInfo;
     bool playCardIsOpen;
 
@@ -48,9 +50,11 @@ public class MainMenuManager : MonoBehaviour
     public GameObject levelSelect;
 
     bool inTransit;
+    
 
     private void Start()
     {
+        songScoreManager = GetComponent<SongScoreSaver>();
         loadingScreen = GetComponent<LoadingScreen>();
         EnterMain();
     }
@@ -195,7 +199,13 @@ public class MainMenuManager : MonoBehaviour
                 {
                     inTransit = false;
                     playCardContent.gameObject.SetActive(true);
-                    playCardInfo.text = levelName;
+                    playCardTitle.text = levelName;
+
+                    SongScoreData data = songScoreManager.LoadSongHighscore(levelName);
+
+                    playCardInfo.text = ScoreInfoFromData(data);
+
+
                 });
         }
         else
@@ -230,5 +240,29 @@ public class MainMenuManager : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+    }
+
+    string ScoreInfoFromData(SongScoreData data)
+    {
+        string s = "";
+
+        if (data != null)
+        {
+            s += "Hits Taken: " + data.bestHits + "\n";
+            s += "Parry Accuracy: " + data.bestTotalParries + "%\n";
+            s += "Perfect Parries: " + data.bestPerfectParries + "\n";
+            s += "Missed Parries: " + data.bestMissedParries + "\n";
+       
+        }
+        else
+        {
+            s += "Hits Taken: " + 0 + "\n";
+            s += "Parry Accuracy: " + 0 + "%\n";
+            s += "Perfect Parries: " + 0 + "\n";
+            s += "Missed Parries: " + 0 + "\n";
+          
+        }
+
+        return s;
     }
 }
