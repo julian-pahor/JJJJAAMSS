@@ -93,6 +93,20 @@ public class ResultsScreen : MonoBehaviour
 
         parryScore = (int)((parryScore - Wobbit.instance.persistentData.currentSongMissedParrys) / parryScore * 100f);
     }
+
+    //AUUAAGAUAAGAUGUUUGHGHG
+    public SongScoreData GetScoreData()
+    {
+        SongScoreData dat = new SongScoreData();
+        dat.attempts = (int)restartScore;
+        dat.bestHits = (int)hitScore;
+        dat.bestTotalParries = (int)parryScore;
+        dat.bestMissedParries = Wobbit.instance.persistentData.currentSongMissedParrys;
+        dat.bestPerfectParries = Wobbit.instance.persistentData.currentSongPerfectParrys;
+
+        return dat;
+    }
+
     private void SetDisplay()
     {
         hitResults.resultAmount.text = hitScore.ToString();

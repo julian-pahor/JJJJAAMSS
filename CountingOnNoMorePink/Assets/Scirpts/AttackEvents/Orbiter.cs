@@ -30,14 +30,26 @@ public class Orbiter : MonoBehaviour
     Rigidbody rb;
     Collider col;
 
+    bool wasPreviouslyInitialised;
+
     public void Initialise(int lifetime, float speed, int direction, float offset, float bopIndex, int warmup)
 
-    {
+    {   isActive = false;
+        isDestroyed = false;
+        bopTimer = 0f;
+        GetComponentInChildren<Renderer>().enabled = true;
+        vfx.Stop();
+
         rb = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
         col.enabled = false;
-        
-        BeatBroadcast.instance.timelineInfo.onBeatTrigger += OnBeat;
+
+        if (!wasPreviouslyInitialised)
+        {
+            wasPreviouslyInitialised = true;
+            BeatBroadcast.instance.timelineInfo.onBeatTrigger += OnBeat;
+        }
+
         origin = Wobbit.instance.bossOrigin;
         this.duration = lifetime;
         angleOffset = offset;
@@ -46,6 +58,7 @@ public class Orbiter : MonoBehaviour
         this.direction = direction;
         this.bopIndex = bopIndex;
         this.warmup = warmup;
+
     }
 
     // Update is called once per frame

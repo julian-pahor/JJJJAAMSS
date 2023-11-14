@@ -34,7 +34,7 @@ public class LoadingScreen : MonoBehaviour
 
     IEnumerator AsyncLoad(string scene)
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1.5f);
 
         AsyncOperation operation = SceneManager.LoadSceneAsync(scene);
 
