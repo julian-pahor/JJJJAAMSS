@@ -18,30 +18,7 @@ public class Wobbit : MonoBehaviour
         instance = this;
     }
 
-    private void Start()
-    {
-        timeline = FindObjectOfType<BeatTimeline>();
-
-        playerMovement.onTakeDamage += TakeDamage;
-
-        slowSnapShot = FMODUnity.RuntimeManager.CreateInstance("snapshot:/TimeSlow");
-        slowSnapShot.start();
-    }
-
-
-    public void GoToMenu()
-    {
-        GetComponent<BeatTimeline>().saveFileDropdown.StoreSongIndex();
-        SceneManager.LoadScene("MainMenu");
-    }
-
-    public void GoToEditor()
-    {
-        GetComponent<BeatTimeline>().saveFileDropdown.StoreSongIndex();
-        SceneManager.LoadScene("JulesUIBreaking");
-    }
-
-    //very temporary references to junk I need for the demo
+    //BOY WAS I WRONG THESE ARE NOW INTEGRAL TO THE FUNCTION OF THE GAME
 
     public Bullet bulletFab;
     public BoomBlock zoneFab;
@@ -88,7 +65,42 @@ public class Wobbit : MonoBehaviour
 
     public GameOverscreen gameOverScreen;
     public ResultsScreen resultScreen;
-    
+
+    //scene transition manager
+    public LoadingScreen loadingScreen;
+
+    //highscoreSave
+    public SongScoreSaver songScoreSaver;
+
+    private void Start()
+    {
+        timeline = FindObjectOfType<BeatTimeline>();
+        loadingScreen = GetComponent<LoadingScreen>();
+
+        playerMovement.onTakeDamage += TakeDamage;
+
+        slowSnapShot = FMODUnity.RuntimeManager.CreateInstance("snapshot:/TimeSlow");
+        slowSnapShot.start();
+    }
+
+
+    public void GoToMenu()
+    {
+        BeatBroadcast.instance.StopMusic();
+        poolPool.ClearBullets();
+        GetComponent<BeatTimeline>().saveFileDropdown.StoreSongIndex();
+        loadingScreen.BeginLoad("AlecMainMenu");
+
+    }
+
+    public void GoToEditor()
+    {
+        BeatBroadcast.instance.StopMusic();
+        poolPool.ClearBullets();
+        GetComponent<BeatTimeline>().saveFileDropdown.StoreSongIndex();
+        loadingScreen.BeginLoad("JulesUIBreaking");
+    }
+
     public void TakeDamage()
     {
         targetScale = 0;
@@ -111,6 +123,15 @@ public class Wobbit : MonoBehaviour
     
     public void EndGame()
     {
+        BeatBroadcast.instance.StopMusic();
+        poolPool.ClearBullets();
+        StartCoroutine(GameOverScreen());
+    }
+
+
+    IEnumerator GameOverScreen()
+    {
+        yield return new WaitForSeconds(2f);
         gameOverScreen.Activate();
     }
 
@@ -123,21 +144,28 @@ public class Wobbit : MonoBehaviour
             playerController.SetDamageEnabled(false);
             resultScreen.Activate();
         }
+
+        SongScoreData data = resultScreen.GetScoreData();
+
+        songScoreSaver.SaveSongScore(timeline.saveFileDropdown.SongNameFromIndex(persistentData.songIndex), data);
+       
     }
 
     public void Restart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        BeatBroadcast.instance.StopMusic();
+        poolPool.ClearBullets();
+        loadingScreen.BeginLoad(SceneManager.GetActiveScene().name);
         persistentData.currentSongRestarts += 1;
     }
 
-    public void MainMenu()
-    {
+    //public void MainMenu()
+    //{
         
-        playerMovement.currentHP = playerMovement.maxHP;
-        playerMovement.onHealthChanged?.Invoke();
-        SceneManager.LoadScene("MainMenu");
-    }
+    //    playerMovement.currentHP = playerMovement.maxHP;
+    //    playerMovement.onHealthChanged?.Invoke();
+    //    loadingScreen.BeginLoad("MainMenu");
+    //}
 
     public void CreateCountDownIndicator(int beats)
     {

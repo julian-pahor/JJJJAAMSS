@@ -22,26 +22,42 @@ public class ResultsScreen : MonoBehaviour
     private float restartScore;
     private bool perfectFlag = false;
 
-    public Sprite pGrade, sGrade, aGrade, bGrade, cGrade;
+    private float totalWeighting;
+
+    public Sprite sGrade, aGrade, bGrade, cGrade;
+    public Dictionary<Sprite, string> letterGradings = new Dictionary<Sprite, string>();
 
 
     // Start is called before the first frame update
     void Start()
     {
+        //yeh I made a whole dictionary for four letters WHADRYDYE GONNAE DO HUH
+        letterGradings.Add(sGrade, "S");
+        letterGradings.Add(aGrade, "A");
+        letterGradings.Add(bGrade, "B");
+        letterGradings.Add(cGrade, "C");
+
         Deactivate();
+
 
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        
     }
     public void Activate()
     {
         parryResults.resultAmount.text = "";
         hitResults.resultAmount.text = "";
         restartResults.resultAmount.text = "";
+
+        parryResults.gradeScore.color = new Color(1,1,1,0);
+        hitResults.gradeScore.color = new Color(1, 1, 1, 0);
+        restartResults.gradeScore.color = new Color(1, 1, 1, 0);
+
+        finalGrade.transform.localScale = Vector3.zero;
 
         CalculateScore();
         SetDisplay();
@@ -57,7 +73,10 @@ public class ResultsScreen : MonoBehaviour
             hSeq = TweenResults(hitResults);
             rSeq = TweenResults(restartResults);
             pSeq.Append(hSeq).Append(rSeq);
-            pSeq.Play();
+            pSeq.Play().OnComplete(() =>
+            {
+                finalGrade.transform.DOScale(Vector3.one, 0.35f).SetEase(Ease.InQuad);
+            });
         });
     }
 
@@ -70,8 +89,9 @@ public class ResultsScreen : MonoBehaviour
     {
         Sequence thisSequence = DOTween.Sequence();
         thisSequence.Append(rb.title.transform.DOPunchScale(Vector3.one * 1.15f, 0.25f));
-        thisSequence.Insert(0.2f, rb.resultAmount.transform.DOPunchScale(Vector3.one * 1.15f, 0.25f));
-        thisSequence.Insert(0.3f, rb.gradeScore.transform.DOPunchScale(Vector3.one * 1.15f, 0.25f));
+        thisSequence.Insert(0.25f, rb.resultAmount.transform.DOPunchScale(Vector3.one * 1.15f, 0.25f));
+        thisSequence.Insert(0.5f, rb.gradeScore.transform.DOPunchScale(Vector3.one * 1.15f, 0.25f));
+        thisSequence.Insert(0.45f, rb.gradeScore.DOFade(1, 0.1f).SetEase(Ease.InQuad));
         return thisSequence.Pause();
     }
 
@@ -84,15 +104,34 @@ public class ResultsScreen : MonoBehaviour
 
         parryScore = Wobbit.instance.persistentData.currentSongTotalParrys;
 
-        if(parryScore == Wobbit.instance.persistentData.currentSongPerfectParrys)
+        parryScore = (int)((parryScore - Wobbit.instance.persistentData.currentSongMissedParrys) / parryScore * 100f);
+
+        if (parryScore == Wobbit.instance.persistentData.currentSongPerfectParrys)
         {
             parryScore = 100;
             perfectFlag = true;
+            totalWeighting = 100;
             return;
         }
 
-        parryScore = ((parryScore - Wobbit.instance.persistentData.currentSongMissedParrys) / parryScore * 100f);
+        totalWeighting = 100;
     }
+
+    //AUUAAGAUAAGAUGUUUGHGHG
+    public SongScoreData GetScoreData()
+    {
+        SongScoreData dat = new SongScoreData();
+        dat.attempts = (int)restartScore;
+        dat.bestHits = (int)hitScore;
+        dat.bestTotalParries = (int)parryScore;
+        dat.bestMissedParries = Wobbit.instance.persistentData.currentSongMissedParrys;
+        dat.bestPerfectParries = Wobbit.instance.persistentData.currentSongPerfectParrys;
+
+        letterGradings.TryGetValue(finalGrade.sprite, out dat.grade);
+
+        return dat;
+    }
+
     private void SetDisplay()
     {
         hitResults.resultAmount.text = hitScore.ToString();
@@ -100,60 +139,93 @@ public class ResultsScreen : MonoBehaviour
         {
             case (0):
                 hitResults.gradeScore.sprite = sGrade;
+                totalWeighting *= 1.05f;
                 break;
             case (1):
                 hitResults.gradeScore.sprite = aGrade;
+                totalWeighting *= 0.9f;
                 break;
             case (2):
                 hitResults.gradeScore.sprite = bGrade;
+                totalWeighting *= 0.8f;
                 break;
             default:
                 hitResults.gradeScore.sprite = cGrade;
+                totalWeighting *= 0.7f;
                 break;
         }
 
 
         restartResults.resultAmount.text = restartScore.ToString();
-        switch (hitScore)
+        switch (restartScore)
         {
             case (0):
                 restartResults.gradeScore.sprite = sGrade;
+                totalWeighting *= 1.05f;
                 break;
             case (1):
                 restartResults.gradeScore.sprite = aGrade;
+                totalWeighting *= 0.9f;
                 break;
             case (2):
                 restartResults.gradeScore.sprite = bGrade;
+                totalWeighting *= 0.8f;
                 break;
             default:
                 restartResults.gradeScore.sprite = cGrade;
+                totalWeighting *= 0.7f;
                 break;
         }
 
         parryResults.resultAmount.text = parryScore.ToString() + "%";
         if(perfectFlag)
         {
-            parryResults.gradeScore.sprite = pGrade;
-            return;
+            parryResults.gradeScore.sprite = sGrade;
+            totalWeighting *= 2f;
         }
         else
         {
             if(parryScore == 100)
             {
                 parryResults.gradeScore.sprite = sGrade;
+                totalWeighting *= 1.05f;
             }
             else if(parryScore <= 90)
             {
                 parryResults.gradeScore.sprite = aGrade;
+                totalWeighting *= .9f;
             }
             else if(parryScore <= 75)
             {
                 parryResults.gradeScore.sprite = bGrade;
+                totalWeighting *= .8f;
             }
             else
             {
                 parryResults.gradeScore.sprite = cGrade;
+                totalWeighting *= .7f;
             }
         }
+
+        if (totalWeighting >= 99)
+        {
+            finalGrade.sprite = sGrade;
+            return;
+        }
+        else if(totalWeighting >= 75)
+        {
+            finalGrade.sprite = aGrade;
+            return;
+        }
+        else if(totalWeighting >= 50)
+        {
+            finalGrade.sprite = bGrade;
+            return;
+        }
+        else
+        {
+            finalGrade.sprite = cGrade;
+        }
+
     }
 }

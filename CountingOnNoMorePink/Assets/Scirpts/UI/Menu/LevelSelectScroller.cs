@@ -53,33 +53,44 @@ public class LevelSelectScroller : MonoBehaviour
 
     void LoadSavesFromPersistent()
     {
-     
-
         string path = Application.persistentDataPath + "/SongSaves/";
 
-        if (Utilities.DirectoryStuff(path))
-        {
-            foreach (var file in System.IO.Directory.GetFiles(path))
-            {
-                Debug.Log(path);
-                string filePath = file.Replace(path, "");
-                filePath = filePath.Replace(".json", "");
-                LevelButton b = Instantiate(buttonFab, transform);
-                b.levelTitle.text = filePath;
-                b.GetComponent<Button>().onClick.AddListener(() => manager.OpenPlayCard(b.levelTitle.text)); //who even knows
-                b.GetComponent<Button>().onClick.AddListener((() => manager.audioManager.selGEmitter.Play())); //I dont even know either :'c
-                levelList.Add(b);
-               
-            }
-        }
-        else
-        {
-            //Called if the directory has not been created yet to move all existing saves
-            //from resources into the persistent data path 
+        Utilities.SaveNames saves = new Utilities.SaveNames();
 
-            TransportFilesFromResources();
-            LoadSavesFromPersistent();
+        saves = Utilities.CheckGetSaves(path);
+
+        foreach(string s in saves.baseLevels)
+        {
+            LevelButton b = Instantiate(buttonFab, transform);
+            b.levelTitle.text = s;
+            b.GetComponent<Button>().onClick.AddListener(() => manager.OpenPlayCard(b.levelTitle.text)); //who even knows
+            b.GetComponent<Button>().onClick.AddListener((() => manager.audioManager.selGEmitter.Play())); //I dont even know either :'c
+            levelList.Add(b);
         }
+
+        //if (Utilities.DirectoryStuff(path))
+        //{
+        //    foreach (var file in System.IO.Directory.GetFiles(path))
+        //    {
+        //        Debug.Log(path);
+        //        string filePath = file.Replace(path, "");
+        //        filePath = filePath.Replace(".json", "");
+        //        LevelButton b = Instantiate(buttonFab, transform);
+        //        b.levelTitle.text = filePath;
+        //        b.GetComponent<Button>().onClick.AddListener(() => manager.OpenPlayCard(b.levelTitle.text)); //who even knows
+        //        b.GetComponent<Button>().onClick.AddListener((() => manager.audioManager.selGEmitter.Play())); //I dont even know either :'c
+        //        levelList.Add(b);
+               
+        //    }
+        //}
+        //else
+        //{
+        //    //Called if the directory has not been created yet to move all existing saves
+        //    //from resources into the persistent data path 
+
+        //    TransportFilesFromResources();
+        //    LoadSavesFromPersistent();
+        //}
     }
 
     void TransportFilesFromResources()
