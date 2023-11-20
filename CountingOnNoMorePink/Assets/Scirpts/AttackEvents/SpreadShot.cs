@@ -31,7 +31,7 @@ public class SpreadShot : AttackEvent
         {
             launchvector = Wobbit.instance.player.position - origin.position;
        
-            float angle = (float)Mathf.Atan2(launchvector.x, launchvector.z) * 180 / Mathf.PI;
+            float angle = ((float)Mathf.Atan2(launchvector.x, launchvector.z) * 180 / Mathf.PI) + arcOffset;
             launchvector = Utilities.PointWithPolarOffset(origin.position, 1, angle) - origin.position;
             launchvector = launchvector.normalized;
       
