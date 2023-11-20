@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
 
@@ -10,6 +10,7 @@ public class MainMenuManager : MonoBehaviour
     public PersistentData persistentData;
 
     LoadingScreen loadingScreen;
+    SongScoreSaver songScoreManager;
 
     //everything is hardcoded cos graaah
     [Header("Main Menu Objects")]
@@ -30,12 +31,15 @@ public class MainMenuManager : MonoBehaviour
     //level select
     public RectTransform selectorWheel;
     public RectTransform backButton;
-    //public RectTransform playButton;
-    //public RectTransform editorButton;
     public RectTransform banner;
+
+    //card
     public RectTransform playCard;
     public RectTransform playCardContent;
+    public TextMeshProUGUI playCardTitle;
     public TextMeshProUGUI playCardInfo;
+    public Image gradeImage;
+    public List<Sprite> gradeSprites = new List<Sprite>();
     bool playCardIsOpen;
 
     //credits
@@ -48,9 +52,11 @@ public class MainMenuManager : MonoBehaviour
     public GameObject levelSelect;
 
     bool inTransit;
+    
 
     private void Start()
     {
+        songScoreManager = GetComponent<SongScoreSaver>();
         loadingScreen = GetComponent<LoadingScreen>();
         EnterMain();
     }
@@ -195,7 +201,13 @@ public class MainMenuManager : MonoBehaviour
                 {
                     inTransit = false;
                     playCardContent.gameObject.SetActive(true);
-                    playCardInfo.text = levelName;
+                    playCardTitle.text = levelName;
+
+                    SongScoreData data = songScoreManager.LoadSongHighscore(levelName);
+
+                    playCardInfo.text = ScoreInfoFromData(data);
+
+
                 });
         }
         else
@@ -230,5 +242,55 @@ public class MainMenuManager : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+    }
+
+    string ScoreInfoFromData(SongScoreData data)
+    {
+        string s = "";
+        gradeImage.enabled = false;
+
+        if (data != null)
+        {
+            s += "Hits Taken: " + data.bestHits + "\n";
+            s += "Parry Accuracy: " + data.bestTotalParries + "%\n";
+            s += "Perfect Parries: " + data.bestPerfectParries + "\n";
+            s += "Missed Parries: " + data.bestMissedParries + "\n";
+
+            Sprite grade = GetGradeSprite(data.grade);
+
+            if(grade != null)
+            {
+                gradeImage.sprite = grade;
+                gradeImage.enabled = true;
+            }
+
+       
+        }
+        else
+        {
+            s += "Hits Taken: " + 0 + "\n";
+            s += "Parry Accuracy: " + 0 + "%\n";
+            s += "Perfect Parries: " + 0 + "\n";
+            s += "Missed Parries: " + 0 + "\n";
+          
+        }
+
+        return s;
+    }
+
+    Sprite GetGradeSprite(string letterGrade)
+    {
+        switch(letterGrade)
+        {
+            case "S":
+                return gradeSprites[0];
+            case "A":
+                return gradeSprites[1];
+            case "B":
+                return gradeSprites[2];
+            case "C":
+                return gradeSprites[3];
+        }
+        return null;
     }
 }

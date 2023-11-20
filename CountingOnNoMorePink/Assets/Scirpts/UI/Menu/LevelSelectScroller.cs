@@ -55,7 +55,7 @@ public class LevelSelectScroller : MonoBehaviour
     {
      
 
-        string path = Application.persistentDataPath + "/SongSaves/";
+        string path = Application.persistentDataPath + "/SongSaves/CustomLevels/";
 
         if (Utilities.DirectoryStuff(path))
         {
