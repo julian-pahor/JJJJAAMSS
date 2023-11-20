@@ -41,6 +41,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
     public Color baseColour;
     //public GameObject parrySphere;
     public VisualEffect shieldFx;
+
     //public AnimationCurve shieldPop;
     InvulnerabilityHightlight highlight;
 

@@ -29,6 +29,12 @@ public class Parry : MonoBehaviour
 
     private bool inTestingZone = true;
 
+    public Transform parryPopUpTarget;
+    public GameObject parryPopUpP;
+    public GameObject parryPopUpE;
+    public GameObject parryPopUpL;
+    public GameObject parryPopUpD;
+
     public System.Action onParrySuccess;
 
 
@@ -191,6 +197,19 @@ public class Parry : MonoBehaviour
         if(!inTestingZone)
         {
             Instantiate(parryReturn2, transform.position, Quaternion.identity);
+            switch (result)
+            {
+                case ParryResult.Perfect:
+                    Instantiate(parryPopUpP, parryPopUpTarget);
+                    break;
+                case ParryResult.Late:
+                    Instantiate(parryPopUpL, parryPopUpTarget);
+                    break;
+                case ParryResult.Early:
+                    Instantiate(parryPopUpE, parryPopUpTarget);
+                    break;
+            }
+
             onParrySuccess?.Invoke();
         }
         else
