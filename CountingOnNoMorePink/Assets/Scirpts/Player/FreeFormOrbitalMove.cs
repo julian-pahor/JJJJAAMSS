@@ -164,6 +164,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
                         parryHandler.DoParry();
                         parryCd = parryCooldown;
+                        animator.Play("parry", 0, 0f);
                         dashRecover.Play(true);
                         return;
                     }
