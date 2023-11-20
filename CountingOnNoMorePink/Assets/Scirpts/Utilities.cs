@@ -5,9 +5,25 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Windows;
 using System.IO;
+using System.Linq;
+using UnityEngine.UI;
+using UnityEditor.PackageManager;
 
 public static class Utilities
 {
+
+    public class SaveNames
+    {
+        public List<string> baseLevels;
+        public List<string> customLevels;
+
+        public SaveNames()
+        {
+            baseLevels = new List<string>();
+            customLevels = new List<string>();
+        }
+
+    }
     /// <summary>
     /// Returns a point in a polar direction at a specified distance from our origin
     /// </summary>
@@ -150,7 +166,7 @@ public static class Utilities
 
         //PERSISTENT DATA PATH LOADING STARTS HERE----------
 
-        string path = Application.persistentDataPath + "/SongSaves/" + saveName + ".json";
+        string path = Application.persistentDataPath + "/SongSaves/CustomLevels/" + saveName + ".json";
         string jsonData = JsonUtility.ToJson(saveData);
         System.IO.File.WriteAllText(path, jsonData);
 
@@ -159,24 +175,6 @@ public static class Utilities
 
     public static GameData LoadData(string saveName)
     {
-//#if UNITY_EDITOR
-//        string path = $"Assets/Resources/SongSaves/{saveName}.json";
-
-//#else
-//        //string path = Application.persistentDataPath + "/SongSaves/" + saveName + ".json";
-
-//#endif
-//        if (!System.IO.File.Exists(path)) return null;
-
-//        path = System.IO.File.ReadAllText(path);
-//        GameData thisData = new GameData();
-//        thisData = JsonUtility.FromJson<GameData>(path);
-
-//        return thisData;
-
-
-
-
         //PERSISTENT DATA PATH LOADING STARTS HERE----------
         //Formatting string correctly to find folder in persistent data path
         string path = Application.persistentDataPath + "/SongSaves/";
@@ -186,24 +184,37 @@ public static class Utilities
         //Checks if direcotory existed on computer
         if (di.Exists)
         {
-            foreach (var file in System.IO.Directory.GetFiles(path))
+            string baseLevels = path + "BaseLevels/";
+            string customLevels = path + "CustomLevels/";
+
+            foreach (var file in System.IO.Directory.GetFiles(baseLevels))
             {
                 //Formatting file names to just be the save name 
-                string filePath = file.Replace(path, "");
+                string filePath = file.Replace(baseLevels, "");
                 filePath = filePath.Replace(".json", "");
                 if(filePath == saveName)
                 {
                     string json = System.IO.File.ReadAllText(file);
                     GameData data = new GameData();
                     data = JsonUtility.FromJson<GameData>(json);
-                    return data;
-                    
+                    return data; 
                 }
-               
             }
 
+            foreach (var file in System.IO.Directory.GetFiles(customLevels))
+            {
+                //Formatting file names to just be the save name 
+                string filePath = file.Replace(customLevels, "");
+                filePath = filePath.Replace(".json", "");
+                if (filePath == saveName)
+                {
+                    string json = System.IO.File.ReadAllText(file);
+                    GameData data = new GameData();
+                    data = JsonUtility.FromJson<GameData>(json);
+                    return data;
+                }
+            }
             Debug.Log("Found Directory but could not find save");
-
         }
          
          Debug.Log("That directory doesn't exist oops");
@@ -253,9 +264,89 @@ public static class Utilities
         }
     }
 
+    public static bool CreateSubDirectorys(string path)
+    {
+        string baseLevels = path + "BaseLevels/";
+        string customLevels = path + "CustomLevels/";
 
-    //System.IO.DirectoryInfo CreateDirectory(string path)
+        DirectoryInfo di = new DirectoryInfo(baseLevels);
+        di.Create();
+        DirectoryInfo di2 = new DirectoryInfo(customLevels);
+        di2.Create();
+
+        return false;
+    }
+
+    public static SaveNames CheckGetSaves(string path)
+    {
+        SaveNames result = new SaveNames();
+
+        //Check if Directory Already Exists
+        //Directory is created if it didn't exist prior
+        if(DirectoryStuff(path))
+        {
+            //Writing Over BaseLevels
+            ReWriteBaseLevels(path, ref result);
+        }
+        else
+        {
+            CreateSubDirectorys(path);
+        }
+
+        GetCustomLevels(path, ref result);
 
 
+        return result;
+
+    }
+
+    //As long as the base directory is made this function is safe to call
+    public static void ReWriteBaseLevels(string path, ref SaveNames saves)
+    {
+        //---
+        //Deleting and rebuilding baselevels directory
+        string baseLevels = path + "BaseLevels/";
+        DirectoryInfo di = new DirectoryInfo(baseLevels);
+        if(di.Exists)
+        {
+            di.Delete(true);
+        }
+
+        di.Create();
+        //---
+        //Loading Resource save names 
+        List<TextAsset> songSaves = new List<TextAsset>();
+        songSaves = Resources.LoadAll<TextAsset>("SongSaves").ToList();
+
+        foreach(TextAsset file in songSaves)
+        {
+            saves.baseLevels.Add(file.name);
+        }
+        //---
+
+        ///TRANSPORTING DATA TO PERSISTENT PATH
+        foreach (TextAsset file in songSaves)
+        {
+            string jsonData = file.text;
+            string savePath = baseLevels + file.name + ".json";
+            System.IO.File.WriteAllText(savePath, jsonData);
+        }
+    }
+
+    public static void GetCustomLevels(string path, ref SaveNames saves)
+    {
+        string customLevels = path + "CustomLevels/";
+
+        if(DirectoryStuff(customLevels))
+        {
+            foreach (var file in System.IO.Directory.GetFiles(customLevels))
+            {
+                //Formatting Save file names correctly via their data path
+                string filePath = file.Replace(customLevels, "");
+                filePath = filePath.Replace(".json", "");
+                saves.customLevels.Add(filePath);
+            }
+        }
+    }
 
 }

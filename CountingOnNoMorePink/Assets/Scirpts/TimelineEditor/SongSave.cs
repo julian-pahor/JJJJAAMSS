@@ -103,6 +103,8 @@ public class SongSave : MonoBehaviour
 
         Utilities.GameData gameData = new Utilities.GameData();
         gameData.phraseCount = songData.Count;
+
+        //gameData.phraseLength = songData[0].phraseLength;
         gameData.phraseLength = 16;
 
         foreach (Phrase phrase in songData)
@@ -130,6 +132,7 @@ public class SongSave : MonoBehaviour
         ///---JSON TESTING ENDS HERE
 
     }
+
     
     //public void TranslateExistingSaves(List<Phrase> songData, string saveName)
     //{

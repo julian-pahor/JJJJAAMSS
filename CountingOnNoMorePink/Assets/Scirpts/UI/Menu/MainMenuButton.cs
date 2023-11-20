@@ -54,7 +54,7 @@ public class MainMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        blip.Play();
+        //blip.Play();
         mouseOver = true;
     }
 
@@ -65,14 +65,14 @@ public class MainMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if(onClick.GetPersistentEventCount() > 0)
-        {
-            selG.Play();
-        }
-        else
-        {
-            selB.Play();
-        }
+        //if(onClick.GetPersistentEventCount() > 0)
+        //{
+        //    selG.Play();
+        //}
+        //else
+        //{
+        //    selB.Play();
+        //}
 
         onClick?.Invoke();
     }
