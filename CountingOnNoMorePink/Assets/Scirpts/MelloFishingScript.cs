@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MelloFishingScript : MonoBehaviour
 {
+    //End my suffering
 
     // Update is called once per frame
     void Update()

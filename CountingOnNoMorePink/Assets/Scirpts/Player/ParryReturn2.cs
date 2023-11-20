@@ -14,6 +14,7 @@ public class ParryReturn2 : MonoBehaviour
     private float currentLerp;
     public Transform hitFX;
 
+    private bool hasFired = false;
 
     // Start is called before the first frame update
     void Start()
@@ -34,8 +35,9 @@ public class ParryReturn2 : MonoBehaviour
         transform.position = Vector3.Lerp(initial, target, currentLerp);
        
 
-        if(currentLerp >= 1)
+        if(currentLerp >= 1 && !hasFired)
         {
+            hasFired = true;
             Wobbit.instance.boss.Struck();
             Destroy(this.gameObject);
         }

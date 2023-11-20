@@ -41,6 +41,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
     public Color baseColour;
     //public GameObject parrySphere;
     public VisualEffect shieldFx;
+
     //public AnimationCurve shieldPop;
     InvulnerabilityHightlight highlight;
 
@@ -55,6 +56,8 @@ public class FreeFormOrbitalMove : MonoBehaviour
     //dash effects
     public ParticleSystem dashRecover;
     public ParticleSystem dashTrail;
+    public TrailRenderer trailL;
+    public TrailRenderer trailR;
 
     public System.Action onTakeDamage;
     public System.Action onHealthChanged;
@@ -76,7 +79,8 @@ public class FreeFormOrbitalMove : MonoBehaviour
     //parry
     Parry parryHandler;
     public Shockwave wave;
-    
+    public VisualEffect parryFX;
+
     //timers
     float dashCd;
     float dashTime;
@@ -94,7 +98,10 @@ public class FreeFormOrbitalMove : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         currentHP = maxHP;
         currentDistance = maxDistance;
-       
+
+        trailL.emitting = false;
+        trailR.emitting = false;
+
         //recoverTimer = hpRecoveryTime;
 
         highlight = GetComponent<InvulnerabilityHightlight>();
@@ -177,6 +184,10 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
                         animator.Play("dash", 0, 0f);
                         dashTrail.Play();
+
+                        trailL.emitting = true;
+                        trailR.emitting = true;
+
                         canDash = false;
                         dashCd = dashCooldown;
                         dashTime = maxDash;
@@ -204,6 +215,8 @@ public class FreeFormOrbitalMove : MonoBehaviour
                 {
                     state = State.Walk;
                     dashTrail.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+                    trailL.emitting = false;
+                    trailR.emitting = false;
                 }
                    
                 
@@ -282,6 +295,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
     void ParrySuccess()
     {
+        parryFX.Play();
         invulnerabilityTime = parryShieldDuration;
         if (wave != null)
             Instantiate(wave, transform.position, Quaternion.identity);
