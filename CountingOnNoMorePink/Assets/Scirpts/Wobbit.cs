@@ -89,7 +89,7 @@ public class Wobbit : MonoBehaviour
         BeatBroadcast.instance.StopMusic();
         poolPool.ClearBullets();
         GetComponent<BeatTimeline>().saveFileDropdown.StoreSongIndex();
-        loadingScreen.BeginLoad("MainMenu");
+        loadingScreen.BeginLoad("AlecMainMenu");
 
     }
 
