@@ -290,6 +290,7 @@ public static class Utilities
         else
         {
             CreateSubDirectorys(path);
+            ReWriteBaseLevels(path, ref result);
         }
 
         GetCustomLevels(path, ref result);
