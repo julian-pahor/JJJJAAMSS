@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+
 public class Parry : MonoBehaviour
 {
     bool parrying;
@@ -29,6 +30,8 @@ public class Parry : MonoBehaviour
     private bool inTestingZone = true;
 
     public System.Action onParrySuccess;
+
+
 
     private enum ParryResult
     {
