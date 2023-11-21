@@ -18,14 +18,10 @@ public class Boss : MonoBehaviour
 
     private float damage = 0;
 
-    private SubstanceRuntime sr;
-
     CameraLook cam;
 
     private void Start()
     {
-        sr = SubstanceRuntime.Instance;
-        damageLayer = sr.InitializeInstance(graphSO);
         cam = Camera.main.GetComponent<CameraLook>();
     }
 

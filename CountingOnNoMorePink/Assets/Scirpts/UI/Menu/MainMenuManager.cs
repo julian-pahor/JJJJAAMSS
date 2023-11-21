@@ -236,7 +236,7 @@ public class MainMenuManager : MonoBehaviour
     public void StartGame()
     {
         persistentData.songIndex = selectorWheel.GetComponent<LevelSelectScroller>().GetIndex();
-        loadingScreen.BeginLoad("AlfRoomOfCretivity");
+        loadingScreen.BeginLoad("JuliansDrums");
     }
 
     public void Quit()

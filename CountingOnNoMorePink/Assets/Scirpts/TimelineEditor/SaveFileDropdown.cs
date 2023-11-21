@@ -98,9 +98,9 @@ public class SaveFileDropdown : MonoBehaviour
         Utilities.SaveNames saves = new Utilities.SaveNames();
         saves = Utilities.CheckGetSaves(path);
 
-        files = saves.customLevels;
+        files = saves.baseLevels;
 
-        dropdown.AddOptions(saves.customLevels);
+        dropdown.AddOptions(saves.baseLevels);
     }
 
     public void SetCurrentIndex(int index)
