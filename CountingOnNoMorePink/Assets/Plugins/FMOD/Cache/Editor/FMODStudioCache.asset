@@ -96,10 +96,10 @@ MonoBehaviour:
   Path: ../PitchDemoProject/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638347907559839310
+  lastModified: 638366088734493462
   FileSizes:
   - Name: Desktop
-    Value: 1494
+    Value: 1542
   Exists: 1
 --- !u!114 &-6205110524218500733
 MonoBehaviour:
@@ -198,10 +198,10 @@ MonoBehaviour:
   Path: ../PitchDemoProject/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638350315343485590
+  lastModified: 638366088734473514
   FileSizes:
   - Name: Desktop
-    Value: 2933376
+    Value: 2951872
   Exists: 1
 --- !u!114 &-1786946396110557196
 MonoBehaviour:
@@ -304,6 +304,7 @@ MonoBehaviour:
   - {fileID: -7906553978170548039}
   - {fileID: 6056340588392440955}
   - {fileID: -5854508425756604826}
+  - {fileID: 1369120209159707866}
   EditorParameters:
   - {fileID: -1029450653739027122}
   - {fileID: 1945064465766609970}
@@ -312,8 +313,35 @@ MonoBehaviour:
   - {fileID: -2905332157472219407}
   StringsBanks:
   - {fileID: -6774477133602550355}
-  cacheTime: 638350315343485590
+  cacheTime: 638366088734493462
   cacheVersion: 131605
+--- !u!114 &1369120209159707866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Dash
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Dash
+  Guid:
+    Data1: -1010943407
+    Data2: 1134721501
+    Data3: -1199322961
+    Data4: -1754722675
+  Banks:
+  - {fileID: -2905332157472219407}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &1945064465766609970
 MonoBehaviour:
   m_ObjectHideFlags: 0

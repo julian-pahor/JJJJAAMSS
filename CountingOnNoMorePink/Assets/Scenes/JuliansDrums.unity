@@ -9186,6 +9186,7 @@ GameObject:
   - component: {fileID: 919533474}
   - component: {fileID: 919533475}
   - component: {fileID: 919533476}
+  - component: {fileID: 919533477}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -9323,6 +9324,7 @@ MonoBehaviour:
   dashInvulnerability: 0.3
   hitInvulnerability: 1
   hpRecoverySpeed: 0.25
+  dashEmiiter: {fileID: 919533477}
   dashCooldown: 0.462
   parryCooldown: 0.462
   parryShieldDuration: 1
@@ -9378,6 +9380,37 @@ MonoBehaviour:
   hairBase: {fileID: 2100000, guid: 27d1b487c4a0d424489ea1f036fba9e4, type: 2}
   bodyGlow: {fileID: 2100000, guid: ad6b9ec7917dda641939334ab3671f31, type: 2}
   hairGlow: {fileID: 2100000, guid: 78e6600eab4c81840ad240948d3302ad, type: 2}
+--- !u!114 &919533477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919533467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1010943407
+      Data2: 1134721501
+      Data3: -1199322961
+      Data4: -1754722675
+    Path: event:/SFX/Dash
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &920961724
 GameObject:
   m_ObjectHideFlags: 0
@@ -17716,7 +17749,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &2099109156
 SphereCollider:
   m_ObjectHideFlags: 0

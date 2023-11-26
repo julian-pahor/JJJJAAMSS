@@ -31,6 +31,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
     public float hitInvulnerability;
     public float hpRecoverySpeed;
 
+    public FMODUnity.StudioEventEmitter dashEmiiter;
     public float dashCooldown;
     public float parryCooldown;
     public float parryShieldDuration;
@@ -182,6 +183,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
                             return;
 
                         animator.Play("dash", 0, 0f);
+                        dashEmiiter.Play();
                         dashTrail.Play();
 
                         trailL.emitting = true;
