@@ -1415,7 +1415,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 2
+      m_SerializableObject: 1
     m_Space: 2147483647
   m_Property:
     name: Lifetime
@@ -2068,7 +2068,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 7
+      m_SerializableObject: 20
     m_Space: 2147483647
   m_Property:
     name: Size
@@ -2098,7 +2098,7 @@ MonoBehaviour:
   m_InputSlots:
   - {fileID: 8926484042661614682}
   m_OutputSlots: []
-  m_Disabled: 1
+  m_Disabled: 0
   attribute: size
   Composition: 2
   AlphaComposition: 0
@@ -2194,7 +2194,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Gradient, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"colorKeys":[{"color":{"r":20.756689071655275,"g":0.29372620582580569,"b":15.418058395385743,"a":1.0},"time":0.0},{"color":{"r":20.756689071655275,"g":0.29372620582580569,"b":15.418058395385743,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":1.0,"time":0.2558785378932953},{"alpha":1.0,"time":0.8794079422950745},{"alpha":0.0,"time":1.0}],"gradientMode":0}'
+      m_SerializableObject: '{"colorKeys":[{"color":{"r":1.0,"g":0.009601214900612831,"b":0.0,"a":1.0},"time":0.14999619126319886},{"color":{"r":1.8117647171020508,"g":0.16470588743686677,"b":1.4196078777313233,"a":1.0},"time":0.34117648005485537},{"color":{"r":3.6235291957855226,"g":0.36045581102371218,"b":2.845703601837158,"a":1.0},"time":0.8970626592636108}],"alphaKeys":[{"alpha":1.0,"time":0.1588311642408371},{"alpha":1.0,"time":0.8794079422950745},{"alpha":0.0,"time":1.0}],"gradientMode":0}'
     m_Space: 2147483647
   m_Property:
     name: Color
@@ -2262,7 +2262,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"obj":{"fileID":2800000,"guid":"158d9c687149a0e499002e08c9420c70","type":3}}'
+      m_SerializableObject: '{"obj":{"fileID":2800000,"guid":"e6de919bfc6789145bc4333e789f7e3b","type":3}}'
     m_Space: 2147483647
   m_Property:
     name: mainTexture
@@ -3513,7 +3513,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614880}
   - {fileID: 8926484042661614881}
   m_OutputSlots: []
-  m_Disabled: 0
+  m_Disabled: 1
   repeat: 0
   spawnMode: 0
   delayMode: 0
@@ -4290,7 +4290,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"x":0.0,"y":0.0,"z":2.0}'
+      m_SerializableObject: '{"x":0.0,"y":0.0,"z":1.0}'
     m_Space: 2147483647
   m_Property:
     name: Angle
