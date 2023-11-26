@@ -18,13 +18,11 @@ public class Boss : MonoBehaviour
 
     private float damage = 0;
 
-    private SubstanceRuntime sr;
-
+    CameraLook cam;
 
     private void Start()
     {
-        sr = SubstanceRuntime.Instance;
-        damageLayer = sr.InitializeInstance(graphSO);
+        cam = Camera.main.GetComponent<CameraLook>();
     }
 
 
@@ -37,7 +35,7 @@ public class Boss : MonoBehaviour
         //This color is green :-)
         //damageLayer.SetInputColor("paintoutputcolor", new Color(24, 255, 0, damage));
         //damageLayer.SetInputVector4("paintoutputcolor", new Vector4(24, 255, 0, damage));
-        damageLayer.SetInputFloat4(2, new Vector4(24, 255, 0, damage));
+        //damageLayer.SetInputFloat4(2, new Vector4(24, 255, 0, damage));
 
 
         damage -= 0.001f;
@@ -48,6 +46,8 @@ public class Boss : MonoBehaviour
         animator.Play("damage", 0, 0f);
         shockwave.Play();
         slash.Play();
+        cam.StartShake();
+        
 
         damage += 0.25f;
 

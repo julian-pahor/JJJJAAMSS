@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
 
@@ -16,7 +16,7 @@ public class MainMenuManager : MonoBehaviour
     [Header("Main Menu Objects")]
     //Main menu
     public RectTransform title;
-    public RectTransform surtitle;
+    //public RectTransform surtitle;
     public RectTransform gradient;
     public RectTransform avril;
     public List<RectTransform> buttons = new List<RectTransform>();
@@ -38,6 +38,8 @@ public class MainMenuManager : MonoBehaviour
     public RectTransform playCardContent;
     public TextMeshProUGUI playCardTitle;
     public TextMeshProUGUI playCardInfo;
+    public Image gradeImage;
+    public List<Sprite> gradeSprites = new List<Sprite>();
     bool playCardIsOpen;
 
     //credits
@@ -93,8 +95,8 @@ public class MainMenuManager : MonoBehaviour
             mmb.selB = audioManager.selBEmitter;
             button.localPosition = (Vector2)button.localPosition + new Vector2(1000, 0);
         }
-        Vector2 surtitleDesired = surtitle.localPosition;
-        surtitle.localPosition = surtitleDesired + new Vector2(-500, 0);
+        //Vector2 surtitleDesired = surtitle.localPosition;
+        //surtitle.localPosition = surtitleDesired + new Vector2(-500, 0);
 
         Vector2 titleDesired = title.localPosition;
         title.localPosition = titleDesired + new Vector2(-500, 0);
@@ -103,7 +105,7 @@ public class MainMenuManager : MonoBehaviour
         avril.localPosition = avrilDesired + new Vector2(0, -500);
 
         //tween stuff
-        surtitle.DOLocalMove(surtitleDesired, .25f).SetEase(Ease.InSine).OnComplete(() => { surtitle.GetComponent<Parallax>().enabled = true; });
+        //surtitle.DOLocalMove(surtitleDesired, .25f).SetEase(Ease.InSine).OnComplete(() => { surtitle.GetComponent<Parallax>().enabled = true; });
         title.DOLocalMove(titleDesired, .4f).SetEase(Ease.InSine).OnComplete(() => { title.GetComponent<Parallax>().enabled = true; });
         avril.DOLocalMove(avrilDesired, .5f).SetEase(Ease.OutBounce).OnComplete(() => { avril.GetComponent<Parallax>().enabled = true;});
 
@@ -234,7 +236,7 @@ public class MainMenuManager : MonoBehaviour
     public void StartGame()
     {
         persistentData.songIndex = selectorWheel.GetComponent<LevelSelectScroller>().GetIndex();
-        loadingScreen.BeginLoad("AlfRoomOfCretivity");
+        loadingScreen.BeginLoad("JuliansDrums");
     }
 
     public void Quit()
@@ -245,6 +247,7 @@ public class MainMenuManager : MonoBehaviour
     string ScoreInfoFromData(SongScoreData data)
     {
         string s = "";
+        gradeImage.enabled = false;
 
         if (data != null)
         {
@@ -252,6 +255,15 @@ public class MainMenuManager : MonoBehaviour
             s += "Parry Accuracy: " + data.bestTotalParries + "%\n";
             s += "Perfect Parries: " + data.bestPerfectParries + "\n";
             s += "Missed Parries: " + data.bestMissedParries + "\n";
+
+            Sprite grade = GetGradeSprite(data.grade);
+
+            if(grade != null)
+            {
+                gradeImage.sprite = grade;
+                gradeImage.enabled = true;
+            }
+
        
         }
         else
@@ -264,5 +276,21 @@ public class MainMenuManager : MonoBehaviour
         }
 
         return s;
+    }
+
+    Sprite GetGradeSprite(string letterGrade)
+    {
+        switch(letterGrade)
+        {
+            case "S":
+                return gradeSprites[0];
+            case "A":
+                return gradeSprites[1];
+            case "B":
+                return gradeSprites[2];
+            case "C":
+                return gradeSprites[3];
+        }
+        return null;
     }
 }
