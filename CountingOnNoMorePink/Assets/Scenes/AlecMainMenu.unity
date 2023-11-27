@@ -720,9 +720,9 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.38039216, g: 0.90588236, b: 0.56078434, a: 1}
-    m_HighlightedColor: {r: 1, g: 0.8, b: 0.9019608, a: 1}
-    m_PressedColor: {r: 0.25490198, g: 0.7372549, b: 0.4431373, a: 1}
+    m_NormalColor: {r: 0.5254902, g: 0.8196079, b: 0.5568628, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.6862745, b: 0.9568628, a: 1}
+    m_PressedColor: {r: 0.29803923, g: 0.627451, b: 0.32156864, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -2073,9 +2073,9 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.38228235, g: 0.90588236, b: 0.5596307, a: 1}
-    m_HighlightedColor: {r: 1, g: 0.5882353, b: 0.93333334, a: 1}
-    m_PressedColor: {r: 1, g: 0.9490196, b: 0.5254902, a: 1}
+    m_NormalColor: {r: 0.53333336, g: 0.8196079, b: 0.54901963, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.69411767, b: 0.9450981, a: 1}
+    m_PressedColor: {r: 0.79215693, g: 0.9333334, b: 0.87843144, a: 1}
     m_SelectedColor: {r: 0.38039216, g: 0.90588236, b: 0.56078434, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -3909,7 +3909,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9960785, g: 0.3019608, b: 0.7490196, a: 1}
+  m_Color: {r: 1, g: 0.42352945, b: 0.7803922, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5129,9 +5129,9 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.9960785, g: 0.6, b: 0.8000001, a: 1}
-    m_HighlightedColor: {r: 1, g: 0.3537736, b: 0.8910788, a: 1}
-    m_PressedColor: {r: 1, g: 0.9492799, b: 0.5254902, a: 1}
+    m_NormalColor: {r: 1, g: 0.69411767, b: 0.9450981, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.4156863, b: 0.7686275, a: 1}
+    m_PressedColor: {r: 0.53333336, g: 0.8196079, b: 0.54901963, a: 1}
     m_SelectedColor: {r: 0.9960785, g: 0.6, b: 0.8000001, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -5397,9 +5397,9 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.9960785, g: 0.6, b: 0.8000001, a: 1}
-    m_HighlightedColor: {r: 1, g: 0.3537736, b: 0.8910788, a: 1}
-    m_PressedColor: {r: 1, g: 0.9492799, b: 0.5254902, a: 1}
+    m_NormalColor: {r: 1, g: 0.6862745, b: 0.95294124, a: 1}
+    m_HighlightedColor: {r: 0.9921569, g: 0.427451, b: 0.7607844, a: 1}
+    m_PressedColor: {r: 0.53333336, g: 0.8196079, b: 0.54901963, a: 1}
     m_SelectedColor: {r: 0.9960785, g: 0.6, b: 0.8000001, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -5519,9 +5519,13 @@ MonoBehaviour:
   playCard: {fileID: 158862488}
   playCardContent: {fileID: 1260310030}
   playCardTitle: {fileID: 241343364}
-  playCardInfo: {fileID: 0}
+  playCardInfo: {fileID: 2126461167}
   gradeImage: {fileID: 1726038969}
-  gradeSprites: []
+  gradeSprites:
+  - {fileID: 21300000, guid: a460c11f51a205947b4bdfbd8d4e3dd7, type: 3}
+  - {fileID: 21300000, guid: b5adcc26cd0e5ae4c83d548cc97c9bae, type: 3}
+  - {fileID: 21300000, guid: 8a34e8ef085d11c45a33198a4ae3077f, type: 3}
+  - {fileID: 21300000, guid: 2673c3bd7c909b648bf232ebfa672458, type: 3}
   mainMenu: {fileID: 1714181993}
   levelSelect: {fileID: 1822693169}
 --- !u!4 &1657937538
@@ -7270,9 +7274,9 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.38039216, g: 0.90588236, b: 0.56078434, a: 1}
-    m_HighlightedColor: {r: 1, g: 0.5882353, b: 0.93333334, a: 1}
-    m_PressedColor: {r: 1, g: 0.9490196, b: 0.5254902, a: 1}
+    m_NormalColor: {r: 0.52156866, g: 0.8235295, b: 0.54901963, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.6862745, b: 0.95294124, a: 1}
+    m_PressedColor: {r: 0.7803922, g: 0.94117653, b: 0.8745099, a: 1}
     m_SelectedColor: {r: 0.38039216, g: 0.90588236, b: 0.56078434, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -7438,10 +7442,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9044792411929516282, guid: cc5fb3f4124ad6747be957fddd06555e, type: 3}
-      propertyPath: onClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1657937537}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc5fb3f4124ad6747be957fddd06555e, type: 3}
 --- !u!224 &8521805559743085564 stripped
