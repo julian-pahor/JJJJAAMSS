@@ -54,6 +54,8 @@ public class Wobbit : MonoBehaviour
 
     public PersistentData persistentData;
 
+    public bool paused = false;
+
     
     //TimeSlow stuff testing 
 
@@ -109,10 +111,13 @@ public class Wobbit : MonoBehaviour
 
     private void Update()
     {
+        if(!paused)
+        {
+            timeScale = Mathf.Lerp(timeScale, targetScale, Time.deltaTime * 4.75f);
+            Time.timeScale = timeScale;
+            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("TimeSlow", timeScale);
+        }
         
-        timeScale = Mathf.Lerp(timeScale, targetScale, Time.deltaTime * 4.75f);
-        Time.timeScale = timeScale;
-        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("TimeSlow", timeScale);
         
 
         targetScale += Time.deltaTime * 4.5f;

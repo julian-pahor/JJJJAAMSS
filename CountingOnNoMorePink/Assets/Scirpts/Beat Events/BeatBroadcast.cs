@@ -99,6 +99,16 @@ public class BeatBroadcast : MonoBehaviour
         }
     }
 
+    public void Pause()
+    {
+        musicInstance.setPaused(true);
+    }
+
+    public void Resume()
+    {
+        musicInstance.setPaused(false);
+    }
+
     void OnDestroy()
     {
         StopMusic();

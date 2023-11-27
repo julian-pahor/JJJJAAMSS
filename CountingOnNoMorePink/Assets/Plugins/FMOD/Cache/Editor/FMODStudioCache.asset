@@ -96,38 +96,11 @@ MonoBehaviour:
   Path: ../PitchDemoProject/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638366088734493462
+  lastModified: 638366948708158920
   FileSizes:
   - Name: Desktop
-    Value: 1542
+    Value: 1592
   Exists: 1
---- !u!114 &-6205110524218500733
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/UI/Death
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/UI/Death
-  Guid:
-    Data1: -542746697
-    Data2: 1238000570
-    Data3: -409890117
-    Data4: 1961466975
-  Banks:
-  - {fileID: -2905332157472219407}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
 --- !u!114 &-5854508425756604826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,10 +171,10 @@ MonoBehaviour:
   Path: ../PitchDemoProject/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638366088734473514
+  lastModified: 638366948708129009
   FileSizes:
   - Name: Desktop
-    Value: 2951872
+    Value: 3166944
   Exists: 1
 --- !u!114 &-1786946396110557196
 MonoBehaviour:
@@ -230,6 +203,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 112615
+--- !u!114 &-1517321090515148535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Dash
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Dash
+  Guid:
+    Data1: -1010943407
+    Data2: 1134721501
+    Data3: -1199322961
+    Data4: -1754722675
+  Banks:
+  - {fileID: -2905332157472219407}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1022
 --- !u!114 &-1029450653739027122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,11 +300,12 @@ MonoBehaviour:
   - {fileID: -1786946396110557196}
   - {fileID: 7496662486979217573}
   - {fileID: -8970286179226487385}
-  - {fileID: -6205110524218500733}
   - {fileID: -7906553978170548039}
-  - {fileID: 6056340588392440955}
   - {fileID: -5854508425756604826}
-  - {fileID: 1369120209159707866}
+  - {fileID: -1517321090515148535}
+  - {fileID: 4477921361119129799}
+  - {fileID: 1103703085258164134}
+  - {fileID: 3297132860027915205}
   EditorParameters:
   - {fileID: -1029450653739027122}
   - {fileID: 1945064465766609970}
@@ -313,9 +314,9 @@ MonoBehaviour:
   - {fileID: -2905332157472219407}
   StringsBanks:
   - {fileID: -6774477133602550355}
-  cacheTime: 638366088734493462
+  cacheTime: 638366948708158920
   cacheVersion: 131605
---- !u!114 &1369120209159707866
+--- !u!114 &1103703085258164134
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -325,14 +326,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Dash
+  m_Name: event:/SFX/Death
   m_EditorClassIdentifier: 
-  Path: event:/SFX/Dash
+  Path: event:/SFX/Death
   Guid:
-    Data1: -1010943407
-    Data2: 1134721501
-    Data3: -1199322961
-    Data4: -1754722675
+    Data1: -542746697
+    Data2: 1238000570
+    Data3: -409890117
+    Data4: 1961466975
   Banks:
   - {fileID: -2905332157472219407}
   IsStream: 0
@@ -390,7 +391,7 @@ MonoBehaviour:
   IsGlobal: 1
   Labels: []
   Exists: 1
---- !u!114 &6056340588392440955
+--- !u!114 &3297132860027915205
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -400,9 +401,36 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/UI/Hit
+  m_Name: event:/Music/GameOver
   m_EditorClassIdentifier: 
-  Path: event:/SFX/UI/Hit
+  Path: event:/Music/GameOver
+  Guid:
+    Data1: 385217517
+    Data2: 1290884050
+    Data3: 45741244
+    Data4: -1205846933
+  Banks:
+  - {fileID: -2905332157472219407}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 12800
+--- !u!114 &4477921361119129799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Hit
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Hit
   Guid:
     Data1: 1997992930
     Data2: 1133987390
