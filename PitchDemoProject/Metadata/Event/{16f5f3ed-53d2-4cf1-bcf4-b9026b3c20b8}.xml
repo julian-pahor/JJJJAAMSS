@@ -53,7 +53,7 @@
 			<destination>{47d6d466-5931-401f-a703-66b464b0b395}</destination>
 		</relationship>
 		<relationship name="output">
-			<destination>{b9293374-94f7-41c2-a8b1-19b683c9002a}</destination>
+			<destination>{150b85d4-2d8d-4b13-ae4a-be14df84741d}</destination>
 		</relationship>
 	</object>
 	<object class="EventAutomatableProperties" id="{f9da908f-98ee-495c-9f01-2ba3af767cf6}" />
@@ -100,9 +100,6 @@
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{3e3fb06b-d87a-4297-9fe8-c957b3509014}">
-		<property name="volume">
-			<value>2.5</value>
-		</property>
 		<property name="name">
 			<value>Audio 1</value>
 		</property>
@@ -139,38 +136,10 @@
 	<object class="MixerBusFader" id="{b714a9c8-8249-47c0-bcc0-815c55ea70bb}" />
 	<object class="MixerBusEffectChain" id="{2a12df0c-dcf9-40df-b665-fac4b868f68b}">
 		<relationship name="effects">
-			<destination>{3be171c7-e57c-4c05-a158-c11781be1c80}</destination>
-			<destination>{a377d881-4c63-4610-986d-56aff2b0d20c}</destination>
 			<destination>{47a60283-ef32-4dc6-80fc-857921cb1544}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{36d21886-97e7-4174-ab95-5c7efcb5a174}" />
 	<object class="MixerBusFader" id="{9388a5c2-bc84-409e-bbec-7990995af684}" />
-	<object class="FlangerEffect" id="{3be171c7-e57c-4c05-a158-c11781be1c80}">
-		<property name="rate">
-			<value>2.9000001</value>
-		</property>
-		<property name="delay">
-			<value>0.529999971</value>
-		</property>
-		<property name="mix">
-			<value>68</value>
-		</property>
-		<relationship name="modulators">
-			<destination>{ef8b8079-ba07-4cf4-a08c-7883bd1e4555}</destination>
-		</relationship>
-	</object>
-	<object class="SFXReverbEffect" id="{a377d881-4c63-4610-986d-56aff2b0d20c}" />
 	<object class="MixerBusFader" id="{47a60283-ef32-4dc6-80fc-857921cb1544}" />
-	<object class="LFOModulator" id="{ef8b8079-ba07-4cf4-a08c-7883bd1e4555}">
-		<property name="nameOfPropertyBeingModulated">
-			<value>rate</value>
-		</property>
-		<property name="rate">
-			<value>5.5999999</value>
-		</property>
-		<property name="depth">
-			<value>25.5</value>
-		</property>
-	</object>
 </objects>
