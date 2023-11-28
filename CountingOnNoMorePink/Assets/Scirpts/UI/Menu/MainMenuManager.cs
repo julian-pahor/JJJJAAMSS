@@ -249,31 +249,35 @@ public class MainMenuManager : MonoBehaviour
         string s = "";
         gradeImage.enabled = false;
 
-        if (data != null)
-        {
-            s += "Hits Taken: " + data.bestHits + "\n";
-            s += "Parry Accuracy: " + data.bestTotalParries + "%\n";
-            s += "Perfect Parries: " + data.bestPerfectParries + "\n";
-            s += "Missed Parries: " + data.bestMissedParries + "\n";
+        //TODO::
+        //Write read data into seperate textboxes for each saved data
 
-            Sprite grade = GetGradeSprite(data.grade);
 
-            if(grade != null)
-            {
-                gradeImage.sprite = grade;
-                gradeImage.enabled = true;
-            }
+        //if (data != null)
+        //{
+        //    s += "Hits Taken: " + data.bestHits + "\n";
+        //    s += "Parry Accuracy: " + data.bestTotalParries + "%\n";
+        //    s += "Perfect Parries: " + data.bestPerfectParries + "\n";
+        //    s += "Missed Parries: " + data.bestMissedParries + "\n";
+
+        //    Sprite grade = GetGradeSprite(data.grade);
+
+        //    if(grade != null)
+        //    {
+        //        gradeImage.sprite = grade;
+        //        gradeImage.enabled = true;
+        //    }
 
        
-        }
-        else
-        {
-            s += "Hits Taken: " + 0 + "\n";
-            s += "Parry Accuracy: " + 0 + "%\n";
-            s += "Perfect Parries: " + 0 + "\n";
-            s += "Missed Parries: " + 0 + "\n";
+        //}
+        //else
+        //{
+        //    s += "Hits Taken: " + 0 + "\n";
+        //    s += "Parry Accuracy: " + 0 + "%\n";
+        //    s += "Perfect Parries: " + 0 + "\n";
+        //    s += "Missed Parries: " + 0 + "\n";
           
-        }
+        //}
 
         return s;
     }
