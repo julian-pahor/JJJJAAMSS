@@ -90,9 +90,6 @@ public class MainMenuManager : MonoBehaviour
             //button.GetComponent<MainMenuButton>().ResetHighlight();
             MainMenuButton mmb = button.GetComponent<MainMenuButton>();
             mmb.ResetHighlight();
-            mmb.blip = audioManager.blipEmitter;
-            mmb.selG = audioManager.selGEmitter;
-            mmb.selB = audioManager.selBEmitter;
             button.localPosition = (Vector2)button.localPosition + new Vector2(1000, 0);
         }
         //Vector2 surtitleDesired = surtitle.localPosition;
