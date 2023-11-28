@@ -34,6 +34,8 @@ public class Wobbit : MonoBehaviour
     public GameObject tracerWindup;
     public Transform hand1;
     public Transform hand2;
+    public Transform anchor1;
+    public Transform anchor2;
 
     public Parry playerParry;
 
@@ -53,6 +55,8 @@ public class Wobbit : MonoBehaviour
     public PoolPool poolPool;
 
     public PersistentData persistentData;
+
+    public bool paused = false;
 
     
     //TimeSlow stuff testing 
@@ -109,10 +113,13 @@ public class Wobbit : MonoBehaviour
 
     private void Update()
     {
+        if(!paused)
+        {
+            timeScale = Mathf.Lerp(timeScale, targetScale, Time.deltaTime * 4.75f);
+            Time.timeScale = timeScale;
+            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("TimeSlow", timeScale);
+        }
         
-        timeScale = Mathf.Lerp(timeScale, targetScale, Time.deltaTime * 4.75f);
-        Time.timeScale = timeScale;
-        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("TimeSlow", timeScale);
         
 
         targetScale += Time.deltaTime * 4.5f;
@@ -135,12 +142,14 @@ public class Wobbit : MonoBehaviour
         gameOverScreen.Activate();
     }
 
+
     public void FinishSong()
     {
         FreeFormOrbitalMove playerController = player.GetComponent<FreeFormOrbitalMove>();
         //do not win if you are not win
         if (playerController.IsAlive())
         {
+            boss.animator.Play("Dying", 0, 0f);
             playerController.SetDamageEnabled(false);
             resultScreen.Activate();
         }

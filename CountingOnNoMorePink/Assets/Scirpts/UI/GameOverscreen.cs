@@ -20,7 +20,7 @@ public class GameOverscreen : MonoBehaviour
         this.gameObject.SetActive(true);
     }
 
-    private void Start()
+    private void Awake()
     {
         this.gameObject.SetActive(false);
     }

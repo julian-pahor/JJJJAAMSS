@@ -31,6 +31,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
     public float hitInvulnerability;
     public float hpRecoverySpeed;
 
+    
     public float dashCooldown;
     public float parryCooldown;
     public float parryShieldDuration;
@@ -58,8 +59,11 @@ public class FreeFormOrbitalMove : MonoBehaviour
     public ParticleSystem dashTrail;
     public TrailRenderer trailL;
     public TrailRenderer trailR;
+    public FMODUnity.StudioEventEmitter dashEmiiter;
 
     public System.Action onTakeDamage;
+    public FMODUnity.StudioEventEmitter hurtEmitter;
+    public FMODUnity.StudioEventEmitter deathEmitter;
     public System.Action onHealthChanged;
 
 
@@ -171,6 +175,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
                         parryHandler.DoParry();
                         parryCd = parryCooldown;
+                        animator.Play("parry", 0, 0f);
                         dashRecover.Play(true);
                         return;
                     }
@@ -182,6 +187,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
                             return;
 
                         animator.Play("dash", 0, 0f);
+                        dashEmiiter.Play();
                         dashTrail.Play();
 
                         trailL.emitting = true;
@@ -254,12 +260,14 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
         currentHP -= 1f;
         animator.Play("hurt", 0, 0f);
+        hurtEmitter.Play();
 
 
         if (currentHP <= 0)
         {
             state = State.Dead;
             animator.Play("death", 0, 0f);
+            deathEmitter.Play();
             Wobbit.instance.EndGame();
         }
 

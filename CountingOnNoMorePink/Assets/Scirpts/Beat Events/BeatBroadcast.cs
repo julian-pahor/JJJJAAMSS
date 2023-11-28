@@ -99,15 +99,25 @@ public class BeatBroadcast : MonoBehaviour
         }
     }
 
+    public void Pause()
+    {
+        musicInstance.setPaused(true);
+    }
+
+    public void Resume()
+    {
+        musicInstance.setPaused(false);
+    }
+
     void OnDestroy()
     {
         StopMusic();
     }
 
-    //void OnGUI()
-    //{
-    //    GUILayout.Box(String.Format("Current Bar = {0}, Current Beat = {2}, Last Marker = {1}", timelineInfo.currentMusicBar, (string)timelineInfo.lastMarker, timelineInfo.currentMusicBeat));
-    //}
+    void OnGUI()
+    {
+        GUILayout.Box(String.Format("Current Bar = {0}, Current Beat = {2}, Last Marker = {1}", timelineInfo.currentMusicBar, (string)timelineInfo.lastMarker, timelineInfo.currentMusicBeat));
+    }
 
     [AOT.MonoPInvokeCallback(typeof(FMOD.Studio.EVENT_CALLBACK))]
     static FMOD.RESULT BeatEventCallback(FMOD.Studio.EVENT_CALLBACK_TYPE type, IntPtr instancePtr, IntPtr parameterPtr)

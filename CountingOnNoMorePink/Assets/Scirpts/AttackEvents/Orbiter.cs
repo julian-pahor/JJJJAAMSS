@@ -136,7 +136,7 @@ public class Orbiter : MonoBehaviour
         isActive = true;
         bopTimer = 0;
         col.enabled = true;
-        GetComponentInChildren<Renderer>().enabled = false;
+        //GetComponentInChildren<Renderer>().material = baseMat;
         vfx.Play();
     }
 
