@@ -1,8 +1,10 @@
+using FMOD;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 
 public class LevelSelectScroller : MonoBehaviour
@@ -26,16 +28,44 @@ public class LevelSelectScroller : MonoBehaviour
 
     public int currentIndex;
 
+    bool toggle;
+    public TextMeshProUGUI toggleButtonText;
+
     private void Start()
     {
-        
-        LoadSavesFromPersistent();
-        levelList.Reverse();
-        StartUp();
-        //Swotch(0);
+        LoadBaseSaves();
     }
 
-    void StartUp()
+
+    public void ToggleSaves()
+    {
+        toggle = !toggle;
+
+        if (toggle)
+        {
+            SetToggleText("Base Levels");
+            LoadCustomSaves();
+        }
+        else
+        {
+            SetToggleText("Custom Levels");
+            LoadBaseSaves();
+        }
+
+    }
+
+
+    void SetToggleText(string text)
+    {
+        if(toggleButtonText == null)
+        {
+            UnityEngine.Debug.LogWarning("you have not assigned the toggle button text you silly. this is a proper null check");
+            return;
+        }
+        toggleButtonText.text = text;
+    }
+
+    void SetPositions()
     {
         currentIndex = levelList.Count - 1;
         for (int i = 0; i < levelList.Count; ++i)
@@ -51,8 +81,10 @@ public class LevelSelectScroller : MonoBehaviour
     }
 
 
-    void LoadSavesFromPersistent()
+    void LoadBaseSaves()
     {
+        ClearAllButtons();
+
         string path = Application.persistentDataPath + "/SongSaves/";
 
         Utilities.SaveNames saves = new Utilities.SaveNames();
@@ -68,29 +100,41 @@ public class LevelSelectScroller : MonoBehaviour
             levelList.Add(b);
         }
 
-        //if (Utilities.DirectoryStuff(path))
-        //{
-        //    foreach (var file in System.IO.Directory.GetFiles(path))
-        //    {
-        //        Debug.Log(path);
-        //        string filePath = file.Replace(path, "");
-        //        filePath = filePath.Replace(".json", "");
-        //        LevelButton b = Instantiate(buttonFab, transform);
-        //        b.levelTitle.text = filePath;
-        //        b.GetComponent<Button>().onClick.AddListener(() => manager.OpenPlayCard(b.levelTitle.text)); //who even knows
-        //        b.GetComponent<Button>().onClick.AddListener((() => manager.audioManager.selGEmitter.Play())); //I dont even know either :'c
-        //        levelList.Add(b);
-               
-        //    }
-        //}
-        //else
-        //{
-        //    //Called if the directory has not been created yet to move all existing saves
-        //    //from resources into the persistent data path 
+        levelList.Reverse();
+        SetPositions();
+    }
 
-        //    TransportFilesFromResources();
-        //    LoadSavesFromPersistent();
-        //}
+    void LoadCustomSaves()
+    {
+        ClearAllButtons();
+
+        string path = Application.persistentDataPath + "/SongSaves/";
+
+        Utilities.SaveNames saves = new Utilities.SaveNames();
+
+        saves = Utilities.CheckGetSaves(path);
+
+        foreach (string s in saves.customLevels)
+        {
+            LevelButton b = Instantiate(buttonFab, transform);
+            b.levelTitle.text = s;
+            b.GetComponent<Button>().onClick.AddListener(() => manager.OpenPlayCard(b.levelTitle.text)); //who even knows
+            b.GetComponent<Button>().onClick.AddListener((() => manager.audioManager.selGEmitter.Play())); //I dont even know either :'c
+            levelList.Add(b);
+        }
+
+        levelList.Reverse();
+        SetPositions();
+    }
+
+
+    void ClearAllButtons()
+    {
+        foreach(LevelButton b in levelList)
+        {
+            Destroy(b.gameObject);
+        }
+        levelList.Clear();
     }
 
     void TransportFilesFromResources()
