@@ -15,6 +15,7 @@ public class BeatTimeline : MonoBehaviour
     public float GetSongPercentage()
     {
         float f = (float)index / (float)saveFile.SongLength;
+
         if(float.IsNaN(f))
         {
             return 0;
@@ -81,28 +82,28 @@ public class BeatTimeline : MonoBehaviour
         if(marker == "Finish")
         {
             Wobbit.instance.FinishSong();
+            index = saveFile.SongLength;
             return;
         }
 
         //End of Audio Event / Last call from Beat Broadcast
         if(marker == "End" || marker == "Cooldown")
         {
+            index = saveFile.SongLength;
             return;
         }
 
         //Currently stops functionality during transitional bars
         //TODO: Move transitions to a seperate event that automatically stops and resumes timeline event
-        if (bar == 13 || bar == 14 || bar == 23 || bar == 24 || bar == 40 || bar == 41)
+        //^^^Yea buddy that's not how it's gonna work
+        if (marker == "x")
         {
             return;
         }
 
-        if(bar >= 5)
-        {
-            DoBeat(index);
-            DoArm(index);
-            index++;
-        }
+        DoBeat(index);
+        DoArm(index);
+        index++;
 
         //looping index of beat timeline
         if (index >= saveFile.SongLength)
