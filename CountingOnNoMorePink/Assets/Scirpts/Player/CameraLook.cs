@@ -47,7 +47,7 @@ public class CameraLook : MonoBehaviour
     }
 
 
-    void StartShake()
+    public void StartShake()
     {
         StartCoroutine(Shake(.2f, 1.1f));
     }
