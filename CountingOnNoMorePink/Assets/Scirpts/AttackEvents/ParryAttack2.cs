@@ -22,16 +22,13 @@ public class ParryAttack2 : MonoBehaviour
     void Start()
     {
         BeatBroadcast.instance.timelineInfo.onBeatTrigger += OnBeat;
-
+        int direction = Random.Range(0,2);
         //I (Julian), hereby apologise to Alf and any future programmer reading this next line of code
-        start = Random.Range(0, 2) == 1 ? Wobbit.instance.hand1.position : Wobbit.instance.hand2.position;
+        start = direction== 1 ? Wobbit.instance.hand1.position : Wobbit.instance.hand2.position;
+        mid = direction == 1 ? Wobbit.instance.anchor1.position : Wobbit.instance.anchor2.position;
         end = Wobbit.instance.player.position;
-        mid = end - start;
-        mid = mid.normalized;
-        mid = (mid * 2f) + (Vector3.up * 3f);
-        
         transform.position = start;
-        transform.DOPunchScale(Vector3.one * 1.25f, 0.175f);
+       
     }
 
     private void OnDestroy()
@@ -42,7 +39,7 @@ public class ParryAttack2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(Vector3.left * 50f * Time.deltaTime);
+        
 
         if(index > 0)
         {
@@ -63,9 +60,6 @@ public class ParryAttack2 : MonoBehaviour
     public void OnBeat(int m, int b, string marker)
     {
         index++;
-        if(index == 1)
-        {
-            transform.DOPunchScale(Vector3.one * 1.3f, 0.2f);
-        }
+
     }
 }

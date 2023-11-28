@@ -34,6 +34,8 @@ public class Wobbit : MonoBehaviour
     public GameObject tracerWindup;
     public Transform hand1;
     public Transform hand2;
+    public Transform anchor1;
+    public Transform anchor2;
 
     public Parry playerParry;
 
