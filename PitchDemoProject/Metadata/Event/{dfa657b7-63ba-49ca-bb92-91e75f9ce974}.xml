@@ -5,10 +5,10 @@
 			<value>Death</value>
 		</property>
 		<property name="outputFormat">
-			<value>0</value>
+			<value>1</value>
 		</property>
 		<relationship name="folder">
-			<destination>{70c70ece-238f-4ca9-8c86-f160c0f68edf}</destination>
+			<destination>{37de8d93-dac8-43bd-915a-c503cc46a38b}</destination>
 		</relationship>
 		<relationship name="mixer">
 			<destination>{83f6a595-8068-493a-93ed-e10bd3e3b065}</destination>
@@ -41,6 +41,9 @@
 		</relationship>
 	</object>
 	<object class="MasterTrack" id="{cccf91c7-0aff-4565-945c-98b32b57f32b}">
+		<relationship name="automationTracks">
+			<destination>{e41e3024-8ee5-4fd6-9f3a-bbc6bfb87535}</destination>
+		</relationship>
 		<relationship name="modules">
 			<destination>{fd42f988-9c7a-4a7a-b46d-81265b8b2e4f}</destination>
 		</relationship>
@@ -82,9 +85,18 @@
 			<destination>{83f6a595-8068-493a-93ed-e10bd3e3b065}</destination>
 		</relationship>
 	</object>
+	<object class="AutomationTrack" id="{e41e3024-8ee5-4fd6-9f3a-bbc6bfb87535}">
+		<relationship name="automator">
+			<destination>{1384235a-fda2-4d8c-a5fb-804d3f058f6d}</destination>
+		</relationship>
+	</object>
 	<object class="MultiSound" id="{fd42f988-9c7a-4a7a-b46d-81265b8b2e4f}">
+		<property name="playbackMode">
+			<value>1</value>
+		</property>
 		<relationship name="sounds">
 			<destination>{0314d1c5-b1fd-4968-8281-79f2a23c3cf2}</destination>
+			<destination>{f6841e71-5600-42f1-bc3b-9410356c1053}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusEffectChain" id="{9393cf56-b673-4122-9bcc-8208ea3bea57}">
@@ -95,6 +107,8 @@
 	<object class="MixerBusPanner" id="{34471d0e-1609-4959-b72b-57838f1d44f3}" />
 	<object class="MixerBusEffectChain" id="{e1e44c33-9de2-472a-8fc0-4a16e8ec01d9}">
 		<relationship name="effects">
+			<destination>{b491d0fc-0ccb-4d05-8fdb-8a693075252c}</destination>
+			<destination>{1c5ef7a9-8320-44c3-9f83-f77d3b94a935}</destination>
 			<destination>{d3eba20a-b97f-48e1-85e2-ff11ec903b6b}</destination>
 		</relationship>
 	</object>
@@ -103,6 +117,12 @@
 		<property name="name">
 			<value>Death</value>
 		</property>
+		<property name="volume">
+			<value>-8</value>
+		</property>
+		<relationship name="automators">
+			<destination>{1384235a-fda2-4d8c-a5fb-804d3f058f6d}</destination>
+		</relationship>
 		<relationship name="modulators">
 			<destination>{666df7c1-f8a7-4e1f-950e-5ed9ba606213}</destination>
 			<destination>{16a74b21-5402-4d4f-9ca6-b4cc1e00b1fd}</destination>
@@ -111,8 +131,43 @@
 			<destination>{bee8226e-f998-4006-bf27-e47b31490768}</destination>
 		</relationship>
 	</object>
+	<object class="SingleSound" id="{f6841e71-5600-42f1-bc3b-9410356c1053}">
+		<property name="volume">
+			<value>5</value>
+		</property>
+		<relationship name="audioFile">
+			<destination>{2e7d9d15-6db6-4a59-aee8-5c63a333c9a0}</destination>
+		</relationship>
+	</object>
 	<object class="MixerBusFader" id="{f4bc344a-0ac9-423e-8ced-03b452a23098}" />
+	<object class="ChorusEffect" id="{b491d0fc-0ccb-4d05-8fdb-8a693075252c}">
+		<property name="rate">
+			<value>0.199999988</value>
+		</property>
+		<property name="depth">
+			<value>28.5</value>
+		</property>
+		<property name="mix">
+			<value>70.5</value>
+		</property>
+	</object>
+	<object class="DelayEffect" id="{1c5ef7a9-8320-44c3-9f83-f77d3b94a935}">
+		<property name="delay">
+			<value>620</value>
+		</property>
+		<property name="feedback">
+			<value>27</value>
+		</property>
+		<property name="level">
+			<value>-12</value>
+		</property>
+	</object>
 	<object class="MixerBusFader" id="{d3eba20a-b97f-48e1-85e2-ff11ec903b6b}" />
+	<object class="Automator" id="{1384235a-fda2-4d8c-a5fb-804d3f058f6d}">
+		<property name="nameOfPropertyBeingAutomated">
+			<value>volume</value>
+		</property>
+	</object>
 	<object class="RandomizerModulator" id="{666df7c1-f8a7-4e1f-950e-5ed9ba606213}">
 		<property name="nameOfPropertyBeingModulated">
 			<value>volume</value>

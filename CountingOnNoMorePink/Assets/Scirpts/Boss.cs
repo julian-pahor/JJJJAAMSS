@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.VFX;
 using Adobe.Substance.Runtime;
 using Adobe.Substance;
+using DG.Tweening;
 
 public class Boss : MonoBehaviour
 {
@@ -46,7 +47,7 @@ public class Boss : MonoBehaviour
         animator.Play("damage", 0, 0f);
         shockwave.Play();
         slash.Play();
-        cam.StartShake();
+        //transform.DOPunchPosition(new Vector3(transform.position.x, transform.position.y, transform.position.z),.462f,4,.2f); 
         
 
         damage += 0.25f;

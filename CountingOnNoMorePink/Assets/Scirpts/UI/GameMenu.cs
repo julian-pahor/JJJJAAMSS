@@ -28,13 +28,21 @@ public class GameMenu : MonoBehaviour
     {
         if (!menuIsActive)
         {
+            //Wobbit.instance.paused = true;
             menuIsActive = true;
-            menu.DOLocalMoveX(targetX, .2f).SetEase(Ease.OutSine);
+            menu.DOLocalMoveX(targetX, .15f).SetEase(Ease.OutSine).OnComplete(() =>
+            {
+                //Time.timeScale = 0;
+                //BeatBroadcast.instance.Pause();
+            });
         }
         else
         {
+            //Time.timeScale = 1;
+            //Wobbit.instance.paused = false;
+            //BeatBroadcast.instance.Resume();
             menuIsActive = false;
-            menu.DOLocalMoveX(startX, .2f).SetEase(Ease.InSine);
+            menu.DOLocalMoveX(startX, .15f).SetEase(Ease.InSine);
 
         }
     }
