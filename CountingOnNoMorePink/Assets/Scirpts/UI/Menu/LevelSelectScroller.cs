@@ -34,6 +34,7 @@ public class LevelSelectScroller : MonoBehaviour
     private void Start()
     {
         LoadBaseSaves();
+        SetToggleText("Base Levels");
     }
 
 
@@ -96,7 +97,7 @@ public class LevelSelectScroller : MonoBehaviour
             LevelButton b = Instantiate(buttonFab, transform);
             b.levelTitle.text = s;
             b.GetComponent<Button>().onClick.AddListener(() => manager.OpenPlayCard(b.levelTitle.text)); //who even knows
-            b.GetComponent<Button>().onClick.AddListener((() => manager.audioManager.selGEmitter.Play())); //I dont even know either :'c
+            //b.GetComponent<Button>().onClick.AddListener((() => manager.audioManager.selGEmitter.Play())); //I dont even know either :'c
             levelList.Add(b);
         }
 
@@ -119,7 +120,7 @@ public class LevelSelectScroller : MonoBehaviour
             LevelButton b = Instantiate(buttonFab, transform);
             b.levelTitle.text = s;
             b.GetComponent<Button>().onClick.AddListener(() => manager.OpenPlayCard(b.levelTitle.text)); //who even knows
-            b.GetComponent<Button>().onClick.AddListener((() => manager.audioManager.selGEmitter.Play())); //I dont even know either :'c
+            //b.GetComponent<Button>().onClick.AddListener((() => manager.audioManager.selGEmitter.Play())); //I dont even know either :'c
             levelList.Add(b);
         }
 
