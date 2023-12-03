@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
+using System.Linq;
 
 public class MenuAudioManager : MonoBehaviour
 {
@@ -8,15 +11,18 @@ public class MenuAudioManager : MonoBehaviour
     public FMODUnity.StudioEventEmitter selGEmitter;
     public FMODUnity.StudioEventEmitter selBEmitter;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public static MenuAudioManager instance;
 
-    // Update is called once per frame
-    void Update()
+    // Start is called before the first frame update
+    void Awake()
     {
-        
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
