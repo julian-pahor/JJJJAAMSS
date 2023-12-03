@@ -16,31 +16,46 @@ public class MainMenuManager : MonoBehaviour
     [Header("Main Menu Objects")]
     //Main menu
     public RectTransform title;
+
+    public GameObject avrilModel;
+    public GameObject mainCamera;
+
     //public RectTransform surtitle;
-    public RectTransform gradient;
-    public RectTransform avril;
     public List<RectTransform> buttons = new List<RectTransform>();
     public List<Parallax> parallaxers = new List<Parallax>();
     public Vector2 gradientOffset;
 
-    //AudioManagerRef
-    public MenuAudioManager audioManager;
-    
     [Space(10)]
     [Header("Level Select Menu Objects")]
     //level select
+    public Transform lerpEndTarget;
+    public Transform lerpQuadTarget;
+
+    public GameObject book;
     public RectTransform selectorWheel;
     public RectTransform backButton;
     public RectTransform banner;
+
+    //Comic Holder
+    public List<RectTransform> comicPanels = new List<RectTransform>();
 
     //card
     public RectTransform playCard;
     public RectTransform playCardContent;
     public TextMeshProUGUI playCardTitle;
-    public TextMeshProUGUI playCardInfo;
-    public Image gradeImage;
-    public List<Sprite> gradeSprites = new List<Sprite>();
+    public Button playCardBackButton;
+    public PlayCardContent playCardData;
     bool playCardIsOpen;
+
+
+    //Options Menu Stuff
+    [Space(10)]
+    [Header("Options Menu Sliders")]
+    public RectTransform settingsContent;
+
+    //QuadLerpGarbage
+    private Vector3 startPosition;
+    private Quaternion startRotation;
 
     //credits
 
@@ -58,6 +73,16 @@ public class MainMenuManager : MonoBehaviour
     {
         songScoreManager = GetComponent<SongScoreSaver>();
         loadingScreen = GetComponent<LoadingScreen>();
+        levelSelect.SetActive(false);
+        settingsContent.gameObject.SetActive(false);
+        startPosition = mainCamera.transform.position;
+        startRotation = mainCamera.transform.rotation;
+
+        //var seq = DOTween.Sequence()
+        //        .Append(avrilModel.transform.DOScale(new Vector3(avrilModel.transform.localScale.x, avrilModel.transform.localScale.y * 1.2f, avrilModel.transform.localScale.z), 0.462f).SetEase(Ease.OutBack));
+
+        //seq.SetLoops(-1, LoopType.Yoyo);
+
         EnterMain();
     }
 
@@ -66,6 +91,8 @@ public class MainMenuManager : MonoBehaviour
         
 
     }
+
+    [ContextMenu("EnterMain")]
     public void EnterMain()
     {
         if (inTransit)
@@ -74,41 +101,7 @@ public class MainMenuManager : MonoBehaviour
         inTransit = true;
 
         mainMenu.SetActive(true);
-        levelSelect.SetActive(false);
-
-        //parallax will mess us up
-        foreach (Parallax parallax in parallaxers)
-        {
-            parallax.enabled = false;
-        }
-
-        //set everything of screen
-        Vector2 current = gradient.localPosition;
-        gradient.localPosition = gradientOffset;
-        foreach (RectTransform button in buttons)
-        {
-            //button.GetComponent<MainMenuButton>().ResetHighlight();
-            MainMenuButton mmb = button.GetComponent<MainMenuButton>();
-            mmb.ResetHighlight();
-            mmb.blip = audioManager.blipEmitter;
-            mmb.selG = audioManager.selGEmitter;
-            mmb.selB = audioManager.selBEmitter;
-            button.localPosition = (Vector2)button.localPosition + new Vector2(1000, 0);
-        }
-        //Vector2 surtitleDesired = surtitle.localPosition;
-        //surtitle.localPosition = surtitleDesired + new Vector2(-500, 0);
-
-        Vector2 titleDesired = title.localPosition;
-        title.localPosition = titleDesired + new Vector2(-500, 0);
-
-        Vector2 avrilDesired = avril.localPosition;
-        avril.localPosition = avrilDesired + new Vector2(0, -500);
-
-        //tween stuff
-        //surtitle.DOLocalMove(surtitleDesired, .25f).SetEase(Ease.InSine).OnComplete(() => { surtitle.GetComponent<Parallax>().enabled = true; });
-        title.DOLocalMove(titleDesired, .4f).SetEase(Ease.InSine).OnComplete(() => { title.GetComponent<Parallax>().enabled = true; });
-        avril.DOLocalMove(avrilDesired, .5f).SetEase(Ease.OutBounce).OnComplete(() => { avril.GetComponent<Parallax>().enabled = true;});
-
+        
 
         //run sequence
         Sequence sequence = DOTween.Sequence();
@@ -116,70 +109,199 @@ public class MainMenuManager : MonoBehaviour
         //oh no
         sequence.OnComplete(() =>
         {
-           // gradient.GetComponent<Parallax>().enabled = true;
             inTransit = false;
         });
 
-        sequence.Append(gradient.DOLocalMove(current, .3f).SetEase(Ease.InSine));
+        //parallax will mess us up
+        foreach (Parallax parallax in parallaxers)
+        {
+            parallax.enabled = false;
+        }
+
+        sequence.Append(title.DOLocalMove((Vector2)title.localPosition + new Vector2(0, 250), .6f).From().SetEase(Ease.OutQuad).OnComplete(() => { title.GetComponent<Parallax>().enabled = true; }));
+        //sequence.Insert(0.45f, title.DOPunchScale(new Vector3(0.75f, 0.45f, 0.75f), 0.6f, 0, 0).SetEase(Ease.OutBack));
+ 
+
+        int indexer = 0;
+
+        //set everything of screen
         foreach (RectTransform button in buttons)
         {
-            sequence.Append(button.DOLocalMoveX(0, .1f).SetEase(Ease.OutSine));
+            MainMenuButton mmb = button.GetComponent<MainMenuButton>();
+            mmb.ResetHighlight();
+
+            sequence.Append(button.DOLocalMove((Vector2)button.localPosition + new Vector2(indexer == 0 ? -1000 : 500, 0), 0.2f).From().SetEase(Ease.OutBack));
+
+            indexer++;
+            
+            if(indexer >= 2)
+            {
+                indexer = 0;
+            }
+        }       
+    }
+
+    public void CloseMenu()
+    {
+        if (inTransit)
+            return;
+
+        inTransit = true;
+
+        foreach (Parallax parallax in parallaxers)
+        {
+            parallax.enabled = false;
         }
-       
+
+        //run sequence
+        Sequence sequence = DOTween.Sequence();
+
+        //oh no
+        sequence.OnComplete(() =>
+        {
+            inTransit = false;
+            mainMenu.SetActive(false);
+            title.gameObject.SetActive(true);
+
+            foreach(RectTransform button in buttons)
+            {
+                button.gameObject.SetActive(true);
+            }
+        });
+
+        Vector3 titleStart = title.localPosition;
+
+        sequence.Append(title.DOLocalMove((Vector2)title.localPosition + new Vector2(0, 250), .25f).SetEase(Ease.InBack).OnComplete(() => { title.gameObject.SetActive(false); title.localPosition = titleStart; }));
+
+        int indexer = 0;
+
+        //set everything of screen
+        foreach (RectTransform button in buttons)
+        {
+            MainMenuButton mmb = button.GetComponent<MainMenuButton>();
+            mmb.ResetHighlight();
+
+            Vector3 buttonPos = button.localPosition;
+            sequence.Append(button.DOLocalMove((Vector2)button.localPosition + new Vector2(indexer == 0 ? -1000 : 500, 0), 0.2f).SetEase(Ease.OutBack).OnComplete(() => { button.gameObject.SetActive(false); button.localPosition = buttonPos; }));
+
+            indexer++;
+
+            if (indexer >= 2)
+            {
+                indexer = 0;
+            }
+        }
     }
 
 
     public void EnterLevelSelect()
     {
+
         if (inTransit)
             return;
 
-        inTransit=true;
-        mainMenu.SetActive(false);
-        levelSelect.SetActive(true);
+        CloseMenu();
 
-        playCard.transform.localScale = new Vector3(0,1f,1f); //ROTTATED
+        StartCoroutine(CameraMove(true));
+    }
+
+    public void SetUpLevelSelect()
+    {
+        levelSelect.SetActive(true);
+        selectorWheel.gameObject.SetActive(true);
+        backButton.gameObject.SetActive(true);
+
         playCard.gameObject.SetActive(false);
         playCardContent.gameObject.SetActive(false);
 
-        //get banner children
-
-        Sequence sequence = DOTween.Sequence();
-
         int count = 0;
-        float delay = .2f;
-        foreach(RectTransform rt in banner)
+        float delay = .25f;
+        //Comic Pop ups
+        foreach (RectTransform rt in banner)
         {
             count++;
             rt.localScale = Vector3.zero;
-            rt.DOScale(Vector3.one, .2f).SetEase(Ease.OutCubic).SetDelay(delay - (delay/count));
+            rt.DOScale(Vector3.one, delay).SetEase(Ease.OutCubic).SetDelay(delay - (delay / count));
         }
 
-
-
-        Vector2 selectorDesired = selectorWheel.localPosition;
-        selectorWheel.localPosition = selectorDesired + new Vector2(500, 0);
-
-        Vector2 backButtonDesired = backButton.localPosition;
-        backButton.localPosition = backButtonDesired + new Vector2(-200, 0);
-
-        //Vector2 playButtonDesired = playButton.localPosition;
-        //playButton.localPosition = playButtonDesired + new Vector2(0, -250);
-
-        //Vector2 editorButtonDesired = editorButton.localPosition;
-        //editorButton.localPosition = editorButtonDesired + new Vector2(0, -150);
-
-        selectorWheel.DOLocalMove(selectorDesired, .3f).SetEase(Ease.InSine).OnComplete(
+        selectorWheel.DOLocalMove((Vector2)selectorWheel.localPosition + new Vector2(500, 0), .3f).From().SetEase(Ease.InSine).OnComplete(
             () => selectorWheel.GetComponent<LevelSelectScroller>().Swotch(0));
-          
-        backButton.DOLocalMove(backButtonDesired,.3f).SetEase(Ease.OutBounce);
 
+        backButton.DOLocalMove((Vector2)backButton.localPosition + new Vector2(-200, 0), .3f).From().SetEase(Ease.OutBounce);
+    }
 
-       //playButton.DOLocalMove(playButtonDesired, .3f).SetEase(Ease.OutQuad);
-       //editorButton.DOLocalMove(editorButtonDesired, .3f).SetEase(Ease.OutQuad);
+    public void CloseLevelSelect()
+    {
+        int count = 0;
+        float delay = .2f;
+        //Comic Pop ups
+        foreach (RectTransform rt in banner)
+        {
+            count++;
+            rt.DOScale(Vector3.zero, delay).SetEase(Ease.OutCubic).SetDelay(delay - (delay / count));
+        }
 
-       backButton.DOLocalMove(backButtonDesired, .5f).SetEase(Ease.OutBounce).OnComplete(() => inTransit = false);
+        Vector3 selecterPos = selectorWheel.localPosition;
+        Vector3 backPos = backButton.localPosition;
 
+        selectorWheel.DOLocalMove((Vector2)selectorWheel.localPosition + new Vector2(500, 0), .3f).SetEase(Ease.InSine).OnComplete(() =>
+        {
+            selectorWheel.gameObject.SetActive(false);
+            selectorWheel.localPosition = selecterPos;
+        });
+
+        backButton.DOLocalMove((Vector2)backButton.localPosition + new Vector2(-200, 0), .3f).SetEase(Ease.OutBounce).OnComplete(() =>
+        {
+            backButton.gameObject.SetActive(false);
+            backButton.localPosition = backPos;
+        });
+
+        StartCoroutine(CameraMove(false));
+    }
+
+    //going = true = moving toward book
+    private IEnumerator CameraMove(bool going)
+    {
+        yield return null;
+        float lerp = 0;
+
+        if (going)
+        {
+            while(lerp < 1)
+            {
+                mainCamera.transform.position = Utilities.QuadraticLerp(startPosition, lerpQuadTarget.position, lerpEndTarget.position, lerp);
+                mainCamera.transform.rotation = Quaternion.Lerp(startRotation, lerpEndTarget.transform.rotation, lerp);
+
+                //mainCamera.transform.LookAt(book.transform);
+
+                //if (lerp < 0.975f)
+                //{
+                //    mainCamera.transform.LookAt(book.transform);
+                //}
+                //else
+                //{
+                //    mainCamera.transform.rotation = Quaternion.Lerp(startRotation, lerpEndTarget.transform.rotation, lerp);
+                //}
+
+                lerp += Time.deltaTime;
+                yield return null;
+            }
+
+            SetUpLevelSelect();
+            
+        }
+        else
+        {
+            while(lerp < 1)
+            {
+                mainCamera.transform.position = Utilities.QuadraticLerp(lerpEndTarget.position, lerpQuadTarget.position, startPosition, lerp);
+                mainCamera.transform.rotation = Quaternion.Lerp(lerpEndTarget.transform.rotation, startRotation, lerp);
+                lerp += Time.deltaTime;
+                yield return null;
+            }
+
+            EnterMain();
+        }
     }
 
 
@@ -189,14 +311,14 @@ public class MainMenuManager : MonoBehaviour
             return;
         inTransit = true;
 
-        //IT'S ROTATED THIS WILL HECK UP WHEN YOU CHANGE THE IMAGE
+        playCardBackButton.onClick.RemoveAllListeners();
 
         if(!playCardIsOpen)
         {
             playCardIsOpen = true;
-          
+          playCardBackButton.onClick.AddListener(() => OpenPlayCard(levelName));
             playCard.gameObject.SetActive(true);
-            playCard.DOScaleX(1, .2f).SetEase(Ease.OutSine).OnComplete(
+            playCard.DOLocalMove((Vector2)playCard.localPosition + new Vector2(1000, 0), .35f).From().SetEase(Ease.OutBack).OnComplete(
                 () =>
                 {
                     inTransit = false;
@@ -205,26 +327,48 @@ public class MainMenuManager : MonoBehaviour
 
                     SongScoreData data = songScoreManager.LoadSongHighscore(levelName);
 
-                    playCardInfo.text = ScoreInfoFromData(data);
-
-
+                    playCardData.SetUpCard(data);
                 });
         }
         else
         {
+            Vector3 playPos = playCard.localPosition;
             playCardContent.gameObject.SetActive(false);
-            playCard.DOScaleX(0, .2f).SetEase(Ease.OutSine).OnComplete(
+            playCard.DOLocalMove((Vector2)playCard.localPosition + new Vector2(1000, 0), .35f).OnComplete(
               () =>
               {
                   playCardIsOpen=false;
                   inTransit = false;
                   playCard.gameObject.SetActive(false);
+                  playCard.localPosition = playPos;
               });
         }
+    }
 
-        
+    public void OpenSettings()
+    {
 
+        if (inTransit)
+            return;
+        inTransit = true;
 
+        settingsContent.gameObject.SetActive(true);
+        settingsContent.DOScale(Vector3.zero, 0.2f).From().SetEase(Ease.OutBack).OnComplete(() => {
+            inTransit = false;
+        });
+    }
+
+    public void CloseSettings()
+    {
+        if (inTransit)
+            return;
+        inTransit = true;
+
+        settingsContent.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack).OnComplete(() => {
+            settingsContent.gameObject.SetActive(false);
+            settingsContent.localScale = Vector3.one;
+            inTransit = false;
+        });
     }
 
     public void GoToEditor()
@@ -242,59 +386,5 @@ public class MainMenuManager : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
-    }
-
-    string ScoreInfoFromData(SongScoreData data)
-    {
-        string s = "";
-        gradeImage.enabled = false;
-
-        //TODO::
-        //Write read data into seperate textboxes for each saved data
-
-
-        //if (data != null)
-        //{
-        //    s += "Hits Taken: " + data.bestHits + "\n";
-        //    s += "Parry Accuracy: " + data.bestTotalParries + "%\n";
-        //    s += "Perfect Parries: " + data.bestPerfectParries + "\n";
-        //    s += "Missed Parries: " + data.bestMissedParries + "\n";
-
-        //    Sprite grade = GetGradeSprite(data.grade);
-
-        //    if(grade != null)
-        //    {
-        //        gradeImage.sprite = grade;
-        //        gradeImage.enabled = true;
-        //    }
-
-       
-        //}
-        //else
-        //{
-        //    s += "Hits Taken: " + 0 + "\n";
-        //    s += "Parry Accuracy: " + 0 + "%\n";
-        //    s += "Perfect Parries: " + 0 + "\n";
-        //    s += "Missed Parries: " + 0 + "\n";
-          
-        //}
-
-        return s;
-    }
-
-    Sprite GetGradeSprite(string letterGrade)
-    {
-        switch(letterGrade)
-        {
-            case "S":
-                return gradeSprites[0];
-            case "A":
-                return gradeSprites[1];
-            case "B":
-                return gradeSprites[2];
-            case "C":
-                return gradeSprites[3];
-        }
-        return null;
     }
 }

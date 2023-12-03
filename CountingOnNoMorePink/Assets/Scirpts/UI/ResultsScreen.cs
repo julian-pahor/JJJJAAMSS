@@ -190,12 +190,12 @@ public class ResultsScreen : MonoBehaviour
                 parryResults.gradeScore.sprite = sGrade;
                 totalWeighting *= 1.05f;
             }
-            else if(parryScore <= 90)
+            else if(parryScore >= 90)
             {
                 parryResults.gradeScore.sprite = aGrade;
                 totalWeighting *= .9f;
             }
-            else if(parryScore <= 75)
+            else if(parryScore >= 75)
             {
                 parryResults.gradeScore.sprite = bGrade;
                 totalWeighting *= .8f;

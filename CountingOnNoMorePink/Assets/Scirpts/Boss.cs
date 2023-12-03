@@ -44,7 +44,8 @@ public class Boss : MonoBehaviour
 
     public void Struck()
     {
-        animator.Play("damage", 0, 0f);
+        //animator.Play("damage", 0, 0f);
+        AnimationManager.instance.TakeDamage();
         shockwave.Play();
         slash.Play();
         //transform.DOPunchPosition(new Vector3(transform.position.x, transform.position.y, transform.position.z),.462f,4,.2f); 

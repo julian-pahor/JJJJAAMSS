@@ -8,6 +8,8 @@ public class AnimationManager : MonoBehaviour
 
     private Animator m_anim;
 
+    private AnimatorClipInfo[] m_CurrentClipInfo;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,24 +21,47 @@ public class AnimationManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
         m_anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        m_anim.SetBool("Attack", false);
 
-        //if(Input.GetKeyDown(KeyCode.L))
-        //{
-        //    FireAttackAnim();
-        //}
     }
 
     public void FireAttackAnim()
     {
-        int i = Random.Range(0, 5);
-        m_anim.SetInteger("AttackChoice", i);
-        m_anim.SetBool("Attack", true);
+
+        m_CurrentClipInfo = m_anim.GetCurrentAnimatorClipInfo(0);
+        if (m_CurrentClipInfo[0].clip.name != "Idle2_ANI")
+        {
+            return;
+        }
+
+        int i = Random.Range(0, 2);
+
+        switch (i)
+        {
+            case (0):
+                m_anim.Play("Parry1");
+                break;
+            case (1):
+                m_anim.Play("Parry2");
+                break;
+
+        }
+    }
+
+    [ContextMenu("DoDeath")]
+    public void FireDeathAnim()
+    {
+        m_anim.Play("Dying");
+    }
+
+    public void TakeDamage()
+    {
+        m_anim.Play("damage");
     }
 }
