@@ -47,6 +47,12 @@ public class MainMenuManager : MonoBehaviour
     public PlayCardContent playCardData;
     bool playCardIsOpen;
 
+
+    //Options Menu Stuff
+    [Space(10)]
+    [Header("Options Menu Sliders")]
+    public RectTransform settingsContent;
+
     //QuadLerpGarbage
     private Vector3 startPosition;
     private Quaternion startRotation;
@@ -68,6 +74,7 @@ public class MainMenuManager : MonoBehaviour
         songScoreManager = GetComponent<SongScoreSaver>();
         loadingScreen = GetComponent<LoadingScreen>();
         levelSelect.SetActive(false);
+        settingsContent.gameObject.SetActive(false);
         startPosition = mainCamera.transform.position;
         startRotation = mainCamera.transform.rotation;
 
@@ -189,6 +196,10 @@ public class MainMenuManager : MonoBehaviour
 
     public void EnterLevelSelect()
     {
+
+        if (inTransit)
+            return;
+
         CloseMenu();
 
         StartCoroutine(CameraMove(true));
@@ -332,6 +343,32 @@ public class MainMenuManager : MonoBehaviour
                   playCard.localPosition = playPos;
               });
         }
+    }
+
+    public void OpenSettings()
+    {
+
+        if (inTransit)
+            return;
+        inTransit = true;
+
+        settingsContent.gameObject.SetActive(true);
+        settingsContent.DOScale(Vector3.zero, 0.2f).From().SetEase(Ease.OutBack).OnComplete(() => {
+            inTransit = false;
+        });
+    }
+
+    public void CloseSettings()
+    {
+        if (inTransit)
+            return;
+        inTransit = true;
+
+        settingsContent.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack).OnComplete(() => {
+            settingsContent.gameObject.SetActive(false);
+            settingsContent.localScale = Vector3.one;
+            inTransit = false;
+        });
     }
 
     public void GoToEditor()
