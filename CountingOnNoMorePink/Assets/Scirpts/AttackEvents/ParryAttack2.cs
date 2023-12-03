@@ -18,6 +18,8 @@ public class ParryAttack2 : MonoBehaviour
     private float currentTravel = 0;
     private float travelTime = 0.462f;
 
+    public Transform trail;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,6 +54,8 @@ public class ParryAttack2 : MonoBehaviour
 
         if(currentLerp > 1)
         {
+            if (trail != null)
+                trail.transform.SetParent(null);
             //currently destroying itself at end of quad lerp
             Destroy(this.gameObject);
         }

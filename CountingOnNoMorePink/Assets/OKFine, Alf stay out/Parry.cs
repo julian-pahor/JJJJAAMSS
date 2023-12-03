@@ -37,7 +37,7 @@ public class Parry : MonoBehaviour
 
     public System.Action onParrySuccess;
 
-
+    public GreenBeam beem;
 
     private enum ParryResult
     {
@@ -196,7 +196,9 @@ public class Parry : MonoBehaviour
     {
         if(!inTestingZone)
         {
-            Instantiate(parryReturn2, transform.position, Quaternion.identity);
+            //Instantiate(parryReturn2, transform.position, Quaternion.identity);
+            beem.BeamOn();
+            Wobbit.instance.boss.Struck();
             switch (result)
             {
                 case ParryResult.Perfect:
