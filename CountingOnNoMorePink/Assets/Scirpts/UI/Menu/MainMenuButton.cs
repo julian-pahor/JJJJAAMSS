@@ -21,14 +21,18 @@ public class MainMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     Image imig;
     RectTransform rectTransform;
 
-    public FMODUnity.StudioEventEmitter blip;
-    public FMODUnity.StudioEventEmitter selG;
-    public FMODUnity.StudioEventEmitter selB;
+    private FMODUnity.StudioEventEmitter blip;
+    private FMODUnity.StudioEventEmitter selG;
+    private FMODUnity.StudioEventEmitter selB;
 
     private void Start()
     {
         imig = GetComponent<Image>();
         rectTransform = GetComponent<RectTransform>();
+
+        blip = MenuAudioManager.instance.blipEmitter;
+        selG = MenuAudioManager.instance.selGEmitter;
+        selB = MenuAudioManager.instance.selBEmitter;
     }
 
     private void Update()
@@ -54,7 +58,7 @@ public class MainMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        //blip.Play();
+        blip.Play();
         mouseOver = true;
     }
 
@@ -65,14 +69,14 @@ public class MainMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        //if(onClick.GetPersistentEventCount() > 0)
-        //{
-        //    selG.Play();
-        //}
-        //else
-        //{
-        //    selB.Play();
-        //}
+        if (onClick.GetPersistentEventCount() > 0)
+        {
+            selG.Play();
+        }
+        else
+        {
+            selB.Play();
+        }
 
         onClick?.Invoke();
     }
