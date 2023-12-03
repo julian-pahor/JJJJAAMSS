@@ -21,10 +21,11 @@ public class ParryIndicator : MonoBehaviour
     float flash;
 
     public AnimationCurve flashCurve;
+
     public void Setup(int beats, Transform player)
     {
         index = beats;
-    
+ 
         this.player = player;
         BeatBroadcast.instance.timelineInfo.onBeatTrigger += OnBeat;
         DoBeat();
