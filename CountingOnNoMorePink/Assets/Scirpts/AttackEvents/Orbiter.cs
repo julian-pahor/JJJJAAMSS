@@ -6,7 +6,9 @@ using UnityEngine.VFX;
 public class Orbiter : MonoBehaviour
 {
     public Material baseMat;
+    public Material activeMat;
     public VisualEffect vfx;
+    public MeshRenderer renenderer;
 
     Transform origin;
 
@@ -50,6 +52,7 @@ public class Orbiter : MonoBehaviour
             BeatBroadcast.instance.timelineInfo.onBeatTrigger += OnBeat;
         }
 
+        renenderer.material = baseMat;
         origin = Wobbit.instance.bossOrigin;
         this.duration = lifetime;
         angleOffset = offset;
@@ -136,7 +139,7 @@ public class Orbiter : MonoBehaviour
         isActive = true;
         bopTimer = 0;
         col.enabled = true;
-        //GetComponentInChildren<Renderer>().material = baseMat;
+        renenderer.material = activeMat;
         vfx.Play();
     }
 
