@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
+//using Unity.VisualScripting;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -38,6 +39,9 @@ public class MainMenuManager : MonoBehaviour
 
     //Comic Holder
     public List<RectTransform> comicPanels = new List<RectTransform>();
+    public Renderer bookRenderer;
+    public Material bookMatPage;
+    public Material bookMatNoPage;
 
     //card
     public RectTransform playCard;
@@ -67,7 +71,9 @@ public class MainMenuManager : MonoBehaviour
     public GameObject levelSelect;
 
     bool inTransit;
-    
+
+    [Range(0, 1)]
+    public float lerpSlider;
 
     private void Start()
     {
@@ -88,8 +94,8 @@ public class MainMenuManager : MonoBehaviour
 
     private void Update()
     {
-        
 
+        //bookRenderer.material.Lerp(bookMatPage, bookMatNoPage, lerpSlider);
     }
 
     [ContextMenu("EnterMain")]
@@ -267,10 +273,13 @@ public class MainMenuManager : MonoBehaviour
 
         if (going)
         {
+            bookRenderer.material = bookMatNoPage;
             while(lerp < 1)
             {
                 mainCamera.transform.position = Utilities.QuadraticLerp(startPosition, lerpQuadTarget.position, lerpEndTarget.position, lerp);
                 mainCamera.transform.rotation = Quaternion.Lerp(startRotation, lerpEndTarget.transform.rotation, lerp);
+
+                //bookRenderer.material.Lerp(bookMatPage, bookMatNoPage, lerp);
 
                 //mainCamera.transform.LookAt(book.transform);
 
@@ -292,10 +301,15 @@ public class MainMenuManager : MonoBehaviour
         }
         else
         {
-            while(lerp < 1)
+            bookRenderer.material = bookMatPage;
+
+            while (lerp < 1)
             {
                 mainCamera.transform.position = Utilities.QuadraticLerp(lerpEndTarget.position, lerpQuadTarget.position, startPosition, lerp);
                 mainCamera.transform.rotation = Quaternion.Lerp(lerpEndTarget.transform.rotation, startRotation, lerp);
+
+                //bookRenderer.material.Lerp(bookMatNoPage, bookMatPage, lerp);
+
                 lerp += Time.deltaTime;
                 yield return null;
             }
@@ -374,13 +388,13 @@ public class MainMenuManager : MonoBehaviour
     public void GoToEditor()
     {
         persistentData.songIndex = selectorWheel.GetComponent<LevelSelectScroller>().GetIndex();
-        loadingScreen.BeginLoad("JulesUIBreaking");
+        loadingScreen.BeginLoad("FinalTimelineEditor");
     }
 
     public void StartGame()
     {
         persistentData.songIndex = selectorWheel.GetComponent<LevelSelectScroller>().GetIndex();
-        loadingScreen.BeginLoad("JuliansDrums");
+        loadingScreen.BeginLoad("PossibleFinalCandyScene");
     }
 
     public void Quit()

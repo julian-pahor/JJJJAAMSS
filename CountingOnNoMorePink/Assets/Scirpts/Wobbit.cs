@@ -93,7 +93,7 @@ public class Wobbit : MonoBehaviour
         BeatBroadcast.instance.StopMusic();
         poolPool.ClearBullets();
         GetComponent<BeatTimeline>().saveFileDropdown.StoreSongIndex();
-        loadingScreen.BeginLoad("AlecMainMenu");
+        loadingScreen.BeginLoad("FinalMainMenu");
 
     }
 
@@ -102,7 +102,7 @@ public class Wobbit : MonoBehaviour
         BeatBroadcast.instance.StopMusic();
         poolPool.ClearBullets();
         GetComponent<BeatTimeline>().saveFileDropdown.StoreSongIndex();
-        loadingScreen.BeginLoad("JulesUIBreaking");
+        loadingScreen.BeginLoad("FinalTimelineEditor");
     }
 
     public void TakeDamage()
@@ -149,7 +149,7 @@ public class Wobbit : MonoBehaviour
         //do not win if you are not win
         if (playerController.IsAlive())
         {
-            boss.animator.Play("Dying", 0, 0f);
+            //boss.animator.Play("Dying", 0, 0f); //Call from animation manager instead
             playerController.SetDamageEnabled(false);
             resultScreen.Activate();
         }
