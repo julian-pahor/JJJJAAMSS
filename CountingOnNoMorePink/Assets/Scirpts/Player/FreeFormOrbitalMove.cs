@@ -56,7 +56,8 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
     //dash effects
     public ParticleSystem dashRecover;
-    public ParticleSystem dashTrail;
+    public ParticleSystem dashTrailL;
+    public ParticleSystem dashTrailR;
     public TrailRenderer trailL;
     public TrailRenderer trailR;
     public FMODUnity.StudioEventEmitter dashEmiiter;
@@ -188,7 +189,8 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
                         animator.Play("dash", 0, 0f);
                         dashEmiiter.Play();
-                        dashTrail.Play();
+                        dashTrailL.Play();
+                        dashTrailR.Play();
 
                         trailL.emitting = true;
                         trailR.emitting = true;
@@ -219,7 +221,8 @@ public class FreeFormOrbitalMove : MonoBehaviour
                 if (dashTime <= 0)
                 {
                     state = State.Walk;
-                    dashTrail.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+                    dashTrailL.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+                    dashTrailR.Stop(true, ParticleSystemStopBehavior.StopEmitting);
                     trailL.emitting = false;
                     trailR.emitting = false;
                 }

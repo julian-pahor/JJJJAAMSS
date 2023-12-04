@@ -85,6 +85,7 @@ public class MainMenuManager : MonoBehaviour
         loadingScreen = GetComponent<LoadingScreen>();
         levelSelect.SetActive(false);
         settingsContent.gameObject.SetActive(false);
+        creditsHolder.gameObject.SetActive(false);
         startPosition = mainCamera.transform.position;
         startRotation = mainCamera.transform.rotation;
 
@@ -383,6 +384,34 @@ public class MainMenuManager : MonoBehaviour
             settingsContent.localScale = Vector3.one;
             inTransit = false;
         });
+    }
+
+    public void OpenCredits()
+    {
+        if (inTransit)
+            return;
+        inTransit = true;
+
+        creditsHolder.gameObject.SetActive(true);
+        creditsHolder.DOScale(Vector3.zero, 0.47f).From().SetEase(Ease.OutBack).OnComplete(() => {
+            inTransit = false;
+        });
+
+    }
+
+    public void CloseCredits()
+    {
+        if (inTransit)
+            return;
+        inTransit = true;
+
+        creditsHolder.DOScale(Vector3.zero, 0.333f).SetEase(Ease.InBack).OnComplete(() => {
+            creditsHolder.gameObject.SetActive(false);
+            creditsHolder.localScale = Vector3.one;
+            inTransit = false;
+        });
+
+
     }
 
     public void GoToEditor()
