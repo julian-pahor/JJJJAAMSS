@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DrawerMaterial
+  m_Name: BookshelfMaterial
   m_Shader: {fileID: 4800000, guid: 766736548846cdf459a9766614dcccab, type: 3}
   m_ValidKeywords:
   - _EMISSIVE_SIMPLE
@@ -84,8 +84,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: a02075bba4d187848b3f0c7ea7d36839, type: 3}
-        m_Scale: {x: 0.1, y: 0.1}
+        m_Texture: {fileID: 2800000, guid: a71d9a8af5cfff846a9bc5d64f03fef6, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MatCap_Sampler:
         m_Texture: {fileID: 0}
@@ -245,7 +245,7 @@ Material:
     - _Offset_X_Axis_BLD: -0.05
     - _Offset_Y_Axis_BLD: 0.09
     - _Offset_Z: 0
-    - _Outline_Width: 27.05
+    - _Outline_Width: 10
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1
@@ -291,7 +291,7 @@ Material:
     - _ZOverDrawMode: 0
     - _ZWrite: 1
     - _ZWriteMode: 1
-    - _simpleUI: 2
+    - _simpleUI: 0
     - _utsTechnique: 1
     - _utsVersionX: 2
     - _utsVersionY: 5
