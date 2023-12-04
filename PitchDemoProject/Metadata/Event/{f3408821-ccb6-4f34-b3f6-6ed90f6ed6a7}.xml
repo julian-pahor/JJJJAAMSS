@@ -86,8 +86,12 @@
 		</relationship>
 	</object>
 	<object class="MultiSound" id="{baa194af-fef1-4c84-98b7-fd033d5cb9e0}">
+		<property name="playbackMode">
+			<value>1</value>
+		</property>
 		<relationship name="sounds">
-			<destination>{daf0c506-4c34-4ad3-bf60-5905b17204bf}</destination>
+			<destination>{191c1170-84cc-464d-b6f9-7e1bcec16f49}</destination>
+			<destination>{cd142521-003a-4089-8fce-7e1cc03b1e0c}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusEffectChain" id="{ab5a5813-2f7c-48a8-b0c0-a548401e9076}">
@@ -102,34 +106,16 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{393b3117-0934-43fb-b8ab-22fac017cf13}" />
-	<object class="SingleSound" id="{daf0c506-4c34-4ad3-bf60-5905b17204bf}">
-		<property name="name">
-			<value>SelectB</value>
-		</property>
-		<relationship name="modulators">
-			<destination>{6aa842cb-bbc2-4454-9c94-8fc2e9d169fd}</destination>
-			<destination>{e2f17dc8-d30a-4bd8-87b6-8a723e46c6d6}</destination>
-		</relationship>
+	<object class="SingleSound" id="{191c1170-84cc-464d-b6f9-7e1bcec16f49}">
 		<relationship name="audioFile">
-			<destination>{40366bf5-dd71-42fb-9d76-aac2153ae126}</destination>
+			<destination>{784ea9f0-1b69-4594-a22f-b0c5db719f9e}</destination>
+		</relationship>
+	</object>
+	<object class="SingleSound" id="{cd142521-003a-4089-8fce-7e1cc03b1e0c}">
+		<relationship name="audioFile">
+			<destination>{5f7f381a-82de-43ea-9125-e140bc742686}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusFader" id="{c06dac44-f396-4458-867b-449e1efbd8c1}" />
 	<object class="MixerBusFader" id="{c9e6f2f1-08c9-4fcc-90f3-11d480eb9f8e}" />
-	<object class="RandomizerModulator" id="{6aa842cb-bbc2-4454-9c94-8fc2e9d169fd}">
-		<property name="nameOfPropertyBeingModulated">
-			<value>volume</value>
-		</property>
-		<property name="amount">
-			<value>1</value>
-		</property>
-	</object>
-	<object class="RandomizerModulator" id="{e2f17dc8-d30a-4bd8-87b6-8a723e46c6d6}">
-		<property name="nameOfPropertyBeingModulated">
-			<value>pitch</value>
-		</property>
-		<property name="amount">
-			<value>1.5</value>
-		</property>
-	</object>
 </objects>

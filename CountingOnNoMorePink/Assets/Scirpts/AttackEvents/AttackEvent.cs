@@ -13,16 +13,12 @@ public class AttackEvent : ScriptableObject
 
     public virtual void Arm(int beatIndex)
     {
-        Debug.Log("Virtual arm attack event. If you are seeing this you have done a wrong");
+        //Debug.Log("Virtual arm attack event. If you are seeing this you have done a wrong");
     }
     public virtual void Fire()
     {
-        if(AnimationManager.instance != null)
-        {
-            AnimationManager.instance.FireAttackAnim();
-        }
         
-        Debug.Log("Virtual attack event. If you are seeing this you have done a wrong");
+        //Debug.Log("Virtual attack event. If you are seeing this you have done a wrong");
     }
 
     public virtual void FirePreview()
@@ -32,7 +28,7 @@ public class AttackEvent : ScriptableObject
 
     public virtual void HookUp(EventEditor ee)
     {
-        Debug.Log("Call for dynamically hooked up UI. You should not be seeing this.");
+        //Debug.Log("Call for dynamically hooked up UI. You should not be seeing this.");
     }
 
 }

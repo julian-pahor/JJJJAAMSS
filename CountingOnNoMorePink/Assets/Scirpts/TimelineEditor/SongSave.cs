@@ -11,7 +11,6 @@ public class SongSave : MonoBehaviour
     //blockdata is array of attackevents
     //dogs above what have i done
 
-
     //First iteration - colossal list of blockdata
     //Later iterations - separate into phrases I guess
 
@@ -43,15 +42,10 @@ public class SongSave : MonoBehaviour
         //try and load our text
         Utilities.GameData thisData = Utilities.LoadData(path);
 
-        int totalbeats = thisData.phraseCount * thisData.phraseLength;
+        int totalbeats = 32 + 32 + 64 + 64;
         this.phraseCount = thisData.phraseCount;
         this.phraseLength = thisData.phraseLength;
         int fileIndex = 0;
-
-        if(path.Contains("_FULL"))
-        {
-            totalbeats = 32 + 32 + 64 + 64; //Holy jesus get me out of this hard coded spiral I'm in
-        }
 
         //for every beat block
         for (int i = 0; i < totalbeats; i++)
