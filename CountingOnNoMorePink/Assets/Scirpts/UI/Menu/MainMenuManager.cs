@@ -57,6 +57,10 @@ public class MainMenuManager : MonoBehaviour
     [Header("Options Menu Sliders")]
     public RectTransform settingsContent;
 
+    [Space(10)]
+    [Header("Credits Holder")]
+    public RectTransform creditsHolder;
+
     //QuadLerpGarbage
     private Vector3 startPosition;
     private Quaternion startRotation;
@@ -279,8 +283,6 @@ public class MainMenuManager : MonoBehaviour
                 mainCamera.transform.position = Utilities.QuadraticLerp(startPosition, lerpQuadTarget.position, lerpEndTarget.position, lerp);
                 mainCamera.transform.rotation = Quaternion.Lerp(startRotation, lerpEndTarget.transform.rotation, lerp);
 
-                //bookRenderer.material.Lerp(bookMatPage, bookMatNoPage, lerp);
-
                 //mainCamera.transform.LookAt(book.transform);
 
                 //if (lerp < 0.975f)
@@ -307,8 +309,6 @@ public class MainMenuManager : MonoBehaviour
             {
                 mainCamera.transform.position = Utilities.QuadraticLerp(lerpEndTarget.position, lerpQuadTarget.position, startPosition, lerp);
                 mainCamera.transform.rotation = Quaternion.Lerp(lerpEndTarget.transform.rotation, startRotation, lerp);
-
-                //bookRenderer.material.Lerp(bookMatNoPage, bookMatPage, lerp);
 
                 lerp += Time.deltaTime;
                 yield return null;
