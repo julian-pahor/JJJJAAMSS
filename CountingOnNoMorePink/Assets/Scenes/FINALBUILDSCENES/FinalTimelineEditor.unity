@@ -10221,8 +10221,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1890681105}
   - component: {fileID: 1890681104}
-  - component: {fileID: 1890681103}
   - component: {fileID: 1890681102}
+  - component: {fileID: 1890681106}
   m_Layer: 0
   m_Name: MainCam
   m_TagString: Untagged
@@ -10263,14 +10263,6 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!81 &1890681103
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1890681101}
-  m_Enabled: 1
 --- !u!20 &1890681104
 Camera:
   m_ObjectHideFlags: 0
@@ -10329,6 +10321,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: -46.821, y: 0, z: 0}
+--- !u!114 &1890681106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890681101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 0}
 --- !u!1 &1908089548
 GameObject:
   m_ObjectHideFlags: 0
@@ -12373,6 +12378,7 @@ MonoBehaviour:
   dashEmiiter: {fileID: 0}
   hurtEmitter: {fileID: 0}
   deathEmitter: {fileID: 0}
+  parryEmitter: {fileID: 0}
   animator: {fileID: 0}
   wave: {fileID: 0}
   parryFX: {fileID: 0}
