@@ -35,12 +35,14 @@ public class AnimationManager : MonoBehaviour
     {
 
         m_CurrentClipInfo = m_anim.GetCurrentAnimatorClipInfo(0);
-        if (m_CurrentClipInfo[0].clip.name != "Idle2_ANI")
+        if (m_CurrentClipInfo[0].clip.name != "Idle1_ANI" && m_CurrentClipInfo[0].clip.name != "Idle2_ANI")
         {
             return;
         }
 
         int i = Random.Range(0, 2);
+
+        m_anim.SetInteger("AttackChoice", i);
 
         switch (i)
         {
@@ -54,7 +56,6 @@ public class AnimationManager : MonoBehaviour
         }
     }
 
-    [ContextMenu("DoDeath")]
     public void FireDeathAnim()
     {
         m_anim.Play("Dying");

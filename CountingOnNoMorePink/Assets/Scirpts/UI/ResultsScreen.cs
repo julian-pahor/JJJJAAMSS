@@ -59,7 +59,7 @@ public class ResultsScreen : MonoBehaviour
 
         finalGrade.transform.localScale = Vector3.zero;
 
-        CalculateScore();
+        //CalculateScore();
         SetDisplay();
 
         gameObject.transform.localScale = Vector3.zero;
@@ -227,5 +227,12 @@ public class ResultsScreen : MonoBehaviour
             finalGrade.sprite = cGrade;
         }
 
+    }
+
+    public IEnumerator AnimDelay()
+    {
+        CalculateScore();
+        yield return new WaitForSeconds(3.5f);
+        Activate();
     }
 }

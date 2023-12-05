@@ -1164,6 +1164,7 @@ GameObject:
   m_Component:
   - component: {fileID: 278227026}
   - component: {fileID: 278227027}
+  - component: {fileID: 278227028}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -1218,6 +1219,20 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &278227028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 278227025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 0
+  m_VerticalFit: 2
 --- !u!1 &308454875
 GameObject:
   m_ObjectHideFlags: 0
@@ -12351,7 +12366,8 @@ MonoBehaviour:
   walkPuff: {fileID: 0}
   puffInterval: 1
   dashRecover: {fileID: 0}
-  dashTrail: {fileID: 0}
+  dashTrailL: {fileID: 0}
+  dashTrailR: {fileID: 0}
   trailL: {fileID: 0}
   trailR: {fileID: 0}
   dashEmiiter: {fileID: 0}

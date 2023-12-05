@@ -151,7 +151,12 @@ public class Wobbit : MonoBehaviour
         {
             //boss.animator.Play("Dying", 0, 0f); //Call from animation manager instead
             playerController.SetDamageEnabled(false);
-            resultScreen.Activate();
+            //resultScreen.Activate();
+
+            AnimationManager.instance.FireDeathAnim();
+
+            //This will be Alfs favorite coroutine call
+            StartCoroutine(resultScreen.AnimDelay());
         }
 
         SongScoreData data = resultScreen.GetScoreData();

@@ -101,6 +101,12 @@ public class SaveFileDropdown : MonoBehaviour
         files = saves.baseLevels;
 
         dropdown.AddOptions(saves.baseLevels);
+        dropdown.AddOptions(saves.customLevels);
+
+        foreach (string s in saves.customLevels)
+        {
+            files.Add(s);
+        }
     }
 
     public void SetCurrentIndex(int index)

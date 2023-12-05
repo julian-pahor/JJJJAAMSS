@@ -8687,7 +8687,8 @@ MonoBehaviour:
   walkPuff: {fileID: 798025428}
   puffInterval: 0.2
   dashRecover: {fileID: 1135880546}
-  dashTrail: {fileID: 787581391}
+  dashTrailL: {fileID: 0}
+  dashTrailR: {fileID: 0}
   trailL: {fileID: 1261777024514907431}
   trailR: {fileID: 1261777025259375509}
   dashEmiiter: {fileID: 0}
@@ -16362,7 +16363,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3677177193139874354, guid: 129eaf119c380be4fa0e1a3188d78d1f, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3677177193139874354, guid: 129eaf119c380be4fa0e1a3188d78d1f, type: 3}
       propertyPath: m_AnchorMax.x
