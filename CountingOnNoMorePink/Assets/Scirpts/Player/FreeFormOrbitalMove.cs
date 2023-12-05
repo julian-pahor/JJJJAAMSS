@@ -65,6 +65,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
     public System.Action onTakeDamage;
     public FMODUnity.StudioEventEmitter hurtEmitter;
     public FMODUnity.StudioEventEmitter deathEmitter;
+    public FMODUnity.StudioEventEmitter parryEmitter;
     public System.Action onHealthChanged;
 
 
@@ -95,6 +96,11 @@ public class FreeFormOrbitalMove : MonoBehaviour
     //flags
     bool canDash;
 
+    //Lowpass parry sweep stuff
+    public FMOD.Studio.EventInstance lazerSnapShot;
+    private float targetSweepFloat = 1f;
+    private float currentSweepFloat = 1f;
+
     Vector3 gixmo;
   
     private void Start()
@@ -113,6 +119,10 @@ public class FreeFormOrbitalMove : MonoBehaviour
 
         parryHandler = GetComponent<Parry>();
         parryHandler.onParrySuccess += ParrySuccess;
+
+        lazerSnapShot = FMODUnity.RuntimeManager.CreateInstance("snapshot:/LazerSweep");
+        lazerSnapShot.start();
+
 
     }
 
@@ -139,6 +149,13 @@ public class FreeFormOrbitalMove : MonoBehaviour
                 currentHP += hpRecoverySpeed * Time.deltaTime;
             }
         }
+
+        currentSweepFloat = Mathf.Lerp(currentSweepFloat, targetSweepFloat, Time.deltaTime * 2.5f);
+        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("LazerIntensity", currentSweepFloat);
+
+        targetSweepFloat += 0.1f;
+        targetSweepFloat = Mathf.Clamp01(targetSweepFloat);
+
 
         switch (state)
         {
@@ -306,6 +323,8 @@ public class FreeFormOrbitalMove : MonoBehaviour
     void ParrySuccess()
     {
         parryFX.Play();
+        parryEmitter.Play();
+        targetSweepFloat = 0f;
         invulnerabilityTime = parryShieldDuration;
         if (wave != null)
             Instantiate(wave, transform.position, Quaternion.identity);

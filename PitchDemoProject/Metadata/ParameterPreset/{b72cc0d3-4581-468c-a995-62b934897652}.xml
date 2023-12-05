@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{b72cc0d3-4581-468c-a995-62b934897652}">
+		<property name="name">
+			<value>LazerIntensity</value>
+		</property>
+		<relationship name="folder">
+			<destination>{82c41144-43cb-4c5a-a141-3e25cd06cba3}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{474d53e5-85eb-4644-b440-d51997fe3412}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{474d53e5-85eb-4644-b440-d51997fe3412}">
+		<property name="isGlobal">
+			<value>true</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="isExposedRecursively">
+			<value>false</value>
+		</property>
+	</object>
+</objects>
