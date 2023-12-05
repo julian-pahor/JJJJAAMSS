@@ -48,12 +48,17 @@ public class BeatBroadcast : MonoBehaviour
 
     void Start()
     {
-        //PlayMusic();
+        
     }
 
     [ContextMenu("Play")]
     public void PlayMusic()
     {
+        if(musicInstance.hasHandle())
+        {
+            return;
+        }
+
         // Explicitly create the delegate object and assign it to a member so it doesn't get freed
         // by the garbage collected while it's being used
         beatCallback = new FMOD.Studio.EVENT_CALLBACK(BeatEventCallback);
@@ -68,6 +73,8 @@ public class BeatBroadcast : MonoBehaviour
         musicInstance.setCallback(beatCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT | FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
         musicInstance.start();
     }
+
+
     [ContextMenu("PlayDemo")]
     public void PlayPreview()
     {

@@ -52,10 +52,6 @@ public class BeatTimeline : MonoBehaviour
     {
         string saveName = saveFileDropdown.GetSelectedSave();
 
-        //Set playback checkpoint
-        //TODO: Set playback index correctly based on lastCheckpoint
-        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Checkpoint", lastCheckpoint);
-
         if (saveName != null && saveName != string.Empty)
         {
             eventTimeline = saveFile.LoadSave(saveName);
