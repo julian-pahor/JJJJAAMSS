@@ -66,7 +66,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
     public FMODUnity.StudioEventEmitter hurtEmitter;
     public FMODUnity.StudioEventEmitter deathEmitter;
     public System.Action onHealthChanged;
-
+    public FMODUnity.StudioEventEmitter parryEmitter;
 
     //animation
     public Animator animator;
@@ -306,6 +306,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
     void ParrySuccess()
     {
         parryFX.Play();
+        parryEmitter.Play();
         invulnerabilityTime = parryShieldDuration;
         if (wave != null)
             Instantiate(wave, transform.position, Quaternion.identity);
