@@ -44,12 +44,12 @@ public class LevelSelectScroller : MonoBehaviour
 
         if (toggle)
         {
-            SetToggleText("Base Levels");
+            SetToggleText("Custom Levels");
             LoadCustomSaves();
         }
         else
         {
-            SetToggleText("Custom Levels");
+            SetToggleText("Base Levels");
             LoadBaseSaves();
         }
 
@@ -104,6 +104,7 @@ public class LevelSelectScroller : MonoBehaviour
 
         levelList.Reverse();
         SetPositions();
+        Swotch(0);
     }
 
     void LoadCustomSaves()
@@ -128,6 +129,7 @@ public class LevelSelectScroller : MonoBehaviour
 
         levelList.Reverse();
         SetPositions();
+        Swotch(0);
     }
 
 
