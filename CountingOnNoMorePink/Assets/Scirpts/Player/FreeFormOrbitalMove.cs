@@ -96,10 +96,10 @@ public class FreeFormOrbitalMove : MonoBehaviour
     //flags
     bool canDash;
 
-    //Lowpass parry sweep stuff
-    public FMOD.Studio.EventInstance lazerSnapShot;
-    private float targetSweepFloat = 1f;
-    private float currentSweepFloat = 1f;
+    ////Lowpass parry sweep stuff
+    //public FMOD.Studio.EventInstance lazerSnapShot;
+    //private float targetSweepFloat = 1f;
+    //private float currentSweepFloat = 1f;
 
     Vector3 gixmo;
   
@@ -120,8 +120,8 @@ public class FreeFormOrbitalMove : MonoBehaviour
         parryHandler = GetComponent<Parry>();
         parryHandler.onParrySuccess += ParrySuccess;
 
-        lazerSnapShot = FMODUnity.RuntimeManager.CreateInstance("snapshot:/LazerSweep");
-        lazerSnapShot.start();
+        //lazerSnapShot = FMODUnity.RuntimeManager.CreateInstance("snapshot:/LazerSweep");
+        //lazerSnapShot.start();
 
 
     }
@@ -150,11 +150,11 @@ public class FreeFormOrbitalMove : MonoBehaviour
             }
         }
 
-        currentSweepFloat = Mathf.Lerp(currentSweepFloat, targetSweepFloat, Time.deltaTime * 2.5f);
-        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("LazerIntensity", currentSweepFloat);
+        //currentSweepFloat = Mathf.Lerp(currentSweepFloat, targetSweepFloat, Time.deltaTime * 2.5f);
+        //FMODUnity.RuntimeManager.StudioSystem.setParameterByName("LazerIntensity", currentSweepFloat);
 
-        targetSweepFloat += 0.1f;
-        targetSweepFloat = Mathf.Clamp01(targetSweepFloat);
+        //targetSweepFloat += 0.1f;
+        //targetSweepFloat = Mathf.Clamp01(targetSweepFloat);
 
 
         switch (state)
@@ -324,7 +324,7 @@ public class FreeFormOrbitalMove : MonoBehaviour
     {
         parryFX.Play();
         parryEmitter.Play();
-        targetSweepFloat = 0f;
+        //targetSweepFloat = 0f;
         invulnerabilityTime = parryShieldDuration;
         if (wave != null)
             Instantiate(wave, transform.position, Quaternion.identity);
@@ -416,7 +416,11 @@ public class FreeFormOrbitalMove : MonoBehaviour
         if (enabled)
             state = State.Walk;
         else
+        {
+            animator.SetBool("Moving", false);
             state = State.Dead;
+        }
+            
     }
     public bool IsAlive()
     {

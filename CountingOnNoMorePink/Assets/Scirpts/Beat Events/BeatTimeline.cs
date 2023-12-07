@@ -104,7 +104,7 @@ public class BeatTimeline : MonoBehaviour
         //looping index of beat timeline
         if (index >= saveFile.SongLength)
         {
-            index = 0;
+            index = saveFile.SongLength;
         }
     }
 

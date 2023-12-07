@@ -49,9 +49,9 @@ public class ResultsScreen : MonoBehaviour
     }
     public void Activate()
     {
-        parryResults.resultAmount.text = "";
-        hitResults.resultAmount.text = "";
-        restartResults.resultAmount.text = "";
+        //parryResults.resultAmount.text = "";
+        //hitResults.resultAmount.text = "";
+        //restartResults.resultAmount.text = "";
 
         parryResults.gradeScore.color = new Color(1,1,1,0);
         hitResults.gradeScore.color = new Color(1, 1, 1, 0);
@@ -60,7 +60,7 @@ public class ResultsScreen : MonoBehaviour
         finalGrade.transform.localScale = Vector3.zero;
 
         //CalculateScore();
-        SetDisplay();
+        //SetDisplay();
 
         gameObject.transform.localScale = Vector3.zero;
         gameObject.SetActive(true);
@@ -232,6 +232,7 @@ public class ResultsScreen : MonoBehaviour
     public IEnumerator AnimDelay()
     {
         CalculateScore();
+        SetDisplay();
         yield return new WaitForSeconds(3.5f);
         Activate();
     }

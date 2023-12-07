@@ -50,7 +50,7 @@ public class Parry : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        perfectWindow = beatMS * 0.35f;
+        perfectWindow = beatMS * 0.2f;
         parrying = false;
         attacked = false;
         parryTime = 0;
@@ -93,7 +93,7 @@ public class Parry : MonoBehaviour
         {
             parryTime += Time.deltaTime;
         }
-        if (parryTime >= beatMS / 4f)
+        if (parryTime >= beatMS * 0.25f)
         {
             parrying = false;
             parryTime = 0;
@@ -107,7 +107,7 @@ public class Parry : MonoBehaviour
         {
             lateTimer += Time.deltaTime;
         }
-        if (lateTimer >= beatMS / 2.5f)
+        if (lateTimer >= beatMS * 0.25f)
         {
             attacked = false;
             lateTimer = 0;
@@ -154,17 +154,17 @@ public class Parry : MonoBehaviour
         if(parrying)
         {
             double resultTime = attackTime - (inputTime + inputLag);
-            if (resultTime <= perfectWindow / 2.4f)
+            if (resultTime <= perfectWindow * 0.5f)
             {
                 result = ParryResult.Perfect;
                 Wobbit.instance.persistentData.currentSongPerfectParrys += 1;
             }
-            else if (resultTime <= beatMS / 4f)
+            else if (resultTime <= beatMS * 0.25f)
             {
                 result = ParryResult.Early;
             }
             ParryReturn();
-            Debug.Log("ResultTime " + resultTime);
+            //Debug.Log("ResultTime " + resultTime);
         }
         //Attacked flag for if player inputs after parried attack has already passed
         //(For both perfect + late checks)
@@ -172,17 +172,17 @@ public class Parry : MonoBehaviour
         {
             double resultTime = (inputTime + inputLag) - attackTime;
 
-            if (resultTime <= perfectWindow / 2.4f)
+            if (resultTime <= perfectWindow * 0.5f)
             {
                 result = ParryResult.Perfect;
                 Wobbit.instance.persistentData.currentSongPerfectParrys += 1;
             }
-            else if (resultTime <= beatMS / 2.5f)
+            else if (resultTime <= beatMS * 0.25f)
             {
                 result = ParryResult.Late;
             }
             ParryReturn();
-            Debug.Log("ResultTime " + resultTime);
+            //Debug.Log("ResultTime " + resultTime);
         }
 
         UpdateText();
