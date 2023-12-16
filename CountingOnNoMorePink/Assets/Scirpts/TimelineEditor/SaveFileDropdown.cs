@@ -98,15 +98,20 @@ public class SaveFileDropdown : MonoBehaviour
         Utilities.SaveNames saves = new Utilities.SaveNames();
         saves = Utilities.CheckGetSaves(path);
 
-        files = saves.baseLevels;
-
-        dropdown.AddOptions(saves.baseLevels);
-        dropdown.AddOptions(saves.customLevels);
+        foreach (string s in saves.baseLevels)
+        {
+            files.Add(s);
+        }
 
         foreach (string s in saves.customLevels)
         {
             files.Add(s);
         }
+
+        dropdown.AddOptions(saves.baseLevels);
+        dropdown.AddOptions(saves.customLevels);
+
+        
     }
 
     public void SetCurrentIndex(int index)
